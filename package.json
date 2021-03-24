@@ -1,0 +1,73 @@
+{
+  "name": "boilerplate",
+  "version": "0.0.0",
+  "private": false,
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
+  },
+  "scripts": {
+    "dev": "concurrently --kill-others-on-fail \"cd client && npm start\" \"DEBUG=server nodemon --exec babel-node ./server/index.js\"",
+    "start": "DEBUG=server node dist/index.js",
+    "build:server": "DEBUG=server babel server --out-dir dist",
+    "build": "npm run clean && npm run build:server",
+    "migrate:up": "db-migrate -m server/database/migrations up",
+    "migrate:down": "db-migrate -m server/database/migrations down",
+    "migrate:create": "func() { db-migrate -m server/database/migrations create \"$1\" --sql-file; }; func",
+    "clean": "rm -rf dist && mkdir dist",
+    "lint:server": "eslint server",
+    "test": "NODE_ENV=test mocha \"server/**/*.spec.js\" --exclude \"server/services/dataTestingRunner/*.spec.js\"",
+    "cover": "nyc npm t",
+    "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
+    "build:db": "babel-node ./server/database/build.script.js",
+    "init:both": "npm i && cd client && npm i && npm run build",
+    "heroku-postbuild": "npm run init:both && npm run build"    
+  },
+  "dependencies": {
+    "@hapi/boom": "^9.1.1",
+    "@sentry/node": "^5.27.6",
+    "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
+    "db-migrate": "^0.11.11",
+    "db-migrate-pg": "^1.2.2",
+    "debug": "^2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "^4.16.1",
+    "helmet": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "pg": "^8.0.3",
+    "serve-favicon": "^2.5.0",
+    "yup": "^0.28.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "chai": "^4.2.0",
+    "codecov": "^3.7.1",
+    "concurrently": "^5.1.0",
+    "eslint": "^7.11.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "mocha": "^7.1.1",
+    "nodemon": "^2.0.3",
+    "nyc": "^15.0.1",
+    "prettier": "^2.0.4",
+    "supertest": "^4.0.2"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "./server",
+      "./package.json",
+      "./client/src/constants"
+    ]
+  }
+}
