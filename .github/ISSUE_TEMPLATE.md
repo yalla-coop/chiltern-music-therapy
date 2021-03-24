@@ -10,6 +10,3 @@ _Add the User Journey issue number here (if part of a user journey but doesn't e
 
 ### Acceptance Criteria:
 - [ ] Add each acceptance criteria as checklist like this...
-
-
-
