@@ -1,5 +1,6 @@
 #### Issues this PR relates to
 
+=======
 
 _NOTE: REMEMBER NOT TO REVIEW UNLESS ALL ACCEPTANCE CRITERIA HAS BEEN TICKED OFF_
 
@@ -16,7 +17,9 @@ e.g. Will a database need to be rebuilt (and is this ok if existing data), add e
 ---
 
 #### Quick Pull Request Checklist
+
 Please make sure you ensure the following has been done before marking your PR as awaiting-review. For full checklist and process review, please refer to Process Guide (#8)
+
 - Branch is up to date with develop
 - Project runs
 - You can download and install locally, and run the project locally
