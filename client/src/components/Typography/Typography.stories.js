@@ -1,12 +1,47 @@
 import React from 'react';
 
-import { H1, H2, H3, H4, H5, H6 } from '.';
+import { H1, H2, H3, H4, H5, P, Link } from '.';
 
 export default {
   title: '0- Typography',
   component: H1,
   argTypes: {
     color: 'pink',
+    bold: {
+      name: 'bold',
+      defaultValue: true,
+      type: { name: 'boolean', required: false },
+    },
+    caps: {
+      name: 'caps',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
+    underline: {
+      name: 'underline',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
+    mark: {
+      name: 'mark',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
+    keyboard: {
+      name: 'keyboard',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
+    ellipsis: {
+      name: 'ellipsis',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
+    code: {
+      name: 'code',
+      defaultValue: false,
+      type: { name: 'boolean', required: false },
+    },
     m: {
       name: 'margin',
       defaultValue: '0',
@@ -45,88 +80,58 @@ export default {
   },
 };
 
-const Heading1 = (args) => <H1 {...args}>Display/H1</H1>;
+const Heading1 = (args) => <H1 {...args}>Heading 1</H1>;
 
 export const h1 = Heading1.bind({});
 h1.args = {
-  color: 'blue',
+  color: 'black',
 };
 
-const Heading2 = (args) => <H2 {...args}>Display/H2</H2>;
+const Heading2 = (args) => <H2 {...args}>Heading 2</H2>;
 
 export const h2 = Heading2.bind({});
 h2.args = {
-  color: 'blue',
+  color: 'black',
 };
 
-const Heading3 = (args) => <H3 {...args}>Display/H3</H3>;
+const Heading3 = (args) => <H3 {...args}>Heading 3</H3>;
 
 export const h3 = Heading3.bind({});
 h3.args = {
-  color: 'blue',
+  color: 'black',
 };
 
-const Heading4 = (args) => <H4 {...args}>Display/H4</H4>;
+const Heading4 = (args) => <H4 {...args}>Heading 4</H4>;
 
 export const h4 = Heading4.bind({});
 h4.args = {
-  color: 'blue',
+  color: 'black',
 };
 
-const Heading5 = (args) => <H5 {...args}>Display/H5</H5>;
+const Heading5 = (args) => (
+  <H5 {...args} level={5}>
+    Heading 5
+  </H5>
+);
 
 export const h5 = Heading5.bind({});
 h5.args = {
-  color: 'blue',
+  color: 'black',
+  caps: true,
 };
 
-const Heading6 = (args) => <H6 {...args}>Display/H6</H6>;
+const bodyLargeTemplate = (args) => <P {...args}>Display/body large</P>;
 
-export const h6 = Heading6.bind({});
-h6.args = {
-  color: 'blue',
+export const BodyText = bodyLargeTemplate.bind({});
+BodyText.args = {
+  color: 'black',
 };
 
-// const bodyLargeTemplate = (args) => <BodyL {...args}>Display/body large</BodyL>;
+const LinkTemplate = (args) => <Link {...args}>Display/regular</Link>;
 
-// export const bodyLarge = bodyLargeTemplate.bind({});
-// bodyLarge.args = {
-//   color: 'blue',
-// };
-
-// const bodyRegularTemplate = (args) => <BodyR {...args}>Display/regular</BodyR>;
-
-// export const bodyRegular = bodyRegularTemplate.bind({});
-// bodyRegular.args = {
-//   color: 'blue',
-// };
-
-// const body16Template = (args) => <Body16 {...args}>Display/body 16</Body16>;
-
-// export const body16 = body16Template.bind({});
-// body16.args = {
-//   color: 'blue',
-// };
-
-// const bodyLargeBoldTemplate = (args) => (
-//   <BodyLB {...args}>Display/body large bold</BodyLB>
-// );
-
-// export const bodyLargeBold = bodyLargeBoldTemplate.bind({});
-// bodyLargeBold.args = {
-//   color: 'blue',
-// };
-
-// const bodyBoldTemplate = (args) => <BodyB {...args}>Display/body bold</BodyB>;
-
-// export const bodyBold = bodyBoldTemplate.bind({});
-// bodyBold.args = {
-//   color: 'blue',
-// };
-
-// const body16BoldTemplate = (args) => <Body16B {...args}>body 16 bold</Body16B>;
-
-// export const body16Bold = body16BoldTemplate.bind({});
-// body16Bold.args = {
-//   color: 'blue',
-// };
+export const LinkText = LinkTemplate.bind({});
+LinkText.args = {
+  color: 'black',
+  underline: true,
+  to: '/',
+};
