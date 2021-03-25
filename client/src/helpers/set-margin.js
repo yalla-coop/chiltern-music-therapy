@@ -28,65 +28,65 @@ const margins = ({
   ml ||
   theme.spacings[mx] ||
   mx ||
-  theme.spacings[m]};
+  theme.spacings[m]} !important;
   margin-right: ${theme.spacings[mr] ||
   mr ||
   theme.spacings[mx] ||
   mx ||
-  theme.spacings[m]};
+  theme.spacings[m]} !important;
   margin-top: ${theme.spacings[mt] ||
   mt ||
   theme.spacings[my] ||
   my ||
-  theme.spacings[m]};
+  theme.spacings[m]} !important;
   margin-bottom: ${theme.spacings[mb] ||
   mb ||
   theme.spacings[my] ||
   my ||
-  theme.spacings[m]};
+  theme.spacings[m]} !important;
   ${theme.media.tablet} {
     margin-left: ${theme.spacings[mlT] ||
     mlT ||
     theme.spacings[mxT] ||
     mxT ||
-    theme.spacings[mT]};
+    theme.spacings[mT]} !important;
     margin-right: ${theme.spacings[mrT] ||
     mrT ||
     theme.spacings[mxT] ||
     mxT ||
-    theme.spacings[mT]};
+    theme.spacings[mT]} !important;
     margin-top: ${theme.spacings[mtT] ||
     mtT ||
     theme.spacings[myT] ||
     myT ||
-    theme.spacings[mT]};
+    theme.spacings[mT]} !important;
     margin-bottom: ${theme.spacings[mbT] ||
     mbT ||
     theme.spacings[myT] ||
     myT ||
-    theme.spacings[mT]};
+    theme.spacings[mT]} !important;
   }
   ${theme.media.mobile} {
     margin-left: ${theme.spacings[mlM] ||
     mlM ||
     theme.spacings[mxM] ||
     mxM ||
-    theme.spacings[mM]};
+    theme.spacings[mM]} !important;
     margin-right: ${theme.spacings[mrM] ||
     mrM ||
     theme.spacings[mxM] ||
     mxM ||
-    theme.spacings[mM]};
+    theme.spacings[mM]} !important;
     margin-top: ${theme.spacings[mtM] ||
     mtM ||
     theme.spacings[myM] ||
     myM ||
-    theme.spacings[mM]};
+    theme.spacings[mM]} !important;
     margin-bottom: ${theme.spacings[mbM] ||
     mbM ||
     theme.spacings[myM] ||
     myM ||
-    theme.spacings[mM]};
+    theme.spacings[mM]} !important;
   }
 `;
 
