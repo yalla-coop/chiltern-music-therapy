@@ -12,13 +12,13 @@ export default {
 const Template = (args) => (
   <Row inner={args.inner} jc={args.jc}>
     <Col w={args.w}>
-      <p style={{ background: 'red' }}>COl 1</p>
+      <p style={{ background: 'red', flex: 1 }}>COl 1</p>
     </Col>
     <Col w={args.w}>
-      <p style={{ background: 'green' }}>COl 2</p>
+      <p style={{ background: 'green', flex: 1 }}>COl 2</p>
     </Col>
     <Col w={args.w}>
-      <p style={{ background: 'orange' }}>COl 3</p>
+      <p style={{ background: 'orange', flex: 1 }}>COl 3</p>
     </Col>
   </Row>
 );
