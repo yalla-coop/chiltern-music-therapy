@@ -52,7 +52,7 @@ export const Head5 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 14px !important;
-  line-height: 150px !important;
+  line-height: 150% !important;
   font-weight: 400 !important;
 `;
 export const H5 = (props) => <Head5 {...props} level={5} />;

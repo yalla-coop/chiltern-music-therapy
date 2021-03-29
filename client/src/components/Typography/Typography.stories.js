@@ -3,7 +3,7 @@ import React from 'react';
 import { H1, H2, H3, H4, H5, P, Link } from '.';
 
 export default {
-  title: '0- Typography',
+  title: 'Common Components/Typography',
   component: H1,
   argTypes: {
     color: 'pink',
