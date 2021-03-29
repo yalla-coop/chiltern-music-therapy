@@ -133,5 +133,13 @@ export const LinkText = LinkTemplate.bind({});
 LinkText.args = {
   color: 'black',
   underline: true,
-  to: '/',
+  href: '/',
+};
+
+export const LinkTextExternal = LinkTemplate.bind({});
+LinkTextExternal.args = {
+  color: 'black',
+  underline: true,
+  external: true,
+  href: 'https://www.youtube.com/',
 };
