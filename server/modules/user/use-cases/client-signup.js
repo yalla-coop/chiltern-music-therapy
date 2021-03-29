@@ -1,5 +1,6 @@
 import Boom from '@hapi/boom';
 import * as User from '../model';
+import events from '../../../services/events';
 
 import { hashPassword } from '../../../helpers';
 import { errorMsgs } from '../../../services/error-handler';
@@ -16,6 +17,7 @@ const clientSignup = async ({ email, password }) => {
     await validateSignup({
       email,
       password,
+      a: '',
     });
 
     const userWithSameEmail = await User.findUserByEmail(email);
@@ -33,6 +35,7 @@ const clientSignup = async ({ email, password }) => {
       client,
     );
 
+    events.emit(events.types.user.CLIENT_SIGNUP, user);
     await client.query('COMMIT');
     return user;
   } catch (error) {

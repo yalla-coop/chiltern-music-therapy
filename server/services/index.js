@@ -1,7 +1,5 @@
 import validation from './validation';
 import errorHandler from './error-handler';
+import events from './events';
 
-export default {
-  validation,
-  errorHandler,
-};
+export { validation, errorHandler, events };
