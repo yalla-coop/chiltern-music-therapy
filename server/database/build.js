@@ -8,7 +8,20 @@ const build = async () => {
   await init.createTypes();
   await init.createAutoTimestamps();
   await init.buildMigrations();
-  await models.testModel.createTable();
+
+  await models.organisations.createTable();
+  await models.medias.createTable();
+  await models.users.createTable();
+  await models.viewAccesses.createTable();
+  await models.therapistClients.createTable();
+  await models.programmes.createTable();
+  await models.progressUpdates.createTable();
+  await models.programmesFeedback.createTable();
+  await models.contents.createTable();
+  await models.programmesContents.createTable();
+  await models.contentCategories.createTable();
+  await models.contentsContentCategories.createTable();
+
   // build dummy data
   const createdData = await buildData();
   return createdData;
