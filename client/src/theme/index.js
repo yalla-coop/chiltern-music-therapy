@@ -1,4 +1,6 @@
 import globalStyle from './global-style';
+import colors from './colors';
+import gradients from './gradients';
 
 const constants = {
   columns: { mobile: 4, tablet: 6, desktop: 12 },
@@ -8,19 +10,18 @@ const constants = {
   // ...
 };
 
-const colors = {
-  pink: '#C43BAD',
-};
-
 const spacings = {
-  0: '0rem',
-  1: '0.5rem',
-  2: '1rem',
-  3: '1.5rem',
-  4: '2rem',
-  5: '3rem',
-  6: '4rem',
-  7: '7rem',
+  0: '0px',
+  1: '4px',
+  2: '8px',
+  3: '12px',
+  4: '16px',
+  5: '24px',
+  6: '32px',
+  7: '48px',
+  8: '64px',
+  9: '80px',
+  10: '120px',
 };
 
 export const screensWidth = {
@@ -49,6 +50,7 @@ const theme = {
   media,
   breakpoints,
   constants,
+  gradients,
 };
 
 export { globalStyle };
