@@ -3,7 +3,7 @@ import { Global } from '@emotion/react';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import theme, { globalStyle } from './theme';
 import { Route } from './components';
-import * as Pages from './Pages';
+import * as Pages from './pages';
 import { navRoutes } from './constants';
 import { AuthProvider } from './context/auth';
 
