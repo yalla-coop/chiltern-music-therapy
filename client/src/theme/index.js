@@ -11,16 +11,17 @@ const constants = {
 };
 
 const spacings = {
-  0: '4px',
-  1: '8px',
-  2: '12px',
-  3: '16px',
-  4: '24px',
-  5: '32px',
-  6: '48px',
-  7: '64px',
-  8: '80px',
-  9: '120px',
+  0: '0px',
+  1: '4px',
+  2: '8px',
+  3: '12px',
+  4: '16px',
+  5: '24px',
+  6: '32px',
+  7: '48px',
+  8: '64px',
+  9: '80px',
+  10: '120px',
 };
 
 export const screensWidth = {
