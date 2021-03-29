@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
+import setMargin from '../../helpers/set-margin';
 
 export const Row = styled.div`
+  ${setMargin}
   display: flex;
   flex-wrap: wrap;
   margin-left: -${({ inner, theme }) => (inner ? theme.constants.gridGutter / 2 : 0)}px !important;
@@ -8,8 +10,6 @@ export const Row = styled.div`
   width: ${({ inner, theme }) =>
     inner ? `calc(100% + ${theme.constants.gridGutter}px)` : '100%'};
   justify-content: ${({ jc }) => jc || 'flex-start'};
-  margin-top: ${({ mt, theme }) => theme.spacings[mt] || '0'};
-  margin-bottom: ${({ mb, theme }) => theme.spacings[mb] || '0'};
   align-items: ${({ ai }) => ai || 'flex-start'};
 
   ${({ theme }) => theme.media.tablet} {
@@ -21,6 +21,7 @@ export const Row = styled.div`
 `;
 
 export const Col = styled('div')`
+  ${setMargin}
   box-sizing: border-box;
   padding-left: 10;
   padding-right: 10;
