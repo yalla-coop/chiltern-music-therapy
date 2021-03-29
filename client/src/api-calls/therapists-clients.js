@@ -1,7 +1,7 @@
 import axios from 'axios';
 import handleError from './format-error';
 
-const THERAPISTS_CLIENTS_BASE = '/progress-updates';
+const THERAPISTS_CLIENTS_BASE = '/therapists-clients';
 
 const getTherapistsClientsById = async ({ id, options }) => {
   try {

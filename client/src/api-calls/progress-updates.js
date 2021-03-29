@@ -1,7 +1,7 @@
 import axios from 'axios';
 import handleError from './format-error';
 
-const PROGRESS_UPDATES_BASE = '/programmes';
+const PROGRESS_UPDATES_BASE = '/progress-updates';
 
 const getProgressUpdatesById = async ({ id, options }) => {
   try {
