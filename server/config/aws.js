@@ -28,7 +28,7 @@ const envVarsSchema = yup
 const config = () => {
   let envVars;
   try {
-    envVars = envVarsSchema.validateSync(process.env, { stripUnknown: true });
+    envVars = envVarsSchema.validateSync(process.env, { stripUnknown: false });
   } catch (error) {
     if (error) {
       throw new Error(`Config validation error: ${error.message}`);
