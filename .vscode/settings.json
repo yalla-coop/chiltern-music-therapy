@@ -8,8 +8,10 @@
   "editor.tabSize": 2,
   "cSpell.words": [
     "antd",
-    "litest",
+    "chiltern",
+    "middlewares",
     "organisation",
-    "organisations"
+    "organisations",
+    "uniqid"
   ]
 }

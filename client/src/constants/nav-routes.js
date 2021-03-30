@@ -9,7 +9,7 @@ const CLIENT = {
   DASHBOARD: '/dashboard',
 };
 
-const THERAPIST_BASE = '/hq';
+const THERAPIST_BASE = '/therapist';
 
 const THERAPIST = {
   HOME: THERAPIST_BASE,
