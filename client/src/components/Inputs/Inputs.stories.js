@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col } from '../Grid';
-import { BasicInput, Textarea } from './index';
+import { BasicInput, Textarea, Dropdown } from './index';
 
 export default {
   title: 'Common Components/Input',
@@ -58,4 +58,36 @@ textArea.args = {
   type: 'text',
   rows: 5,
   m: { mt: '0' }, // mt, mtT, mtM, mb, mbT, ....
+};
+
+// DROPDOWN
+const DropdownExample = (args) => {
+  const [selected, setSelected] = useState(['Option 1']);
+
+  const handleChange = (e) => {
+    setSelected(e);
+  };
+
+  return (
+    <Row>
+      <Col w={[4, 6, 4]}>
+        <Dropdown {...args} selected={selected} handleChange={handleChange} />
+      </Col>
+    </Row>
+  );
+};
+
+export const dropdown = DropdownExample.bind({});
+dropdown.args = {
+  color: '',
+  label: 'Dropdown',
+  w: '100%',
+  disabled: false,
+  error: '',
+  helper: '',
+  options: [
+    { label: 'Option 1 Super Long with Lots of Info', value: 'Option 1' },
+    { label: 'Option 2', value: 'Option 2' },
+  ],
+  multi: false,
 };
