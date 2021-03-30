@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as S from './style';
 import Image from '../../Image';
 
-const General = ({ children, image = 'welcome1', ...props }) => {
+const Info = ({ children, image = 'welcome1', ...props }) => {
   return (
     <S.Wrapper>
       <S.Content>{children}</S.Content>
@@ -14,8 +14,8 @@ const General = ({ children, image = 'welcome1', ...props }) => {
   );
 };
 
-General.propTypes = {
+Info.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default General;
+export default Info;
