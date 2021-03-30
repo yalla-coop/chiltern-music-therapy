@@ -3,7 +3,7 @@ import { Select as AntdSelect } from 'antd';
 import * as T from '../../Typography';
 import * as S from './style';
 import * as CS from './../style';
-// import Icon from '../../Icon';
+import Icon from '../../Icon';
 
 const { OptGroup: AntdOptGroup } = AntdSelect;
 
@@ -22,6 +22,7 @@ const Dropdown = ({
   multi,
   m,
   bold,
+  search,
 }) => {
   const [open, setOpen] = useState(false);
   const [focus, setFocus] = useState(false);
@@ -78,6 +79,7 @@ const Dropdown = ({
       multi={multi}
       color={decideColor()}
       error={error}
+      search={search}
       {...m}
     >
       {label && (
@@ -101,6 +103,12 @@ const Dropdown = ({
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
           filterOption={handleSearch}
+          suffixIcon={
+            search ? (
+              <Icon icon="search" width="24" height="24" color="black" />
+            ) : undefined
+          }
+          showSearch={search}
         >
           {renderOptions()}
         </AntdSelect>

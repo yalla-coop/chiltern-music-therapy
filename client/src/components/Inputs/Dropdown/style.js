@@ -48,6 +48,12 @@ export const Field = styled.div`
     font-size: 16px;
   }
 
+  .ant-select-show-search.ant-select:not(.ant-select-customize-input)
+    .ant-select-selector
+    input {
+    height: 100%;
+  }
+
   // STYLE ARROW ICON
   .ant-select-arrow,
   .ant-select-clear,
@@ -59,9 +65,10 @@ export const Field = styled.div`
 
     svg {
       width: 20px;
-      height: 12px;
+      height: 15px;
       transition: all ease 0.5s;
-      transform: ${({ open, multi }) => open && !multi && 'rotate(180deg)'};
+      transform: ${({ open, multi, search }) =>
+        open && !multi && !search && 'rotate(180deg)'};
     }
   }
 

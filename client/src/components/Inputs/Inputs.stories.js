@@ -87,4 +87,5 @@ dropdown.args = {
   ],
   multi: false,
   bold: false,
+  search: false,
 };
