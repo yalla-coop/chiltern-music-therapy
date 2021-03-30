@@ -3,12 +3,7 @@ import config from '../../config';
 
 const { env } = config.common;
 
-const {
-  awsAccessKeyId,
-  imagesBucket,
-  bucketRegion,
-  awsSecretAccessKey,
-} = config.aws;
+const { awsAccessKeyId, bucket, bucketRegion, awsSecretAccessKey } = config.aws;
 
 let s3;
 if (env !== 'test') {
@@ -20,4 +15,4 @@ if (env !== 'test') {
 }
 
 const S3 = s3;
-export { S3, imagesBucket as bucket, bucketRegion as region };
+export { S3, bucket, bucketRegion as region };

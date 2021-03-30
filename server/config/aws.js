@@ -2,7 +2,7 @@ import * as yup from 'yup';
 
 const envVarsSchema = yup
   .object({
-    IMAGES_BUCKET: yup.string().when('NODE_ENV', {
+    BUCKET: yup.string().when('NODE_ENV', {
       is: 'test',
       then: yup.string(),
       otherwise: yup.string().required(),
@@ -35,7 +35,7 @@ const config = () => {
     }
   }
   return {
-    imagesBucket: envVars.IMAGES_BUCKET,
+    bucket: envVars.BUCKET,
     bucketRegion: envVars.BUCKET_REGION,
     awsAccessKeyId: envVars.AWS_ACCESS_KEY_ID,
     awsSecretAccessKey: envVars.AWS_SECRET_ACCESS_KEY,
