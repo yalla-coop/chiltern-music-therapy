@@ -5,12 +5,16 @@ const allowedFileTypesAndSizes = {
     maxSize: '2000',
   },
   application: {
-    types: ['application/pdf'],
+    types: [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    ],
     // 20 MB
     maxSize: '20',
   },
   audio: {
-    types: ['audio/mpeg'],
+    types: ['audio/mpeg', 'audio/wav'],
     // 100 MB
     maxSize: '100',
   },

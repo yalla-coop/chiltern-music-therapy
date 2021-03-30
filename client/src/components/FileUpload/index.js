@@ -17,6 +17,7 @@ const FileUpload = ({
   handleFileUploadError,
   fileUploadError,
   maxSize,
+  disabled,
 }) => {
   const [fileList, setFileList] = useState([]);
   const [fileName, setFileName] = useState(null);
@@ -143,7 +144,7 @@ const FileUpload = ({
     action: (_file) => getSignedURL(_file),
     onChange: (e) => handleFileChanged(e),
     customRequest: (options) => uploadFile(options),
-    disabled: fileUploading,
+    disabled: disabled || fileUploading,
     progress: {
       strokeColor: {
         '0%': '#108ee9',

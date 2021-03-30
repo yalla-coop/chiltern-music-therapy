@@ -70,3 +70,9 @@ AudioUploadWithMaxSize.args = {
   category: 'audio',
   maxSize: '1',
 };
+
+export const disabled = Template.bind({});
+disabled.args = {
+  category: 'audio',
+  disabled: true,
+};
