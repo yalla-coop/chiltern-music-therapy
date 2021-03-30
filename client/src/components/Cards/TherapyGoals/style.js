@@ -7,8 +7,7 @@ export const CardWrapper = styled.div`
   padding: ${({ theme }) => theme.spacings[4]};
   margin-bottom: ${({ theme }) => theme.spacings[5]};
   box-shadow: ${({ theme }) => theme.shadows.elevation1};
-
-  border-radius: 10px;
+  border-radius: ${({ theme }) => theme.borders.radius};
 `;
 
 export const ButtonsWrapper = styled.div`

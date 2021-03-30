@@ -1,3 +1,4 @@
 import TherapyGoals from './TherapyGoals';
+import Info from './Info';
 
-export { TherapyGoals };
+export { TherapyGoals, Info };
