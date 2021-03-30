@@ -1,49 +1,61 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './button.css';
+import { LoadingOutlined } from '@ant-design/icons';
+import Icon from '../Icon';
+import * as S from './style';
+
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 /**
  * Primary UI component for user interaction
  */
-const Button = ({ primary, backgroundColor, size, label, ...props }) => {
-  const mode = primary
-    ? 'storybook-button--primary'
-    : 'storybook-button--secondary';
+const Button = ({
+  variant = 'primary',
+  text = 'Click',
+  icon,
+  loading,
+  handleClick,
+  disabled,
+  to,
+  ...props
+}) => {
+  const history = useHistory();
+
+  const onClick = (e) => {
+    if (to) history.push(to);
+    if (handleClick instanceof Function) handleClick(e);
+  };
+
   return (
-    <button
+    <S.Button
       type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(
-        ' '
-      )}
-      style={backgroundColor && { backgroundColor }}
+      variant={variant}
+      disabled={disabled}
+      isLoading={loading}
+      onClick={onClick}
       {...props}
     >
-      {label}
-    </button>
+      {icon && <Icon icon={icon} />}
+      {text}
+      {loading && <S.Loading variant={variant} indicator={antIcon} />}
+    </S.Button>
   );
 };
 
 Button.propTypes = {
   /**
-   * Is this the principal call to action on the page?
+   * The type of button to use
    */
-  primary: PropTypes.bool,
-  /**
-   * What background color to use
-   */
-  backgroundColor: PropTypes.string,
-  /**
-   * How large should the button be?
-   */
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  variant: PropTypes.string.isRequired,
   /**
    * Button contents
    */
-  label: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
   /**
    * Optional click handler
    */
-  onClick: PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 Button.defaultProps = {

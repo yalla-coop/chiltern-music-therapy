@@ -16,7 +16,7 @@ const Template = (args) => <Icon {...args} />;
 
 export const Email = Template.bind({});
 Email.args = {
-  icon: 'email',
+  icon: 'add',
   width: 50,
   height: 50,
 };
