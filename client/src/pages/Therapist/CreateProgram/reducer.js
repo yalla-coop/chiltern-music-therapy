@@ -65,7 +65,7 @@ const reducer = (state, action) => {
       };
 
     default:
-      throw new Error(`Unhandled type: ${action.type}`);
+      throw new Error(`Unhandled type: ${type}`);
   }
 };
 

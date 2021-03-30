@@ -2,7 +2,6 @@ import { useReducer } from 'react';
 
 import reducer from './reducer';
 import actionTypes from './actionTypes';
-import * as S from './style';
 import AddContent from './AddContent';
 
 const initialState = {
