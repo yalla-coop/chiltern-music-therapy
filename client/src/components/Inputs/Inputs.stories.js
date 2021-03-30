@@ -64,14 +64,10 @@ textArea.args = {
 const DropdownExample = (args) => {
   const [selected, setSelected] = useState(['Option 1']);
 
-  const handleChange = (e) => {
-    setSelected(e);
-  };
-
   return (
     <Row>
       <Col w={[4, 6, 4]}>
-        <Dropdown {...args} selected={selected} handleChange={handleChange} />
+        <Dropdown {...args} selected={selected} handleChange={setSelected} />
       </Col>
     </Row>
   );
@@ -90,4 +86,5 @@ dropdown.args = {
     { label: 'Option 2', value: 'Option 2' },
   ],
   multi: false,
+  bold: false,
 };

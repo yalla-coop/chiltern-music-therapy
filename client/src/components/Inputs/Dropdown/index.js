@@ -21,6 +21,7 @@ const Dropdown = ({
   selected,
   multi,
   m,
+  bold,
 }) => {
   const [open, setOpen] = useState(false);
   const [focus, setFocus] = useState(false);
@@ -81,7 +82,7 @@ const Dropdown = ({
     >
       {label && (
         <CS.Label htmlFor={label}>
-          <T.P color={color} m="0" mb="2">
+          <T.P color={color} m="0" mb="2" bold={bold}>
             {label}
           </T.P>
         </CS.Label>
