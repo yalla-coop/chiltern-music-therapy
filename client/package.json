@@ -67,5 +67,6 @@
     "eslint-plugin-react": "^7.22.0",
     "prettier": "^2.2.1",
     "storybook-addon-emotion-theme": "^2.1.1"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
