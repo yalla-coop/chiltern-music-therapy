@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col } from '../Grid';
-import { BasicInput, Textarea, Dropdown, Checkbox } from './index';
+import { BasicInput, Textarea, Dropdown, Checkbox, Rate } from './index';
 
 export default {
   title: 'Common Components/Input',
@@ -91,7 +91,6 @@ dropdown.args = {
 };
 
 // CHECKBOX
-
 const CheckboxExample = (args) => {
   const [checked, setChecked] = useState();
 
@@ -110,6 +109,27 @@ export const checkbox = CheckboxExample.bind({});
 checkbox.args = {
   disabled: false,
   color: '',
-  label: 'Hide this skill from my volunteers',
+  label: 'plain text label, but it takes jsx child as well.',
+  error: '',
+};
+
+// Rate
+const RateExample = (args) => {
+  const [value, setValue] = useState(args.value);
+  console.log(value);
+  return (
+    <Row>
+      <Col w={[4, 6, 4]}>
+        <Rate {...args} handleChange={setValue} value={value} />
+      </Col>
+    </Row>
+  );
+};
+
+export const rate = RateExample.bind({});
+rate.args = {
+  value: 3, // initial value
+  disabled: false,
+  allowClear: false,
   error: '',
 };

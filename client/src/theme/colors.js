@@ -19,10 +19,12 @@ Input background            gray-2
 */
 const blue = '#2D57A5';
 const pink = '#CB4394';
+const green = '#67BE65';
 
 export default {
   primary: blue,
   secondary: pink,
+  tertiary: green,
   white: '#ffffff',
   gray2: '#F9FAFB',
   gray3: '#EDF0F3',
@@ -36,4 +38,5 @@ export default {
   pink,
   blue,
   error: pink,
+  green: green,
 };
