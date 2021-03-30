@@ -15,7 +15,7 @@ CREATE TABLE "users" (
   "status" user_statuses NOT NULL DEFAULT 'ACTIVE',
   "contact_email" VARCHAR(100),
   "bio" TEXT,
-  "profile_photo_media_id" INTEGER REFERENCES medias(id),
+  "profile_photo_media_id" INTEGER REFERENCES media(id),
   "organisation_id" INTEGER REFERENCES organisations(id),
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()

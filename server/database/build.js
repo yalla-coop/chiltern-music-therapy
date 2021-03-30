@@ -10,7 +10,7 @@ const build = async () => {
   await init.buildMigrations();
 
   await models.organisations.createTable();
-  await models.medias.createTable();
+  await models.media.createTable();
   await models.users.createTable();
   await models.viewAccesses.createTable();
   await models.therapistClients.createTable();

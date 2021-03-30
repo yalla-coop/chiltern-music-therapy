@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS "medias" CASCADE;
+DROP TABLE IF EXISTS "media" CASCADE;
 
-CREATE TABLE "medias" (
+CREATE TABLE "media" (
   "id" SERIAL PRIMARY KEY,
   "type" media_types NOT NULL,
   "file_name" VARCHAR(255),
@@ -16,6 +16,6 @@ CREATE TABLE "medias" (
 );
 
 CREATE TRIGGER set_timestamp
-BEFORE UPDATE ON "medias"
+BEFORE UPDATE ON "media"
 FOR EACH ROW
 EXECUTE PROCEDURE trigger_set_timestamp();

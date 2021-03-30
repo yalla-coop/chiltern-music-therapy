@@ -14,7 +14,7 @@ import {
 const router = Router();
 
 router.use('/contents', content.controllers);
-router.use('/medias', media.controllers);
+router.use('/media', media.controllers);
 router.use('/organisations', organisation.controllers);
 router.use('/programmes', programme.controllers);
 router.use('/progress-updates', progressUpdate.controllers);

@@ -5,7 +5,7 @@ import * as ProgressUpdates from './progress-updates';
 import * as TherapistClients from './therapists-clients';
 import * as ViewAccesses from './view-accesses';
 import * as Contents from './contents';
-import * as Medias from './medias';
+import * as Media from './media';
 import * as Organisations from './organisations';
 import * as Programmes from './programmes';
 
@@ -13,7 +13,7 @@ axios.defaults.baseURL = `${process.env.PUBLIC_URL}/api`;
 
 export {
   Contents,
-  Medias,
+  Media,
   Organisations,
   Programmes,
   ProgressUpdates,

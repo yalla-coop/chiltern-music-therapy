@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import createUsers from './users';
 import createOrganisations from './organisations';
-import createMedias from './medias';
+import createMedia from './media';
 import createViewAccesses from './view-accesses';
 import createTherapistClients from './therapist-clients';
 import createProgrammes from './programmes';
@@ -20,7 +20,7 @@ const buildData = async () => {
   const createdData = {};
   createdData.organisations = await createOrganisations(createdData);
   createdData.users = await createUsers(createdData);
-  createdData.medias = await createMedias(createdData);
+  createdData.media = await createMedia(createdData);
   createdData.viewAccesses = await createViewAccesses(createdData);
   createdData.therapistClients = await createTherapistClients(createdData);
   createdData.programmes = await createProgrammes(createdData);
@@ -34,7 +34,7 @@ const buildData = async () => {
   createdData.contentsContentCategories = await createContentsContentCategories(
     createdData,
   );
-  console.log(createdData);
+
   return createdData;
 };
 

@@ -37,9 +37,9 @@ const createContent = async ({
   return res.rows[0];
 };
 
-const createContents = async ({ medias, therapistClients }) => {
+const createContents = async ({ media, therapistClients }) => {
   const content1 = await createContent({
-    mediaId: medias.video1.id,
+    mediaId: media.video1.id,
     title: 'Video title',
     instructions: `Hi! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.`,
     link: null,

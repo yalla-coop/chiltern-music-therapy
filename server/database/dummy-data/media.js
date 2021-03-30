@@ -3,7 +3,7 @@ import { bucket, region } from '../../services/files-storage/config';
 
 const createMedia = async ({ type, fileName, key, createdBy }) => {
   const sql = `
-    INSERT INTO medias(
+    INSERT INTO media(
       type,
       file_name,
       key,
