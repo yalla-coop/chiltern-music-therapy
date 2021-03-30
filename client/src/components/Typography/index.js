@@ -1,86 +1,84 @@
 import styled from '@emotion/styled';
 import { Link as RouterLink } from 'react-router-dom';
 import setMargin from '../../helpers/set-margin';
+import { Typography } from 'antd';
+const { Title, Paragraph } = Typography;
 
 const commonStyle = ({ theme, color, caps, ...props }) => `
-font-style: normal;
-font-weight: 900;
-letter-spacing: 0.2px;
-color: ${theme.colors[color] || color || theme.colors.black};
-text-transform: ${caps ? 'uppercase' : 'initial'};
+  font-style: normal !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.2px !important;
+  color: ${theme.colors[color] || color || theme.colors.black} !important;
+  text-transform: ${caps ? 'uppercase' : 'initial'} !important;
 `;
 
-const h1Style = ``;
-
-const h2Style = ``;
-
-const h3Style = ``;
-
-const h4Style = ``;
-
-const h5Style = ``;
-
-const h6Style = ``;
-
-export const H1 = styled.h1`
+const Head1 = styled(Title)`
   ${setMargin};
   ${commonStyle};
-  ${h1Style};
-  ${({ theme }) => theme.media.mobile} {
-    ${h2Style};
-  }
+  font-size: 38px !important;
+  line-height: 44px !important;
+  font-weight: ${({ bold }) => (bold ? '900 !important' : '300 !important')};
+`;
+export const H1 = (props) => <Head1 {...props} level={1} />;
+
+export const Head2 = styled(Title)`
+  ${setMargin};
+  ${commonStyle};
+  font-size: 24px !important;
+  line-height: 44px !important;
+  font-weight: ${({ bold }) => (bold ? '900 !important' : '300 !important')};
+`;
+export const H2 = (props) => <Head2 {...props} level={2} />;
+
+export const Head3 = styled(Title)`
+  ${setMargin};
+  ${commonStyle};
+  font-size: 20px !important;
+  line-height: 32px !important;
+  font-weight: 700 !important;
+`;
+export const H3 = (props) => <Head3 {...props} level={3} />;
+
+export const Head4 = styled(Title)`
+  ${setMargin};
+  ${commonStyle};
+  font-size: 18px !important;
+  line-height: 150% !important;
+  font-weight: ${({ bold }) => (bold ? '900 !important' : '300 !important')};
+`;
+export const H4 = (props) => <Head4 {...props} level={4} />;
+
+export const Head5 = styled(Title)`
+  ${setMargin};
+  ${commonStyle};
+  font-size: 14px !important;
+  line-height: 150% !important;
+  font-weight: 400 !important;
+`;
+export const H5 = (props) => <Head5 {...props} level={5} />;
+
+export const P = styled(Paragraph)`
+  ${setMargin};
+  ${commonStyle};
+  font-size: 16px !important;
+  line-height: 150% !important;
+  font-weight: ${({ bold }) => (bold ? '700 !important' : '300 !important')};
 `;
 
-export const H2 = styled.h2`
-  ${setMargin};
-  ${h2Style};
-  ${commonStyle};
-  ${({ theme }) => theme.media.mobile} {
-    ${h3Style};
-  }
-`;
+const AntdLink = ({ to = '/', external = false, ...props }) =>
+  external ? (
+    <Typography.Link target="_blank" href={to} {...props} />
+  ) : (
+    <RouterLink
+      to={to}
+      component={() => <Typography.Link href={to} {...props} />}
+    />
+  );
 
-export const H3 = styled.h3`
-  ${setMargin};
-  ${h3Style};
-  ${commonStyle};
-  ${({ theme }) => theme.media.mobile} {
-    ${h4Style};
-  }
-`;
-
-export const H4 = styled.h4`
-  ${setMargin};
-  ${h4Style};
-  ${commonStyle};
-  ${({ theme }) => theme.media.mobile} {
-    ${h5Style};
-  }
-`;
-
-export const H5 = styled.h5`
-  ${setMargin};
-  ${h5Style};
-  ${commonStyle};
-  ${({ theme }) => theme.media.mobile} {
-    ${h6Style};
-  }
-`;
-export const H6 = styled.h6`
-  ${setMargin};
-  ${h6Style};
-  ${commonStyle};
-`;
-
-export const P = styled.p`
+export const Link = styled(AntdLink)`
   ${setMargin};
   ${commonStyle};
-`;
-
-export const Link = styled(RouterLink)`
-  ${setMargin};
-  ${commonStyle};
-  color: ${({ theme, color }) =>
-    theme.colors[color] || color || theme.colors.blue};
-  text-decoration-line: underline;
+  font-size: 16px !important;
+  line-height: 150% !important;
+  font-weight: ${({ bold }) => (bold ? '700 !important' : '300 !important')};
 `;

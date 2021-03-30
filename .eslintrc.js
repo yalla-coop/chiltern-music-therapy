@@ -26,6 +26,7 @@ module.exports = {
       {
         trailingComma: 'all',
         singleQuote: true,
+        endOfLine: 'auto',
       },
     ],
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],

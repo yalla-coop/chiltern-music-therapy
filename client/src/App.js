@@ -7,7 +7,6 @@ import * as Pages from './pages';
 import { navRoutes } from './constants';
 import { AuthProvider } from './context/auth';
 
-import './App.css';
 import 'antd/dist/antd.css';
 
 function App() {
