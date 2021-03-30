@@ -51,7 +51,7 @@ const createProgrammesFeedbacks = async ({ programmes }) => {
     enjoyableResources: 3,
     likeMostAndLeast: `
     - I liked the video the most, it was cool
-    - but the instructions wasn't clear
+    - but the instructions weren't clear
     `,
   });
 
