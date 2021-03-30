@@ -42,7 +42,8 @@ const Template = (args) => {
         <ul>
           <li>video: mp4 / less than 2GB</li>
           <li>document: PDF / less than 20MB</li>
-          <li>audio: mpeg / less than 100MB</li>
+          <li>audio: mpeg (mp3) / less than 100MB</li>
+          <li>if maxSize is present allowed file size changes</li>
         </ul>
       </div>
     </div>
@@ -62,4 +63,10 @@ DocumentUpload.args = {
 export const AudioUpload = Template.bind({});
 AudioUpload.args = {
   category: 'audio',
+};
+
+export const AudioUploadWithMaxSize = Template.bind({});
+AudioUploadWithMaxSize.args = {
+  category: 'audio',
+  maxSize: '1',
 };

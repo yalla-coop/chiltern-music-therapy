@@ -39,7 +39,8 @@ const AddSingleContent = ({ dispatchFunctions, state }) => {
     resetSingleContent();
   };
 
-  // TODO add card components
+  // TODO add card component here
+
   return (
     <div
       style={{
@@ -67,7 +68,6 @@ const AddSingleContent = ({ dispatchFunctions, state }) => {
           uploadedFileInfo={uploadedFileInfo}
           handleFileUploadError={handleFileUploadError}
           fileUploadError={fileUploadError}
-          // maxSize="2"
         />
       </form>
 

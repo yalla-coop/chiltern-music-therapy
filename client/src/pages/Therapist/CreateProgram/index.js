@@ -65,7 +65,6 @@ const CreateProgram = () => {
       dispatch({ type: actionTypes.updateFileUploadInfo, value: data });
     },
     handleFileUploadError: (error) => {
-      console.log(`error`, error);
       dispatch({ type: actionTypes.setFileUploadError, value: error });
     },
   };
