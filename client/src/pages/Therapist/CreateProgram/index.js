@@ -6,13 +6,16 @@ import * as S from './style';
 import AddContent from './AddContent';
 
 const initialState = {
+  // total content
   content: [],
+  // single item
   singleContent: {
     // TODO add more inputs
     title: '',
     type: null,
     showModal: false,
   },
+  // file upload
   fileUpload: {
     fileUploading: false,
     data: {
@@ -69,7 +72,7 @@ const CreateProgram = () => {
 
   return (
     <>
-      <h1 style={{ marginTop: '3rem' }}>Add Content</h1>
+      <h1 style={{ marginTop: '3rem' }}>Create Program</h1>
       <AddContent state={state} actions={dispatchFunctions} />
     </>
   );
