@@ -13,7 +13,7 @@ Border                      gray-5
 __________________________________
 View programme cards,       gray-3
 Gray circles in View
- therapy cards etc            
+ therapy cards etc
 __________________________________
 Input background            gray-2
 */
@@ -31,4 +31,5 @@ export default {
   gray8: '#5E6875',
   gray9: '#3C404B',
   black: '#0E0F11',
+  blue: '#2D57A5',
 };

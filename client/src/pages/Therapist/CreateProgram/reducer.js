@@ -1,22 +1,24 @@
+import actionTypes from './actionTypes';
+
 const reducer = (state, action) => {
   const { type, key, value } = action;
   switch (type) {
-    case 'showModal':
+    case actionTypes.showModal:
       return {
         ...state,
         showModal: !state.showModal,
       };
-    case 'setContentType':
+    case actionTypes.setContentType:
       return {
         ...state,
         contentType: value,
       };
-    case 'updateContent':
+    case actionTypes.updateContent:
       return {
         ...state,
         content: [...state.content, value],
       };
-    case 'updateSingleContent':
+    case actionTypes.updateSingleContent:
       return {
         ...state,
         singleContent: {
@@ -24,7 +26,15 @@ const reducer = (state, action) => {
           [key]: value,
         },
       };
-    case 'updateFileUploadStatus':
+    // takes initial state as value
+    case actionTypes.resetSingleContent:
+      return {
+        ...state,
+        singleContent: value.singleContent,
+        fileUpload: value.fileUpload,
+        contentType: value.contentType,
+      };
+    case actionTypes.updateFileUploadStatus:
       return {
         ...state,
         fileUpload: {
@@ -32,7 +42,7 @@ const reducer = (state, action) => {
           fileUploading: value,
         },
       };
-    case 'updateFileUploadInfo':
+    case actionTypes.updateFileUploadInfo:
       return {
         ...state,
         fileUpload: {
@@ -40,7 +50,7 @@ const reducer = (state, action) => {
           data: value,
         },
       };
-    case 'updateFileUploadError':
+    case actionTypes.setFileUploadError:
       return {
         ...state,
         fileUpload: {
@@ -50,7 +60,7 @@ const reducer = (state, action) => {
       };
 
     default:
-      throw new Error();
+      throw new Error(`Unhandled type: ${action.type}`);
   }
 };
 

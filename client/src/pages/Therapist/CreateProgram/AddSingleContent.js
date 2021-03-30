@@ -3,22 +3,26 @@ import 'antd/dist/antd.css';
 import { Col } from '../../../components/Grid';
 import { FileUpload } from '../../../components';
 
-const AddSingleContent = ({
-  updateContent,
-  setShowModal,
-  updateSingleContent,
-  setFileUploading,
-  setUploadedFileInfo,
-  setFileUploadError,
-  state,
-}) => {
+const AddSingleContent = ({ dispatchFunctions, state }) => {
   const { contentType, singleContent, fileUpload } = state;
+
   const {
     fileUploading,
     data: uploadedFileInfo,
     error: fileUploadError,
   } = fileUpload;
+
   const { title } = singleContent;
+
+  const {
+    updateContent,
+    handleShowModal,
+    updateSingleContent,
+    handleFileUploadStatus,
+    handleFileUploadInfo,
+    handleFileUploadError,
+    resetSingleContent,
+  } = dispatchFunctions;
 
   const handleSubmit = async () => {
     const formData = {
@@ -31,14 +35,21 @@ const AddSingleContent = ({
     // TODO add more checks
     // add to content state
     updateContent(formData);
-    setShowModal(false);
+    handleShowModal(false);
+    resetSingleContent();
   };
 
   // TODO add card components
   return (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        marginTop: '2rem',
+      }}
+    >
       <h1>Add {contentType}</h1>
-      <form onSubmit={handleSubmit}>
+      <form style={{ marginTop: '2rem' }} onSubmit={handleSubmit}>
         {/* TODO add input validation errors */}
         <span>title: </span>
         <input
@@ -50,11 +61,11 @@ const AddSingleContent = ({
         />
         <FileUpload
           category={contentType}
-          setFileUploading={setFileUploading}
+          handleFileUploadStatus={handleFileUploadStatus}
           fileUploading={fileUploading}
-          setUploadedFileInfo={setUploadedFileInfo}
+          handleFileUploadInfo={handleFileUploadInfo}
           uploadedFileInfo={uploadedFileInfo}
-          setFileUploadError={setFileUploadError}
+          handleFileUploadError={handleFileUploadError}
           fileUploadError={fileUploadError}
           // maxSize="2"
         />
@@ -63,7 +74,11 @@ const AddSingleContent = ({
       <Col w={[4, 4, 4]}>
         <button
           style={{ marginTop: '2rem' }}
-          disabled={fileUploading}
+          disabled={
+            fileUploading ||
+            title.length === 0 ||
+            !uploadedFileInfo.uploadedToS3
+          }
           loading={fileUploading}
           onClick={handleSubmit}
         >

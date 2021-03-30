@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
-import 'antd/dist/antd.css';
 import { Upload } from 'antd';
 import { Media } from '../../api-calls';
 import Icon from '../Icon';
@@ -11,11 +10,11 @@ const { Dragger } = Upload;
 
 const FileUpload = ({
   category,
-  setFileUploading,
+  handleFileUploadStatus,
   fileUploading,
-  setUploadedFileInfo,
+  handleFileUploadInfo,
   uploadedFileInfo = {},
-  setFileUploadError,
+  handleFileUploadError,
   fileUploadError,
   maxSize,
 }) => {
@@ -32,7 +31,7 @@ const FileUpload = ({
 
     //  check 1: correct file type
     if (!allowedFileTypesAndSizes[category].types.includes(type)) {
-      setFileUploadError(
+      handleFileUploadError(
         `${name} is not a ${allowedFileTypesAndSizes[category].types} file`
       );
       correctFileType = false;
@@ -43,14 +42,14 @@ const FileUpload = ({
         ? maxSize < sizeInMb
         : allowedFileTypesAndSizes[category].maxSize < sizeInMb
     ) {
-      setFileUploadError(
+      handleFileUploadError(
         `File is too large. Maximum file size is ${
           maxSize ? maxSize : allowedFileTypesAndSizes[category].maxSize
         } MBs`
       );
       correctFileType = false;
     } else {
-      setFileUploadError('');
+      handleFileUploadError('');
       correctFileType = true;
     }
     // if false upload doesn't run
@@ -66,11 +65,11 @@ const FileUpload = ({
       if (status === 'removed') {
         setFileList([]);
       } else if (status === 'uploading') {
-        setFileUploading(true);
+        handleFileUploadStatus(true);
         setFileList([file]);
       } else if (status === 'done') {
-        setFileUploading(false);
-        setFileUploadError(null);
+        handleFileUploadStatus(false);
+        handleFileUploadError(null);
       }
     }
   };
@@ -86,11 +85,11 @@ const FileUpload = ({
     });
 
     if (_error) {
-      setFileUploadError(_error.message);
+      handleFileUploadError(_error.message);
     } else {
       updatedFile = { ...data, new: true };
-      setUploadedFileInfo(updatedFile);
-      setFileUploadError(null);
+      handleFileUploadInfo(updatedFile);
+      handleFileUploadError(null);
       return data.url;
     }
     return false;
@@ -123,14 +122,14 @@ const FileUpload = ({
       });
 
       if (_error) {
-        onError(setFileUploadError(_error.message));
+        onError(handleFileUploadError(_error.message));
       } else {
         updatedFile = {
           ...uploadedFileInfo,
           ...newUploadedFileInfo,
           uploadedToS3: true,
         };
-        setUploadedFileInfo(updatedFile);
+        handleFileUploadInfo(updatedFile);
         onSuccess('OK');
       }
     }
@@ -171,7 +170,7 @@ const FileUpload = ({
           <Icon error={fileUploadError} icon="inbox" />
         </p>
         {/* TODO UPDATE TYPO */}
-        <p className="ant-upload-text">
+        <p className="ant-upload-text" style={{ color: '#3C404B' }}>
           Click or drag file to this area to upload
         </p>
       </Dragger>
@@ -183,7 +182,7 @@ const FileUpload = ({
               <Icon color="blue" icon="attachment" />
               <p
                 style={{
-                  color: 'blue',
+                  color: '#2D57A5',
                   marginLeft: '0.2rem',
                   marginTop: '-0.2rem',
                 }}
@@ -192,6 +191,7 @@ const FileUpload = ({
               </p>
             </>
           ) : (
+            // TODO UPDATE Typo
             <p style={{ color: 'red' }}>{fileUploadError}</p>
           )}
         </S.FileNameWrapper>

@@ -3,6 +3,7 @@ import { useReducer } from 'react';
 import { Grid } from '../../../components/';
 
 import reducer from './reducer';
+import actionTypes from './actionTypes';
 import * as S from './style';
 import AddSingleContent from './AddSingleContent';
 
@@ -37,32 +38,36 @@ const CreateProgram = () => {
   const { showModal } = state;
 
   // set state functions
-  const handleShowModal = () => {
-    dispatch({ type: 'showModal' });
-  };
-
-  const handleContentType = (contentType) => {
-    dispatch({ type: 'setContentType', value: contentType });
-  };
-
-  const updateContent = (formData) => {
-    dispatch({ type: 'updateContent', value: formData });
-  };
-
-  const updateSingleContent = (_key, _value) => {
-    dispatch({ type: 'updateSingleContent', key: _key, value: _value });
-  };
-
-  const handleFileUploadStatus = (bool) => {
-    dispatch({ type: 'updateFileUploadStatus', value: bool });
-  };
-
-  const handleFileUploadInfo = (data) => {
-    dispatch({ type: 'updateFileUploadInfo', value: data });
-  };
-
-  const handleFileUploadError = (error) => {
-    dispatch({ type: 'updateFileUploadError', value: error });
+  const dispatchFunctions = {
+    handleShowModal: () => {
+      dispatch({ type: actionTypes.showModal });
+    },
+    handleContentType: (contentType) => {
+      dispatch({ type: actionTypes.setContentType, value: contentType });
+    },
+    updateContent: (formData) => {
+      dispatch({ type: actionTypes.updateContent, value: formData });
+    },
+    updateSingleContent: (_key, _value) => {
+      dispatch({
+        type: actionTypes.updateSingleContent,
+        key: _key,
+        value: _value,
+      });
+    },
+    resetSingleContent: () => {
+      dispatch({ type: actionTypes.resetSingleContent, value: initialState });
+    },
+    handleFileUploadStatus: (bool) => {
+      dispatch({ type: actionTypes.updateFileUploadStatus, value: bool });
+    },
+    handleFileUploadInfo: (data) => {
+      dispatch({ type: actionTypes.updateFileUploadInfo, value: data });
+    },
+    handleFileUploadError: (error) => {
+      console.log(`error`, error);
+      dispatch({ type: actionTypes.setFileUploadError, value: error });
+    },
   };
 
   return (
@@ -73,8 +78,8 @@ const CreateProgram = () => {
           <Col w={[4, 4, 4]}>
             <button
               onClick={() => {
-                handleShowModal();
-                handleContentType('video');
+                dispatchFunctions.handleShowModal();
+                dispatchFunctions.handleContentType('video');
               }}
             >
               Add Video
@@ -83,8 +88,8 @@ const CreateProgram = () => {
           <Col w={[4, 4, 4]}>
             <button
               onClick={() => {
-                handleShowModal();
-                handleContentType('application');
+                dispatchFunctions.handleShowModal();
+                dispatchFunctions.handleContentType('application');
               }}
             >
               Add Doc
@@ -93,8 +98,8 @@ const CreateProgram = () => {
           <Col w={[4, 4, 4]}>
             <button
               onClick={() => {
-                handleShowModal();
-                handleContentType('audio');
+                dispatchFunctions.handleShowModal();
+                dispatchFunctions.handleContentType('audio');
               }}
             >
               Add Audio
@@ -104,22 +109,14 @@ const CreateProgram = () => {
       )}
 
       {showModal && (
-        <AddSingleContent
-          state={state}
-          // update functions
-          updateContent={updateContent}
-          updateSingleContent={updateSingleContent}
-          setFileUploading={handleFileUploadStatus}
-          setShowModal={handleShowModal}
-          setUploadedFileInfo={handleFileUploadInfo}
-          setFileUploadError={handleFileUploadError}
-        />
+        <AddSingleContent state={state} dispatchFunctions={dispatchFunctions} />
       )}
       {state.content.length > 0 &&
         state.content.map((el) => (
           <ul>
             <li>
-              type: {state.contentType}, title: {el.title}, file:
+              type: {state.contentType}, title: {el.title}, file:{' '}
+              {el.uploadedFileInfo.name}
             </li>
           </ul>
         ))}
