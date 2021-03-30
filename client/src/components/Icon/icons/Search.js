@@ -1,4 +1,4 @@
-const Email = ({ width, height, color, ...props }) => (
+const Search = ({ width, height, color, ...props }) => (
   <svg
     width={width}
     height={height}
@@ -14,4 +14,4 @@ const Email = ({ width, height, color, ...props }) => (
   </svg>
 );
 
-export default Email;
+export default Search;

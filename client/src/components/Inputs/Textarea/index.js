@@ -14,7 +14,7 @@ const Textarea = ({
   color = 'gray9',
   w, // width
   disabled,
-  rows = '5',
+  rows,
   m, // margins
   ...props
 }) => {
