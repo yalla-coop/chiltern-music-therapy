@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import theme from './../../theme';
 import setMargin from '../../helpers/set-margin';
+import * as T from '../Typography';
 
 // ICONS
 import Email from './icons/Email';
@@ -23,7 +24,7 @@ import Tick from './icons/Tick';
 import Video from './icons/Video';
 
 const Icon = (props) => {
-  const { icon, color } = props;
+  const { icon, color, text } = props;
 
   const IconMap = {
     email: Email,
@@ -56,6 +57,8 @@ const Icon = (props) => {
 
   const Parent = styled.div`
     ${setMargin}
+    display: flex;
+    align-items: center;
   `;
 
   return (
@@ -64,6 +67,11 @@ const Icon = (props) => {
         {...props}
         color={theme.colors[color] || color || 'currentColor'}
       />
+      {text && (
+        <T.P bold ml="1" color={color}>
+          {text}
+        </T.P>
+      )}
     </Parent>
   );
 };

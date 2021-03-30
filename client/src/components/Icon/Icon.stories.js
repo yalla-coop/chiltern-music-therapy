@@ -19,4 +19,13 @@ Email.args = {
   icon: 'add',
   width: 50,
   height: 50,
+  text: '',
+};
+
+export const WithText = Template.bind({});
+WithText.args = {
+  icon: 'download',
+  width: 16,
+  height: 16,
+  text: 'Download video',
 };
