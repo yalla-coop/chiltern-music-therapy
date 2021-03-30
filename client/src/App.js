@@ -24,7 +24,11 @@ function App() {
                 Component={Pages.GENERAL.Example}
                 layout="general"
               />
-
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CREATE_PROGRAM}
+                Component={Pages.THERAPIST.CreateProgram}
+              />
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
