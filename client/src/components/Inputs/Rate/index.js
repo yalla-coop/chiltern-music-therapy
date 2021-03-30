@@ -1,9 +1,9 @@
-import { Rate } from 'antd';
+import { Rate as AntdRate } from 'antd';
 import * as T from '../../Typography';
 import * as CS from '../style';
 import theme from './../../../theme';
 
-const BasicInput = ({
+const Rate = ({
   error,
   value,
   handleChange,
@@ -14,8 +14,8 @@ const BasicInput = ({
   ...props
 }) => {
   return (
-    <CS.Field w={w} disabled={disabled} {...m}>
-      <Rate
+    <CS.Field w={w} {...m}>
+      <AntdRate
         value={value}
         style={{ color: theme.colors.green }}
         onChange={handleChange}
@@ -33,4 +33,4 @@ const BasicInput = ({
   );
 };
 
-export default BasicInput;
+export default Rate;
