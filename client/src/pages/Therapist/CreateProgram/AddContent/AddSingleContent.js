@@ -1,10 +1,12 @@
 import 'antd/dist/antd.css';
 
-import { Col } from '../../../components/Grid';
-import { FileUpload } from '../../../components';
+import { Grid, FileUpload } from '../../../../components';
 
-const AddSingleContent = ({ dispatchFunctions, state }) => {
-  const { contentType, singleContent, fileUpload } = state;
+const { Col } = Grid;
+
+const AddSingleContent = ({ actions, state }) => {
+  const { singleContent, fileUpload } = state;
+  const { contentType } = singleContent;
 
   const {
     fileUploading,
@@ -22,7 +24,7 @@ const AddSingleContent = ({ dispatchFunctions, state }) => {
     handleFileUploadInfo,
     handleFileUploadError,
     resetSingleContent,
-  } = dispatchFunctions;
+  } = actions;
 
   const handleSubmit = async () => {
     const formData = {

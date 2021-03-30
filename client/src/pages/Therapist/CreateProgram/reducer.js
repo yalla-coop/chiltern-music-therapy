@@ -6,12 +6,18 @@ const reducer = (state, action) => {
     case actionTypes.showModal:
       return {
         ...state,
-        showModal: !state.showModal,
+        singleContent: {
+          ...state.singleContent,
+          showModal: !state.singleContent.showModal,
+        },
       };
     case actionTypes.setContentType:
       return {
         ...state,
-        contentType: value,
+        singleContent: {
+          ...state.singleContent,
+          contentType: value,
+        },
       };
     case actionTypes.updateContent:
       return {
@@ -32,7 +38,6 @@ const reducer = (state, action) => {
         ...state,
         singleContent: value.singleContent,
         fileUpload: value.fileUpload,
-        contentType: value.contentType,
       };
     case actionTypes.updateFileUploadStatus:
       return {

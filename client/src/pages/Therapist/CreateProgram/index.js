@@ -1,21 +1,18 @@
 import { useReducer } from 'react';
 
-import { Grid } from '../../../components/';
-
 import reducer from './reducer';
 import actionTypes from './actionTypes';
 import * as S from './style';
-import AddSingleContent from './AddSingleContent';
-
-const { Col } = Grid;
+import AddContent from './AddContent';
 
 const initialState = {
   content: [],
   singleContent: {
     // TODO add more inputs
     title: '',
+    type: null,
+    showModal: false,
   },
-  contentType: null,
   fileUpload: {
     fileUploading: false,
     data: {
@@ -30,24 +27,21 @@ const initialState = {
     },
     error: null,
   },
-  showModal: false,
 };
 
 const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { showModal } = state;
 
   // set state functions
   const dispatchFunctions = {
+    // single content
     handleShowModal: () => {
       dispatch({ type: actionTypes.showModal });
     },
     handleContentType: (contentType) => {
       dispatch({ type: actionTypes.setContentType, value: contentType });
     },
-    updateContent: (formData) => {
-      dispatch({ type: actionTypes.updateContent, value: formData });
-    },
+
     updateSingleContent: (_key, _value) => {
       dispatch({
         type: actionTypes.updateSingleContent,
@@ -67,59 +61,17 @@ const CreateProgram = () => {
     handleFileUploadError: (error) => {
       dispatch({ type: actionTypes.setFileUploadError, value: error });
     },
+    // content
+    updateContent: (formData) => {
+      dispatch({ type: actionTypes.updateContent, value: formData });
+    },
   };
 
   return (
-    <S.Wrapper>
+    <>
       <h1 style={{ marginTop: '3rem' }}>Add Content</h1>
-      {!showModal && (
-        <>
-          <Col w={[4, 4, 4]}>
-            <button
-              onClick={() => {
-                dispatchFunctions.handleShowModal();
-                dispatchFunctions.handleContentType('video');
-              }}
-            >
-              Add Video
-            </button>
-          </Col>
-          <Col w={[4, 4, 4]}>
-            <button
-              onClick={() => {
-                dispatchFunctions.handleShowModal();
-                dispatchFunctions.handleContentType('application');
-              }}
-            >
-              Add Doc
-            </button>
-          </Col>
-          <Col w={[4, 4, 4]}>
-            <button
-              onClick={() => {
-                dispatchFunctions.handleShowModal();
-                dispatchFunctions.handleContentType('audio');
-              }}
-            >
-              Add Audio
-            </button>
-          </Col>
-        </>
-      )}
-
-      {showModal && (
-        <AddSingleContent state={state} dispatchFunctions={dispatchFunctions} />
-      )}
-      {state.content.length > 0 &&
-        state.content.map((el) => (
-          <ul>
-            <li>
-              type: {state.contentType}, title: {el.title}, file:{' '}
-              {el.uploadedFileInfo.name}
-            </li>
-          </ul>
-        ))}
-    </S.Wrapper>
+      <AddContent state={state} actions={dispatchFunctions} />
+    </>
   );
 };
 
