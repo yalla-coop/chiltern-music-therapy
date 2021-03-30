@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import * as T from '../Typography';
 import Icon from '../Icon';
@@ -23,9 +23,9 @@ const GoBack = ({ color = 'gray8', customLink, text, ...props }) => {
   );
 };
 
-// GoBack.propTypes = {
-//   color: PropTypes.string,
-//   iconColor: PropTypes.string,
-// };
+GoBack.propTypes = {
+  color: PropTypes.string,
+  text: PropTypes.string,
+};
 
 export default GoBack;
