@@ -56,4 +56,12 @@ export const Modal = styled(AntModal)`
     display: flex;
     flex-direction: column;
   }
+
+  ${theme.media.mobile} {
+    max-width: 350px;
+  }
+
+  ${theme.media.mobileXS} {
+    max-width: 300px;
+  }
 `;
