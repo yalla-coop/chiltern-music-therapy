@@ -6,6 +6,7 @@ import Search from './icons/Search';
 import CirclePlus from './icons/CirclePlus';
 import Trash from './icons/Trash';
 import Info from './icons/Info';
+import QuestionMark from './icons/QuestionMark';
 
 const Icon = (props) => {
   const { icon, color } = props;
@@ -16,6 +17,7 @@ const Icon = (props) => {
     circlePlus: CirclePlus,
     trash: Trash,
     info: Info,
+    questionMark: QuestionMark,
   };
 
   const StyledIcon = IconMap[icon];

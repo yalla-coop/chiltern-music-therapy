@@ -33,6 +33,19 @@ basic.args = {
   m: { mt: '0' }, // mt, mtT, mtM, mb, mbT, ....
 };
 
+export const password = BasicExample.bind({});
+password.args = {
+  color: '',
+  label: 'Password',
+  w: '100%',
+  disabled: false,
+  error: '',
+  placeholder: 'Password...',
+  type: 'password',
+  showPasswordInfo: true,
+  m: { mt: '0' }, // mt, mtT, mtM, mb, mbT, ....
+};
+
 // TEXT AREA INPUT
 const TextareaExample = (args) => {
   const [value, setValue] = useState('');
