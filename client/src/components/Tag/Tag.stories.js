@@ -1,20 +1,43 @@
-import Tag from '.';
+import Tags from '.';
 
 export default {
   title: 'Common Components/Tags',
-  component: Tag,
+  component: Tags,
 };
 
 const Template = (args) => {
   return (
-    <div style={{ width: '300px', margin: 50 }}>
-      <Tag {...args}>{args.text}</Tag>
+    <div style={{ width: '500px', margin: 50 }}>
+      <Tags {...args}>{args.tag}</Tags>
     </div>
   );
 };
 
-export const Tags = Template.bind({});
-Tags.args = {
-  text: 'Example Category',
+export const SingleTag = Template.bind({});
+SingleTag.args = {
+  tag: 'Example Category',
   w: '161px',
+};
+
+const Template1 = (args) => {
+  return (
+    <div style={{ width: '500px', margin: 50 }}>
+      <Tags {...args}>{args.tag}</Tags>
+    </div>
+  );
+};
+export const MultiTags = Template1.bind({});
+MultiTags.args = {
+  tags: [
+    'Example Category',
+    'Example Category1',
+    'Example Category2',
+    'Example Category3',
+    'Example Category3',
+    'Example 2',
+    'Example 1',
+    'Example 3',
+  ],
+  w: '161px',
+  m: 1,
 };

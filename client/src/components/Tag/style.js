@@ -2,14 +2,14 @@ import styled from '@emotion/styled';
 import setMargin from '../../helpers/set-margin';
 
 export const Div = styled.div`
-  ${setMargin};
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ w }) => w || '100%'};
   height: 40px;
+  width: fit-content;
   background: white;
   position: relative;
+  padding: 12px 16px;
   &:before {
     position: absolute;
     content: '';
@@ -21,4 +21,16 @@ export const Div = styled.div`
     background: ${({ theme }) => theme.gradients.lightBlue};
     border-radius: 4px;
   }
+`;
+
+export const Container = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const Wrapper = styled.div`
+  margin-top: 2px;
+  margin-left: 2px;
+  ${setMargin};
 `;
