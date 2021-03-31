@@ -14,6 +14,9 @@ export const Wrapper = styled.div`
 
 export const AssetWrapper = styled.div`
   width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
   ${({ theme }) => theme.media.tablet} {
     width: 100%;
   }
