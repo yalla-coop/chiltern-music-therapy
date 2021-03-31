@@ -16,7 +16,6 @@ const Template = (args) => {
 export const SingleTag = Template.bind({});
 SingleTag.args = {
   tag: 'Example Category',
-  w: '161px',
 };
 
 const Template1 = (args) => {
@@ -38,6 +37,5 @@ MultiTags.args = {
     'Example 1',
     'Example 3',
   ],
-  w: '161px',
   m: 1,
 };
