@@ -7,10 +7,8 @@ import { dropdowns } from '../../../constants';
 
 const TherapyGoals = ({
   error,
-  value,
   handleChange,
   m, // margins
-  allowClear,
   goals,
   ...props
 }) => {
@@ -58,7 +56,7 @@ const TherapyGoals = ({
   };
 
   return (
-    <S.Wrapper>
+    <S.Wrapper {...m}>
       {goals.map(({ goal, category, id }, i) => (
         <S.CardWrapper key={id}>
           <Textarea
