@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import * as S from './style';
 import Image from '../../Image';
 import theme from '../../../theme';
+import { ReactComponent as TextLogo } from '../../Icon/icons/TextLogo.svg';
+
 import { useMediaQuery } from 'react-responsive';
 
 const Info = ({ children, image = 'headphones' }) => {
@@ -11,7 +13,10 @@ const Info = ({ children, image = 'headphones' }) => {
   });
   return (
     <S.Wrapper>
-      <S.Content>{children}</S.Content>
+      <S.Content>
+        {!isMobile && <TextLogo />}
+        {children}
+      </S.Content>
       <S.AssetWrapper>
         <Image
           image={isMobile ? `${image}S` : image}
