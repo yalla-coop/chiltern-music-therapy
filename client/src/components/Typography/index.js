@@ -62,7 +62,7 @@ export const P = styled(Paragraph)`
   ${commonStyle};
   font-size: 16px !important;
   line-height: 150% !important;
-  font-weight: ${({ bold }) => (bold ? '700 !important' : '300 !important')};
+  font-weight: ${({ bold }) => (bold ? '700 !important' : '400 !important')};
 `;
 
 const AntdLink = ({ to = '/', external = false, ...props }) =>
