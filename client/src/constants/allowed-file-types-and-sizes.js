@@ -4,7 +4,16 @@ const fileCategories = {
   audio: 'audio',
 };
 
-const fileTypes = {
+const fileTypes = [
+  'video/mp4',
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'audio/mpeg',
+  'audio/wav',
+];
+
+const fileTypesShort = {
   videoMp4: '.mp4',
   applicationPdf: '.pdf',
   applicationDoc: '.doc',
@@ -38,17 +47,21 @@ const allowedFileTypesAndSizes = {
 const printFileTypes = (category) => {
   switch (category) {
     case fileCategories.video:
-      return `${fileTypes.videoMp4}`;
+      return `${fileTypesShort.videoMp4}`;
     case fileCategories.application:
-      return `${fileTypes.applicationPdf}, ${fileTypes.applicationDoc}, ${fileTypes.applicationDocX} `;
+      return `${fileTypesShort.applicationPdf}, ${fileTypesShort.applicationDoc}, ${fileTypesShort.applicationDocX} `;
     case fileCategories.audio:
-      return `${fileTypes.audioMpeg}, ${fileTypes.audioWav}`;
+      return `${fileTypesShort.audioMpeg}, ${fileTypesShort.audioWav}`;
 
     default:
       throw new Error(`Unhandled type: ${category}`);
   }
 };
 
-const fileTypeValidation = { printFileTypes, allowedFileTypesAndSizes };
+const fileTypeValidation = {
+  fileTypes,
+  printFileTypes,
+  allowedFileTypesAndSizes,
+};
 
 export default fileTypeValidation;

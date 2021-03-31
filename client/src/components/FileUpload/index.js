@@ -9,7 +9,11 @@ import * as S from './style';
 import { fileTypeValidation } from '../../constants';
 import theme from '../../theme';
 
-const { printFileTypes, allowedFileTypesAndSizes } = fileTypeValidation;
+const {
+  printFileTypes,
+  fileTypes,
+  allowedFileTypesAndSizes,
+} = fileTypeValidation;
 
 const { Dragger } = Upload;
 
@@ -38,8 +42,6 @@ const FileUpload = ({
 
     //  check 1: correct file type
     if (!allowedFileTypesAndSizes[category].types.includes(type)) {
-      const fileCategory = type.split('/')[0];
-      console.log(`fileCategory`, fileCategory);
       setError(
         `${name} must be one of the following file types: ${printFileTypes(
           category
@@ -150,6 +152,9 @@ const FileUpload = ({
     name: 'file',
     multiple: false,
     maxCount: 1,
+    accept:
+      Array.isArray(allowedFileTypesAndSizes[category].types) &&
+      allowedFileTypesAndSizes[category].types,
     beforeUpload: (_file) => checkFileTypes(_file),
     action: (_file) => getSignedURL(_file),
     onChange: (e) => handleFileChanged(e),
