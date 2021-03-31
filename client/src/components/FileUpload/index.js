@@ -1,21 +1,24 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { Upload } from 'antd';
+
 import { Media } from '../../api-calls';
 import Icon from '../Icon';
+import * as T from '../Typography';
 import * as S from './style';
 import { allowedFileTypesAndSizes } from '../../constants';
 
 const { Dragger } = Upload;
 
 const FileUpload = ({
+  w, // width
   category,
-  handleFileUploadStatus,
-  fileUploading,
-  handleFileUploadInfo,
-  uploadedFileInfo = {},
-  handleFileUploadError,
-  fileUploadError,
+  setUploading,
+  uploading,
+  setFileInfo,
+  fileInfo = {},
+  setError,
+  error,
   maxSize,
   disabled,
 }) => {
@@ -32,7 +35,7 @@ const FileUpload = ({
 
     //  check 1: correct file type
     if (!allowedFileTypesAndSizes[category].types.includes(type)) {
-      handleFileUploadError(
+      setError(
         `${name} is not a ${allowedFileTypesAndSizes[category].types} file`
       );
       correctFileType = false;
@@ -43,14 +46,14 @@ const FileUpload = ({
         ? maxSize < sizeInMb
         : allowedFileTypesAndSizes[category].maxSize < sizeInMb
     ) {
-      handleFileUploadError(
+      setError(
         `File is too large. Maximum file size is ${
           maxSize ? maxSize : allowedFileTypesAndSizes[category].maxSize
         } MBs`
       );
       correctFileType = false;
     } else {
-      handleFileUploadError('');
+      setError('');
       correctFileType = true;
     }
     // if false upload doesn't run
@@ -62,15 +65,15 @@ const FileUpload = ({
     const { status, name } = file;
 
     setFileName(name);
-    if (!fileUploadError) {
+    if (!error) {
       if (status === 'removed') {
         setFileList([]);
       } else if (status === 'uploading') {
-        handleFileUploadStatus(true);
+        setUploading(true);
         setFileList([file]);
       } else if (status === 'done') {
-        handleFileUploadStatus(false);
-        handleFileUploadError(null);
+        setUploading(false);
+        setError(null);
       }
     }
   };
@@ -86,11 +89,11 @@ const FileUpload = ({
     });
 
     if (_error) {
-      handleFileUploadError(_error.message);
+      setError(_error.message);
     } else {
       updatedFile = { ...data, new: true };
-      handleFileUploadInfo(updatedFile);
-      handleFileUploadError(null);
+      setFileInfo(updatedFile);
+      setError(null);
       return data.url;
     }
     return false;
@@ -100,7 +103,7 @@ const FileUpload = ({
   const uploadFile = async (options) => {
     const { onSuccess, onError, file, onProgress } = options;
     // check if signed URL is present
-    if (uploadedFileInfo.url && uploadedFileInfo.new) {
+    if (fileInfo.url && fileInfo.new) {
       //  add custom progress to axios
       const config = {
         onUploadProgress: (event) => {
@@ -117,20 +120,20 @@ const FileUpload = ({
         data: newUploadedFileInfo,
         error: _error,
       } = await Media.uploadToS3({
-        signedURL: uploadedFileInfo.url,
+        signedURL: fileInfo.url,
         file,
         options: config,
       });
 
       if (_error) {
-        onError(handleFileUploadError(_error.message));
+        onError(setError(_error.message));
       } else {
         updatedFile = {
-          ...uploadedFileInfo,
+          ...fileInfo,
           ...newUploadedFileInfo,
           uploadedToS3: true,
         };
-        handleFileUploadInfo(updatedFile);
+        setFileInfo(updatedFile);
         onSuccess('OK');
       }
     }
@@ -144,7 +147,7 @@ const FileUpload = ({
     action: (_file) => getSignedURL(_file),
     onChange: (e) => handleFileChanged(e),
     customRequest: (options) => uploadFile(options),
-    disabled: disabled || fileUploading,
+    disabled: disabled || uploading,
     progress: {
       strokeColor: {
         '0%': '#108ee9',
@@ -153,47 +156,34 @@ const FileUpload = ({
       strokeWidth: 3,
       format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
     },
-    showUploadList: !!fileUploading && !fileUploadError,
+    showUploadList: !!uploading && !error,
   };
 
   return (
-    <S.Wrapper>
-      <Dragger
-        style={{
-          background: 'none',
-          borderRadius: '10px',
-          border: `1px dashed #${fileUploadError ? 'EE4450' : '20B9D6'}`,
-          padding: '10px',
-        }}
-        {...props}
-      >
-        <p className="ant-upload-drag-icon">
-          <Icon error={fileUploadError} icon="inbox" />
-        </p>
-        {/* TODO UPDATE TYPO */}
-        <p className="ant-upload-text" style={{ color: '#3C404B' }}>
-          Click or drag file to this area to upload
-        </p>
+    <S.Wrapper error={error} w={w}>
+      <Dragger {...props}>
+        <S.UploadDetails>
+          <Icon error={error} icon="inbox" />
+          <T.P color="gray9">Click or drag file to this area to upload</T.P>
+        </S.UploadDetails>
       </Dragger>
-      {/* TODO UPDATE TYPO */}
       {fileName && (
         <S.FileNameWrapper>
-          {!fileUploadError ? (
+          {!error ? (
             <>
               <Icon color="blue" icon="attachment" />
-              <p
+              <T.P
+                color="blue"
                 style={{
-                  color: '#2D57A5',
                   marginLeft: '0.2rem',
                   marginTop: '-0.2rem',
                 }}
               >
                 {fileName}
-              </p>
+              </T.P>
             </>
           ) : (
-            // TODO UPDATE Typo
-            <p style={{ color: 'red' }}>{fileUploadError}</p>
+            <T.P color="pink">{error}</T.P>
           )}
         </S.FileNameWrapper>
       )}

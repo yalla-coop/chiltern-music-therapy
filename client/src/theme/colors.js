@@ -32,4 +32,5 @@ export default {
   gray9: '#3C404B',
   black: '#0E0F11',
   blue: '#2D57A5',
+  pink: '#CB4394',
 };

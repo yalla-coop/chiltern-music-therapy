@@ -1,5 +1,3 @@
-import 'antd/dist/antd.css';
-
 import { Grid, FileUpload } from '../../../../components';
 
 const { Col } = Grid;
@@ -64,12 +62,13 @@ const AddSingleContent = ({ actions, state }) => {
         />
         <FileUpload
           category={contentType}
-          handleFileUploadStatus={handleFileUploadStatus}
-          fileUploading={fileUploading}
-          handleFileUploadInfo={handleFileUploadInfo}
-          uploadedFileInfo={uploadedFileInfo}
-          handleFileUploadError={handleFileUploadError}
-          fileUploadError={fileUploadError}
+          setUploading={handleFileUploadStatus}
+          uploading={fileUploading}
+          setFileInfo={handleFileUploadInfo}
+          fileInfo={uploadedFileInfo}
+          setError={handleFileUploadError}
+          error={fileUploadError}
+          w="300"
         />
       </form>
 

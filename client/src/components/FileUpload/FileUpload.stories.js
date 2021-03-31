@@ -2,16 +2,6 @@ import React, { useState } from 'react';
 
 import FileUpload from '.';
 
-// PROPS
-// category -> video, application, audio
-// fileUploadError -> str
-// uploadedFileInfo -> obj
-
-// handleFileUploadStatus  -> fn
-// fileUploading -> fn
-// handleFileUploadInfo -> fn
-// handleFileUploadError -> fn
-
 export default {
   title: 'Common Components/File Upload',
   argTypes: {},
@@ -26,12 +16,12 @@ const Template = (args) => {
     <div>
       <FileUpload
         {...args}
-        fileUploadError={fileUploadError}
-        handleFileUploadError={setFileUploadError}
-        handleFileUploadInfo={setUploadedFileInfo}
-        uploadedFileInfo={uploadedFileInfo}
-        fileUploading={fileUploading}
-        handleFileUploadStatus={setFileUploading}
+        error={fileUploadError}
+        setError={setFileUploadError}
+        setFileInfo={setUploadedFileInfo}
+        fileInfo={uploadedFileInfo}
+        uploading={fileUploading}
+        setUploading={setFileUploading}
       />
 
       <div style={{ border: '2px solid', marginTop: '2rem' }}>
