@@ -129,7 +129,6 @@ checkbox.args = {
 // Rate
 const RateExample = (args) => {
   const [value, setValue] = useState(args.value);
-  console.log(value);
   return (
     <Row>
       <Col w={[4, 6, 4]}>

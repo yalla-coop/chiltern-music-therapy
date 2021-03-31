@@ -84,7 +84,7 @@ const Dropdown = ({
     >
       {label && (
         <CS.Label htmlFor={label}>
-          <T.P color={color} m="0" mb="2" bold={bold}>
+          <T.P color={color} m="0" mb="2" bold={bold ? 1 : 0}>
             {label}
           </T.P>
         </CS.Label>
