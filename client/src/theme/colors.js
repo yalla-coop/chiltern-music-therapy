@@ -18,12 +18,9 @@ __________________________________
 Input background            gray-2
 */
 
-const blue = '#2D57A5';
-const pink = '#CB4394';
-
 export default {
-  primary: blue,
-  secondary: pink,
+  primary: '#2D57A5',
+  secondary: '#CB4394',
   white: '#ffffff',
   gray2: '#F9FAFB',
   gray3: '#EDF0F3',
@@ -34,6 +31,4 @@ export default {
   gray8: '#5E6875',
   gray9: '#3C404B',
   black: '#0E0F11',
-  pink,
-  blue,
 };
