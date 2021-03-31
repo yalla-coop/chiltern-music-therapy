@@ -36,7 +36,7 @@ const Textarea = ({
           </T.P>
         </CS.Label>
       )}
-      <S.Textarea
+      <S.TextArea
         type={type}
         name={name}
         value={value}

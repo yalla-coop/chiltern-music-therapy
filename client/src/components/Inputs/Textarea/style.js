@@ -1,8 +1,12 @@
 import styled from '@emotion/styled';
+import { Input } from 'antd';
+
 import setMargin from '../../../helpers/set-margin';
 import * as CS from '../style';
 
-export const Textarea = styled.textarea`
+const { TextArea: AntdTextArea } = Input;
+
+export const TextArea = styled(AntdTextArea)`
   ${setMargin};
   ${CS.placeholderStyle};
   border: ${({ theme }) => theme.borders.inputs};

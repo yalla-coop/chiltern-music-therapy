@@ -17,7 +17,8 @@ const TherapyGoals = ({
   const [errors, setErrors] = useState({ goal: '', category: '' });
 
   const handleAdd = () => {
-    const { goal, category } = goals[goals.length - 1];
+    // last item
+    const { goal, category, id } = goals[goals.length - 1];
     // todo refactor validation
     if (!goal || !category) {
       const errors = {};
@@ -31,23 +32,25 @@ const TherapyGoals = ({
     }
     setErrors({});
 
-    handleChange([...goals, { goal: '', category: '' }]);
+    handleChange([...goals, { goal: '', category: '', id: id + 1 }]);
   };
 
-  const handleRemove = (i) => {
-    handleChange(goals.filter((_, _i) => _i !== i));
+  const handleRemove = (_id) => {
+    handleChange(goals.filter(({ id }) => _id !== id));
   };
 
-  const handleGoalChange = (value, i) => {
-    const newGaols = [...goals];
-    newGaols[i].goal = value;
-    handleChange(newGaols);
+  const handleGoalChange = (value, id) => {
+    const newGoals = [...goals];
+    const index = newGoals.findIndex((element) => element.id === id);
+    newGoals[index].goal = value;
+    handleChange(newGoals);
   };
 
-  const handleCategoryChange = (value, i) => {
-    const newGaols = [...goals];
-    newGaols[i].category = value;
-    handleChange(newGaols);
+  const handleCategoryChange = (value, id) => {
+    const newGoals = [...goals];
+    const index = newGoals.findIndex((element) => element.id === id);
+    newGoals[index].category = value;
+    handleChange(newGoals);
   };
 
   const isLastElement = (i) => {
@@ -55,14 +58,14 @@ const TherapyGoals = ({
   };
 
   return (
-    <>
-      {goals.map(({ goal, category }, i) => (
-        <S.CardWrapper key={`${goal} + ${category}`}>
+    <S.Wrapper>
+      {goals.map(({ goal, category, id }, i) => (
+        <S.CardWrapper key={id}>
           <Textarea
             placeholder="Goal..."
             m={{ mb: 4 }}
             value={goal}
-            handleChange={(v) => handleGoalChange(v, i)}
+            handleChange={(v) => handleGoalChange(v, id)}
             error={isLastElement(i) && errors.goal}
             autoSize={{ minRows: 1, maxRows: 6 }}
           />
@@ -71,7 +74,7 @@ const TherapyGoals = ({
             options={dropdowns.therapyGoalsCategories}
             selected={category}
             m={{ mb: 4 }}
-            handleChange={(v) => handleCategoryChange(v, i)}
+            handleChange={(v) => handleCategoryChange(v, id)}
             error={isLastElement(i) && errors.category}
           />
 
@@ -85,7 +88,7 @@ const TherapyGoals = ({
               </S.Button>
             )}
             {goals.length !== 1 ? (
-              <S.Button onClick={() => handleRemove(i)} right>
+              <S.Button onClick={() => handleRemove(id)} right>
                 <Icon color="pink" width="16" height="16" icon="bin" />
                 <T.P color="pink" m="0" ml="2" bold>
                   Remove
@@ -95,7 +98,7 @@ const TherapyGoals = ({
           </S.ButtonsWrapper>
         </S.CardWrapper>
       ))}
-    </>
+    </S.Wrapper>
   );
 };
 

@@ -21,10 +21,10 @@ const TherapyGoalsExample = (args) => {
 export const therapyGoals = TherapyGoalsExample.bind({});
 therapyGoals.args = {
   goals: [
-    { goal: 'goal1', category: 'Communication' },
-    { goal: 'goal2', category: 'Emotional wellbeing' },
-    { goal: 'goal3', category: 'Cognition and learning' },
-    { goal: 'goal4', category: 'Physical skills' },
+    { goal: 'goal1', category: 'Communication', id: 0 },
+    { goal: 'goal2', category: 'Emotional wellbeing', id: 1 },
+    { goal: 'goal3', category: 'Cognition and learning', id: 2 },
+    { goal: 'goal4', category: 'Physical skills', id: 3 },
   ],
 };
 

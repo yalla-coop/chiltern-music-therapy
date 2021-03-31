@@ -1,6 +1,10 @@
 import styled from '@emotion/styled';
 import setMargin from '../../../helpers/set-margin';
 
+export const Wrapper = styled.div`
+  ${setMargin};
+`;
+
 export const CardWrapper = styled.div`
   width: 100%;
   padding: ${({ theme }) => theme.spacings[4]};
@@ -10,7 +14,6 @@ export const CardWrapper = styled.div`
 `;
 
 export const ButtonsWrapper = styled.div`
-  ${setMargin};
   width: 100%;
   padding-top: ${({ theme }) => theme.spacings[2]};
   display: flex;
@@ -18,7 +21,6 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const Button = styled.button`
-  ${setMargin};
   width: auto;
   padding-top: ${({ theme }) => theme.spacings[2]};
   background: none;
