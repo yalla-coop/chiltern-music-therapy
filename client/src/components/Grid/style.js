@@ -31,12 +31,14 @@ export const Col = styled('div')`
   min-height: 1;
   height: 100%;
   flex-wrap: wrap;
+  flex-direction: ${({ dir }) => dir || 'row'};
   flex-basis: ${({ theme, c3 }) =>
     `calc(${(c3 / theme.constants.columns.desktop) * 100}%)`};
   max-width: ${({ theme, c3 }) =>
     `calc(${(c3 / theme.constants.columns.desktop) * 100}%)`};
   display: ${({ theme, c3 }) => (c3 ? 'flex' : 'none')};
   justify-content: ${({ jc }) => jc || 'flex-start'};
+  align-items: ${({ ai }) => ai || 'center'};
 
   ${({ theme }) => theme.media.tablet} {
     display: ${({ theme, c2 }) => (c2 ? 'flex' : 'none')};
