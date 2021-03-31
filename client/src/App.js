@@ -22,9 +22,14 @@ function App() {
                 exact
                 path={navRoutes.GENERAL.HOME}
                 Component={Pages.GENERAL.Example}
-                layout="general"
+                layout="info"
+                image="hands"
               />
-
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CREATE_PROGRAM}
+                Component={Pages.THERAPIST.CreateProgram}
+              />
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"

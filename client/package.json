@@ -12,6 +12,7 @@
     "antd": "^4.14.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-responsive": "^8.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
@@ -67,5 +68,6 @@
     "eslint-plugin-react": "^7.22.0",
     "prettier": "^2.2.1",
     "storybook-addon-emotion-theme": "^2.1.1"
-  }
+  },
+  "proxy": "http://localhost:8080"
 }
