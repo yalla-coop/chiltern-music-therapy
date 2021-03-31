@@ -4,15 +4,6 @@ const fileCategories = {
   audio: 'audio',
 };
 
-const fileTypes = [
-  'video/mp4',
-  'application/pdf',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  'audio/mpeg',
-  'audio/wav',
-];
-
 const fileTypesShort = {
   videoMp4: '.mp4',
   applicationPdf: '.pdf',
@@ -59,7 +50,6 @@ const printFileTypes = (category) => {
 };
 
 const fileTypeValidation = {
-  fileTypes,
   printFileTypes,
   allowedFileTypesAndSizes,
 };

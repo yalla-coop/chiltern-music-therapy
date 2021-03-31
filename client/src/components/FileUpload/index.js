@@ -9,11 +9,7 @@ import * as S from './style';
 import { fileTypeValidation } from '../../constants';
 import theme from '../../theme';
 
-const {
-  printFileTypes,
-  fileTypes,
-  allowedFileTypesAndSizes,
-} = fileTypeValidation;
+const { printFileTypes, allowedFileTypesAndSizes } = fileTypeValidation;
 
 const { Dragger } = Upload;
 
