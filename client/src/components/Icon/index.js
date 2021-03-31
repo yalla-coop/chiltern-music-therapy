@@ -4,7 +4,7 @@ import setMargin from '../../helpers/set-margin';
 import * as T from '../Typography';
 
 // ICONS
-import Email from './icons/Email';
+import Attachment from './icons/Attachment';
 import Add from './icons/Add';
 import Audio from './icons/Audio';
 import Bin from './icons/Bin';
@@ -12,7 +12,9 @@ import Copy from './icons/Copy';
 import Cross from './icons/Cross';
 import Document from './icons/Document';
 import Download from './icons/Download';
+import Email from './icons/Email';
 import GoBack from './icons/GoBack';
+import Inbox from './icons/Inbox';
 import Info from './icons/Info';
 import Menu from './icons/Menu';
 import Paperclip from './icons/Paperclip';
@@ -27,7 +29,7 @@ const Icon = (props) => {
   const { icon, color, text } = props;
 
   const IconMap = {
-    email: Email,
+    attachment: Attachment,
     add: Add,
     audio: Audio,
     bin: Bin,
@@ -35,7 +37,9 @@ const Icon = (props) => {
     cross: Cross,
     document: Document,
     download: Download,
+    email: Email,
     goBack: GoBack,
+    inbox: Inbox,
     info: Info,
     menu: Menu,
     paperclip: Paperclip,

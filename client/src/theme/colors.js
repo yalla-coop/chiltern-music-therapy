@@ -13,7 +13,7 @@ Border                      gray-5
 __________________________________
 View programme cards,       gray-3
 Gray circles in View
- therapy cards etc            
+ therapy cards etc
 __________________________________
 Input background            gray-2
 */
