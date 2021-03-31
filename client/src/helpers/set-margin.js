@@ -43,7 +43,8 @@ const margins = ({
   mb ||
   theme.spacings[my] ||
   my ||
-  theme.spacings[m]} !important;
+  theme.spacings[m] ||
+  0} !important;
   ${theme.media.tablet} {
     margin-left: ${theme.spacings[mlT] ||
     mlT ||
@@ -64,7 +65,8 @@ const margins = ({
     mbT ||
     theme.spacings[myT] ||
     myT ||
-    theme.spacings[mT]} !important;
+    theme.spacings[mT] ||
+    0} !important;
   }
   ${theme.media.mobile} {
     margin-left: ${theme.spacings[mlM] ||
@@ -86,7 +88,8 @@ const margins = ({
     mbM ||
     theme.spacings[myM] ||
     myM ||
-    theme.spacings[mM]} !important;
+    theme.spacings[mM] ||
+    0} !important;
   }
 `;
 
