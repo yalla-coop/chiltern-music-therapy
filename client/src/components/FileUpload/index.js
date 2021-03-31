@@ -7,6 +7,7 @@ import Icon from '../Icon';
 import * as T from '../Typography';
 import * as S from './style';
 import { fileTypeValidation } from '../../constants';
+import theme from '../../theme';
 
 const { printFileTypes, allowedFileTypesAndSizes } = fileTypeValidation;
 
@@ -180,16 +181,19 @@ const FileUpload = ({
               <Icon color="blue" icon="attachment" />
               <T.P
                 color="blue"
+                bold
                 style={{
-                  marginLeft: '0.2rem',
-                  marginTop: '-0.2rem',
+                  marginLeft: theme.spacings[1],
+                  marginTop: -theme.spacings[1],
                 }}
               >
                 {fileName}
               </T.P>
             </>
           ) : (
-            <T.P color="pink">{error}</T.P>
+            <T.P bold color="pink">
+              {error}
+            </T.P>
           )}
         </S.FileNameWrapper>
       )}
