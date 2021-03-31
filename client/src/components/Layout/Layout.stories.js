@@ -11,7 +11,7 @@ export default {
     },
   },
   image: {
-    options: ['welcome1', 'welcome2', 'welcome3', 'welcome4', 'welcome5'],
+    options: ['hands', 'welcome2', 'welcome3', 'welcome4', 'welcome5'],
   },
 };
 
@@ -29,7 +29,7 @@ OnboardingLayout.args = {
 export const InfoLayout = Template.bind({});
 InfoLayout.args = {
   layout: 'info',
-  image: 'welcome1',
+  image: 'hands',
 };
 
 export const GeneralLayout = Template.bind({});

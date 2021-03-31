@@ -23,7 +23,7 @@ function App() {
                 path={navRoutes.GENERAL.HOME}
                 Component={Pages.GENERAL.Example}
                 layout="info"
-                image="welcome3"
+                image="hands"
               />
               <Route
                 Component={Pages.GENERAL.ErrorPages}

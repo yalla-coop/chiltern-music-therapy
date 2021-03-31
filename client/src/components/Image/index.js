@@ -1,28 +1,57 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import setMargin from '../../helpers/set-margin';
 
-import Welcome1 from '../assets/Welcome1.png';
-import Welcome2 from '../assets/Welcome2.png';
-import Welcome3 from '../assets/Welcome3.png';
-import Welcome4 from '../assets/Welcome4.png';
-import Welcome5 from '../assets/Welcome5.png';
+import Headphones from '../assets/Headphones.svg';
+import HeadphonesS from '../assets/HeadphonesX.svg';
+import Dancing from '../assets/Dancing.svg';
+import DancingS from '../assets/DancingX.svg';
+import Hands from '../assets/Hands.svg';
+import HandsS from '../assets/HandsX.svg';
+import Meeting from '../assets/Meeting.svg';
+import MeetingS from '../assets/MeetingX.svg';
+import Mom from '../assets/Mom.svg';
+import MomS from '../assets/MomX.svg';
+import MomPink from '../assets/MomPink.svg';
+import MomPinkS from '../assets/MomPinkX.svg';
+import Man from '../assets/Man.svg';
+import ManS from '../assets/ManX.svg';
+import Rainbow from '../assets/Rainbow.svg';
 
 const imgMap = {
-  welcome1: Welcome1,
-  welcome2: Welcome2,
-  welcome3: Welcome3,
-  welcome4: Welcome4,
-  welcome5: Welcome5,
+  headphones: Headphones,
+  headphonesS: HeadphonesS,
+  dancing: Dancing,
+  dancingS: DancingS,
+  hands: Hands,
+  handsS: HandsS,
+  meeting: Meeting,
+  meetingS: MeetingS,
+  mom: Mom,
+  momS: MomS,
+  momPink: MomPink,
+  momPinkS: MomPinkS,
+  man: Man,
+  manS: ManS,
+  rainbow: Rainbow,
 };
 
 const StyledImage = styled.img`
   max-width: 100%;
   width: ${({ width }) => (width ? `${width}px` : 'auto')};
   height: ${({ height }) => (height ? `${height}px` : 'auto')};
-  margin: ${({ margin }) => margin || '0'};
+  ${setMargin}
 `;
 
-const Image = ({ image, width, height, margin, alt, customStyle }) => {
+const Image = ({
+  image,
+  width,
+  height,
+  margin,
+  alt = 'Therapy Illustration',
+  customStyle,
+  ...props
+}) => {
   if (!imgMap[image]) {
     // eslint-disable-next-line no-console
     console.warn(`<Image /> called with invalid image prop "${image}"`);
@@ -37,6 +66,7 @@ const Image = ({ image, width, height, margin, alt, customStyle }) => {
       height={height}
       margin={margin}
       style={{ ...customStyle }}
+      {...props}
     />
   );
 };
