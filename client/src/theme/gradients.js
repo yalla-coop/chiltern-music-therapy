@@ -17,4 +17,5 @@ export default {
     'linear-gradient(0deg, #BED635 -0.01%, #BAD537 1.31%, #A0CD49 12.92%, #8DC756 24.8%, #82C45D 37.01%, #7EC360 50%, #42B469 100%)',
   lightGreenUnder:
     'linear-gradient(0deg, #BED635 -0.01%, #BAD537 1.31%, #A0CD49 12.92%, #8DC756 24.8%, #82C45D 37.01%, #7EC360 50%, #42B469 100%)',
+  white: 'linear-gradient(#fff 0 0)',
 };

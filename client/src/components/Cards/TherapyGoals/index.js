@@ -78,15 +78,15 @@ const TherapyGoals = ({
           <S.ButtonsWrapper>
             {isLastElement(i) && (
               <S.Button onClick={handleAdd}>
-                <Icon color="blue" width="16" height="16" icon="circlePlus" />
+                <Icon color="blue" width="16" height="16" icon="add" />
                 <T.P color="blue" m="0" ml="2" bold>
                   Add goal
                 </T.P>
               </S.Button>
             )}
-            {isLastElement(i) ? (
+            {goals.length !== 1 ? (
               <S.Button onClick={() => handleRemove(i)} right>
-                <Icon color="pink" width="16" height="16" icon="trash" />
+                <Icon color="pink" width="16" height="16" icon="bin" />
                 <T.P color="pink" m="0" ml="2" bold>
                   Remove
                 </T.P>

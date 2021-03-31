@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import setMargin from '../../../helpers/set-margin';
 
 export const CardWrapper = styled.div`
-  ${setMargin};
   width: 100%;
   padding: ${({ theme }) => theme.spacings[4]};
   margin-bottom: ${({ theme }) => theme.spacings[5]};
