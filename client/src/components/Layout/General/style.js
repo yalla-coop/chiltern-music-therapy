@@ -6,22 +6,26 @@ export const OnboardingHeader = styled.header`
   padding: ${({ theme: { spacings } }) => `40px ${spacings[10]}`};
   display: flex;
   justify-content: space-between;
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: ${({ theme: { spacings } }) => spacings[1]};
+    background: ${({ theme: { gradients } }) => gradients.rainbowHorizontal};
+    ${({ theme }) => theme.media.mobile} {
+      height: 1px;
+      bottom: -1px;
+    }
+  }
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) =>
       `${spacings[7]} ${spacings[9]} ${spacings[0]} ${spacings[9]}`};
   }
   ${({ theme }) => theme.media.mobile} {
-    padding: ${({ theme: { spacings } }) => `${spacings[6]} 37px 0 38px`};
-  }
-`;
-
-export const Border = styled.div`
-  height: ${({ theme: { spacings } }) => spacings[1]};
-  width: 100%;
-  position: absolute;
-  background: ${({ theme: { gradients } }) => gradients.rainbowHorizontal};
-  ${({ theme }) => theme.media.mobile} {
-    display: none;
+    padding: ${({ theme: { spacings } }) =>
+      `${spacings[6]} 37px ${spacings[4]} 38px`};
   }
 `;
 

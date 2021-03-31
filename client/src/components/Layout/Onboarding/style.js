@@ -5,6 +5,19 @@ export const OnboardingHeader = styled.header`
   background: white;
   padding: ${({ theme: { spacings } }) => `40px ${spacings[10]}`};
 
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: ${({ theme: { spacings } }) => spacings[1]};
+    background: ${({ theme: { gradients } }) => gradients.rainbowHorizontal};
+    ${({ theme }) => theme.media.mobile} {
+      display: none;
+    }
+  }
+
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) =>
       `${spacings[7]} ${spacings[9]} ${spacings[0]} ${spacings[9]}`};
@@ -13,16 +26,6 @@ export const OnboardingHeader = styled.header`
   ${({ theme }) => theme.media.mobile} {
     padding: ${({ theme: { spacings } }) =>
       `${spacings[6]} 37px ${spacings[0]} 38px`};
-  }
-`;
-
-export const Border = styled.div`
-  height: ${({ theme: { spacings } }) => spacings[1]};
-  width: 100%;
-  position: absolute;
-  background: ${({ theme: { gradients } }) => gradients.rainbowHorizontal};
-  ${({ theme }) => theme.media.tablet} {
-    display: none;
   }
 `;
 

@@ -12,7 +12,6 @@ const General = ({ children, ...props }) => {
           {/* nav menu goes here */}
           <div>menu</div>
         </S.OnboardingHeader>
-        <S.Border />
       </S.Wrapper>
       <S.Content>{children}</S.Content>
     </>

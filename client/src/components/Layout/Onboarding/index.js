@@ -10,7 +10,6 @@ const Onboarding = ({ children, ...props }) => {
         <S.OnboardingHeader>
           <TextLogo />
         </S.OnboardingHeader>
-        <S.Border />
       </S.Wrapper>
       <S.Content>{children}</S.Content>
     </>
