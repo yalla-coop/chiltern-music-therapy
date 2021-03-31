@@ -4,6 +4,8 @@ import setMargin from '../../helpers/set-margin';
 import * as T from '../Typography';
 
 // ICONS
+import Email from './icons/Email';
+import User from './icons/User';
 import Attachment from './icons/Attachment';
 import Add from './icons/Add';
 import Audio from './icons/Audio';
@@ -12,7 +14,6 @@ import Copy from './icons/Copy';
 import Cross from './icons/Cross';
 import Document from './icons/Document';
 import Download from './icons/Download';
-import Email from './icons/Email';
 import GoBack from './icons/GoBack';
 import Inbox from './icons/Inbox';
 import Info from './icons/Info';
@@ -29,6 +30,8 @@ const Icon = (props) => {
   const { icon, color, text } = props;
 
   const IconMap = {
+    email: Email,
+    user: User,
     attachment: Attachment,
     add: Add,
     audio: Audio,
@@ -37,7 +40,6 @@ const Icon = (props) => {
     cross: Cross,
     document: Document,
     download: Download,
-    email: Email,
     goBack: GoBack,
     inbox: Inbox,
     info: Info,
