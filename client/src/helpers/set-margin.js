@@ -66,6 +66,7 @@ const margins = ({
     theme.spacings[myT] ||
     myT ||
     theme.spacings[mT] ||
+    mb ||
     0} !important;
   }
   ${theme.media.mobile} {
@@ -89,6 +90,7 @@ const margins = ({
     theme.spacings[myM] ||
     myM ||
     theme.spacings[mM] ||
+    mb ||
     0} !important;
   }
 `;
