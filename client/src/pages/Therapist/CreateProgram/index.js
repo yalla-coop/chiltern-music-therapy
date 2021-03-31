@@ -34,37 +34,36 @@ const initialState = {
 const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // set state functions
-  const dispatchFunctions = {
+  const actions = {
     // single content
-    handleShowModal: () => {
+    HANDLE_SINGLE_CONTENT_MODAL: () => {
       dispatch({ type: actionTypes.showModal });
     },
-    handleContentType: (contentType) => {
+    HANDLE_CONTENT_TYPE: (contentType) => {
       dispatch({ type: actionTypes.setContentType, value: contentType });
     },
-
-    updateSingleContent: (_key, _value) => {
+    UPDATE_SINGLE_CONTENT: (_key, _value) => {
       dispatch({
         type: actionTypes.updateSingleContent,
         key: _key,
         value: _value,
       });
     },
-    resetSingleContent: () => {
+    RESET_SINGLE_CONTENT: () => {
       dispatch({ type: actionTypes.resetSingleContent, value: initialState });
     },
-    handleFileUploadStatus: (bool) => {
+    // file upload
+    HANDLE_UPLOAD_STATUS: (bool) => {
       dispatch({ type: actionTypes.updateFileUploadStatus, value: bool });
     },
-    handleFileUploadInfo: (data) => {
+    HANDLE_FILE_UPLOAD_INFO: (data) => {
       dispatch({ type: actionTypes.updateFileUploadInfo, value: data });
     },
-    handleFileUploadError: (error) => {
+    HANDLE_FILE_UPLOAD_ERROR: (error) => {
       dispatch({ type: actionTypes.setFileUploadError, value: error });
     },
-    // content
-    updateContent: (formData) => {
+    // content overall
+    UPDATE_CONTENT: (formData) => {
       dispatch({ type: actionTypes.updateContent, value: formData });
     },
   };
@@ -72,7 +71,7 @@ const CreateProgram = () => {
   return (
     <>
       <h1 style={{ marginTop: '3rem' }}>Create Program</h1>
-      <AddContent state={state} actions={dispatchFunctions} />
+      <AddContent state={state} actions={actions} />
     </>
   );
 };

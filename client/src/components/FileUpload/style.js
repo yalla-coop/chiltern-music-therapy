@@ -23,6 +23,6 @@ export const UploadDetails = styled.div`
 `;
 
 export const FileNameWrapper = styled.div`
-  margin-top: 1rem;
+  margin-top: ${({ theme }) => theme.spacings[4]};
   display: flex;
 `;

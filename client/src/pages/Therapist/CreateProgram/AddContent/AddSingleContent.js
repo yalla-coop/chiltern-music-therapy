@@ -15,13 +15,13 @@ const AddSingleContent = ({ actions, state }) => {
   const { title } = singleContent;
 
   const {
-    updateContent,
-    handleShowModal,
-    updateSingleContent,
-    handleFileUploadStatus,
-    handleFileUploadInfo,
-    handleFileUploadError,
-    resetSingleContent,
+    UPDATE_CONTENT,
+    HANDLE_SINGLE_CONTENT_MODAL,
+    UPDATE_SINGLE_CONTENT,
+    HANDLE_UPLOAD_STATUS,
+    HANDLE_FILE_UPLOAD_INFO,
+    HANDLE_FILE_UPLOAD_ERROR,
+    RESET_SINGLE_CONTENT,
   } = actions;
 
   const handleSubmit = async () => {
@@ -34,9 +34,9 @@ const AddSingleContent = ({ actions, state }) => {
 
     // TODO add more checks
     // add to content state
-    updateContent(formData);
-    handleShowModal(false);
-    resetSingleContent();
+    UPDATE_CONTENT(formData);
+    HANDLE_SINGLE_CONTENT_MODAL(false);
+    RESET_SINGLE_CONTENT();
   };
 
   // TODO add card component here
@@ -58,15 +58,15 @@ const AddSingleContent = ({ actions, state }) => {
           placeholder="add title"
           type="text"
           value={title}
-          onChange={(e) => updateSingleContent('title', e.target.value)}
+          onChange={(e) => UPDATE_SINGLE_CONTENT('title', e.target.value)}
         />
         <FileUpload
           category={contentType}
-          setUploading={handleFileUploadStatus}
+          setUploading={HANDLE_UPLOAD_STATUS}
           uploading={fileUploading}
-          setFileInfo={handleFileUploadInfo}
+          setFileInfo={HANDLE_FILE_UPLOAD_INFO}
           fileInfo={uploadedFileInfo}
-          setError={handleFileUploadError}
+          setError={HANDLE_FILE_UPLOAD_ERROR}
           error={fileUploadError}
           w="300"
         />

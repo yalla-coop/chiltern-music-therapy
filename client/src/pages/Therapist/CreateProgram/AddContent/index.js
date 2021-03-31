@@ -18,8 +18,8 @@ const AddContent = ({ state, actions }) => {
           <Col w={[4, 4, 4]}>
             <button
               onClick={() => {
-                actions.handleShowModal();
-                actions.handleContentType('video');
+                actions.HANDLE_SINGLE_CONTENT_MODAL();
+                actions.HANDLE_CONTENT_TYPE('video');
               }}
             >
               Add Video
@@ -28,8 +28,8 @@ const AddContent = ({ state, actions }) => {
           <Col w={[4, 4, 4]}>
             <button
               onClick={() => {
-                actions.handleShowModal();
-                actions.handleContentType('application');
+                actions.HANDLE_SINGLE_CONTENT_MODAL();
+                actions.HANDLE_CONTENT_TYPE('application');
               }}
             >
               Add Doc
@@ -38,8 +38,8 @@ const AddContent = ({ state, actions }) => {
           <Col w={[4, 4, 4]}>
             <button
               onClick={() => {
-                actions.handleShowModal();
-                actions.handleContentType('audio');
+                actions.HANDLE_SINGLE_CONTENT_MODAL();
+                actions.HANDLE_CONTENT_TYPE('audio');
               }}
             >
               Add Audio

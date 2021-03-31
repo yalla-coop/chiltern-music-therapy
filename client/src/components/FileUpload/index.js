@@ -6,7 +6,9 @@ import { Media } from '../../api-calls';
 import Icon from '../Icon';
 import * as T from '../Typography';
 import * as S from './style';
-import { allowedFileTypesAndSizes } from '../../constants';
+import { fileTypeValidation } from '../../constants';
+
+const { printFileTypes, allowedFileTypesAndSizes } = fileTypeValidation;
 
 const { Dragger } = Upload;
 
@@ -35,8 +37,12 @@ const FileUpload = ({
 
     //  check 1: correct file type
     if (!allowedFileTypesAndSizes[category].types.includes(type)) {
+      const fileCategory = type.split('/')[0];
+      console.log(`fileCategory`, fileCategory);
       setError(
-        `${name} is not a ${allowedFileTypesAndSizes[category].types} file`
+        `${name} must be one of the following file types: ${printFileTypes(
+          category
+        )}`
       );
       correctFileType = false;
 
