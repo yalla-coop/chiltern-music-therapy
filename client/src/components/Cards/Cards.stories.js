@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import * as T from '../Typography';
 
-import { TherapyGoals, Info } from '.';
+import { TherapyGoals, Info, Basic } from '.';
 
 export default {
   title: 'Common Components/Cards',
@@ -15,7 +15,11 @@ export default {
 
 const TherapyGoalsExample = (args) => {
   const [goals, setGoals] = useState(args.goals);
-  return <TherapyGoals {...args} goals={goals} handleChange={setGoals} />;
+  return (
+    <div style={{ maxWidth: '450px' }}>
+      <TherapyGoals {...args} goals={goals} handleChange={setGoals} />
+    </div>
+  );
 };
 
 export const therapyGoals = TherapyGoalsExample.bind({});
@@ -65,4 +69,33 @@ infoExamplePlainBody.args = {
   title: 'Password must contain:',
   body:
     'Your information is safe with us. All materials are kept confidential and in line with the Data Protection Act 1998, we only keep your data for as long as we need it for, which will be at least for the duration of you receiving our services.',
+};
+
+const BasicExample = (args) => {
+  return (
+    <div style={{ maxWidth: '350px' }}>
+      <Basic {...args} />
+    </div>
+  );
+};
+
+export const Therapist = BasicExample.bind({});
+Therapist.args = {
+  therapistInfo: { firstName: 'Elizabeth', lastName: 'Peters', id: '1' },
+  variant: 'therapistInfo',
+};
+
+export const TextInfoShort = BasicExample.bind({});
+TextInfoShort.args = {
+  variant: 'textInfoShort',
+};
+
+export const TextInfoLong = BasicExample.bind({});
+TextInfoLong.args = {
+  variant: 'textInfoLong',
+};
+
+export const NoProgrammes = BasicExample.bind({});
+NoProgrammes.args = {
+  variant: 'noProgrammes',
 };
