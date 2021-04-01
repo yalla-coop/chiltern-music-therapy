@@ -177,3 +177,31 @@ ExpandableCardv2.args = {
   actions: true,
   withDate: true,
 };
+
+export const AudioExample = ExpandableExample.bind({});
+AudioExample.args = {
+  borderColor: 'rainbowHorizontal',
+  content: {
+    fileType: 'audio',
+    streamable: true,
+    download: '/file.mp4',
+    instructions:
+      'Hi J P SW! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.',
+    categories: ['Category 1', 'Category 2'],
+  },
+  actions: true,
+};
+
+export const DocExample = ExpandableExample.bind({});
+DocExample.args = {
+  borderColor: 'rainbowHorizontal',
+  content: {
+    fileType: 'document',
+    streamable: true,
+    download: '/file.mp4',
+    instructions:
+      'Hi J P SW! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.',
+    categories: ['Category 1', 'Category 2'],
+  },
+  actions: true,
+};

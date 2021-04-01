@@ -19,9 +19,9 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
   } = content;
 
   const titleData = {
-    video: { action: 'Watch', title: 'video' },
-    document: { action: 'View', title: 'content' },
-    audio: { action: 'Listen to', title: 'audio' },
+    video: { action: 'Watch', title: 'video', icon: 'video' },
+    document: { action: 'View', title: 'content', icon: 'document' },
+    audio: { action: 'Listen to', title: 'audio', icon: 'audio' },
   };
 
   const contentRef = useRef(null);
@@ -38,7 +38,7 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
       height={selectedHeight}
     >
       <S.Title open={open}>
-        <Icon icon="video" mr="3" width="33" height="33" />
+        <Icon icon={titleData[fileType]?.icon} mr="3" width="33" height="33" />
 
         {withDate ? (
           <S.DateTitle>
