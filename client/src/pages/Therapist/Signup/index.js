@@ -109,10 +109,12 @@ const TherapistSignup = ({ status, title, msg }) => {
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <Row>
-        <Col w={[4, 12, 8]}>
+        <Col w={[4, 12, 12]}>
           <T.H1 color="black" mb={6} mbM={5}>
             <span style={{ fontWeight: '900' }}>Sign</span> Up
           </T.H1>
+        </Col>
+        <Col w={[4, 12, 8]}>
           <T.P color="gray8" mb={6} mbM={5}>
             Chiltern Music Therapy Digital Platform is a space to support your
             client with digital content in between in-person sessions and
