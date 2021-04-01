@@ -1,22 +1,32 @@
 import { query } from '../../../database';
 
-const createUser = async ({ email, postcode, roles }, client) => {
+const createUser = async (
+  { firstName, lastName, email, postcode, roles, password },
+  client,
+) => {
   const sql = `
     INSERT INTO users(
+      first_name,
+      last_name,
       email,
       postcode,
-      roles
+      roles,
+      password
     ) VALUES (
       $1,
       $2,
-      $3
+      $3,
+      $4,
+      $5,
+      $6
     )
     RETURNING *
     `;
 
-  const values = [email, postcode, roles];
+  const values = [firstName, lastName, email, postcode, roles, password];
 
   const res = await query(sql, values, client);
+  res.rows[0].password = null;
   return res.rows[0];
 };
 

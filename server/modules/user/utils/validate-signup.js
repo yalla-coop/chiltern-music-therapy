@@ -7,17 +7,20 @@ import {
 import { userRoles } from '../../../constants';
 import { errorMsgs } from '../../../services/error-handler';
 
-const { email, password, fullName } = fields;
+const { email, password, firstName, lastName } = fields;
 
 const clientSignUp = createSchema({
   email,
   password,
+  firstName,
+  lastName,
 });
 
 const therapistSignUp = createSchema({
   email,
   password,
-  fullName,
+  firstName,
+  lastName,
 });
 
 const validate = (data) => {

@@ -22,6 +22,7 @@ const initialState = {
   httpError: '',
   validationErrs: {},
   submitAttempt: false,
+  loading: false,
 };
 
 function reducer(state, newState) {
@@ -43,6 +44,7 @@ const TherapistSignup = ({ status, title, msg }) => {
     httpError,
     validationErrs,
     submitAttempt,
+    loading,
   } = state;
 
   const validateForm = () => {
@@ -73,14 +75,15 @@ const TherapistSignup = ({ status, title, msg }) => {
   }, [firstName, lastName, email, password, agreedOnTerms]);
 
   const handleSignup = async () => {
+    setState({ loading: true });
     const { error, data } = await Users.signup({
-      role: roles.HQ,
+      role: roles.THERAPIST,
       email: cleanEmail(email),
       firstName,
       lastName,
       password,
     });
-
+    setState({ loading: false });
     if (error) {
       if (error.statusCode === 409) {
         setState({ validationErrs: { email: error.message } });
@@ -107,10 +110,10 @@ const TherapistSignup = ({ status, title, msg }) => {
     <S.Wrapper onSubmit={handleSubmit}>
       <Row>
         <Col w={[4, 12, 8]}>
-          <T.H1 color="black" mb={6} mbT={6} mbM={5}>
+          <T.H1 color="black" mb={6} mbM={5}>
             <span style={{ fontWeight: '900' }}>Sign</span> Up
           </T.H1>
-          <T.P color="gray8" mb={6} mbT={6} mbM={5}>
+          <T.P color="gray8" mb={6} mbM={5}>
             Chiltern Music Therapy Digital Platform is a space to support your
             client with digital content in between in-person sessions and
             enhance therapeutic outcomes.
@@ -118,7 +121,7 @@ const TherapistSignup = ({ status, title, msg }) => {
         </Col>
       </Row>
       <Row>
-        <Col w={[4, 12, 4]} mb={7} mbT={5} mbM={5}>
+        <Col w={[4, 12, 4]} mb={7} mbM={5}>
           <BasicInput
             placeholder="First name..."
             label="First name"
@@ -127,7 +130,7 @@ const TherapistSignup = ({ status, title, msg }) => {
             error={validationErrs.firstName}
           />
         </Col>
-        <Col w={[4, 12, 4]} mb={7} mbT={5} mbM={5}>
+        <Col w={[4, 12, 4]} mb={7} mbM={5}>
           <BasicInput
             placeholder="Last name..."
             label="Last name"
@@ -138,7 +141,7 @@ const TherapistSignup = ({ status, title, msg }) => {
         </Col>
       </Row>
       <Row>
-        <Col w={[4, 12, 4]} mb={7} mbT={5} mbM={5}>
+        <Col w={[4, 12, 4]} mb={7} mbM={5}>
           <BasicInput
             placeholder="Email..."
             label="Email"
@@ -148,7 +151,7 @@ const TherapistSignup = ({ status, title, msg }) => {
             error={validationErrs.email}
           />
         </Col>
-        <Col w={[4, 12, 4]} mb={7} mbT={5} mbM={5}>
+        <Col w={[4, 12, 4]} mb={7} mbM={5}>
           <BasicInput
             label="Password"
             placeholder="Password..."
@@ -195,7 +198,14 @@ const TherapistSignup = ({ status, title, msg }) => {
           <T.P mt="5" color="error">
             {httpError}
           </T.P>
-          <Button mt={7} mtT={5} mtM={5} text="Sign up" type="submit" />
+          <Button
+            mt={7}
+            mtT={5}
+            mtM={5}
+            text="Sign up"
+            type="submit"
+            loading={loading}
+          />
         </Col>
       </Row>
     </S.Wrapper>
