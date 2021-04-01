@@ -20,7 +20,8 @@ const THERAPIST = {
 };
 
 const EXTERNAL = {
-  TERMS_OF_USE: '',
+  TERMS_OF_USE: 'https://www.google.com/',
+  PRIVACY_POLICY: 'https://www.google.com/',
 };
 
 export { GENERAL, CLIENT, THERAPIST, EXTERNAL };

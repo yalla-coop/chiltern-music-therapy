@@ -65,13 +65,20 @@ export const P = styled(Paragraph)`
   font-weight: ${({ bold }) => (bold ? '700 !important' : '400 !important')};
 `;
 
-const AntdLink = ({ to = '/', external = false, ...props }) =>
+const AntdLink = ({ to = '/', underline, external = false, ...props }) =>
   external ? (
-    <Typography.Link target="_blank" href={to} {...props} />
+    <Typography.Link
+      target="_blank"
+      href={to}
+      underline={underline}
+      {...props}
+    />
   ) : (
     <RouterLink
       to={to}
-      component={() => <Typography.Link href={to} {...props} />}
+      component={() => (
+        <Typography.Link href={to} underline={underline} {...props} />
+      )}
     />
   );
 
