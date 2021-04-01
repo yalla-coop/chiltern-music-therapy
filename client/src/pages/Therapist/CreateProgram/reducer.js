@@ -3,6 +3,11 @@ import actionTypes from './actionTypes';
 const reducer = (state, action) => {
   const { type, key, value } = action;
   switch (type) {
+    case actionTypes.setFlow:
+      return {
+        ...state,
+        flow: value,
+      };
     case actionTypes.showModal:
       return {
         ...state,

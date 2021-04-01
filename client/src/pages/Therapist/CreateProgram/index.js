@@ -1,10 +1,23 @@
 import { useReducer } from 'react';
+import { Redirect } from 'react-router-dom';
+import { navRoutes } from '../../../constants';
 
 import reducer from './reducer';
 import actionTypes from './actionTypes';
+// parts
+import AddDescription from './AddDescription';
 import AddContent from './AddContent';
+import ReviewFinish from './ReviewFinish';
+
+const flowTypes = {
+  description: 'DESCRIPTION',
+  addContent: 'ADD_CONTENT',
+  reviewFinish: 'REVIEW_FINISH',
+};
 
 const initialState = {
+  flow: flowTypes.description,
+  description: null,
   // total content
   content: [],
   // single item
@@ -35,6 +48,11 @@ const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const actions = {
+    // set flow
+    SET_FLOW: (flow) => {
+      dispatch({ type: actionTypes.setFlow, value: flow });
+    },
+
     // single content
     HANDLE_SINGLE_CONTENT_MODAL: () => {
       dispatch({ type: actionTypes.showModal });
@@ -68,12 +86,17 @@ const CreateProgram = () => {
     },
   };
 
-  return (
-    <>
-      <h1 style={{ marginTop: '3rem' }}>Create Program</h1>
-      <AddContent state={state} actions={actions} />
-    </>
-  );
+  switch (state.flow) {
+    case flowTypes.description:
+      return <AddDescription actions={actions} state={state} />;
+    case flowTypes.addContent:
+      return <AddContent actions={actions} state={state} />;
+    case flowTypes.reviewFinish:
+      return <ReviewFinish actions={actions} state={state} />;
+
+    default:
+      return <Redirect to={navRoutes.GENERAL.UNAUTHORIZED} />;
+  }
 };
 
 export default CreateProgram;
