@@ -16,7 +16,7 @@ CREATE TABLE "users" (
   "contact_email" VARCHAR(100),
   "bio" TEXT,
   "profile_photo_media_id" INTEGER REFERENCES media(id),
-  "organisation_id" INTEGER REFERENCES organisations(id),
+  "organisation_id" INTEGER REFERENCES organisations(id) DEFAULT 1,
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()
 );
