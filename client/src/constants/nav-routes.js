@@ -16,6 +16,7 @@ const THERAPIST = {
   SIGNUP: `${THERAPIST_BASE}/signup`,
   WELCOME: `${THERAPIST_BASE}/welcome`,
   DASHBOARD: `${THERAPIST_BASE}/dashboard`,
+  CREATE_PROGRAM: `${THERAPIST_BASE}/program/create`,
 };
 
 const EXTERNAL = {

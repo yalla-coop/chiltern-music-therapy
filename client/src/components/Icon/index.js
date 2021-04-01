@@ -5,6 +5,8 @@ import * as T from '../Typography';
 
 // ICONS
 import Email from './icons/Email';
+import User from './icons/User';
+import Attachment from './icons/Attachment';
 import Add from './icons/Add';
 import Audio from './icons/Audio';
 import Bin from './icons/Bin';
@@ -13,6 +15,7 @@ import Cross from './icons/Cross';
 import Document from './icons/Document';
 import Download from './icons/Download';
 import GoBack from './icons/GoBack';
+import Inbox from './icons/Inbox';
 import Info from './icons/Info';
 import Menu from './icons/Menu';
 import Paperclip from './icons/Paperclip';
@@ -28,6 +31,8 @@ const Icon = (props) => {
 
   const IconMap = {
     email: Email,
+    user: User,
+    attachment: Attachment,
     add: Add,
     audio: Audio,
     bin: Bin,
@@ -36,6 +41,7 @@ const Icon = (props) => {
     document: Document,
     download: Download,
     goBack: GoBack,
+    inbox: Inbox,
     info: Info,
     menu: Menu,
     paperclip: Paperclip,
