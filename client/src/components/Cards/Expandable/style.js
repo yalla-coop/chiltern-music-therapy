@@ -23,6 +23,7 @@ export const Wrapper = styled.button`
   flex-direction: column;
   height: ${({ open, height }) => (open ? `${height + 40}px` : '80px')};
   transition: all 500ms ease-in;
+  cursor: pointer;
 
   ::before {
     content: '';
@@ -36,27 +37,15 @@ export const Wrapper = styled.button`
     bottom: 0;
     left: 0;
   }
-
-  .open-enter {
-    opacity: 0;
-  }
-  .open-enter-active {
-    opacity: 1;
-    transition: all 500ms linear;
-  }
-  .open-exit {
-    opacity: 1;
-  }
-  .open-exit-active {
-    opacity: 0;
-    transition: all 500ms ease-in;
-  }
 `;
 
 export const Title = styled.div`
-  height: ${({ open }) => (open ? 0 : '20px')};
+  height: ${({ open }) => (open ? 0 : '80px')};
   opacity: ${({ open }) => (open ? 0 : 1)};
   transition: all 500ms ease-in;
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
 `;
 
 export const Content = styled.div`

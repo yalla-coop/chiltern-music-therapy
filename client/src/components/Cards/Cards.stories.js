@@ -145,4 +145,12 @@ const ExpandableExample = (args) => {
 export const ExpandableCard = ExpandableExample.bind({});
 ExpandableCard.args = {
   borderColor: 'rainbowHorizontal',
+  content: {
+    fileType: 'video',
+    streamable: true,
+    download: '/file.mp4',
+    instructions:
+      'Hi J P SW! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.',
+    categories: ['Category 1', 'Category 2'],
+  },
 };
