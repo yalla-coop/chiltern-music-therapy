@@ -13,7 +13,7 @@ export default {
 const Template = (args) => {
   return (
     <div style={{ width: '300px' }}>
-      <Button {...args} />
+      <Button {...args} handleClick={() => console.log('Clicked')} />
     </div>
   );
 };
