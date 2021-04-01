@@ -88,10 +88,7 @@ const CreateProgram = () => {
   switch (state.flow) {
     case flowTypes.description:
       return (
-        <AddDescription
-          actions={{ ...actions.SET_FLOW, ...actions.SET_DESCRIPTION }}
-          description={state.description}
-        />
+        <AddDescription actions={actions} description={state.description} />
       );
     case flowTypes.addContent:
       return <AddContent actions={actions} state={state} />;

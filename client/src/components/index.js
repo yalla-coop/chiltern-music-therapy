@@ -7,6 +7,7 @@ import FileUpload from './FileUpload';
 import GoBack from './GoBack';
 import * as Typography from './Typography';
 import * as Inputs from './Inputs';
+import * as Content from './Content';
 
 export {
   Button,
@@ -18,4 +19,5 @@ export {
   GoBack,
   Typography,
   Inputs,
+  Content,
 };

@@ -1,11 +1,18 @@
-import { GoBack, Typography as T, Button, Grid } from '../../../../components';
+import {
+  GoBack,
+  Typography as T,
+  Button,
+  Grid,
+  Content,
+} from '../../../../components';
 
 import * as S from '../style';
 import flowTypes from '../flowTypes';
 
 import AddSingleContent from './AddSingleContent';
 
-const { Col } = Grid;
+const { Row, Col } = Grid;
+const { Add } = Content;
 
 const AddContent = ({ state, actions }) => {
   const {
@@ -23,16 +30,24 @@ const AddContent = ({ state, actions }) => {
   return (
     <>
       <GoBack customFn={goBack} />
-      <Col w={[4, 12, 12]}>
-        <S.HeadlineWrapper>
+      <Row mT={5}>
+        <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">
-            <strong>Add</strong> New Programme (Content)
+            <strong>Add</strong> New Programme
           </T.H1>
-        </S.HeadlineWrapper>
-      </Col>
-      <Col w={[4, 4, 4]}>
-        <Button variant="primary" text="Next" handleClick={goNext} />
-      </Col>
+        </Col>
+      </Row>
+      <Row mT={5}>
+        <Col w={[4, 12, 12]}>
+          <Add />
+        </Col>
+      </Row>
+
+      <Row mT={5}>
+        <Col w={[4, 4, 4]}>
+          <Button variant="primary" text="Next" handleClick={goNext} />
+        </Col>
+      </Row>
       {/*
       {!showModal && (
         <>
