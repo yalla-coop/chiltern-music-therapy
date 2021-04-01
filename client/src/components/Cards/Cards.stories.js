@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import * as T from '../Typography';
+import moment from 'moment';
 
-import { TherapyGoals, Info, Basic } from '.';
+import { TherapyGoals, Info, Basic, Link } from '.';
 
 export default {
   title: 'Common Components/Cards',
@@ -98,4 +99,37 @@ TextInfoLong.args = {
 export const NoProgrammes = BasicExample.bind({});
 NoProgrammes.args = {
   variant: 'noProgrammes',
+};
+
+const LinkExample = (args) => {
+  return (
+    <div style={{ maxWidth: '350px' }}>
+      <Link {...args} />
+    </div>
+  );
+};
+
+export const Graphic1 = LinkExample.bind({});
+Graphic1.args = {
+  variant: 'graphic1',
+  title: 'therapy plan',
+};
+
+export const Graphic2 = LinkExample.bind({});
+Graphic2.args = {
+  variant: 'graphic2',
+  title: 'therapy goals',
+};
+
+export const Programme = LinkExample.bind({});
+Programme.args = {
+  variant: 'programme',
+  programme: { date: moment(), id: 1 },
+};
+
+export const Client = LinkExample.bind({});
+Client.args = {
+  variant: 'client',
+  client: { firstInitial: 'J', secondInitial: 'P', postcode: 'SW', id: 1 },
+  borderColor: 'rainbowHorizontal',
 };

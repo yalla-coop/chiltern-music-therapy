@@ -2,8 +2,6 @@ import * as S from './style';
 import * as T from '../../Typography';
 
 const Basic = ({ children, variant, therapistInfo, m }) => {
-  console.log('hel');
-
   const textInfoShort = [
     'Open your camera app',
     "Press record and stop when you're finished",
