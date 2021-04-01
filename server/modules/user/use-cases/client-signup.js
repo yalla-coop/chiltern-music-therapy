@@ -39,8 +39,6 @@ const clientSignup = async ({ email, password, over16, inviteToken }) => {
       throw Boom.notFound(errorMsgs.INVALID_TOKEN);
     }
 
-    console.log({ A: clientUser.status, B: userStatuses.INVITED });
-    console.log(clientUser.status === userStatuses.INVITED);
     if (clientUser.status !== userStatuses.INVITED) {
       throw Boom.badData(errorMsgs.INVALID_TOKEN);
     }

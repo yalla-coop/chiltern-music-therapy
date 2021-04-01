@@ -12,7 +12,7 @@ import { useAuth } from '../../../context/auth';
 import validate from '../../../validation/schemas/signup';
 import { roles } from './../../../constants';
 
-import { Users } from '../../../api-calls';
+import { Users, TherapistClients } from '../../../api-calls';
 
 const initialState = {
   email: '',
@@ -22,6 +22,7 @@ const initialState = {
   httpError: '',
   validationErrs: {},
   submitAttempt: false,
+  therapistName: '',
   loading: false,
 };
 
@@ -46,6 +47,7 @@ const ClientSignup = ({ status, title, msg }) => {
     agreedOnTerms,
     over16,
     consent,
+    therapistName,
     httpError,
     validationErrs,
     submitAttempt,
@@ -71,6 +73,21 @@ const ClientSignup = ({ status, title, msg }) => {
       return false;
     }
   };
+
+  useEffect(() => {
+    const getTherapist = async () => {
+      const { data, error } = await TherapistClients.getTherapistByInviteToken({
+        inviteToken,
+      });
+      if (error) {
+        setState({ httpError: error.message });
+      } else {
+        setState({ therapistName: `${data.firstName} ${data.lastName}` });
+      }
+    };
+
+    getTherapist();
+  }, [inviteToken]);
 
   useEffect(() => {
     if (submitAttempt) {
@@ -122,7 +139,7 @@ const ClientSignup = ({ status, title, msg }) => {
         <Col w={[4, 12, 8]}>
           <T.P color="gray8" mb={4} mbM={3}>
             Your therapist{' '}
-            <span style={{ fontWeight: '700' }}>Elizabeth Peters</span> has sent
+            <span style={{ fontWeight: '700' }}>{therapistName}</span> has sent
             you this invite to sign up to the Chiltern Music Therapy Digital
             Platform.
           </T.P>
