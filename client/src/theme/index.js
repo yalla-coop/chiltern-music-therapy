@@ -27,18 +27,21 @@ const spacings = {
 };
 
 export const screensWidth = {
+  mobileXS: 374,
   mobile: 449,
   tablet: 949,
   desktop: 1442,
 };
 
 export const media = {
+  mobileXS: `@media (max-width: ${screensWidth.mobileXS}px)`,
   mobile: `@media (max-width: ${screensWidth.mobile}px)`,
   tablet: `@media (max-width: ${screensWidth.tablet}px)`,
   desktop: `@media (max-width: ${screensWidth.desktop}px)`,
 };
 
 export const breakpoints = {
+  mobileXS: `${screensWidth.mobileXS}px`,
   mobile: `${screensWidth.mobile}px`,
   tablet: `${screensWidth.tablet}px`,
   desktop: `${screensWidth.desktop}px`,
