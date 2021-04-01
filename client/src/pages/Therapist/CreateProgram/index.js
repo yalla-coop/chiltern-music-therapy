@@ -1,6 +1,9 @@
 import { useReducer } from 'react';
 import { Redirect } from 'react-router-dom';
+
 import { navRoutes } from '../../../constants';
+
+import { GoBack } from '../../../components';
 
 import reducer from './reducer';
 import actionTypes from './actionTypes';

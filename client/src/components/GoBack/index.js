@@ -10,7 +10,7 @@ const GoBack = ({ color = 'gray8', customLink, text, ...props }) => {
   const history = useHistory();
   const goBack = () =>
     customLink ? history.push(customLink) : history.goBack();
-  console.log('prop', props);
+
   return (
     <S.Wrapper onClick={goBack} color={color} {...props}>
       <Icon icon="goBack" width={35} height={11} color={color} />
