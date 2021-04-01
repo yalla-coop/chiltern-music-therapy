@@ -6,5 +6,16 @@ import Route from './Route';
 import FileUpload from './FileUpload';
 import GoBack from './GoBack';
 import * as Typography from './Typography';
+import * as Inputs from './Inputs';
 
-export { Button, Grid, Header, Layout, Route, FileUpload, GoBack, Typography };
+export {
+  Button,
+  Grid,
+  Header,
+  Layout,
+  Route,
+  FileUpload,
+  GoBack,
+  Typography,
+  Inputs,
+};

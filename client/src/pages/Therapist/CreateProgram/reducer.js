@@ -8,6 +8,11 @@ const reducer = (state, action) => {
         ...state,
         flow: value,
       };
+    case actionTypes.setDescription:
+      return {
+        ...state,
+        description: value,
+      };
     case actionTypes.showModal:
       return {
         ...state,

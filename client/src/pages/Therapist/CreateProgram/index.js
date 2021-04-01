@@ -13,7 +13,7 @@ import ReviewFinish from './ReviewFinish';
 
 const initialState = {
   flow: flowTypes.description,
-  description: null,
+  description: '',
   // total content
   content: [],
   // single item
@@ -47,6 +47,10 @@ const CreateProgram = () => {
     // set flow
     SET_FLOW: (flow) => {
       dispatch({ type: actionTypes.setFlow, value: flow });
+    },
+    // set description
+    SET_DESCRIPTION: (str) => {
+      dispatch({ type: actionTypes.setDescription, value: str });
     },
     // single content
     HANDLE_SINGLE_CONTENT_MODAL: () => {
@@ -83,7 +87,12 @@ const CreateProgram = () => {
 
   switch (state.flow) {
     case flowTypes.description:
-      return <AddDescription actions={actions} state={state} />;
+      return (
+        <AddDescription
+          actions={{ ...actions.SET_FLOW, ...actions.SET_DESCRIPTION }}
+          description={state.description}
+        />
+      );
     case flowTypes.addContent:
       return <AddContent actions={actions} state={state} />;
     case flowTypes.reviewFinish:

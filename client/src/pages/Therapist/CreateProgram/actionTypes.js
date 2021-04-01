@@ -1,5 +1,6 @@
 const actionTypes = {
   setFlow: 'SET_FLOW',
+  setDescription: 'SET_DESCRIPTION',
   showModal: 'SHOW_MODAL',
   setContentType: 'SET_CONTENT_TYPE',
   updateContent: 'UPDATE_CONTENT',
