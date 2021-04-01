@@ -3,20 +3,13 @@ import { Redirect } from 'react-router-dom';
 
 import { navRoutes } from '../../../constants';
 
-import { GoBack } from '../../../components';
-
 import reducer from './reducer';
 import actionTypes from './actionTypes';
+import flowTypes from './flowTypes';
 // parts
 import AddDescription from './AddDescription';
 import AddContent from './AddContent';
 import ReviewFinish from './ReviewFinish';
-
-const flowTypes = {
-  description: 'DESCRIPTION',
-  addContent: 'ADD_CONTENT',
-  reviewFinish: 'REVIEW_FINISH',
-};
 
 const initialState = {
   flow: flowTypes.description,
@@ -55,7 +48,6 @@ const CreateProgram = () => {
     SET_FLOW: (flow) => {
       dispatch({ type: actionTypes.setFlow, value: flow });
     },
-
     // single content
     HANDLE_SINGLE_CONTENT_MODAL: () => {
       dispatch({ type: actionTypes.showModal });

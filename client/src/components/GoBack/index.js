@@ -6,10 +6,17 @@ import Icon from '../Icon';
 
 import * as S from './style';
 
-const GoBack = ({ color = 'gray8', customLink, text, ...props }) => {
+const GoBack = ({ color = 'gray8', customFn, customLink, text, ...props }) => {
   const history = useHistory();
-  const goBack = () =>
-    customLink ? history.push(customLink) : history.goBack();
+  const goBack = () => {
+    if (customLink) {
+      history.push(customLink);
+    } else if (customFn && typeof customFn === 'function') {
+      customFn();
+    } else {
+      history.goBack();
+    }
+  };
 
   return (
     <S.Wrapper onClick={goBack} color={color} {...props}>

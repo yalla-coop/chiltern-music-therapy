@@ -1,6 +1,8 @@
-import { Grid } from '../../../../components';
+import { GoBack, Typography as T, Button, Grid } from '../../../../components';
 
 import * as S from '../style';
+import flowTypes from '../flowTypes';
+
 import AddSingleContent from './AddSingleContent';
 
 const { Col } = Grid;
@@ -10,41 +12,56 @@ const AddContent = ({ state, actions }) => {
     singleContent: { showModal },
   } = state;
 
+  const goNext = () => {
+    return actions.SET_FLOW(flowTypes.reviewFinish);
+  };
+
+  const goBack = () => {
+    return actions.SET_FLOW(flowTypes.description);
+  };
+
   return (
-    <S.Wrapper>
-      <h1 style={{ marginTop: '3rem' }}>Add Content</h1>
+    <>
+      <GoBack customFn={goBack} />
+      <Col w={[4, 12, 12]}>
+        <S.HeadlineWrapper>
+          <T.H1 color="gray10">
+            <strong>Add</strong> New Programme (Content)
+          </T.H1>
+        </S.HeadlineWrapper>
+      </Col>
+      <Col w={[4, 4, 4]}>
+        <Button variant="primary" text="Next" handleClick={goNext} />
+      </Col>
+      {/*
       {!showModal && (
         <>
-          <Col w={[4, 4, 4]}>
-            <button
-              onClick={() => {
-                actions.HANDLE_SINGLE_CONTENT_MODAL();
-                actions.HANDLE_CONTENT_TYPE('video');
-              }}
-            >
-              Add Video
-            </button>
-          </Col>
-          <Col w={[4, 4, 4]}>
-            <button
-              onClick={() => {
-                actions.HANDLE_SINGLE_CONTENT_MODAL();
-                actions.HANDLE_CONTENT_TYPE('application');
-              }}
-            >
-              Add Doc
-            </button>
-          </Col>
-          <Col w={[4, 4, 4]}>
-            <button
-              onClick={() => {
-                actions.HANDLE_SINGLE_CONTENT_MODAL();
-                actions.HANDLE_CONTENT_TYPE('audio');
-              }}
-            >
-              Add Audio
-            </button>
-          </Col>
+          <button
+            onClick={() => {
+              actions.HANDLE_SINGLE_CONTENT_MODAL();
+              actions.HANDLE_CONTENT_TYPE('video');
+            }}
+          >
+            Add Video
+          </button>
+
+          <button
+            onClick={() => {
+              actions.HANDLE_SINGLE_CONTENT_MODAL();
+              actions.HANDLE_CONTENT_TYPE('application');
+            }}
+          >
+            Add Doc
+          </button>
+
+          <button
+            onClick={() => {
+              actions.HANDLE_SINGLE_CONTENT_MODAL();
+              actions.HANDLE_CONTENT_TYPE('audio');
+            }}
+          >
+            Add Audio
+          </button>
         </>
       )}
 
@@ -57,8 +74,8 @@ const AddContent = ({ state, actions }) => {
               {el.uploadedFileInfo.name}
             </li>
           </ul>
-        ))}
-    </S.Wrapper>
+        ))} */}
+    </>
   );
 };
 
