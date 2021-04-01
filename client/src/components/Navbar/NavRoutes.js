@@ -1,4 +1,4 @@
-import { CLIENT, THERAPIST } from '../../constants/nav-routes';
+import { CLIENT, THERAPIST, ADMIN } from '../../constants/nav-routes';
 import { useAuth } from '../../context/auth';
 
 import * as S from './style';
@@ -84,6 +84,24 @@ export const TherapistRoutes = ({ setOpen }) => (
       <S.Head4>My</S.Head4>{' '}
       <S.Head4 bold color="gray8">
         account
+      </S.Head4>
+    </S.Link>
+    <LogoutRoute setOpen={setOpen} />
+  </>
+);
+
+export const AdminRoutes = ({ setOpen }) => (
+  <>
+    <S.Link to={ADMIN['ALL_FEEDBACK']} onClick={() => handleClick(setOpen)}>
+      <S.Head4>All</S.Head4>{' '}
+      <S.Head4 bold color="gray8">
+        feedback
+      </S.Head4>
+    </S.Link>
+    <S.Link to={ADMIN['ALL_CONTENT']} onClick={() => handleClick(setOpen)}>
+      <S.Head4>All</S.Head4>{' '}
+      <S.Head4 bold color="gray8">
+        content
       </S.Head4>
     </S.Link>
     <LogoutRoute setOpen={setOpen} />

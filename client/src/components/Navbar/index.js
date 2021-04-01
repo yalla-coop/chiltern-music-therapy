@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import { ClientRoutes, TherapistRoutes } from './NavRoutes';
+import { ClientRoutes, TherapistRoutes, AdminRoutes } from './NavRoutes';
 import { useAuth } from '../../context/auth';
 import R from '../../constants/roles';
 import theme from '../../theme';
@@ -12,7 +12,17 @@ import Image from '../Image';
 
 const NavItems = ({ setOpen }) => {
   const { user } = useAuth();
-  const NavRoutes = user.role === R.THERAPIST ? TherapistRoutes : ClientRoutes;
+
+  const decideRoutes = (role) => {
+    if (role === R.ADMIN) {
+      return AdminRoutes;
+    } else if (role === R.THERAPIST) {
+      return TherapistRoutes;
+    }
+    return ClientRoutes;
+  };
+
+  const NavRoutes = decideRoutes(user.role);
   return (
     <S.Div>
       <NavRoutes setOpen={setOpen} />

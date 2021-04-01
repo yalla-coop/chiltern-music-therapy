@@ -26,8 +26,15 @@ const THERAPIST = {
   ACCOUNT: `${THERAPIST_BASE}/account`,
 };
 
+const ADMIN_BASE = '/admin';
+
+const ADMIN = {
+  ALL_FEEDBACK: `${ADMIN_BASE}/all-feedback`,
+  ALL_CONTENT: `${ADMIN_BASE}/all-content`,
+};
+
 const EXTERNAL = {
   TERMS_OF_USE: '',
 };
 
-export { GENERAL, CLIENT, THERAPIST, EXTERNAL };
+export { GENERAL, CLIENT, THERAPIST, ADMIN, EXTERNAL };
