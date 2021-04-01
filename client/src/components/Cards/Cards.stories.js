@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as T from '../Typography';
 import moment from 'moment';
 
-import { TherapyGoals, Info, Basic, Link } from '.';
+import { TherapyGoals, Info, Basic, Link, Expandable } from '.';
 
 export default {
   title: 'Common Components/Cards',
@@ -131,5 +131,18 @@ export const Client = LinkExample.bind({});
 Client.args = {
   variant: 'client',
   client: { firstInitial: 'J', secondInitial: 'P', postcode: 'SW', id: 1 },
+  borderColor: 'rainbowHorizontal',
+};
+
+const ExpandableExample = (args) => {
+  return (
+    <div style={{ maxWidth: '350px' }}>
+      <Expandable {...args} />
+    </div>
+  );
+};
+
+export const ExpandableCard = ExpandableExample.bind({});
+ExpandableCard.args = {
   borderColor: 'rainbowHorizontal',
 };
