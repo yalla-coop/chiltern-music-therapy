@@ -5,8 +5,8 @@ import borders from './borders';
 import shadows from './shadows';
 
 const constants = {
-  columns: { mobile: 4, tablet: 6, desktop: 12 },
-  gridGutter: { mobile: 8, tablet: 16, desktop: 16 },
+  columns: { mobile: 4, tablet: 12, desktop: 12 },
+  gridGutter: { mobile: 8, tablet: 16, desktop: 24 },
   // side menu width
   // header height
   // ...
