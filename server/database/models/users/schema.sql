@@ -5,7 +5,7 @@ CREATE TABLE "users" (
   "first_name" VARCHAR(20) NOT NULL,
   "last_name" VARCHAR(20) NOT NULL,
   "email" VARCHAR(100) UNIQUE NOT NULL,
-  "password" TEXT NOT NULL,
+  "password" TEXT,
   "reset_password_token" TEXT,
   "over_16" BOOLEAN DEFAULT TRUE NOT NULL,
   "postcode" VARCHAR(9), -- for clients, for now its 2 char, but could be full later
