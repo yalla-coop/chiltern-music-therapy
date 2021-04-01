@@ -39,11 +39,14 @@ const BasicInput = ({
           <T.P color={color} m="0" mb="2">
             {label}
           </T.P>
-          <S.InfoWrapper onClick={() => setPasswordInfoOpen((prev) => !prev)}>
-            {showPasswordInfo && type === 'password' && (
+          {showPasswordInfo && type === 'password' && (
+            <S.InfoWrapper
+              type="button"
+              onClick={(e) => setPasswordInfoOpen((prev) => !prev)}
+            >
               <Icon icon="questionMark" color="blue" width="16" height="16" />
-            )}
-          </S.InfoWrapper>
+            </S.InfoWrapper>
+          )}
         </CS.Label>
       )}
       <S.Input
