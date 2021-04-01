@@ -3,7 +3,7 @@ import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
 
-const Expandable = ({ borderColor, content }) => {
+const Expandable = ({ borderColor, content, remove, edit }) => {
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
@@ -19,7 +19,11 @@ const Expandable = ({ borderColor, content }) => {
 
   useEffect(() => {
     setSelectedHeight(contentRef.current.offsetHeight);
-    console.log('sel', contentRef);
+    console.log(
+      'sel',
+      contentRef.current.scrollHeight,
+      contentRef.current.offsetHeight
+    );
   }, [contentRef]);
 
   return (
@@ -66,9 +70,35 @@ const Expandable = ({ borderColor, content }) => {
               Categories
             </T.H4>
             {categories.map((cat, i) => (
-              <div>Tag here with {cat}</div>
+              <div>Tags to go here with {cat}</div>
             ))}
           </>
+        )}
+        {(remove || edit) && (
+          <S.Actions>
+            {edit && (
+              <S.InvisibleBtn>
+                <Icon
+                  icon="edit"
+                  width="16"
+                  height="16"
+                  text="Edit"
+                  color="primary"
+                />
+              </S.InvisibleBtn>
+            )}
+            {remove && (
+              <S.InvisibleBtn>
+                <Icon
+                  icon="bin"
+                  width="16"
+                  height="16"
+                  text="Remove"
+                  color="secondary"
+                />
+              </S.InvisibleBtn>
+            )}
+          </S.Actions>
         )}
       </S.Content>
     </S.Wrapper>

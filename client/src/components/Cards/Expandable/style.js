@@ -1,8 +1,5 @@
 import styled from '@emotion/styled';
 import setMargin from '../../../helpers/set-margin';
-import { Collapse } from 'antd';
-
-const { Panel } = Collapse;
 
 export const Wrapper = styled.button`
   ${setMargin};
@@ -11,17 +8,15 @@ export const Wrapper = styled.button`
   margin-bottom: ${({ theme }) => theme.spacings[5]};
   box-shadow: ${({ theme }) => theme.shadows.elevation1};
   border-radius: ${({ theme }) => theme.borders.radius};
-  overflow: hidden;
   display: flex;
   align-items: center;
   position: relative;
-  min-height: 80px;
   background: white;
   border: none;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  height: ${({ open, height }) => (open ? `${height + 40}px` : '80px')};
+  min-height: ${({ open, height }) => (open ? `${height}px` : '80px')};
   transition: all 500ms ease-in;
   cursor: pointer;
 
@@ -36,19 +31,36 @@ export const Wrapper = styled.button`
     position: absolute;
     bottom: 0;
     left: 0;
+    border-radius: 0 0 10px 10px;
   }
 `;
 
 export const Title = styled.div`
-  height: ${({ open }) => (open ? 0 : '80px')};
+  height: ${({ open }) => (open ? 0 : '48px')};
   opacity: ${({ open }) => (open ? 0 : 1)};
   transition: all 500ms ease-in;
   display: flex;
   align-items: center;
-  padding-top: 5px;
 `;
 
 export const Content = styled.div`
   opacity: ${({ open }) => (!open ? 0 : 1)};
-  transition: all 500ms ease-in;
+  height: ${({ open }) => (!open ? 0 : 'auto')};
+
+  display: flex;
+  flex-direction: column;
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: ${({ theme }) => theme.spacings[5]};
+  margin-bottom: ${({ theme }) => theme.spacings[4]};
+`;
+
+export const InvisibleBtn = styled.button`
+  cursor: pointer;
+  border: none;
+  background: none;
 `;

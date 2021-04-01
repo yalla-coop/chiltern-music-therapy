@@ -135,9 +135,15 @@ Client.args = {
 };
 
 const ExpandableExample = (args) => {
+  const removeFunc = () => {
+    console.log('Remove content');
+  };
+  const editFunc = () => {
+    console.log('Edit content');
+  };
   return (
     <div style={{ maxWidth: '350px' }}>
-      <Expandable {...args} />
+      <Expandable {...args} remove={removeFunc} edit={editFunc} />
     </div>
   );
 };
@@ -153,4 +159,5 @@ ExpandableCard.args = {
       'Hi J P SW! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.',
     categories: ['Category 1', 'Category 2'],
   },
+  actions: true,
 };
