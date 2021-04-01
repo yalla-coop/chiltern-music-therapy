@@ -21,7 +21,7 @@ const Head1 = styled(Title)`
 `;
 export const H1 = (props) => <Head1 {...props} level={1} />;
 
-export const Head2 = styled(Title)`
+const Head2 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 24px !important;
@@ -30,7 +30,7 @@ export const Head2 = styled(Title)`
 `;
 export const H2 = (props) => <Head2 {...props} level={2} />;
 
-export const Head3 = styled(Title)`
+const Head3 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 20px !important;
@@ -39,7 +39,7 @@ export const Head3 = styled(Title)`
 `;
 export const H3 = (props) => <Head3 {...props} level={3} />;
 
-export const Head4 = styled(Title)`
+const Head4 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 18px !important;
@@ -48,7 +48,7 @@ export const Head4 = styled(Title)`
 `;
 export const H4 = (props) => <Head4 {...props} level={4} />;
 
-export const Head5 = styled(Title)`
+const Head5 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 14px !important;
