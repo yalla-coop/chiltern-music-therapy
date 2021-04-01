@@ -24,13 +24,13 @@ export const Div = styled.div`
 `;
 
 export const Container = styled.div`
+  ${setMargin};
   width: 100%;
   display: flex;
   flex-wrap: wrap;
 `;
 
 export const Wrapper = styled.div`
-  margin-top: 2px;
-  margin-left: 2px;
-  ${setMargin};
+  margin-top: 12px;
+  margin-left: 12px;
 `;

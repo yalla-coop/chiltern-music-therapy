@@ -38,4 +38,5 @@ MultiTags.args = {
     'Example 3',
   ],
   m: 1,
+  mt: '50px',
 };
