@@ -64,3 +64,8 @@ export const InvisibleBtn = styled.button`
   border: none;
   background: none;
 `;
+
+export const DateTitle = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

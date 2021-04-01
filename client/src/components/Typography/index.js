@@ -66,7 +66,7 @@ export const H5 = (props) => <Head5 {...props} level={5} />;
 export const P = styled(Paragraph)`
   ${setMargin};
   ${commonStyle};
-  font-size: 16px !important;
+  font-size: ${({ small }) => (small ? '14px !important' : '16px !important')};
   line-height: 150% !important;
   font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
 `;

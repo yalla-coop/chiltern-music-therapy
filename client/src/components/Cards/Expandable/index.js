@@ -2,14 +2,23 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
+import { dateFormatter } from '../../../helpers';
 
-const Expandable = ({ borderColor, content, remove, edit }) => {
+const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
-  const { fileType, streamable, download, instructions, categories } = content;
+  const {
+    fileType,
+    title,
+    date,
+    streamable,
+    download,
+    instructions,
+    categories,
+  } = content;
 
-  const title = {
+  const titleData = {
     video: { action: 'Watch', title: 'video' },
     document: { action: 'View', title: 'content' },
     audio: { action: 'Listen to', title: 'audio' },
@@ -19,11 +28,6 @@ const Expandable = ({ borderColor, content, remove, edit }) => {
 
   useEffect(() => {
     setSelectedHeight(contentRef.current.offsetHeight);
-    console.log(
-      'sel',
-      contentRef.current.scrollHeight,
-      contentRef.current.offsetHeight
-    );
   }, [contentRef]);
 
   return (
@@ -35,10 +39,22 @@ const Expandable = ({ borderColor, content, remove, edit }) => {
     >
       <S.Title open={open}>
         <Icon icon="video" mr="3" width="33" height="33" />
-        <T.P weight="light" mr="1">
-          {title[fileType]?.action}{' '}
-          <span style={{ fontWeight: 'bold' }}>{title[fileType]?.title}</span>
-        </T.P>
+
+        {withDate ? (
+          <S.DateTitle>
+            <T.P color="gray8" caps small>
+              {dateFormatter(date) || 'N/A'}
+            </T.P>
+            <T.P weight="bold">{title || 'N/A'}</T.P>
+          </S.DateTitle>
+        ) : (
+          <T.P weight="light" mr="1">
+            {titleData[fileType]?.action}{' '}
+            <span style={{ fontWeight: 'bold' }}>
+              {titleData[fileType]?.title}
+            </span>
+          </T.P>
+        )}
       </S.Title>
       <S.Content open={open} ref={contentRef} height={selectedHeight}>
         {streamable && (

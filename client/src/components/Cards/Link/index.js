@@ -15,8 +15,6 @@ const Link = ({
   client,
   borderColor,
 }) => {
-  console.log('hel');
-
   switch (variant) {
     case 'graphic1':
       return (
