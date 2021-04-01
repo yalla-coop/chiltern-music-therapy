@@ -50,17 +50,20 @@ const margins = ({
     ml ||
     theme.spacings[mx] ||
     mx ||
-    theme.spacings[m]} !important;
+    theme.spacings[m] ||
+    0} !important;
     margin-right: ${theme.spacings[mr] ||
     mr ||
     theme.spacings[mx] ||
     mx ||
-    theme.spacings[m]} !important;
+    theme.spacings[m] ||
+    0} !important;
     margin-top: ${theme.spacings[mt] ||
     mt ||
     theme.spacings[my] ||
     my ||
-    theme.spacings[m]} !important;
+    theme.spacings[m] ||
+    0} !important;
     margin-bottom: ${theme.spacings[mb] ||
     mb ||
     theme.spacings[my] ||
@@ -72,17 +75,20 @@ const margins = ({
       _mlT ||
       theme.spacings[_mxT] ||
       _mxT ||
-      theme.spacings[_mT]} !important;
+      theme.spacings[_mT] ||
+      0} !important;
       margin-right: ${theme.spacings[_mrT] ||
       _mrT ||
       theme.spacings[_mxT] ||
       _mxT ||
-      theme.spacings[_mT]} !important;
+      theme.spacings[_mT] ||
+      0} !important;
       margin-top: ${theme.spacings[_mtT] ||
       _mtT ||
       theme.spacings[_myT] ||
       _myT ||
-      theme.spacings[_mT]} !important;
+      theme.spacings[_mT] ||
+      0} !important;
       margin-bottom: ${theme.spacings[_mbT] ||
       _mbT ||
       theme.spacings[_myT] ||
@@ -95,17 +101,20 @@ const margins = ({
       _mlM ||
       theme.spacings[_mxM] ||
       _mxM ||
-      theme.spacings[_mM]} !important;
+      theme.spacings[_mM] ||
+      0} !important;
       margin-right: ${theme.spacings[_mrM] ||
       _mrM ||
       theme.spacings[_mxM] ||
       _mxM ||
-      theme.spacings[_mM]} !important;
+      theme.spacings[_mM] ||
+      0} !important;
       margin-top: ${theme.spacings[_mtM] ||
       _mtM ||
       theme.spacings[_myM] ||
       _myM ||
-      theme.spacings[_mM]} !important;
+      theme.spacings[_mM] ||
+      0} !important;
       margin-bottom: ${theme.spacings[_mbM] ||
       _mbM ||
       theme.spacings[_myM] ||
