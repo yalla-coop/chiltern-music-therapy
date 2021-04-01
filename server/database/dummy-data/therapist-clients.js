@@ -1,5 +1,3 @@
-import uniqid from 'uniqid';
-
 import { query } from '../connect';
 
 const createTherapistsClient = async ({
@@ -71,7 +69,7 @@ const createTherapistsClients = async ({ users }) => {
       'Erin tries to help bring families and couples closer together through therapeutic work and help to have fulfilling relationships. Erin provides both clinical supervision for Marriage and Family Therapists and Professional Counselors in MN as well as administrative supervision here at FamilyMeans.',
     therapistMessage:
       'I am a board certified Licensed Mental Health Counselor in New York, practicing as a therapist and coach in Manhattan. My education and professional background in both the mind and the body gives me a unique and effective approach to counseling.',
-    inviteToken: '000000000',
+    inviteToken: '00000000',
   });
   const therapist1Client2 = await createTherapistsClient({
     therapistUserId: users.therapist1.id,
@@ -96,7 +94,7 @@ const createTherapistsClients = async ({ users }) => {
       'Erin tries to help bring families and couples closer together through therapeutic work and help to have fulfilling relationships. Erin provides both clinical supervision for Marriage and Family Therapists and Professional Counselors in MN as well as administrative supervision here at FamilyMeans.2',
     therapistMessage:
       'I am a board certified Licensed Mental Health Counselor in New York, practicing as a therapist and coach in Manhattan. My education and professional background in both the mind and the body gives me a unique and effective approach to counseling.2',
-    inviteToken: '111111111',
+    inviteToken: '11111111',
   });
 
   const therapist1Client3 = await createTherapistsClient({
@@ -122,7 +120,7 @@ const createTherapistsClients = async ({ users }) => {
       'Erin tries to help bring families and couples closer together through therapeutic work and help to have fulfilling relationships. Erin provides both clinical supervision for Marriage and Family Therapists and Professional Counselors in MN as well as administrative supervision here at FamilyMeans.3',
     therapistMessage:
       'I am a board certified Licensed Mental Health Counselor in New York, practicing as a therapist and coach in Manhattan. My education and professional background in both the mind and the body gives me a unique and effective approach to counseling.3',
-    inviteToken: '222222222',
+    inviteToken: '22222222',
   });
 
   return {
