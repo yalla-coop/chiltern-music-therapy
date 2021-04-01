@@ -42,7 +42,7 @@ export const agreedOnTerms = boolean()
   .required(errMsgs.DEFAULT_REQUIRED);
 
 export const agreedAge = boolean()
-  .oneOf([true], errMsgs.AGREED_AGE) //
+  .oneOf([true], errMsgs.AGREED_AGE)
   .required(errMsgs.DEFAULT_REQUIRED);
 
 export const arrayOfIds = array()
