@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 export const OnboardingHeader = styled.header`
   width: 100%;
   background: white;
-  padding: ${({ theme: { spacings } }) => `40px ${spacings[10]}`};
+  padding: ${({ theme: { spacings } }) => `${spacings[6]} ${spacings[10]}`};
   display: flex;
   justify-content: space-between;
+  align-items: center;
   &:after {
     content: '';
     position: absolute;
@@ -21,7 +22,7 @@ export const OnboardingHeader = styled.header`
   }
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) =>
-      `${spacings[7]} ${spacings[9]} ${spacings[0]} ${spacings[9]}`};
+      `40px ${spacings[7]} 40px ${spacings[9]}`};
   }
   ${({ theme }) => theme.media.mobile} {
     padding: ${({ theme: { spacings } }) =>
