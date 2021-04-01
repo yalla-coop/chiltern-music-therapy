@@ -41,6 +41,10 @@ export const agreedOnTerms = boolean()
   .oneOf([true], errMsgs.SHOULD_AGREE_ON_TERMS)
   .required(errMsgs.DEFAULT_REQUIRED);
 
+export const agreedAge = boolean()
+  .oneOf([true], errMsgs.AGREED_AGE) //
+  .required(errMsgs.DEFAULT_REQUIRED);
+
 export const arrayOfIds = array()
   .of(number())
   .min(1)
@@ -58,4 +62,8 @@ export const urlRequired = string()
       message: errMsgs.INVALID_LINK,
     }
   )
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const inviteToken = string()
+  .length(8)
   .required(errMsgs.DEFAULT_REQUIRED);

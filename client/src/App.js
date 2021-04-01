@@ -27,6 +27,13 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.CLIENT.SIGNUP}
+                Component={Pages.CLIENT.Signup}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
                 path={navRoutes.GENERAL.HOME}
                 Component={Pages.GENERAL.Example}
                 layout="info"

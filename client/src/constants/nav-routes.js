@@ -7,6 +7,7 @@ const GENERAL = {
 const CLIENT = {
   WELCOME: '/welcome',
   DASHBOARD: '/dashboard',
+  SIGNUP: '/signup',
 };
 
 const THERAPIST_BASE = '/therapist';
