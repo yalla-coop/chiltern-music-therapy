@@ -205,3 +205,58 @@ DocExample.args = {
   },
   actions: true,
 };
+
+const ExpandableEditExample = (args) => {
+  const removeFunc = () => {
+    console.log('Remove content');
+  };
+  const handleInput = () => {
+    console.log('Some sort of function to handle formstate changes');
+  };
+
+  const saveChanges = () => {
+    console.log('Function to then store any changes');
+  };
+
+  const onCancel = () => {
+    console.log('Function to cancel changes');
+  };
+
+  return (
+    <div style={{ maxWidth: '350px' }}>
+      <Expandable
+        {...args}
+        remove={removeFunc}
+        saveChanges={saveChanges}
+        handleInput={handleInput}
+        onCancel={onCancel}
+      />
+    </div>
+  );
+};
+
+export const EditingVideo = ExpandableEditExample.bind({});
+EditingVideo.args = {
+  borderColor: 'rainbowHorizontal',
+  content: {
+    fileType: 'video',
+    streamable: true,
+    download: '/file.mp4',
+    instructions:
+      'Hi J P SW! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.',
+    categories: ['Category 1', 'Category 2'],
+    savedToLibrary: true,
+    title: 'Title of content',
+    date: moment(),
+  },
+  actions: true,
+  errors: {},
+  library: true,
+  loading: false,
+  categoryOptions: [
+    { label: 'Category 1', value: 'Category 1' },
+    { label: 'Category 2', value: 'Category 2' },
+  ],
+  editing: true,
+  withDate: true,
+};
