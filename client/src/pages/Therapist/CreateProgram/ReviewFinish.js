@@ -5,11 +5,8 @@ import flowTypes from './flowTypes';
 
 const { Row, Col } = Grid;
 
-const ReviewFinish = ({ state, actions }) => {
-  const goBack = () => {
-    return actions.SET_FLOW(flowTypes.addContent);
-  };
-
+const ReviewFinish = ({ state, actions, decidePath }) => {
+  const goBack = () => decidePath(flowTypes.addContent);
   return (
     <>
       <GoBack customFn={goBack} />
@@ -29,11 +26,7 @@ const ReviewFinish = ({ state, actions }) => {
           />
         </Col>
         <Col w={[4, 4, 4]}>
-          <Button
-            variant="secondary"
-            text="Save Changes"
-            // handleClick={handleClick}
-          />
+          <Button variant="secondary" text="Save Changes" />
         </Col>
       </Row>
     </>

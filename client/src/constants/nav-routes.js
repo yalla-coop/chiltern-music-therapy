@@ -20,10 +20,17 @@ const THERAPIST = {
   SIGNUP: `${THERAPIST_BASE}/signup`,
   WELCOME: `${THERAPIST_BASE}/welcome`,
   DASHBOARD: `${THERAPIST_BASE}/dashboard`,
-  CREATE_PROGRAM: `${THERAPIST_BASE}/program/create`,
   LIBRARY: `${THERAPIST_BASE}/library`,
   FEEDBACK: `${THERAPIST_BASE}/feedback`,
   ACCOUNT: `${THERAPIST_BASE}/account`,
+  // CREATE PROGRAM
+  CREATE_PROGRAM: `${THERAPIST_BASE}/program/create`,
+  CREATE_PROGRAM_DESCRIPTION: `${THERAPIST_BASE}/program/create/description`,
+  CREATE_PROGRAM_CONTENT: `${THERAPIST_BASE}/program/create/content`,
+  CREATE_PROGRAM_CONTENT_SINGLE: `${THERAPIST_BASE}/program/create/content/:category`,
+  CREATE_PROGRAM_REVIEW: `${THERAPIST_BASE}/program/create/review`,
+  // EDIT PROGRAM
+  EDIT_PROGRAM_CONTENT_SINGLE: `${THERAPIST_BASE}/program/edit/content/:category`,
 };
 
 const ADMIN_BASE = '/admin';

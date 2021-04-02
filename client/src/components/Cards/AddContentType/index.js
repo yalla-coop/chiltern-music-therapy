@@ -1,33 +1,55 @@
+import { useHistory } from 'react-router-dom';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
-import { content } from '../../../constants';
+import { content, navRoutes } from '../../../constants';
 
 const { fileCategories } = content;
 
-const AddContentType = ({ contentType, action }) => {
-  const titleData = {
-    [fileCategories.video]: {
-      title: 'video',
-      icon: 'video',
-      borderColor: 'rainbowHorizontal',
-    },
-    [fileCategories.document]: {
-      title: 'document/message',
-      icon: 'document',
-      borderColor: 'darkBlue',
-    },
-    [fileCategories.audio]: {
-      title: 'audio message',
-      icon: 'audio',
-      borderColor: 'PinkUnder',
-    },
-  };
+const titleData = {
+  [fileCategories.video]: {
+    title: 'video',
+    icon: 'video',
+    borderColor: 'rainbowHorizontal',
+  },
+  [fileCategories.document]: {
+    title: 'document/message',
+    icon: 'document',
+    borderColor: 'darkBlue',
+  },
+  [fileCategories.audio]: {
+    title: 'audio message',
+    icon: 'audio',
+    borderColor: 'PinkUnder',
+  },
+};
+
+const AddContentType = ({ mode, contentType }) => {
+  const history = useHistory();
+
+  // mode can be create / edit program
+
+  const decidePath = (type) =>
+    mode === 'create'
+      ? history.push(
+          navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_SINGLE.replace(
+            ':category',
+            type
+          )
+        )
+      : history.push(
+          navRoutes.THERAPIST.EDIT_PROGRAM_CONTENT_SINGLE.replace(
+            ':category',
+            type
+          )
+        );
 
   return (
     <S.Wrapper
       borderColor={titleData[contentType]?.borderColor}
-      onClick={action}
+      onClick={() => {
+        decidePath(contentType);
+      }}
     >
       <S.Title>
         <Icon

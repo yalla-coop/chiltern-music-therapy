@@ -33,7 +33,6 @@ function App() {
                 image="hands"
               />
               <Route
-                exact
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
                 layout="general"

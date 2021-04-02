@@ -9,28 +9,22 @@ import {
 import * as S from '../style';
 import flowTypes from '../flowTypes';
 
-import AddSingleContent from './AddSingleContent';
-
 const { Row, Col } = Grid;
-const { AddContentSection } = Content;
+const { AddContentSection, AddSingleContent } = Content;
 
-const AddContent = ({ state, actions }) => {
+const AddContent = ({ state, actions, decidePath }) => {
   const {
     singleContent: { showModal },
   } = state;
 
-  const goNext = () => {
-    return actions.SET_FLOW(flowTypes.reviewFinish);
-  };
+  const goNext = () => decidePath(flowTypes.reviewFinish);
 
-  const goBack = () => {
-    return actions.SET_FLOW(flowTypes.description);
-  };
+  const goBack = () => decidePath(flowTypes.description);
 
-  return (
+  return !showModal ? (
     <S.Wrapper>
       <GoBack customFn={goBack} />
-      <Row mt={5}>
+      <Row mt={6}>
         <Col w={[4, 12, 9]}>
           <T.H1 color="gray10">
             <strong>Add</strong> New Programme
@@ -44,16 +38,16 @@ const AddContent = ({ state, actions }) => {
         </Col>
       </Row>
       <Row mt={5}>
-        <AddContentSection />
+        <AddContentSection mode="create" libraryContent={[]} />
       </Row>
 
-      <Row mt={9}>
+      <Row mt={7}>
         <Col w={[4, 9, 4]}>
           {/* TODO add check to render if content */}
           <Button
             variant="secondary"
             text="Review and finish"
-            // handleClick={handleClick}
+            handleClick={goNext}
           />
         </Col>
       </Row>
@@ -100,6 +94,8 @@ const AddContent = ({ state, actions }) => {
           </ul>
         ))} */}
     </S.Wrapper>
+  ) : (
+    <AddSingleContent goBack={goBack} />
   );
 };
 

@@ -1,7 +1,8 @@
 const flowTypes = {
-  description: 'DESCRIPTION',
-  addContent: 'ADD_CONTENT',
-  reviewFinish: 'REVIEW_FINISH',
+  description: 'description',
+  addContent: 'content',
+  addSingleContent: 'ADD_SINGLE_CONTENT',
+  reviewFinish: 'review',
 };
 
 export default flowTypes;

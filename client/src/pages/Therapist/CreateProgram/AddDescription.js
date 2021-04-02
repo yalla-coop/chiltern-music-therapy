@@ -12,7 +12,7 @@ import flowTypes from './flowTypes';
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
-const AddDescription = ({ description, actions }) => {
+const AddDescription = ({ decidePath, description, actions }) => {
   const { SET_DESCRIPTION, SET_FLOW } = actions;
 
   const goNext = () => {
@@ -56,7 +56,11 @@ const AddDescription = ({ description, actions }) => {
       </Row>
       <Row mt={7}>
         <Col w={[4, 4, 4]}>
-          <Button variant="primary" text="Next" handleClick={goNext} />
+          <Button
+            variant="primary"
+            text="Next"
+            handleClick={() => decidePath(flowTypes.addContent)}
+          />
         </Col>
       </Row>
     </>

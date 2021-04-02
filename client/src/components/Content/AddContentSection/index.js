@@ -4,14 +4,16 @@ import Icon from '../../Icon';
 import * as S from './style';
 
 import { content } from '../../../constants';
-import theme from '../../../theme';
 
-const { Row, Col } = Grid;
+const { Col } = Grid;
 const { Dropdown } = Inputs;
 
 const { fileCategories } = content;
 
-const AddContentSection = ({ m, libraryContent = [], error }) => {
+const AddContentSection = ({ m, mode, libraryContent = [], error }) => {
+  // mode can be create / edit program
+
+  // TODO make this dynamic
   libraryContent = [
     { label: 'Option 1 Super Long with Lots of Info', value: 'Option 1' },
     { label: 'Option 2', value: 'Option 2' },
@@ -41,7 +43,7 @@ const AddContentSection = ({ m, libraryContent = [], error }) => {
       <S.CardsWrapper {...m}>
         {Object.keys(fileCategories).map((category, i) => (
           <Col mb={5} w={[4, 9, 4]}>
-            <AddContentType contentType={category} />
+            <AddContentType mode={mode} contentType={category} />
           </Col>
         ))}
       </S.CardsWrapper>

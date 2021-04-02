@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
-import { Redirect } from 'react-router-dom';
+
+import { Switch, useHistory } from 'react-router-dom';
 
 import { navRoutes } from '../../../constants';
 
@@ -9,6 +10,8 @@ import flowTypes from './flowTypes';
 // parts
 import AddDescription from './AddDescription';
 import AddContent from './AddContent';
+
+import { AddSingleContent } from '../../../components/Content';
 import ReviewFinish from './ReviewFinish';
 
 const initialState = {
@@ -42,6 +45,7 @@ const initialState = {
 
 const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const history = useHistory();
 
   const actions = {
     // set flow
@@ -85,19 +89,41 @@ const CreateProgram = () => {
     },
   };
 
-  switch (state.flow) {
-    case flowTypes.description:
-      return (
-        <AddDescription actions={actions} description={state.description} />
-      );
-    case flowTypes.addContent:
-      return <AddContent actions={actions} state={state} />;
-    case flowTypes.reviewFinish:
-      return <ReviewFinish actions={actions} state={state} />;
+  const decidePath = (flow) =>
+    history.push(`${navRoutes.THERAPIST.CREATE_PROGRAM}/${flow}`);
 
-    default:
-      return <Redirect to={navRoutes.GENERAL.UNAUTHORIZED} />;
-  }
+  return (
+    <Switch>
+      <AddDescription
+        exact
+        path={navRoutes.THERAPIST.CREATE_PROGRAM_DESCRIPTION}
+        actions={actions}
+        description={state.description}
+        decidePath={decidePath}
+      />
+      <AddContent
+        exact
+        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT}
+        actions={actions}
+        state={state}
+        decidePath={decidePath}
+      />
+      <AddSingleContent
+        exact
+        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_SINGLE}
+        actions={actions}
+        state={state}
+        decidePath={decidePath}
+      />
+      <ReviewFinish
+        exact
+        path={navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW}
+        actions={actions}
+        state={state}
+        decidePath={decidePath}
+      />
+    </Switch>
+  );
 };
 
 export default CreateProgram;
