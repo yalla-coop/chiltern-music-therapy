@@ -26,10 +26,15 @@ const decideType = (type) => {
         background: theme.colors.white,
         borderColor: theme.gradients.PinkUnder,
       };
-    default:
+    case 'gray':
       return {
         background: theme.colors.white,
         borderColor: theme.colors.gray6,
+      };
+    default:
+      return {
+        borderColor: theme.gradients.white,
+        background: theme.gradients.Blue,
       };
   }
 };
@@ -41,12 +46,17 @@ export const Button = styled.button`
   align-items: center;
   width: ${({ w }) => w || '100%'};
   height: 56px;
-  color: ${({ variant }) => (variant === 'primary' ? 'white' : 'black')};
+  color: ${({ variant }) =>
+    variant === 'primary' ? theme.colors.white : theme.colors.black};
   position: relative;
-  background: ${({ variant }) =>
-    variant === 'primary' ? theme.gradients.Blue : 'white'};
+  background: ${({ variant, customColor }) =>
+    variant === 'primary'
+      ? theme.colors[customColor] || theme.gradients.Blue
+      : 'white'};
   border: none;
   border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
 
   ::before {
     content: '';

@@ -4,7 +4,8 @@ import { Users } from './../api-calls';
 const initialUserState = {
   id: null,
   email: '',
-  fullName: '',
+  firstName: '',
+  lastName: '',
   role: '',
 };
 

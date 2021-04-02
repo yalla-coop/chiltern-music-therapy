@@ -1,9 +1,14 @@
 import { number, string } from 'yup';
 import * as errMsgs from './err-msgs';
 
-export const fullName = string()
-  .min(1)
-  .max(40)
+export const firstName = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(20)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const lastName = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(20)
   .required(errMsgs.DEFAULT_REQUIRED);
 
 export const email = string()
