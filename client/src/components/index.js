@@ -5,6 +5,7 @@ import Layout from './Layout';
 import Route from './Route';
 import FileUpload from './FileUpload';
 import GoBack from './GoBack';
+import Example from './Example';
 import * as Typography from './Typography';
 import * as Inputs from './Inputs';
 import * as Content from './Content';
@@ -20,4 +21,5 @@ export {
   Typography,
   Inputs,
   Content,
+  Example,
 };

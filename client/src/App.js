@@ -20,9 +20,16 @@ function App() {
               {/* Auth Routes */}
               <Route
                 exact
+                path={navRoutes.THERAPIST.SIGNUP}
+                Component={Pages.THERAPIST.Signup}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
                 path={navRoutes.GENERAL.HOME}
                 Component={Pages.GENERAL.Example}
-                layout="info"
+                layout="general"
                 image="hands"
               />
               <Route

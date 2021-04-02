@@ -12,7 +12,7 @@ import flowTypes from '../flowTypes';
 import AddSingleContent from './AddSingleContent';
 
 const { Row, Col } = Grid;
-const { Add } = Content;
+const { AddContentSection } = Content;
 
 const AddContent = ({ state, actions }) => {
   const {
@@ -39,7 +39,7 @@ const AddContent = ({ state, actions }) => {
       </Row>
       <Row mT={5}>
         <Col w={[4, 12, 12]}>
-          <Add />
+          <AddContentSection />
         </Col>
       </Row>
 

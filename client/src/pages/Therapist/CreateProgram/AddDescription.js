@@ -4,6 +4,7 @@ import {
   Button,
   Grid,
   Inputs,
+  Example,
 } from '../../../components';
 
 import flowTypes from './flowTypes';
@@ -25,15 +26,15 @@ const AddDescription = ({ description, actions }) => {
   return (
     <>
       <GoBack />
-      <Row mT={5}>
+      <Row mt={5}>
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">
             <strong>Add</strong> New Programme
           </T.H1>
         </Col>
       </Row>
-      <Row>
-        <Col w={[4, 6, 4]}>
+      <Row mt={5}>
+        <Col w={[4, 6, 6]}>
           <Textarea
             label="Please add a brief description of the content you are sharing and what you would like them to work on this week."
             rows={5}
@@ -42,13 +43,18 @@ const AddDescription = ({ description, actions }) => {
           />
         </Col>
       </Row>
-      <Row mT={2}>
-        <Col w={[4, 6, 4]}>
-          {/* TOTO ADD CC */}
-          <T.P>Example Text</T.P>
+      <Row mt={2}>
+        <Col w={[4, 6, 6]}>
+          <Example>
+            Between our therapy sessions and home programme content, we’ll
+            continue supporting J in 4 key areas: social interaction &
+            communication, emotional wellbeing, cognition; learning, and
+            physical skills. Each week, we’ll focus on 1 or more of these areas,
+            with an accompanying resource to support her over that week.
+          </Example>
         </Col>
       </Row>
-      <Row mT={5}>
+      <Row mt={7}>
         <Col w={[4, 4, 4]}>
           <Button variant="primary" text="Next" handleClick={goNext} />
         </Col>

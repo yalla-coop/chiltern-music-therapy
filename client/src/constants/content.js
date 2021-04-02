@@ -1,6 +1,6 @@
 const fileCategories = {
   video: 'video',
-  application: 'application',
+  document: 'document',
   audio: 'audio',
 };
 

@@ -1,3 +1,3 @@
-import Add from './Add';
+import AddContentSection from './AddContentSection';
 
-export { Add };
+export { AddContentSection };
