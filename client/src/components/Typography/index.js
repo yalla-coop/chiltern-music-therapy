@@ -4,12 +4,18 @@ import setMargin from '../../helpers/set-margin';
 import { Typography } from 'antd';
 const { Title, Paragraph } = Typography;
 
-const commonStyle = ({ theme, color, caps, ...props }) => `
+const weights = {
+  bold: '700 !important',
+  light: '300 !important',
+};
+
+const commonStyle = ({ theme, color, caps, ta, ...props }) => `
   font-style: normal !important;
   font-weight: 900 !important;
   letter-spacing: 0.2px !important;
   color: ${theme.colors[color] || color || theme.colors.black} !important;
   text-transform: ${caps ? 'uppercase' : 'initial'} !important;
+  text-align: ${ta || 'left'} !important;
 `;
 
 const Head1 = styled(Title)`
@@ -44,7 +50,7 @@ export const Head4 = styled(Title)`
   ${commonStyle};
   font-size: 18px !important;
   line-height: 150% !important;
-  font-weight: ${({ bold }) => (bold ? '900 !important' : '300 !important')};
+  font-weight: ${({ bold }) => (bold ? '700 !important' : '300 !important')};
 `;
 export const H4 = (props) => <Head4 {...props} level={4} />;
 
@@ -60,9 +66,9 @@ export const H5 = (props) => <Head5 {...props} level={5} />;
 export const P = styled(Paragraph)`
   ${setMargin};
   ${commonStyle};
-  font-size: 16px !important;
+  font-size: ${({ small }) => (small ? '14px !important' : '16px !important')};
   line-height: 150% !important;
-  font-weight: ${({ bold }) => (bold ? '700 !important' : '400 !important')};
+  font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
 `;
 
 const AntdLink = ({ to = '/', underline, external = false, ...props }) =>
@@ -87,5 +93,8 @@ export const Link = styled(AntdLink)`
   ${commonStyle};
   font-size: 16px !important;
   line-height: 150% !important;
-  font-weight: ${({ bold }) => (bold ? '700 !important' : '300 !important')};
+  font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
+  border-bottom: 1px solid;
+  border-color: ${({ theme, color }) =>
+    theme.colors[color] || color || theme.colors.black} !important;
 `;
