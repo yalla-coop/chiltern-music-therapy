@@ -16,7 +16,7 @@ const Dropdown = ({
   helper,
   w,
   disabled,
-  options,
+  options = [],
   groupedOptions,
   selected,
   multi,

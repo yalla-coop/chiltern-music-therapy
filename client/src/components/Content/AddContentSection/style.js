@@ -1,6 +1,23 @@
 import styled from '@emotion/styled';
-import setMargin from '../../../helpers/set-margin';
 
 export const Wrapper = styled.div`
-  ${setMargin};
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const IconWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: ${({ theme }) => theme.spacings[6]};
+`;
+
+export const CardsWrapper = styled.div`
+  display: flex;
+  ${({ theme }) => `
+    ${theme.media.tablet} {
+       flex-direction: column;
+    }
+  `}
 `;

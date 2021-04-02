@@ -26,6 +26,7 @@ import Star from './icons/Star';
 import Tick from './icons/Tick';
 import Video from './icons/Video';
 import Edit from './icons/Edit';
+import Or from './icons/Or';
 
 const Icon = (props) => {
   const { icon, color, text } = props;
@@ -53,6 +54,7 @@ const Icon = (props) => {
     tick: Tick,
     video: Video,
     edit: Edit,
+    or: Or,
   };
 
   if (!IconMap[icon]) {

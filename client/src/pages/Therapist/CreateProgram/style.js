@@ -2,12 +2,9 @@ import styled from '@emotion/styled';
 import { spacings } from '../../../theme';
 
 export const Wrapper = styled.div`
-  min-height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const Content = styled.main`

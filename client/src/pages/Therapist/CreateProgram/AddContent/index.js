@@ -28,24 +28,33 @@ const AddContent = ({ state, actions }) => {
   };
 
   return (
-    <>
+    <S.Wrapper>
       <GoBack customFn={goBack} />
-      <Row mT={5}>
-        <Col w={[4, 12, 12]}>
+      <Row mt={5}>
+        <Col w={[4, 12, 9]}>
           <T.H1 color="gray10">
             <strong>Add</strong> New Programme
           </T.H1>
         </Col>
-      </Row>
-      <Row mT={5}>
-        <Col w={[4, 12, 12]}>
-          <AddContentSection />
+        <Col w={[4, 9, 7]} mt={5}>
+          <T.P color="gray8">
+            Great! Now it’s time to share content. Add as many videos, audio
+            files, links and written content as you like!
+          </T.P>
         </Col>
       </Row>
+      <Row mt={5}>
+        <AddContentSection />
+      </Row>
 
-      <Row mT={5}>
-        <Col w={[4, 4, 4]}>
-          <Button variant="primary" text="Next" handleClick={goNext} />
+      <Row mt={9}>
+        <Col w={[4, 9, 4]}>
+          {/* TODO add check to render if content */}
+          <Button
+            variant="secondary"
+            text="Review and finish"
+            // handleClick={handleClick}
+          />
         </Col>
       </Row>
       {/*
@@ -90,7 +99,7 @@ const AddContent = ({ state, actions }) => {
             </li>
           </ul>
         ))} */}
-    </>
+    </S.Wrapper>
   );
 };
 

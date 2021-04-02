@@ -9,6 +9,8 @@ import Example from './Example';
 import * as Typography from './Typography';
 import * as Inputs from './Inputs';
 import * as Content from './Content';
+import * as Cards from './Cards';
+import * as Icon from './Icon';
 
 export {
   Button,
@@ -22,4 +24,6 @@ export {
   Inputs,
   Content,
   Example,
+  Cards,
+  Icon,
 };
