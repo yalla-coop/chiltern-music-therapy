@@ -49,9 +49,4 @@ const printFileTypes = (category) => {
   }
 };
 
-const fileTypeValidation = {
-  printFileTypes,
-  allowedFileTypesAndSizes,
-};
-
-export default fileTypeValidation;
+export { fileCategories, printFileTypes, allowedFileTypesAndSizes };

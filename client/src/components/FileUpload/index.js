@@ -6,10 +6,10 @@ import { Media } from '../../api-calls';
 import Icon from '../Icon';
 import * as T from '../Typography';
 import * as S from './style';
-import { fileTypeValidation } from '../../constants';
+import { content } from '../../constants';
 import theme from '../../theme';
 
-const { printFileTypes, allowedFileTypesAndSizes } = fileTypeValidation;
+const { printFileTypes, allowedFileTypesAndSizes } = content;
 
 const { Dragger } = Upload;
 
