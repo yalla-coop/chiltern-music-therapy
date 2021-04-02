@@ -1,4 +1,6 @@
 import roles from './roles';
 import * as navRoutes from './nav-routes';
+import fileTypeValidation from './allowed-file-types-and-sizes';
+import * as dropdowns from './dropdowns';
 
-export { roles, navRoutes };
+export { roles, navRoutes, fileTypeValidation, dropdowns };

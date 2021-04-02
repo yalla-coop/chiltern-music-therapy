@@ -20,11 +20,23 @@ function App() {
               {/* Auth Routes */}
               <Route
                 exact
-                path={navRoutes.GENERAL.HOME}
-                Component={Pages.GENERAL.Example}
-                layout="general"
+                path={navRoutes.THERAPIST.SIGNUP}
+                Component={Pages.THERAPIST.Signup}
+                layout="onboarding"
               />
 
+              <Route
+                exact
+                path={navRoutes.GENERAL.HOME}
+                Component={Pages.GENERAL.Example}
+                layout="info"
+                image="hands"
+              />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CREATE_PROGRAM}
+                Component={Pages.THERAPIST.CreateProgram}
+              />
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
