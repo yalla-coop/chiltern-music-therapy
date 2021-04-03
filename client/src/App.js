@@ -27,6 +27,13 @@ function App() {
               />
               <Route
                 exact
+                // path={navRoutes.GENERAL.HOME}
+                path="/test"
+                Component={Pages.CLIENT.Dashboard}
+                layout="general"
+              />
+              <Route
+                exact
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
               />
