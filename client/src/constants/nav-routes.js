@@ -7,6 +7,10 @@ const GENERAL = {
 const CLIENT = {
   WELCOME: '/welcome',
   DASHBOARD: '/dashboard',
+  THERAPIST: '/therapist',
+  THERAPY_PLAN: '/therapy-plan',
+  THERAPY_GOALS: '/therapy-goals',
+  CONTACT_THERAPIST: '/contact-therapist',
 };
 
 const THERAPIST_BASE = '/therapist';
