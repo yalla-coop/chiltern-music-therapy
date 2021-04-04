@@ -34,8 +34,7 @@ function App() {
               />
               <Route
                 exact
-                // path={navRoutes.GENERAL.HOME}
-                path="/test"
+                path={navRoutes.CLIENT.DASHBOARD}
                 Component={Pages.CLIENT.Dashboard}
                 layout="general"
               />
