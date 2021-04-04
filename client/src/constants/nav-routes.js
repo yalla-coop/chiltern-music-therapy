@@ -13,6 +13,7 @@ const CLIENT = {
   THERAPY_GOALS: '/therapy-goals',
   CONTACT_THERAPIST: '/contact-therapist',
   PROGRAMMES: '/programmes',
+  PROGRAMME: '/programmes/:id',
   ACCOUNT: '/account',
 };
 
