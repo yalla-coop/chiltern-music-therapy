@@ -25,6 +25,7 @@ import Search from './icons/Search';
 import Star from './icons/Star';
 import Tick from './icons/Tick';
 import Video from './icons/Video';
+import Edit from './icons/Edit';
 
 const Icon = (props) => {
   const { icon, color, text } = props;
@@ -51,6 +52,7 @@ const Icon = (props) => {
     star: Star,
     tick: Tick,
     video: Video,
+    edit: Edit,
   };
 
   if (!IconMap[icon]) {
@@ -74,7 +76,7 @@ const Icon = (props) => {
         color={theme.colors[color] || color || 'currentColor'}
       />
       {text && (
-        <T.P bold ml="1" color={color}>
+        <T.P weight="bold" ml="1" color={color}>
           {text}
         </T.P>
       )}

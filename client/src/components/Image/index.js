@@ -17,6 +17,10 @@ import MomPinkS from '../assets/MomPinkX.svg';
 import Man from '../assets/Man.svg';
 import ManS from '../assets/ManX.svg';
 import Rainbow from '../assets/Rainbow.svg';
+import BlueCircles from '../assets/BlueCircles.svg';
+import GreenCircles from '../assets/GreenCircles.svg';
+import OrangeCircles from '../assets/OrangeCircles.svg';
+import PinkCircles from '../assets/PinkCircles.svg';
 
 const imgMap = {
   headphones: Headphones,
@@ -34,6 +38,10 @@ const imgMap = {
   man: Man,
   manS: ManS,
   rainbow: Rainbow,
+  blueCircles: BlueCircles,
+  greenCircles: GreenCircles,
+  orangeCircles: OrangeCircles,
+  pinkCircles: PinkCircles,
 };
 
 const StyledImage = styled.img`
