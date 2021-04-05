@@ -5,7 +5,7 @@ import { ReactComponent as TextLogo } from '../../Icon/icons/TextLogo.svg';
 import Navbar from '../../Navbar';
 import { Link } from 'react-router-dom';
 
-const General = ({ children, ...props }) => {
+const General = ({ children, maxWidth, ...props }) => {
   return (
     <>
       <S.Wrapper>
@@ -16,7 +16,7 @@ const General = ({ children, ...props }) => {
           <Navbar />
         </S.OnboardingHeader>
       </S.Wrapper>
-      <S.Content>{children}</S.Content>
+      <S.Content maxWidth={maxWidth}>{children}</S.Content>
     </>
   );
 };
