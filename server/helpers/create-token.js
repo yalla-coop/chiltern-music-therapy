@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
 import config from '../config';
-import { TOKEN_NAME } from '../constants';
+import { TOKEN_NAME, TOKEN_MAX_AGE } from '../constants';
 
-const { tokenMaxAge, secret } = config.server;
+const { secret } = config.server;
 const { env } = config.common;
 
 const createToken = (data) => {
-  const maxAge = tokenMaxAge;
-  const expiresIn = `${tokenMaxAge}ms`;
+  const maxAge = TOKEN_MAX_AGE;
+  const expiresIn = `${TOKEN_MAX_AGE}ms`;
   const token = jwt.sign(data, secret, {
     expiresIn,
   });

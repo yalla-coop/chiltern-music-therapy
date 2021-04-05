@@ -22,6 +22,8 @@ const build = async () => {
   await models.contentCategories.createTable();
   await models.contentsContentCategories.createTable();
 
+  await init.addRefs();
+
   // build dummy data
   const createdData = await buildData();
   return createdData;
