@@ -6,8 +6,10 @@ const findUserById = async (id) => {
   SELECT
     id,
     email,
+    first_name,
+    last_name,
     postcode,
-    roles
+    roles::VARCHAR[]
   FROM users
     WHERE id = $1
   `;
@@ -21,10 +23,12 @@ const findUserByEmail = async (email) => {
   const sql = `
   SELECT
     id,
+    first_name,
+    last_name,
     email,
     password,
     postcode,
-    roles
+    roles::VARCHAR[]
 
   FROM users
     WHERE email = $1

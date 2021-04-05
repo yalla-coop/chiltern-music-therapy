@@ -1,11 +1,13 @@
 import Boom from '@hapi/boom';
 
-module.exports = (roles) => (req, res, next) => {
+const authorize = (allowedRoles) => (req, res, next) => {
   try {
     const { user = {} } = req;
-    const { role } = user;
+    const { roles } = user;
 
-    if (!role || !roles.includes(role)) {
+    // TODO: get active role when multiple roles when its implemented
+    const role = roles[0];
+    if (!role || !allowedRoles.includes(role)) {
       throw Boom.forbidden();
     }
 
@@ -14,3 +16,5 @@ module.exports = (roles) => (req, res, next) => {
     return next(error);
   }
 };
+
+export default authorize;

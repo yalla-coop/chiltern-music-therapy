@@ -1,4 +1,5 @@
-import { CLIENT, THERAPIST, ADMIN } from '../../constants/nav-routes';
+import { useHistory } from 'react-router-dom';
+import { CLIENT, THERAPIST, ADMIN, GENERAL } from '../../constants/nav-routes';
 import { useAuth } from '../../context/auth';
 
 import * as S from './style';
@@ -11,13 +12,15 @@ const handleClick = (cb) => {
 };
 
 const LogoutRoute = ({ setOpen }) => {
+  const history = useHistory();
+
   const { logout: logoutApi } = useAuth();
   return (
     <S.Link
-      to={CLIENT['LOGOUT']}
-      onClick={() => {
-        logoutApi();
+      onClick={async () => {
+        await logoutApi();
         handleClick(setOpen);
+        history.push(GENERAL.LOGIN);
       }}
     >
       <S.Head4 bold color="gray8">

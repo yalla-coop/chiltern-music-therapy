@@ -1,15 +1,17 @@
 import jwt from 'jsonwebtoken';
 import config from '../config';
+import { TOKEN_NAME, TOKEN_MAX_AGE } from '../constants';
 
-const oneDayInMs = 24 * 60 * 60 * 10000;
-const { tokenMaxAge, secret, tokenName } = config.server;
-const createTestToken = (id, isSession) => {
-  const expiresIn = isSession ? `${oneDayInMs}ms` : `${tokenMaxAge}ms`;
-  const token = jwt.sign({ id, isVerified: !isSession }, secret, {
+const { secret } = config.server;
+
+const createTestToken = (data) => {
+  const maxAge = TOKEN_MAX_AGE;
+  const expiresIn = `${maxAge}ms`;
+  const token = jwt.sign(data, secret, {
     expiresIn,
   });
 
-  return `${tokenName}=${token}`;
+  return `${TOKEN_NAME}=${token}`;
 };
 
 export default createTestToken;

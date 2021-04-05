@@ -3,13 +3,13 @@ import Boom from '@hapi/boom';
 
 import config from '../../config';
 import * as constants from '../../constants';
-// import { findUserById } from '../../modules/users/model';
-let findUserById;
+import { findUserById } from '../../modules/user/model';
+
 const { TOKEN_NAME } = constants;
 
 const { secret } = config.server;
 
-module.exports = (isPublic) => async (req, res, next) => {
+const authenticate = (isPublic) => async (req, res, next) => {
   // get cookies from the request
   try {
     const { cookies } = req;
@@ -47,3 +47,5 @@ module.exports = (isPublic) => async (req, res, next) => {
     next(error);
   }
 };
+
+export default authenticate;
