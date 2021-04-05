@@ -1,4 +1,4 @@
-import { number, string } from 'yup';
+import { number, string, boolean } from 'yup';
 import * as errMsgs from './err-msgs';
 
 export const firstName = string()
@@ -26,3 +26,11 @@ export const id = number()
   .min(1)
   .required(errMsgs.DEFAULT_REQUIRED)
   .typeError(errMsgs.DEFAULT_REQUIRED);
+
+export const inviteToken = string()
+  .length(8)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const over16 = boolean()
+  .oneOf([true, false], errMsgs.AGREED_AGE)
+  .required(errMsgs.DEFAULT_REQUIRED);

@@ -1,6 +1,6 @@
 import { query } from '../../../database';
 
-const findUserById = async (id) => {
+const findUserById = async (id, client) => {
   const values = [id];
   const sql = `
   SELECT
@@ -14,11 +14,11 @@ const findUserById = async (id) => {
     WHERE id = $1
   `;
 
-  const res = await query(sql, values);
+  const res = await query(sql, values, client);
   return res.rows[0];
 };
 
-const findUserByEmail = async (email) => {
+const findUserByEmail = async (email, client) => {
   const values = [email];
   const sql = `
   SELECT
@@ -34,7 +34,7 @@ const findUserByEmail = async (email) => {
     WHERE email = $1
   `;
 
-  const res = await query(sql, values);
+  const res = await query(sql, values, client);
   return res.rows[0];
 };
 
