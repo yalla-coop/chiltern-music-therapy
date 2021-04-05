@@ -8,7 +8,7 @@ import Button from '../../../components/Button';
 import { Link } from '../../../components/Cards';
 import moment from 'moment';
 
-import { TherapistClients } from '../../../api-calls';
+import { Programmes, TherapistClients } from '../../../api-calls';
 import { THERAPIST } from '../../../constants/nav-routes';
 
 const SingleClient = () => {
@@ -18,6 +18,7 @@ const SingleClient = () => {
     postcode: '',
     therapyBackground: '',
   });
+  const [programmes, setProgrammes] = useState([]);
 
   const [ellipsis, setEllipsis] = useState(true);
   const [elementsOnView, setElementsOnView] = useState(3);
@@ -27,6 +28,12 @@ const SingleClient = () => {
   useEffect(() => {
     const getClientById = async () => {
       const { error, data } = await TherapistClients.getClientById({ id });
+      if (!error) {
+        setState(data);
+      }
+    };
+    const getProgrammes = async () => {
+      const { error, data } = await Programmes.getProgrammes({ id });
       if (!error) {
         setState(data);
       }

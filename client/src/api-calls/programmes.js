@@ -13,7 +13,7 @@ const getProgrammeById = async ({ id, options }) => {
   }
 };
 
-const getProgrammesByClient = async () => {
+const getProgrammes = async () => {
   try {
     const { data } = await axios.get(`${PROGRAMMES_BASE}`);
     return { data };
@@ -23,4 +23,4 @@ const getProgrammesByClient = async () => {
   }
 };
 
-export { getProgrammeById, getProgrammesByClient };
+export { getProgrammeById, getProgrammes };

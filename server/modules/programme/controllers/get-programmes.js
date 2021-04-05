@@ -1,11 +1,12 @@
 import * as Programmes from '../use-cases';
 
-const getProgrammesByClient = async (req, res, next) => {
+const getProgrammes = async (req, res, next) => {
   const { user } = req;
 
   try {
-    const programmes = await Programmes.getProgrammesByClient({
+    const programmes = await Programmes.getProgrammes({
       userId: user.id,
+      role: user.role,
     });
     res.json(programmes);
   } catch (error) {
@@ -13,4 +14,4 @@ const getProgrammesByClient = async (req, res, next) => {
   }
 };
 
-export default getProgrammesByClient;
+export default getProgrammes;
