@@ -55,8 +55,9 @@ const Dashboard = () => {
       </Row>
       <Row mt={8}>
         <Col w={[4, 12, 12]}>
-          <T.P>
-            My <S.BoldSpan>home programmes</S.BoldSpan>
+          <T.P weight="light">
+            My
+            <S.BoldSpan> home programmes</S.BoldSpan>
           </T.P>
         </Col>
       </Row>
