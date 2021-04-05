@@ -62,7 +62,6 @@ const updateUserById = async (
   `;
 
   const res = await query(sql, values, client);
-  console.log(res.rows);
   delete res.rows[0].password;
   return res.rows[0];
 };
