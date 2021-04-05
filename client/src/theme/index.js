@@ -34,7 +34,7 @@ export const screensWidth = {
 };
 
 export const maxWidths = {
-  desktop: '1600px',
+  desktop: '1400px',
 };
 
 export const media = {
