@@ -1,4 +1,5 @@
-import Signup from './Signup';
+import AllProgrammes from './AllProgrammes';
 import Dashboard from './Dashboard';
+import Signup from './Signup';
 
-export default { Dashboard, Signup };
+export default { Dashboard, Signup, AllProgrammes };
