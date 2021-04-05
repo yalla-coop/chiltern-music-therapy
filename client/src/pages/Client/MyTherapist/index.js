@@ -6,15 +6,31 @@ import * as T from '../../../components/Typography';
 import { Row, Col } from '../../../components/Grid';
 import Avatar from '../../../components/Avatar';
 import Button from '../../../components/Button';
-import { navRoutes } from '../../../constants';
-import { useAuth } from '../../../context/auth';
 
-import { Users } from '../../../api-calls';
+import { TherapistClients } from '../../../api-calls';
 import { CLIENT } from '../../../constants/nav-routes';
 
 const MyTherapist = ({ status, title, msg }) => {
-  const [state, setState] = useState();
-  const history = useHistory();
+  const [state, setState] = useState({
+    therapistBio: '',
+    firstName: '',
+    lastName: '',
+    contactNumber: '',
+    contactEmail: '',
+    bio: '',
+    profileImage: '',
+  });
+
+  useEffect(() => {
+    const getMyTherapist = async () => {
+      const { error, data } = await TherapistClients.getMyTherapist();
+      if (!error) {
+        setState(data);
+      }
+    };
+
+    getMyTherapist();
+  }, []);
 
   return (
     <S.Wrapper>
@@ -34,25 +50,12 @@ const MyTherapist = ({ status, title, msg }) => {
         mb="7"
       >
         <Col w={[4, 12, 6]} mb="5">
-          <Avatar
-            image="https://images.indianexpress.com/2020/03/amp-4.jpg"
-            status="ready"
-          />
+          <Avatar image={state.profileImage} status="ready" />
         </Col>
         <Col w={[4, 12, 6]}>
           <T.H3 bold>Biography</T.H3>
           <T.P color="gray8" mt="2">
-            My name is Elizabeth and I have been J P’s Music Therapist since
-            2019. I am a registered Neurologic Music Therapy Fellow and Music
-            Therapist, and also a qualified MATADOC assessor. I specialise in
-            supporting children, young people and adults with a brain injury and
-            have worked as a clinician for the last 8 years, gaining experience
-            across a variety of settings including in-patient
-            neurorehabilitation units, residential neuro services, and with
-            case-managed individuals living at home in the community. I am also
-            the Neuro Services Lead at Chiltern Music Therapy, overseeing our
-            team of NMT experts and the services in which we work. To read more
-            about my neuro experience, see ‘E Nightingale CV FULL’.
+            {state.bio}
           </T.P>
         </Col>
       </Row>
@@ -60,8 +63,7 @@ const MyTherapist = ({ status, title, msg }) => {
       <Row>
         <Col w={[4, 12, 4]}>
           <Button
-            text="Contact Elizabeth"
-            type="submit"
+            text={`Contact ${state.firstName}`}
             to={CLIENT.CONTACT_THERAPIST}
           />
         </Col>
