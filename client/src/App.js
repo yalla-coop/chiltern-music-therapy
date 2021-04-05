@@ -45,6 +45,16 @@ function App() {
                 Component={Pages.CLIENT.MyTherapist}
                 layout="general"
                 image="hands"
+                goBack
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.CONTACT_THERAPIST}
+                Component={Pages.CLIENT.MyTherapist}
+                layout="general"
+                image="hands"
+                goBack
+                contactDetails
               />
 
               <Route
