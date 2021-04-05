@@ -2,7 +2,6 @@ import * as S from './style';
 import * as T from '../../Typography';
 import Image from '../../Image';
 import Icon from '../../Icon';
-import { Link as ReactLink } from 'react-router-dom';
 import { dateFormatter } from '../../../helpers';
 
 const Link = ({

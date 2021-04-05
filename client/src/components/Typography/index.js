@@ -71,7 +71,7 @@ export const P = styled(Paragraph)`
   font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
 `;
 
-const AntdLink = ({ to = '/', external = false, ...props }) =>
+const AntdLink = ({ to, external = false, ...props }) =>
   external ? (
     <Typography.Link target="_blank" href={to} {...props} />
   ) : (

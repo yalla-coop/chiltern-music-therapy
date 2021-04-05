@@ -52,6 +52,17 @@ function App() {
                 Component={Pages.CLIENT.Dashboard}
                 layout="general"
               />
+
+              {/* Therapist Pages */}
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CLIENT}
+                Component={Pages.THERAPIST.SingleClient}
+                layout="general"
+                goBack
+              />
+
+              {/* Client Pages */}
               <Route
                 exact
                 path={navRoutes.THERAPIST.DASHBOARD}
