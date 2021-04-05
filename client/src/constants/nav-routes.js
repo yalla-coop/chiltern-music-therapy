@@ -33,6 +33,7 @@ const THERAPIST = {
   ACCOUNT: `${THERAPIST_BASE}/account`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
+  SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
 };
 
 const ADMIN_BASE = '/admin';

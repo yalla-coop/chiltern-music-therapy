@@ -21,7 +21,9 @@ const SingleClient = () => {
     bio: '',
     profileImage: '',
   });
+
   const [ellipsis, setEllipsis] = useState(true);
+  const [elementsOnView, setElementsOnView] = useState(3);
 
   const { id } = useParams();
 
@@ -35,7 +37,7 @@ const SingleClient = () => {
 
     getClientById();
   }, [id]);
-
+  const data = [1, 2, 3, 4, 5, 6, 7];
   return (
     <S.Wrapper>
       <Row>
@@ -95,17 +97,38 @@ const SingleClient = () => {
       </Row>
 
       <Row mb="8">
-        <Col w={[4, 12, 6]}>
+        <Col w={[4, 12, 4]}>
           <Button text="Add new programme" to={THERAPIST.CREATE_PROGRAM} />
         </Col>
       </Row>
       <Row>
-        {[1, 2, 3, 4, 5, 6, 7].map((id) => (
-          <Col w={[4, 6, 4]} mb="5">
-            <Link programme={{ date: moment(), id: 1 }} variant="programme" />
-          </Col>
-        ))}
+        {data?.length > 0 &&
+          data.slice(0, elementsOnView).map((id) => (
+            <Col w={[4, 6, 4]} mb="5">
+              <Link
+                programme={{ date: moment(), id: 1 }}
+                variant="programme"
+                to={THERAPIST.SINGLE_PROGRAMME}
+              />
+            </Col>
+          ))}
       </Row>
+
+      {elementsOnView < data.length && (
+        <Row>
+          <Col w={[4, 12, 12]} jc="center">
+            <T.Link
+              weight="bold"
+              to={false}
+              mt={2}
+              onClick={() => setElementsOnView((_old) => _old + 3)}
+              underline
+            >
+              View more
+            </T.Link>
+          </Col>
+        </Row>
+      )}
     </S.Wrapper>
   );
 };
