@@ -4,24 +4,20 @@ import {
   Button,
   Grid,
   Content,
-} from '../../../../components';
+} from '../../../components';
 
-import * as S from '../style';
-import flowTypes from '../flowTypes';
+import * as S from './style';
+import flowTypes from './flowTypes';
 
 const { Row, Col } = Grid;
-const { AddContentSection, AddSingleContent } = Content;
+const { AddContentSection } = Content;
 
 const AddContent = ({ state, actions, decidePath }) => {
-  const {
-    singleContent: { showModal },
-  } = state;
-
   const goNext = () => decidePath(flowTypes.reviewFinish);
 
   const goBack = () => decidePath(flowTypes.description);
 
-  return !showModal ? (
+  return (
     <S.Wrapper>
       <GoBack customFn={goBack} />
       <Row mt={6}>
@@ -38,7 +34,7 @@ const AddContent = ({ state, actions, decidePath }) => {
         </Col>
       </Row>
       <Row mt={5}>
-        <AddContentSection mode="create" libraryContent={[]} />
+        <AddContentSection libraryContent={[]} />
       </Row>
 
       <Row mt={7}>
@@ -94,8 +90,6 @@ const AddContent = ({ state, actions, decidePath }) => {
           </ul>
         ))} */}
     </S.Wrapper>
-  ) : (
-    <AddSingleContent goBack={goBack} />
   );
 };
 

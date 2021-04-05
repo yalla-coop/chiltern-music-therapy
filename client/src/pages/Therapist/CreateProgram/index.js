@@ -7,24 +7,25 @@ import { navRoutes } from '../../../constants';
 import reducer from './reducer';
 import actionTypes from './actionTypes';
 import flowTypes from './flowTypes';
+
+import { AddSingleContent } from '../../../components/Content';
+
 // parts
 import AddDescription from './AddDescription';
 import AddContent from './AddContent';
-
-import { AddSingleContent } from '../../../components/Content';
 import ReviewFinish from './ReviewFinish';
 
 const initialState = {
-  flow: flowTypes.description,
   description: '',
   // total content
   content: [],
   // single item
   singleContent: {
-    // TODO add more inputs
-    title: '',
     type: null,
-    showModal: false,
+    title: '',
+    categories: [],
+    link: '',
+    docContent: '',
   },
   // file upload
   fileUpload: {
@@ -48,17 +49,9 @@ const CreateProgram = () => {
   const history = useHistory();
 
   const actions = {
-    // set flow
-    SET_FLOW: (flow) => {
-      dispatch({ type: actionTypes.setFlow, value: flow });
-    },
     // set description
     SET_DESCRIPTION: (str) => {
       dispatch({ type: actionTypes.setDescription, value: str });
-    },
-    // single content
-    HANDLE_SINGLE_CONTENT_MODAL: () => {
-      dispatch({ type: actionTypes.showModal });
     },
     HANDLE_CONTENT_TYPE: (contentType) => {
       dispatch({ type: actionTypes.setContentType, value: contentType });
@@ -113,7 +106,6 @@ const CreateProgram = () => {
         path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_SINGLE}
         actions={actions}
         state={state}
-        decidePath={decidePath}
       />
       <ReviewFinish
         exact

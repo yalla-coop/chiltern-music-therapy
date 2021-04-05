@@ -10,9 +10,7 @@ const { Dropdown } = Inputs;
 
 const { fileCategories } = content;
 
-const AddContentSection = ({ m, mode, libraryContent = [], error }) => {
-  // mode can be create / edit program
-
+const AddContentSection = ({ m, libraryContent = [], mode, error }) => {
   // TODO make this dynamic
   libraryContent = [
     { label: 'Option 1 Super Long with Lots of Info', value: 'Option 1' },
@@ -37,9 +35,9 @@ const AddContentSection = ({ m, mode, libraryContent = [], error }) => {
       </Col>
 
       <T.P weight color="gray9" mt={3} mb={2} ml={3}>
-        Add new Content
+        Add new content
       </T.P>
-
+      {/* Adds content type buttons */}
       <S.CardsWrapper {...m}>
         {Object.keys(fileCategories).map((category, i) => (
           <Col mb={5} w={[4, 9, 4]}>
