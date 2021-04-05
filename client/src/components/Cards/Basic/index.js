@@ -52,7 +52,7 @@ const Basic = ({ children, variant, therapistInfo, m }) => {
               weight="light"
               mb="2"
             >
-              Contact my therapist
+              Contact therapist
             </T.Link>
           </S.Links>
         </S.Wrapper>
