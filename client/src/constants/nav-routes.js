@@ -9,8 +9,12 @@ const GENERAL = {
 const CLIENT = {
   WELCOME: '/welcome',
   DASHBOARD: '/dashboard',
+  MY_THERAPIST: '/my-therapist',
+  THERAPY_PLAN: '/therapy-plan',
+  THERAPY_GOALS: '/therapy-goals',
+  CONTACT_THERAPIST: '/contact-therapist',
   PROGRAMMES: '/programmes',
-  THERAPIST: '/therapist',
+  PROGRAMME: '/programmes/:id',
   ACCOUNT: '/account',
 };
 
@@ -25,6 +29,8 @@ const THERAPIST = {
   LIBRARY: `${THERAPIST_BASE}/library`,
   FEEDBACK: `${THERAPIST_BASE}/feedback`,
   ACCOUNT: `${THERAPIST_BASE}/account`,
+  CLIENT: `${THERAPIST_BASE}/clients/:id`,
+  NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
 };
 
 const ADMIN_BASE = '/admin';
