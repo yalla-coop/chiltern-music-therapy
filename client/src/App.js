@@ -40,6 +40,12 @@ function App() {
               />
               <Route
                 exact
+                path={navRoutes.THERAPIST.DASHBOARD}
+                Component={Pages.THERAPIST.Dashboard}
+                layout="general"
+              />
+              <Route
+                exact
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
               />
