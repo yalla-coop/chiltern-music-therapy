@@ -18,7 +18,7 @@ const Link = ({
   switch (variant) {
     case 'graphic1':
       return (
-        <ReactLink to={to}>
+        <ReactLink to={to} style={{ width: '100%' }}>
           <S.GraphicWrapper {...m}>
             <S.Title>
               <T.P weight="light" mr="1">
@@ -41,7 +41,7 @@ const Link = ({
       );
     case 'graphic2':
       return (
-        <ReactLink to={to}>
+        <ReactLink to={to} style={{ width: '100%' }}>
           <S.GraphicWrapper {...m}>
             <S.Title>
               <T.P weight="light" mr="1">
@@ -64,7 +64,7 @@ const Link = ({
       );
     case 'programme':
       return (
-        <ReactLink to={to}>
+        <ReactLink to={to} style={{ width: '100%' }}>
           <S.Wrapper {...m} borderColor={borderColor}>
             <Icon icon="programme" width="40px" height="40px" mr="4" />
             <S.ProgDetails>
@@ -80,7 +80,7 @@ const Link = ({
       );
     case 'client':
       return (
-        <ReactLink to={to}>
+        <ReactLink to={to} style={{ width: '100%' }}>
           <S.Wrapper {...m} borderColor={borderColor}>
             {client ? (
               <T.P weight="light" mr="1">
@@ -97,7 +97,7 @@ const Link = ({
       );
     default:
       return (
-        <ReactLink to={to}>
+        <ReactLink to={to} style={{ width: '100%' }}>
           <S.Wrapper {...m}>{children}</S.Wrapper>
         </ReactLink>
       );

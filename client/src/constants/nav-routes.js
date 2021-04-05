@@ -12,6 +12,7 @@ const CLIENT = {
   PROGRAMMES: '/programmes',
   THERAPIST: '/therapist',
   ACCOUNT: '/account',
+  SINGLE_PROGRAMME: '/programmes/:id',
 };
 
 const THERAPIST_BASE = '/therapist';

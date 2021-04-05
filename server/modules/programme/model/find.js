@@ -1,6 +1,6 @@
 import { query } from '../../../database';
 
-const findProgrammesByUser = async (userId) => {
+const findProgrammesByClient = async (userId) => {
   const values = [userId];
 
   const sql = `
@@ -14,4 +14,4 @@ const findProgrammesByUser = async (userId) => {
   return res.rows;
 };
 
-export { findProgrammesByUser };
+export { findProgrammesByClient };

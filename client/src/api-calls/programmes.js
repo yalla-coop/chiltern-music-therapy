@@ -13,4 +13,14 @@ const getProgrammeById = async ({ id, options }) => {
   }
 };
 
-export { getProgrammeById };
+const getProgrammesByClient = async () => {
+  try {
+    const { data } = await axios.get(`${PROGRAMMES_BASE}`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+export { getProgrammeById, getProgrammesByClient };
