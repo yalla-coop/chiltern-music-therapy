@@ -30,13 +30,13 @@ const Dashboard = () => {
       <Row>
         <Col w={[4, 12, 12]}>
           <T.H2>
-            Welcome back, <S.BoldSpan> {data.firstName} </S.BoldSpan>!
+            Welcome back, <S.BoldSpan>{data.firstName}</S.BoldSpan>!
           </T.H2>
         </Col>
       </Row>
       <Row>
         <Col w={[4, 12, 12]} mt={7} mtT={5}>
-          <T.H3>My Clients</T.H3>
+          <T.H3>My clients</T.H3>
         </Col>
       </Row>
       <ClientsSection clients={data.clients} />
