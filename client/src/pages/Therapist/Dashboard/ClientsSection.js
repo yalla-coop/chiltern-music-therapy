@@ -81,6 +81,7 @@ const ClientsSection = ({ clients }) => {
               weight="bold"
               to={false}
               mt={6}
+              underline
               onClick={() => setViewClients((_old) => _old + 5)}
             >
               View more
