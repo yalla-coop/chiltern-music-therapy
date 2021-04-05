@@ -3,7 +3,6 @@ import * as Programmes from '../../programme/use-cases';
 
 const getUserDashboard = async (req, res, next) => {
   const { user } = req;
-  console.log('USER', user);
   const role = user.roles[0];
   try {
     if (role === 'CLIENT') {
