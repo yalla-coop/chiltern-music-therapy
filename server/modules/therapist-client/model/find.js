@@ -34,4 +34,27 @@ const findTherapistByInviteToken = async (inviteToken, client) => {
   return res.rows[0];
 };
 
-export { findClientByInviteToken, findTherapistByInviteToken };
+const findClientByUserId = async (clientId, client) => {
+  const values = [clientId];
+  const sql = `
+    SELECT
+      u.id,
+      u.first_name,
+      u.last_name,
+      u.postcode,
+      tc.therapy_background,
+      tc.therapist_user_id
+    FROM therapist_clients AS tc
+    INNER JOIN users AS u ON(u.id = tc.client_user_id)
+    WHERE tc.client_user_id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+export {
+  findClientByInviteToken,
+  findTherapistByInviteToken,
+  findClientByUserId,
+};

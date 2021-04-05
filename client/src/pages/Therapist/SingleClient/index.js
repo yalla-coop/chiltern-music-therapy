@@ -9,17 +9,14 @@ import { Link } from '../../../components/Cards';
 import moment from 'moment';
 
 import { TherapistClients } from '../../../api-calls';
-import { CLIENT, THERAPIST } from '../../../constants/nav-routes';
+import { THERAPIST } from '../../../constants/nav-routes';
 
 const SingleClient = () => {
   const [state, setState] = useState({
-    therapistBio: '',
-    firstName: '',
-    lastName: '',
-    contactNumber: '',
-    contactEmail: '',
-    bio: '',
-    profileImage: '',
+    firstInitial: '',
+    lastInitial: '',
+    postcode: '',
+    therapyBackground: '',
   });
 
   const [ellipsis, setEllipsis] = useState(true);
@@ -43,7 +40,9 @@ const SingleClient = () => {
       <Row>
         <Col w={[4, 12, 12]}>
           <T.H1 color="black" mb={7} mbM={5}>
-            <span style={{ fontWeight: '900' }}>J</span> P SW
+            <span style={{ fontWeight: '900' }}>{state?.firstInitial}</span>{' '}
+            {state?.lastInitial}
+            {state?.postcode}
           </T.H1>
         </Col>
       </Row>
@@ -57,12 +56,7 @@ const SingleClient = () => {
               ellipsis ? { rows: 3, expandable: true, symbol: ' ' } : false
             }
           >
-            Non-musical aims we are currently supporting J P SW with include
-            developing social skills for peer and family relationships,
-            supporting opportunities for self n-musical aims we are currently
-            supporting J P SW with include developing social skills for peer and
-            family relationships, supporting opportunities for self
-            expression...
+            {state.therapyBackground}
           </T.P>
           {ellipsis && (
             <T.Link
