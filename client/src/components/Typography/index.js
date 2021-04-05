@@ -71,20 +71,13 @@ export const P = styled(Paragraph)`
   font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
 `;
 
-const AntdLink = ({ to = '/', underline, external = false, ...props }) =>
+const AntdLink = ({ to = '/', external = false, ...props }) =>
   external ? (
-    <Typography.Link
-      target="_blank"
-      href={to}
-      underline={underline}
-      {...props}
-    />
+    <Typography.Link target="_blank" href={to} {...props} />
   ) : (
     <RouterLink
       to={to}
-      component={() => (
-        <Typography.Link href={to} underline={underline} {...props} />
-      )}
+      component={() => <Typography.Link href={to} {...props} />}
     />
   );
 
@@ -97,4 +90,7 @@ export const Link = styled(AntdLink)`
   border-bottom: 1px solid;
   border-color: ${({ theme, color }) =>
     theme.colors[color] || color || theme.colors.black} !important;
+  text-decoration: ${({ underline }) =>
+    underline ? 'underline' : 'none'} !important;
+  border-bottom: none;
 `;

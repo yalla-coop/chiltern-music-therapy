@@ -15,3 +15,5 @@ export const INVALID_POSTCODE = 'Invalid Postcode';
 export const NUMBER_REQUIRED = 'You must specify a number';
 export const TOO_LONG_WORDS_200 = 'Too long - should be 200 words maximum';
 export const INVALID_LINK = 'Invalid link';
+export const AGREED_AGE =
+  'Please indicate that you are over 16 or have consent from a parent or guardian to sign up';
