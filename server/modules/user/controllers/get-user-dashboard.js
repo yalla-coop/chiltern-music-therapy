@@ -3,8 +3,10 @@ import * as Programmes from '../../programme/use-cases';
 
 const getUserDashboard = async (req, res, next) => {
   const { user } = req;
+  console.log('USER', user);
+  const role = user.roles[0];
   try {
-    if (user.role === 'CLIENT') {
+    if (role === 'CLIENT') {
       const therapist = await TherapistClient.getTherapistByClient({
         id: user.id,
       });
@@ -16,7 +18,7 @@ const getUserDashboard = async (req, res, next) => {
       return res.json({ therapist, programmes });
     }
 
-    if (user.role === 'THERAPIST') {
+    if (role === 'THERAPIST') {
       const clients = await TherapistClient.getClientsByTherapist({
         id: user.id,
       });

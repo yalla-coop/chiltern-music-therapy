@@ -39,8 +39,8 @@ const findTherapistByClient = async (clientId) => {
 
   const sql = `
     SELECT 
-      u.firstName,
-      u.lastName,
+      u.first_name,
+      u.last_name,
       u.id
     FROM therapist_clients tc 
     INNER JOIN users u ON tc.therapist_user_id = u.id 
@@ -56,8 +56,8 @@ const findClientsByTherapist = async (therapistId) => {
 
   const sql = `
     SELECT 
-      u.firstName,
-      u.lastName,
+      u.first_name,
+      u.last_name,
       u.postcode,
       u.id
     FROM therapist_clients tc 
