@@ -1,16 +1,16 @@
-import { useReducer, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import * as S from './style';
 import * as T from '../../../components/Typography';
 import { Row, Col } from '../../../components/Grid';
 import Avatar from '../../../components/Avatar';
 import Button from '../../../components/Button';
+import ContactDetails from './ContactDetails';
 
 import { TherapistClients } from '../../../api-calls';
 import { CLIENT } from '../../../constants/nav-routes';
 
-const MyTherapist = ({ status, title, msg }) => {
+const MyTherapist = ({ contactDetails }) => {
   const [state, setState] = useState({
     therapistBio: '',
     firstName: '',
@@ -31,6 +31,17 @@ const MyTherapist = ({ status, title, msg }) => {
 
     getMyTherapist();
   }, []);
+
+  if (contactDetails) {
+    return (
+      <ContactDetails
+        firstName={state.firstName}
+        lastName={state.lastName}
+        contactEmail={state.contactEmail}
+        contactNumber={state.contactNumber}
+      />
+    );
+  }
 
   return (
     <S.Wrapper>
