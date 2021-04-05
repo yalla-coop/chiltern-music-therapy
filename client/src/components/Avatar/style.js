@@ -34,3 +34,14 @@ export const AvatarContainer = styled.div`
     z-index: -1;
   }
 `;
+
+export const LoadingAvatar = styled.div`
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: #ccc;
+  background: ${({ theme }) => theme.colors.gray5};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
