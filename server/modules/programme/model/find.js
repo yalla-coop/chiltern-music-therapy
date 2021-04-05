@@ -5,9 +5,10 @@ const findProgrammesByClient = async (userId) => {
 
   const sql = `
     SELECT 
-    id, created_at
-    FROM programmes
-    WHERE therapists_clients_id = $1
+    p.id, p.created_at
+    FROM programmes p
+    INNER JOIN therapist_clients tc ON p.therapists_clients_id = tc.id
+    WHERE tc.client_user_id = $1
   `;
 
   const res = await query(sql, values);
