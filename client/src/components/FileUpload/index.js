@@ -168,7 +168,7 @@ const FileUpload = ({
   };
 
   return (
-    <S.Wrapper error={error} w={w}>
+    <S.Wrapper disabled={disabled} error={error} w={w}>
       <Dragger {...props}>
         <S.UploadDetails>
           <Icon error={error} icon="inbox" />

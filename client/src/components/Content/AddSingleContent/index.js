@@ -60,6 +60,8 @@ const AddSingleContent = ({ state, actions }) => {
     // }
   };
   console.log('s', singleContent);
+  console.log(`state.fileUpload`, state.fileUpload);
+  console.log(`uploadedFileInfo.uploadedToS3`, uploadedFileInfo.uploadedToS3);
   const fakeCategories = [
     { label: 'Option 1', value: 'Option 1' },
     { label: 'Option 2', value: 'Option 2' },
@@ -110,6 +112,11 @@ const AddSingleContent = ({ state, actions }) => {
             fileInfo={uploadedFileInfo}
             setError={HANDLE_FILE_UPLOAD_ERROR}
             error={fileUploadError}
+            // disable when user adds link to resource
+            disabled={
+              (typeof link === 'string' && link.length > 0) ||
+              (typeof docContent === 'string' && docContent.length > 0)
+            }
           />
         </Col>
         <Col w={[4, 12, 4]} mb={7} mbM={5}>
@@ -119,6 +126,11 @@ const AddSingleContent = ({ state, actions }) => {
             color="gray8"
             value={link}
             handleChange={(value) => UPDATE_SINGLE_CONTENT('link', value)}
+            disabled={
+              (typeof docContent === 'string' && docContent.length > 0) ||
+              fileUploading ||
+              uploadedFileInfo.uploadedToS3
+            }
             // error={validationErrs.firstName}
           />
         </Col>
@@ -134,6 +146,11 @@ const AddSingleContent = ({ state, actions }) => {
               value={docContent}
               handleChange={(value) =>
                 UPDATE_SINGLE_CONTENT('docContent', value)
+              }
+              disabled={
+                (typeof link === 'string' && link.length > 0) ||
+                fileUploading ||
+                uploadedFileInfo.uploadedToS3
               }
             />
           </Col>
