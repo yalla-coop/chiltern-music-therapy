@@ -50,11 +50,6 @@ function App() {
                 Component={Pages.CLIENT.AllProgrammes}
               />
               <Route
-                exact
-                path={navRoutes.CLIENT.PROGRAMMES}
-                Component={Pages.THERAPIST.CreateProgram}
-              />
-              <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
                 goBack

@@ -31,14 +31,14 @@ const AllProgrammes = () => {
     <>
       <Title boldSection="Programmes" lightSection="My" />
       <Row mb="6">
-        <Col w={[4, 8, 6]}>
+        <Col w={[4, 12, 6]}>
           <T.P color="gray8">{introText}</T.P>
         </Col>
       </Row>
       <Row>
         {programmesToView ? (
           programmes.map(({ id, createdAt }) => (
-            <Col w={[4, 4, 4]}>
+            <Col w={[4, 12, 4]}>
               <Link
                 variant="programme"
                 to={navRoutes.CLIENT.SINGLE_PROGRAMME.replace(':id', id)}

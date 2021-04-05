@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import setMargin from '../../../helpers/set-margin';
+import { Link as ReactLink } from 'react-router-dom';
 
 export const Wrapper = styled.div`
   ${setMargin};
@@ -55,3 +56,7 @@ export const Title = styled.div`
 `;
 
 export const ProgDetails = styled.div``;
+
+export const Link = styled(ReactLink)`
+  width: 100%;
+`;

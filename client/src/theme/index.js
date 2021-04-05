@@ -33,6 +33,10 @@ export const screensWidth = {
   desktop: 1442,
 };
 
+export const maxWidths = {
+  desktop: '1600px',
+};
+
 export const media = {
   mobileXS: `@media (max-width: ${screensWidth.mobileXS}px)`,
   mobile: `@media (max-width: ${screensWidth.mobile}px)`,
@@ -58,6 +62,7 @@ const theme = {
   gradients,
   borders,
   shadows,
+  maxWidths,
 };
 
 export { globalStyle };
