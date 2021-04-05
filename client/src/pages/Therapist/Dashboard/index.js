@@ -1,36 +1,42 @@
+import { useEffect, useState } from 'react';
+
 import { THERAPIST } from '../../../constants/nav-routes';
 import { Col, Row } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { Link } from '../../../components/Cards';
 
-import moment from 'moment';
+import { useAuth } from '../../../context/auth';
 
 import * as S from './style';
 import ClientsSection from './ClientsSection';
 
+import { Users } from '../../../api-calls';
+
 const Dashboard = () => {
-  const data = {
-    firstName: 'lex',
-    clients: Array(15).fill({
-      firstInitial: 'J',
-      secondInitial: 'P',
-      postcode: 'SW',
-      id: 1,
-    }),
-    therapistInfo: {
-      firstName: 'Elizabeth',
-      lastName: 'Peters',
-      id: '1',
-    },
-    programme: { date: moment(), id: 0 },
-  };
+  const [clients, setClients] = useState([]);
+
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const getDashboard = async () => {
+      const { data, error } = await Users.getUserDashboard();
+
+      if (!error) {
+        setClients(data);
+      }
+    };
+
+    if (user) {
+      getDashboard();
+    }
+  }, [user]);
 
   return (
     <div style={{ maxWidth: 1068 }}>
       <Row>
         <Col w={[4, 12, 12]}>
           <T.H2>
-            Welcome back, <S.BoldSpan>{data.firstName}</S.BoldSpan>!
+            Welcome back, <S.BoldSpan>{user.firstName}</S.BoldSpan>!
           </T.H2>
         </Col>
       </Row>
@@ -39,7 +45,7 @@ const Dashboard = () => {
           <T.H3>My clients</T.H3>
         </Col>
       </Row>
-      <ClientsSection clients={data.clients} />
+      <ClientsSection clients={clients} />
       <Row mt={9} mtT={8}>
         <Col w={[4, 6, 4]} mt={5}>
           <S.CardWrapper>

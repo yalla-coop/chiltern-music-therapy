@@ -123,6 +123,17 @@ const Basic = ({ children, variant, therapistInfo, m }) => {
           </T.P>
         </S.Wrapper>
       );
+    case 'noClients':
+      return (
+        <S.Wrapper {...m} p="20px 30px">
+          <T.P weight="light" color="gray10" mb="1" ta="center">
+            You don't have any clients yet.
+          </T.P>
+          <T.P weight="bold" color="gray10" ta="center">
+            Add a client below
+          </T.P>
+        </S.Wrapper>
+      );
     default:
       return <S.Wrapper {...m}>{children}</S.Wrapper>;
   }

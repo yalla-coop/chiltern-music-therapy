@@ -4,6 +4,7 @@ import { Dropdown } from '../../../components/Inputs';
 import { THERAPIST } from '../../../constants/nav-routes';
 import * as T from '../../../components/Typography';
 import Button from '../../../components/Button';
+import { Basic } from '../../../components/Cards';
 
 import { useState } from 'react';
 
@@ -13,7 +14,7 @@ import { useHistory } from 'react-router';
 const generateOptions = (data) =>
   data?.length > 0
     ? data.map((client) => ({
-        label: `${client.firstInitial} ${client.secondInitial} ${client.postcode}`,
+        label: `${client.firstInitial} ${client.lastInitial} ${client.postcode}`,
         value: client.id,
       }))
     : [];
@@ -35,6 +36,8 @@ const ClientsSection = ({ clients }) => {
     history.push(THERAPIST.CLIENT.replace(':id', e));
   };
 
+  const clientsToView = clients.length > 0;
+
   return (
     <>
       <Row>
@@ -48,7 +51,7 @@ const ClientsSection = ({ clients }) => {
         </Col>
       </Row>
       <Row mt={5} mtT={2}>
-        {clients?.length > 0 &&
+        {clientsToView ? (
           clients.slice(0, viewClients).map((client, index) => {
             return (
               <Col w={[4, 4, 4]} mt={4}>
@@ -56,19 +59,19 @@ const ClientsSection = ({ clients }) => {
                   <Link
                     variant="client"
                     title="therapy plan"
-                    client={{
-                      firstInitial: 'J',
-                      secondInitial: 'P',
-                      postcode: 'SW',
-                      id: 1,
-                    }}
+                    client={client}
                     to={THERAPIST.CLIENT.replace(':id', client.id)}
                     borderColor={decideBorderColor(index + 1)}
                   />
                 </S.CardWrapper>
               </Col>
             );
-          })}
+          })
+        ) : (
+          <Col w={[4, 4, 4]}>
+            <Basic variant="noClients" />
+          </Col>
+        )}
       </Row>
 
       {viewClients < clients.length && (

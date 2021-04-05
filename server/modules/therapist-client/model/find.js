@@ -62,11 +62,13 @@ const findClientsByTherapist = async (therapistId) => {
       u.id
     FROM therapist_clients tc 
     INNER JOIN users u ON tc.client_user_id = u.id 
-    WHERE tc.therapist_user_id = $1; 
+    WHERE tc.therapist_user_id = $1
+    ORDER BY u.created_at DESC;
   `;
 
   const res = await query(sql, values);
-  return res.rows[0];
+
+  return res.rows;
 };
 
 export {
