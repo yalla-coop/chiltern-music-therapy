@@ -9,7 +9,8 @@ const CLIENT = {
   WELCOME: '/welcome',
   DASHBOARD: '/dashboard',
   PROGRAMMES: '/programmes',
-  THERAPIST: '/therapist',
+  THERAPIST: '/my-therapist',
+  CONTACT_THERAPIST: '/contact-my-therapist',
   ACCOUNT: '/account',
 };
 
