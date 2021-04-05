@@ -43,6 +43,6 @@ export const Content = styled.main`
   }
   ${({ theme }) => theme.media.mobile} {
     padding: ${({ theme: { spacings } }) =>
-      `${spacings[7]} 37px ${spacings[6]} 38px`};
+      `${spacings[6]} 37px ${spacings[8]} 38px`};
   }
 `;
