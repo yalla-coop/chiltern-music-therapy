@@ -26,6 +26,8 @@ const initialState = {
     categories: [],
     link: '',
     docContent: '',
+    libraryContent: false,
+    instructions: '',
   },
   // file upload
   fileUpload: {

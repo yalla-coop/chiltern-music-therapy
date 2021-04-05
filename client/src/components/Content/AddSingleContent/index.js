@@ -1,4 +1,4 @@
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import {
   GoBack,
@@ -19,7 +19,6 @@ const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
 const AddSingleContent = ({ state, actions }) => {
-  console.log('s', state);
   const { singleContent, fileUpload } = state;
 
   const {
@@ -28,17 +27,23 @@ const AddSingleContent = ({ state, actions }) => {
     error: fileUploadError,
   } = fileUpload;
 
-  const { title, categories, link, docContent, libraryContent } = singleContent;
+  const {
+    title,
+    categories,
+    link,
+    docContent,
+    libraryContent,
+    instructions,
+  } = singleContent;
 
   const {
     state: { category },
   } = useLocation();
-  console.log('l', category);
 
   const {
     // UPDATE_CONTENT,
-    // HANDLE_SINGLE_CONTENT_MODAL,
-    // UPDATE_SINGLE_CONTENT,
+
+    UPDATE_SINGLE_CONTENT,
     HANDLE_UPLOAD_STATUS,
     HANDLE_FILE_UPLOAD_INFO,
     HANDLE_FILE_UPLOAD_ERROR,
@@ -54,7 +59,11 @@ const AddSingleContent = ({ state, actions }) => {
     //   handleSignup();
     // }
   };
-
+  console.log('s', singleContent);
+  const fakeCategories = [
+    { label: 'Option 1', value: 'Option 1' },
+    { label: 'Option 2', value: 'Option 2' },
+  ];
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <GoBack />
@@ -62,7 +71,7 @@ const AddSingleContent = ({ state, actions }) => {
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">
             {' '}
-            <strong>Add</strong> {category}{' '}
+            <strong>Add</strong> {category}
           </T.H1>
         </Col>
       </Row>
@@ -74,7 +83,7 @@ const AddSingleContent = ({ state, actions }) => {
             label="Title"
             color="gray8"
             value={title}
-            // handleChange={(value) => setState({ title: value })}
+            handleChange={(value) => UPDATE_SINGLE_CONTENT('title', value)}
             // error={validationErrs.firstName}
           />
         </Col>
@@ -82,10 +91,11 @@ const AddSingleContent = ({ state, actions }) => {
           <Dropdown
             label="Categories"
             color="gray8"
-            options={categories}
+            options={fakeCategories}
             multi={true}
-            placeholder="Select one..."
+            placeholder="Select...(optional)"
             search={false}
+            handleChange={(value) => UPDATE_SINGLE_CONTENT('categories', value)}
             // error={error}
           />
         </Col>
@@ -108,7 +118,7 @@ const AddSingleContent = ({ state, actions }) => {
             label="If you prefer, you can paste a link to an external resource in the input below"
             color="gray8"
             value={link}
-            // handleChange={(value) => setState({ title: value })}
+            handleChange={(value) => UPDATE_SINGLE_CONTENT('link', value)}
             // error={validationErrs.firstName}
           />
         </Col>
@@ -122,7 +132,9 @@ const AddSingleContent = ({ state, actions }) => {
               placeholder="Type here..."
               rows={5}
               value={docContent}
-              // handleChange={setDescription}
+              handleChange={(value) =>
+                UPDATE_SINGLE_CONTENT('docContent', value)
+              }
             />
           </Col>
         )}
@@ -132,8 +144,10 @@ const AddSingleContent = ({ state, actions }) => {
             color="gray8"
             placeholder="Message"
             rows={5}
-            value={docContent}
-            // handleChange={setDescription}
+            value={instructions}
+            handleChange={(value) =>
+              UPDATE_SINGLE_CONTENT('instructions', value)
+            }
           />
         </Col>
       </Row>
@@ -143,18 +157,16 @@ const AddSingleContent = ({ state, actions }) => {
             label={
               <T.P color="gray8">
                 Save this video to
-                <Link
-                  to={navRoutes.THERAPIST.LIBRARY}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <T.Link to={navRoutes.THERAPIST.LIBRARY} bold external>
                   &nbsp; My Library
-                </Link>
+                </T.Link>
                 &nbsp; so I can use it again in the future
               </T.P>
             }
-            value={libraryContent}
-            // handleChange={(value) => setState({ title: value })}
+            checked={libraryContent}
+            handleChange={(value) =>
+              UPDATE_SINGLE_CONTENT('libraryContent', value)
+            }
             // error={validationErrs.firstName}
           />
         </Col>
