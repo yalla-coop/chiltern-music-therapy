@@ -28,6 +28,8 @@ const initialState = {
     docContent: '',
     libraryContent: false,
     instructions: '',
+    validationErrs: {},
+    httpError: '',
   },
   // file upload
   fileUpload: {
@@ -42,7 +44,7 @@ const initialState = {
       new: false,
       uploadedToS3: false,
     },
-    error: null,
+    // form submission
   },
 };
 

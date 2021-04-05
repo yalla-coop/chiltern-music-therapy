@@ -1,4 +1,5 @@
-import { useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useLocation, useHistory, Prompt } from 'react-router-dom';
 
 import {
   GoBack,
@@ -9,7 +10,9 @@ import {
   FileUpload,
 } from '../../../components';
 
-import { content, navRoutes } from '../../../constants';
+import { content, navRoutes, roles } from '../../../constants';
+
+import validate from '../../../validation/schemas/addSingleContent';
 
 import * as S from './style';
 
@@ -18,8 +21,13 @@ const { fileCategories } = content;
 const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
-const AddSingleContent = ({ state, actions }) => {
-  const { singleContent, fileUpload } = state;
+const AddSingleContent = ({ state: parentState, actions }) => {
+  const [unsavedChanges, setUnsavedChanges] = useState(true);
+  const [submitAttempt, setSubmitAttempt] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [contentInput, setContentInput] = useState(null);
+
+  const { singleContent, fileUpload } = parentState;
 
   const {
     fileUploading,
@@ -34,15 +42,17 @@ const AddSingleContent = ({ state, actions }) => {
     docContent,
     libraryContent,
     instructions,
+    validationErrs,
   } = singleContent;
 
   const {
     state: { category },
   } = useLocation();
 
+  const history = useHistory();
+
   const {
     // UPDATE_CONTENT,
-
     UPDATE_SINGLE_CONTENT,
     HANDLE_UPLOAD_STATUS,
     HANDLE_FILE_UPLOAD_INFO,
@@ -50,29 +60,83 @@ const AddSingleContent = ({ state, actions }) => {
     // RESET_SINGLE_CONTENT,
   } = actions;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // setState({ submitAttempt: true });
+  const validateForm = () => {
+    try {
+      const formData = {
+        title,
+        categories,
+        libraryContent,
+        instructions,
+        contentInput: {
+          // category,
+          // fileUploaded: uploadedFileInfo.uploadedToS3,
+        },
+      };
 
-    // const isValid = validateForm();
-    // if (isValid) {
-    //   handleSignup();
-    // }
+      if (link.length > 0) {
+        formData.link = link;
+      } else if (docContent.length > 0) {
+        formData.docContent = docContent;
+      }
+
+      validate(formData);
+      UPDATE_SINGLE_CONTENT('validationErrs', {});
+      return true;
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        UPDATE_SINGLE_CONTENT('validationErrs', error.inner);
+      }
+      return false;
+    }
+  };
+
+  useEffect(() => {
+    if (submitAttempt) {
+      validateForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [title, categories, link, docContent, libraryContent, instructions]);
+
+  const handleAddSingleContent = async (submitType) => {
+    setLoading(true);
+    // add single content to overall content
+    console.log('adding ...');
+    setLoading(false);
+    // error handling
+    if (submitType === 'content') {
+      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
+    } else {
+      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
+    }
+  };
+
+  const handleSubmit = (e, submitType) => {
+    e.preventDefault();
+    setSubmitAttempt(true);
+    setUnsavedChanges(false);
+
+    const isValid = validateForm();
+    if (isValid) {
+      handleAddSingleContent(submitType);
+    }
   };
   console.log('s', singleContent);
-  console.log(`state.fileUpload`, state.fileUpload);
-  console.log(`uploadedFileInfo.uploadedToS3`, uploadedFileInfo.uploadedToS3);
+
   const fakeCategories = [
     { label: 'Option 1', value: 'Option 1' },
     { label: 'Option 2', value: 'Option 2' },
   ];
   return (
     <S.Wrapper onSubmit={handleSubmit}>
+      <Prompt
+        when={unsavedChanges}
+        message="All changes will be lost. Are you sure you want to leave?"
+      />
+      {/* TODO ADD CUSTOM FUNCTION TO RESET STATE */}
       <GoBack />
       <Row mt={5} mb={7}>
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">
-            {' '}
             <strong>Add</strong> {category}
           </T.H1>
         </Col>
@@ -86,7 +150,7 @@ const AddSingleContent = ({ state, actions }) => {
             color="gray8"
             value={title}
             handleChange={(value) => UPDATE_SINGLE_CONTENT('title', value)}
-            // error={validationErrs.firstName}
+            error={validationErrs.title}
           />
         </Col>
         <Col w={[4, 12, 4]} mb={7} mbM={5}>
@@ -98,7 +162,7 @@ const AddSingleContent = ({ state, actions }) => {
             placeholder="Select...(optional)"
             search={false}
             handleChange={(value) => UPDATE_SINGLE_CONTENT('categories', value)}
-            // error={error}
+            error={validationErrs.categories}
           />
         </Col>
       </Row>
@@ -131,7 +195,9 @@ const AddSingleContent = ({ state, actions }) => {
               fileUploading ||
               uploadedFileInfo.uploadedToS3
             }
-            // error={validationErrs.firstName}
+            error={
+              validationErrs.contentInput && validationErrs.contentInput.link
+            }
           />
         </Col>
       </Row>
@@ -152,6 +218,10 @@ const AddSingleContent = ({ state, actions }) => {
                 fileUploading ||
                 uploadedFileInfo.uploadedToS3
               }
+              error={
+                validationErrs.contentInput &&
+                validationErrs.contentInput.docContent
+              }
             />
           </Col>
         )}
@@ -165,6 +235,7 @@ const AddSingleContent = ({ state, actions }) => {
             handleChange={(value) =>
               UPDATE_SINGLE_CONTENT('instructions', value)
             }
+            error={validationErrs.instructions}
           />
         </Col>
       </Row>
@@ -184,16 +255,26 @@ const AddSingleContent = ({ state, actions }) => {
             handleChange={(value) =>
               UPDATE_SINGLE_CONTENT('libraryContent', value)
             }
-            // error={validationErrs.firstName}
+            error={validationErrs.libraryContent}
           />
         </Col>
       </Row>
       <Row mt={7}>
         <Col w={[4, 12, 4]} mbM={5} mbT={5}>
-          <Button variant="primary" text="Add more content" handleClick="" />
+          <Button
+            variant="primary"
+            text="Add more content"
+            type="submit"
+            handleClick={(e) => handleSubmit(e, 'content')}
+          />
         </Col>
         <Col w={[4, 12, 4]}>
-          <Button variant="secondary" text="Review and finish" handleClick="" />
+          <Button
+            variant="secondary"
+            text="Review and finish"
+            type="submit"
+            handleClick={(e) => handleSubmit(e, 'review')}
+          />
         </Col>
       </Row>
     </S.Wrapper>

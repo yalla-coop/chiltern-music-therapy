@@ -1,5 +1,7 @@
-import { string, number, boolean, array } from 'yup';
+import { string, number, boolean, array, object } from 'yup';
 import * as errMsgs from './err-msgs';
+
+const URLregex = /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#.-]+)*\/?(\?[a-zA-Z0-9-_.-]+=[a-zA-Z0-9-%?&=.-]+&?)?$/;
 
 export const requiredText = string().required(errMsgs.DEFAULT_REQUIRED);
 
@@ -58,4 +60,88 @@ export const urlRequired = string()
       message: errMsgs.INVALID_LINK,
     }
   )
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+// SINGLE CONTENT FIELDS
+export const title = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(50)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const categories = array().of(string()).nullable();
+
+export const libraryContent = boolean()
+  .oneOf([true, false])
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const instructions = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(1000)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const contentInput = object().shape(
+  {
+    // link: string().when(
+    //   ['docContent', 'fileUploaded', 'category'],
+    //   (docContent, fileUploaded, category) => {
+    //     if (['audio', 'video'].includes(category)) {
+    //       if (!fileUploaded) {
+    //         string()
+    //           .matches(URLregex, {
+    //             message: errMsgs.INVALID_LINK,
+    //           })
+    //           .required(errMsgs.DEFAULT_REQUIRED);
+    //       } else {
+    //         string().notRequired();
+    //       }
+    //     } else {
+    //       if (!fileUploaded && !docContent.length) {
+    //         string()
+    //           .matches(URLregex, {
+    //             message: errMsgs.INVALID_LINK,
+    //           })
+    //           .required(errMsgs.DEFAULT_REQUIRED);
+    //       } else {
+    //         string().notRequired();
+    //       }
+    //     }
+    //   }
+    // ),
+
+    // docContent: string()
+    //   .notRequired()
+    //   .when(
+    //     ['fileUploaded', 'link', 'category'],
+    //     (fileUploaded, link, category) => {
+    //       console.log(`reached`);
+    //       if (category === 'document') {
+    //         return !fileUploaded && !link.length
+    //           ? string().required(errMsgs.DEFAULT_REQUIRED)
+    //           : string().notRequired();
+    //       } else {
+    //         return string().notRequired();
+    //       }
+    //     }
+    //   ),
+
+    // link: string().when('link', (link) => {
+    //   return link && link.length
+    //     ? string()
+    //         .matches(URLregex, {
+    //           message: errMsgs.INVALID_LINK,
+    //         })
+    //         .required(errMsgs.DEFAULT_REQUIRED)
+    //     : string().notRequired();
+    // }),
+    // link: string().required(errMsgs.DEFAULT_REQUIRED),
+    docContent: string().required(errMsgs.DEFAULT_REQUIRED),
+  },
+  ['link', 'docContent']
+);
+
+export const link = number().required(errMsgs.DEFAULT_REQUIRED);
+
+export const docContent = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(1000)
   .required(errMsgs.DEFAULT_REQUIRED);
