@@ -63,6 +63,19 @@ const Login = ({ status, title, msg }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password]);
 
+  const decideRoute = (role) => {
+    switch (role) {
+      case 'CLIENT':
+        return navRoutes.CLIENT.DASHBOARD;
+      case 'THERAPIST':
+        return navRoutes.THERAPIST.DASHBOARD;
+      case 'ADMIN':
+        return navRoutes.ADMIN.ALL_CONTENT;
+      default:
+        break;
+    }
+  };
+
   const handleSignup = async () => {
     setState({ loading: true });
     const { error, data } = await Users.login({
@@ -77,8 +90,9 @@ const Login = ({ status, title, msg }) => {
         setState({ httpError: error.message });
       }
     } else {
+      console.log('data', data);
       setUser(data);
-      history.push(navRoutes.THERAPIST.WELCOME);
+      history.push(decideRoute(data?.role));
     }
   };
 
