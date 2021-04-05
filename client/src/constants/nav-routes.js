@@ -28,6 +28,8 @@ const THERAPIST = {
   LIBRARY: `${THERAPIST_BASE}/library`,
   FEEDBACK: `${THERAPIST_BASE}/feedback`,
   ACCOUNT: `${THERAPIST_BASE}/account`,
+  CLIENT: `${THERAPIST_BASE}/clients/:id`,
+  NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
 };
 
 const ADMIN_BASE = '/admin';
