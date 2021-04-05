@@ -69,6 +69,19 @@ function App() {
                 Component={Pages.CLIENT.AllProgrammes}
               />
               <Route
+                exact
+                path={navRoutes.CLIENT.THERAPY_PLAN}
+                Component={Pages.CLIENT.MyTherapyPlan}
+                goBack
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.THERAPY_GOALS}
+                Component={Pages.CLIENT.MyTherapyGoals}
+                goBack
+                maxWidth="none"
+              />
+              <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
                 goBack
