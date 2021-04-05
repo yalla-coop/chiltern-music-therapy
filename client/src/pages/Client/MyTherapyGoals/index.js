@@ -70,7 +70,7 @@ const MyTherapyGoals = () => {
             </Col>
           </Row>
         </Col>
-        <Col w={[4, 6, 4]} mt={5} jc="flex-end">
+        <Col w={[4, 12, 4]} mt={5} jc="flex-end" jcT="flex-start">
           <CardWrapper>
             <Link
               variant="graphic1"
