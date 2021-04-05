@@ -36,12 +36,13 @@ export const Wrapper = styled.div`
 
 export const Content = styled.main`
   width: 100%;
+  max-width: ${({ theme: { maxWidths } }) => maxWidths.desktop};
   padding: ${({ theme: { spacings } }) => `${spacings[8]} ${spacings[10]}`};
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) => `${spacings[7]} ${spacings[9]}`};
   }
   ${({ theme }) => theme.media.mobile} {
     padding: ${({ theme: { spacings } }) =>
-      `${spacings[7]} 37px ${spacings[6]} 38px`};
+      `${spacings[6]} 37px ${spacings[8]} 38px`};
   }
 `;

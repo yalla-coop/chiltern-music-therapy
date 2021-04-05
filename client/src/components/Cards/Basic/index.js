@@ -1,5 +1,6 @@
 import * as S from './style';
 import * as T from '../../Typography';
+import { navRoutes } from '../../../constants';
 
 const Basic = ({ children, variant, therapistInfo, m }) => {
   const textInfoShort = [
@@ -38,12 +39,20 @@ const Basic = ({ children, variant, therapistInfo, m }) => {
             {therapistInfo?.firstName} {therapistInfo?.lastName}
           </T.P>
           <S.Links>
-            {/* UPDATE WITH LINKS ONCE ROUTES SET UP */}
-            <T.Link to={'/'} weight="light" mr="2" mb="2">
+            <T.Link
+              to={navRoutes.CLIENT.MY_THERAPIST}
+              weight="light"
+              mr="2"
+              mb="2"
+            >
               View biography
             </T.Link>
-            <T.Link to={'/'} weight="light" mb="2">
-              Contact my therapist
+            <T.Link
+              to={navRoutes.CLIENT.CONTACT_THERAPIST}
+              weight="light"
+              mb="2"
+            >
+              Contact therapist
             </T.Link>
           </S.Links>
         </S.Wrapper>
