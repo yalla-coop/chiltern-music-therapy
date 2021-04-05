@@ -1,3 +1,4 @@
 import Signup from './Signup';
+import Dashboard from './Dashboard';
 
-export default { Signup };
+export default { Dashboard, Signup };

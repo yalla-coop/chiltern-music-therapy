@@ -46,7 +46,7 @@ export const ClientRoutes = ({ setOpen }) => {
           home programmes
         </S.Head4>
       </S.Link>
-      <S.Link to={CLIENT['THERAPIST']} onClick={() => handleClick(setOpen)}>
+      <S.Link to={CLIENT['MY_THERAPIST']} onClick={() => handleClick(setOpen)}>
         <S.Head4>My</S.Head4>{' '}
         <S.Head4 bold color="gray8">
           therapist
