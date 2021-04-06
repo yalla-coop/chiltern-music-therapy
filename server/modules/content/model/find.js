@@ -1,6 +1,6 @@
 import { query } from '../../../database';
 
-const findContentByProgId = async (id) => {
+const findContentByProg = async (id) => {
   const values = [id];
 
   const sql = `
@@ -9,10 +9,10 @@ const findContentByProgId = async (id) => {
     c.instructions,
     c.link,
     m.file_name,
-    m.file-type
-    FROM content c
-    INNER JOIN programme_contents pc ON pc.content_id = c.id
-    INNER JOIN media m ON c.media_id = media.id
+    m.file_type
+    FROM contents c
+    INNER JOIN programmes_contents pc ON pc.content_id = c.id
+    INNER JOIN media m ON c.media_id = m.id
     WHERE pc.programme_id = $1
   `;
 
@@ -20,4 +20,4 @@ const findContentByProgId = async (id) => {
   return res.rows;
 };
 
-export { findContentByProgId };
+export { findContentByProg };

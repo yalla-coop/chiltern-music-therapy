@@ -1,14 +1,49 @@
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useAuth } from '../../../context/auth';
+
 import Title from '../../../components/Title';
 import * as T from '../../../components/Typography';
 import { Row, Col } from '../../../components/Grid';
 import { dateFormatter } from '../../../helpers';
 import { Expandable } from '../../../components/Cards';
 import Button from '../../../components/Button';
-import { Contents } from '../../../api-calls';
-import { useEffect } from 'react';
+
+import { Contents, Programmes } from '../../../api-calls';
 
 const IndividProgramme = () => {
-  console.log('hey');
+  const [contents, setContents] = useState([]);
+  const [update, setUpdate] = useState({});
+  const [feedback, setFeedback] = useState({});
+
+  const { user } = useAuth();
+  const { id } = useParams();
+
+  useEffect(() => {
+    const getContent = async () => {
+      const { data, error } = await Contents.getContentByProg({ id });
+
+      if (!error) {
+        setContents(data);
+      }
+    };
+
+    const getProgData = async () => {
+      const { data, error } = await Programmes.getProgrammeById({ id });
+      console.log('data', data);
+
+      if (!error) {
+        setUpdate(data.update);
+        setFeedback(data.feedback);
+      }
+    };
+
+    if (id && user?.id) {
+      getContent();
+      getProgData();
+    }
+  }, [id, user.id]);
 
   return (
     <>
