@@ -63,6 +63,12 @@ function App() {
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
               />
+              <Route
+                exact
+                // path={navRoutes.THERAPIST.CREATE_PROGRAM}
+                path="/test"
+                Component={Pages.THERAPIST.AddClient}
+              />
 
               {/* Client Pages */}
               <Route
