@@ -15,6 +15,7 @@ const CLIENT = {
   THERAPY_GOALS: '/therapy-goals',
   CONTACT_THERAPIST: '/contact-therapist',
   PROGRAMMES: '/programmes',
+  THERAPIST: '/my-therapist',
   PROGRAMME: '/programmes/:id',
   ACCOUNT: '/account',
   SINGLE_PROGRAMME: '/programmes/:id',

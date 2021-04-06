@@ -1,8 +1,8 @@
 import * as S from './style';
 import PropTypes from 'prop-types';
 
-const Col = ({ w = [], children, ...props }) => (
-  <S.Col c1={w[0]} c2={w[1]} c3={w[2]} {...props}>
+const Col = ({ w = [], children, display = 'flex', ...props }) => (
+  <S.Col c1={w[0]} c2={w[1]} c3={w[2]} display={display} {...props}>
     {children}
   </S.Col>
 );
