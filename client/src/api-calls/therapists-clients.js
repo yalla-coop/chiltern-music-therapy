@@ -42,7 +42,6 @@ const updateTherapiesProfile = async ({ updates, options } = {}) => {
     //   `${THERAPISTS_CLIENTS_BASE}/update-therapies-profile`
     // )
     // return data;
-    console.log('ssss');
     return { data: updates };
   } catch (error) {
     const err = handleError(error, options);
