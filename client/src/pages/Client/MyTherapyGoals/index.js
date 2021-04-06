@@ -26,7 +26,7 @@ const MyTherapyGoals = () => {
     <>
       <Title boldSection="Therapy Goals" lightSection="My" />
       <Row mb="6" jc="space-between">
-        <Col w={[4, 12, 6]}>
+        <Col w={[4, 12, 8]}>
           <Row inner jc="space-between">
             <Col w={[4, 12, 10]}>
               <T.P color="gray8">
