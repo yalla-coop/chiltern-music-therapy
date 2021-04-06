@@ -4,19 +4,27 @@ import * as T from '../../Typography';
 import Icon from '../../Icon';
 import { dateFormatter } from '../../../helpers';
 
-const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
+import ViewMode from './ViewMode';
+import EditMode from './EditMode';
+
+const Expandable = ({
+  borderColor,
+  content,
+  remove,
+  edit,
+  withDate,
+  editing,
+  library,
+  handleInput,
+  saveChanges,
+  errors,
+  categoryOptions,
+  onCancel,
+}) => {
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
-  const {
-    fileType,
-    title,
-    date,
-    streamable,
-    download,
-    instructions,
-    categories,
-  } = content;
+  const { fileType, title, date } = content;
 
   const titleData = {
     video: { action: 'Watch', title: 'video', icon: 'video' },
@@ -34,7 +42,7 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
     <S.Wrapper
       borderColor={borderColor}
       open={open}
-      onClick={() => setOpen(!open)}
+      onClick={() => (editing ? setOpen(true) : setOpen(!open))}
       height={selectedHeight}
     >
       <S.Title open={open}>
@@ -56,67 +64,30 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
           </T.P>
         )}
       </S.Title>
-      <S.Content open={open} ref={contentRef} height={selectedHeight}>
-        {streamable && (
-          <div style={{ marginBottom: '24px' }}>VIDEO/AUDIO HERE</div>
-        )}
-        {download && (
-          <a href={download} download>
-            <Icon
-              icon="download"
-              width="16"
-              height="16"
-              text="Download file"
-              mb="5"
-              color="primary"
-            />
-          </a>
-        )}
-        {instructions && (
-          <>
-            <T.H4 bold mb="2">
-              Instructions
-            </T.H4>
-            <T.P color="gray8">{instructions}</T.P>
-          </>
-        )}
-        {categories && (
-          <>
-            <T.H4 bold mb="2">
-              Categories
-            </T.H4>
-            {categories.map((cat, i) => (
-              <div>Tags to go here with {cat}</div>
-            ))}
-          </>
-        )}
-        {(remove || edit) && (
-          <S.Actions>
-            {edit && (
-              <S.InvisibleBtn>
-                <Icon
-                  icon="edit"
-                  width="16"
-                  height="16"
-                  text="Edit"
-                  color="primary"
-                />
-              </S.InvisibleBtn>
-            )}
-            {remove && (
-              <S.InvisibleBtn>
-                <Icon
-                  icon="bin"
-                  width="16"
-                  height="16"
-                  text="Remove"
-                  color="secondary"
-                />
-              </S.InvisibleBtn>
-            )}
-          </S.Actions>
-        )}
-      </S.Content>
+      {editing ? (
+        <EditMode
+          content={content}
+          open={open}
+          contentRef={contentRef}
+          selectedHeight={selectedHeight}
+          remove={remove}
+          library={library}
+          handleInput={handleInput}
+          saveChanges={saveChanges}
+          errors={errors}
+          categoryOptions={categoryOptions}
+          onCancel={onCancel}
+        />
+      ) : (
+        <ViewMode
+          content={content}
+          open={open}
+          contentRef={contentRef}
+          selectedHeight={selectedHeight}
+          remove={remove}
+          edit={edit}
+        />
+      )}
     </S.Wrapper>
   );
 };
