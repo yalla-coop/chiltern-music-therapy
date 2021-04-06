@@ -43,6 +43,10 @@ export const agreedOnTerms = boolean()
   .oneOf([true], errMsgs.SHOULD_AGREE_ON_TERMS)
   .required(errMsgs.DEFAULT_REQUIRED);
 
+export const agreedAge = boolean()
+  .oneOf([true], errMsgs.AGREED_AGE)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
 export const arrayOfIds = array()
   .of(number())
   .min(1)
@@ -85,4 +89,8 @@ export const docContent = string().min(1, errMsgs.DEFAULT_REQUIRED).max(1000);
 export const description = string()
   .min(1, errMsgs.DEFAULT_REQUIRED)
   .max(500)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const inviteToken = string()
+  .length(8)
   .required(errMsgs.DEFAULT_REQUIRED);

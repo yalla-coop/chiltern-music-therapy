@@ -24,7 +24,7 @@ router.use('/view-accesses', viewAccess.controllers);
 
 // catch 404 and forward to error handler
 router.use((req, res, next) => {
-  next(errorMsgs.PAGE_NOT_FOUND());
+  next(errorMsgs.NOT_FOUND);
 });
 
 export default router;

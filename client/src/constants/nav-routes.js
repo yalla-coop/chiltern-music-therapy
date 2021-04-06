@@ -3,14 +3,22 @@ const GENERAL = {
   LOGIN: '/login',
   UNAUTHORIZED: '/unauthorized',
   LOGOUT: '/logout',
+  RESET_PASSWORD: '/reset-password',
 };
 
 const CLIENT = {
+  SIGNUP: '/signup',
   WELCOME: '/welcome',
   DASHBOARD: '/dashboard',
+  MY_THERAPIST: '/my-therapist',
+  THERAPY_PLAN: '/therapy-plan',
+  THERAPY_GOALS: '/therapy-goals',
+  CONTACT_THERAPIST: '/contact-therapist',
   PROGRAMMES: '/programmes',
-  THERAPIST: '/therapist',
+  THERAPIST: '/my-therapist',
+  PROGRAMME: '/programmes/:id',
   ACCOUNT: '/account',
+  SINGLE_PROGRAMME: '/programmes/:id',
 };
 
 const THERAPIST_BASE = '/therapist';
@@ -29,8 +37,8 @@ const THERAPIST = {
   CREATE_PROGRAM_CONTENT: `${THERAPIST_BASE}/program/create/content`,
   CREATE_PROGRAM_CONTENT_SINGLE: `${THERAPIST_BASE}/program/create/content/:category`,
   CREATE_PROGRAM_REVIEW: `${THERAPIST_BASE}/program/create/review`,
-  // EDIT PROGRAM
-  EDIT_PROGRAM_CONTENT_SINGLE: `${THERAPIST_BASE}/program/edit/content/:category`,
+  CLIENT: `${THERAPIST_BASE}/clients/:id`,
+  NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
 };
 
 const ADMIN_BASE = '/admin';

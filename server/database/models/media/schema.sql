@@ -10,7 +10,7 @@ CREATE TABLE "media" (
   "size" INTEGER,
   "path" VARCHAR,
   "file_type" VARCHAR(50),
-  "created_by" INTEGER REFERENCES users(id),
+  "created_by" INTEGER,
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()
 );

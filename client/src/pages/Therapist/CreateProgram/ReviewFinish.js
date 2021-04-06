@@ -8,13 +8,12 @@ import {
 
 import * as S from './style';
 import flowTypes from './flowTypes';
-import { content } from 'constants';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
 const ReviewFinish = ({ state, actions, decidePath }) => {
-  const { description } = state;
+  const { description, content } = state;
 
   const goBack = () => decidePath(flowTypes.addContent);
   return (
@@ -41,10 +40,12 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           </Col>
         </Row>
       )}
-      {content.length > 0 && (
+      {content.length > 0 ? (
         <Row mt={5}>
           <Col w={[4, 6, 6]}></Col>
         </Row>
+      ) : (
+        <T.P bold>No content added</T.P>
       )}
 
       <Row mt={7}>

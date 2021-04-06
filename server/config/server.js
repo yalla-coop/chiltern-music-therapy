@@ -7,7 +7,6 @@ const envVarsSchema = yup
     PORT: isProduction ? yup.number() : yup.number().required(),
     // DOMAIN: yup.string().required(), // not required for now
     SECRET: yup.string().required(),
-    TOKEN_MAX_AGE: yup.number().required(),
   })
   .required();
 
@@ -26,7 +25,6 @@ const config = () => {
   return {
     port: envVars.PORT,
     secret: envVars.SECRET,
-    tokenMaxAge: envVars.TOKEN_MAX_AGE,
   };
 };
 

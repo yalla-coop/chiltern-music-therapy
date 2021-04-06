@@ -6,7 +6,6 @@ import { navRoutes } from '../../../constants';
 
 import reducer from './reducer';
 import actionTypes from './actionTypes';
-import flowTypes from './flowTypes';
 
 import { AddSingleContent } from '../../../components/Content';
 
