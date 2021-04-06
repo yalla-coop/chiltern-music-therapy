@@ -43,7 +43,6 @@ const Profile = () => {
       const { data, error } = await TherapistClients.updateTherapiesProfile({
         updates: { email, biography, contactNumber },
       });
-      console.log({ data });
       if (data) {
         history.push(THERAPIST.DASHBOARD);
       }
