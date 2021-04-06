@@ -17,7 +17,6 @@ const AllProgrammes = () => {
     const getProgrammes = async () => {
       const { data, error } = await Programmes.getProgrammesByClient();
       if (!error) {
-        console.log('DARTA!', data);
         setProgrammes(data);
       }
     };
