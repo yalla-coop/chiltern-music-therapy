@@ -61,6 +61,29 @@ const Link = ({
           </S.GraphicWrapper>
         </S.Link>
       );
+    case 'graphic3':
+      return (
+        <S.Link to={to}>
+          <S.GraphicWrapper {...m}>
+            <S.Title>
+              <T.P weight="light" mr="1">
+                Client
+              </T.P>
+              <T.P weight="bold">{title}</T.P>
+            </S.Title>
+            <Image
+              image="orangeCircles"
+              style={{ position: 'absolute', top: '-30px', right: '-35px' }}
+              alt="circles"
+            />
+            <Image
+              image="pinkCircles"
+              style={{ position: 'absolute', bottom: '-70px', left: '15px' }}
+              alt="circles"
+            />
+          </S.GraphicWrapper>
+        </S.Link>
+      );
     case 'programme':
       return (
         <S.Link to={to}>

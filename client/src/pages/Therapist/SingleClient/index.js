@@ -83,7 +83,11 @@ const SingleClient = () => {
       </Row>
       <Row mb="8">
         <Col w={[4, 12, 5]}>
-          <Link title="client history" variant="graphic1" />
+          <Link
+            title="client history"
+            variant="graphic1"
+            to={THERAPIST.CLIENT_HISTORY}
+          />
         </Col>
       </Row>
 
@@ -108,10 +112,10 @@ const SingleClient = () => {
       </Row>
       <Row>
         {(programmes?.length > 0 &&
-          programmes.slice(0, elementsOnView).map((id) => (
+          programmes.slice(0, elementsOnView).map(({ id, createdAt }) => (
             <Col w={[4, 6, 4]} mb="5">
               <Link
-                programme={{ date: moment(), id: 1 }}
+                programme={{ date: moment(createdAt), id }}
                 variant="programme"
                 to={THERAPIST.SINGLE_PROGRAMME}
               />
@@ -139,6 +143,20 @@ const SingleClient = () => {
           </Col>
         </Row>
       )}
+      <Row mb="8" mt="7">
+        <Col w={[4, 12, 5]}>
+          <Link title="feedback" variant="graphic3" to={THERAPIST.FEEDBACK} />
+        </Col>
+      </Row>
+      <Row mb="8" mt="7">
+        <Col w={[4, 12, 5]}>
+          <Button
+            to={THERAPIST.CONTACT_CLIENT}
+            text="Contact client"
+            variant="secondary"
+          />
+        </Col>
+      </Row>
     </S.Wrapper>
   );
 };

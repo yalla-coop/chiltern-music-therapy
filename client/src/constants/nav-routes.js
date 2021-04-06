@@ -33,6 +33,8 @@ const THERAPIST = {
   FEEDBACK: `${THERAPIST_BASE}/feedback`,
   ACCOUNT: `${THERAPIST_BASE}/account`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
+  CLIENT_HISTORY: `${THERAPIST_BASE}/clients/:id/history`,
+  CONTACT_CLIENT: `${THERAPIST_BASE}/clients/:id/contact`,
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
   SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
 };
@@ -46,7 +48,8 @@ const ADMIN = {
 
 const EXTERNAL = {
   TERMS_OF_USE: 'https://www.google.com/',
-  PRIVACY_POLICY: 'https://www.google.com/',
+  PRIVACY_POLICY:
+    'https://docs.google.com/document/d/1KXb2GyC0H7NhQKFdrTQQNWjChFso0WwQ',
 };
 
 export { GENERAL, CLIENT, THERAPIST, ADMIN, EXTERNAL };
