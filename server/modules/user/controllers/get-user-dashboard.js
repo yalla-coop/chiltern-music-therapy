@@ -25,7 +25,7 @@ const getUserDashboard = async (req, res, next) => {
       const protectedClients = clients.map((c) => ({
         firstInitial: c.firstName[0],
         lastInitial: c.lastName[0],
-        postcode: c.postcode,
+        postcode: c.postcode && c.postcode.slice(0, 2),
         id: c.id,
       }));
 
