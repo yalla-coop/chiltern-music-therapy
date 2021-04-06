@@ -9,7 +9,7 @@ import EditMode from './EditMode';
 
 const Expandable = ({
   borderColor,
-  content,
+  content = {},
   remove,
   edit,
   withDate,
@@ -24,8 +24,8 @@ const Expandable = ({
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
-  const { fileType, title, date } = content;
-
+  // const { fileType, title, date } = content;
+  console.log(`content`, content);
   const titleData = {
     video: { action: 'Watch', title: 'video', icon: 'video' },
     document: { action: 'View', title: 'content', icon: 'document' },
@@ -46,20 +46,25 @@ const Expandable = ({
       height={selectedHeight}
     >
       <S.Title open={open}>
-        <Icon icon={titleData[fileType]?.icon} mr="3" width="33" height="33" />
+        <Icon
+          icon={titleData[content.fileType]?.icon}
+          mr="3"
+          width="33"
+          height="33"
+        />
 
         {withDate ? (
           <S.DateTitle>
             <T.P color="gray8" caps small>
-              {dateFormatter(date) || 'N/A'}
+              {dateFormatter(content.date) || 'N/A'}
             </T.P>
-            <T.P weight="bold">{title || 'N/A'}</T.P>
+            <T.P weight="bold">{content.title || 'N/A'}</T.P>
           </S.DateTitle>
         ) : (
           <T.P weight="light" mr="1">
-            {titleData[fileType]?.action}{' '}
+            {titleData[content.fileType]?.action}{' '}
             <span style={{ fontWeight: 'bold' }}>
-              {titleData[fileType]?.title}
+              {titleData[content.fileType]?.title}
             </span>
           </T.P>
         )}

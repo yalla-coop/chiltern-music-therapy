@@ -137,22 +137,23 @@ const AddSingleContent = ({ state: parentState, actions }) => {
       uploadedFileInfo,
     };
 
-    UPDATE_CONTENT(formData);
-    await RESET_SINGLE_CONTENT();
+    await UPDATE_CONTENT(formData);
+    RESET_SINGLE_CONTENT();
 
     if (submitType === 'content') {
       history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
-    } else {
+    } else if (submitType === 'review') {
       history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
     }
   };
 
-  const handleSubmit = (e, submitType) => {
+  const handleSubmit = async (e, submitType) => {
     e.preventDefault();
 
     setSubmitAttempt(true);
 
-    const isValid = validateForm();
+    const isValid = await validateForm();
+
     if (isValid) {
       setUnsavedChanges(false);
       handleAddSingleContent(submitType);

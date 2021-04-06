@@ -19,16 +19,13 @@ const AddContent = ({ state, actions, decidePath }) => {
   const goNext = () => decidePath(flowTypes.reviewFinish);
   const goBack = () => decidePath(flowTypes.description);
 
-  console.log(`singleContent`, state.singleContent);
-  console.log('content', state.content);
   const testLibraryContent = [
     {
-      contentId: 1,
+      id: 1,
       type: 'video',
       title: 'test video 1',
-      categories: [],
+      categories: ['test', 'this'],
       link: 'www.youtube.com/test',
-      docContent: '',
       libraryContent: true,
       instructions: 'this is a test',
     },

@@ -6,7 +6,7 @@ import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 import Button from '../../Button';
 
 const EditMode = ({
-  content,
+  content = {},
   open,
   contentRef,
   selectedHeight,
@@ -44,31 +44,38 @@ const EditMode = ({
           />
         </a>
       )}
-      <BasicInput
-        label="Title"
-        placeholder="Type title..."
-        value={title}
-        type="text"
-        handleChange={handleInput}
-        error={errors.title}
-        m={{ mb: '5' }}
-      />
-      <Dropdown
-        multi
-        label="Categories"
-        selected={categories}
-        options={categoryOptions}
-        handleChange={handleInput}
-        error={errors.categories}
-        m={{ mb: '5' }}
-      />
-      <Textarea
-        value={instructions}
-        placeholder="Type instructions here..."
-        label="Want to add any more specific instructions for this video?"
-        m={{ mb: '5' }}
-      />
-      {library ? (
+      {title && (
+        <BasicInput
+          label="Title"
+          placeholder="Type title..."
+          value={title}
+          type="text"
+          // handleChange={handleInput}
+          // error={errors.title}
+          m={{ mb: '5' }}
+        />
+      )}
+      {categories && (
+        <Dropdown
+          multi
+          label="Categories"
+          selected={categories}
+          options={categoryOptions}
+          //  handleChange={handleInput}
+          //  error={errors.categories}
+          m={{ mb: '5' }}
+        />
+      )}
+      {instructions && (
+        <Textarea
+          value={instructions}
+          placeholder="Type instructions here..."
+          label="Want to add any more specific instructions for this video?"
+          m={{ mb: '5' }}
+        />
+      )}
+
+      {savedToLibrary && library ? (
         <>
           <Button text="Save changes" handleClick={saveChanges} mb="4" />
           <S.InvisibleBtn mb="5" onClick={onCancel}>
@@ -86,7 +93,7 @@ const EditMode = ({
           <Checkbox
             checked={savedToLibrary}
             handleChange={handleInput}
-            error={errors.savedToLibrary}
+            // error={errors.savedToLibrary}
             label={
               <T.P color="gray9">
                 Save this video to{' '}

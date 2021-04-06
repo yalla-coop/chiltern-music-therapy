@@ -26,15 +26,13 @@ const AddContentSection = ({
   const history = useHistory();
 
   const renderLibraryContentDropdownValues = libraryContent.map((el) => {
-    const res = { label: el.title, value: el.contentId };
+    const res = { label: el.title, value: el.id };
     return res;
   });
 
   const handleSubmitLibraryContent = async (val) => {
-    const selectLibraryContent = libraryContent.filter(
-      (el) => el.contentId === val
-    );
-    const duplicates = content.filter((el) => el.contentId === val);
+    const selectLibraryContent = libraryContent.filter((el) => el.id === val);
+    const duplicates = content.filter((el) => el.id === val);
 
     if (duplicates.length > 0) {
       setDuplicateError(
