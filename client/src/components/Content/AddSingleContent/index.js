@@ -141,9 +141,10 @@ const AddSingleContent = ({ state: parentState, actions }) => {
     await RESET_SINGLE_CONTENT();
 
     if (submitType === 'content') {
-      await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
+      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
+    } else {
+      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
     }
-    await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
   };
 
   const handleSubmit = (e, submitType) => {

@@ -193,7 +193,9 @@ const FileUpload = ({
       <Dragger {...props}>
         <S.UploadDetails>
           <Icon error={error || contentInputMissingError} icon="inbox" />
-          <T.P color="gray9">Click or drag file to this area to upload</T.P>
+          <T.P mt="2" ta="center" color="gray9">
+            Click or drag file to this area to upload
+          </T.P>
         </S.UploadDetails>
       </Dragger>
       {(error || contentInputMissingError) && (
