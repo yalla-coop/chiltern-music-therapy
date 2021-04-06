@@ -53,4 +53,21 @@ const logout = async ({ options } = {}) => {
   }
 };
 
-export { getUserById, getLoggedInUserInfo, signup, login, logout };
+const getUserDashboard = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.get(`${USERS_BASE}/dashboard`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export {
+  getUserById,
+  getLoggedInUserInfo,
+  signup,
+  login,
+  logout,
+  getUserDashboard,
+};
