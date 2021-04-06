@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
+import fallback from '../assets/Avatar.svg';
 
 export const AvatarImage = styled.div`
   width: 320px;
   height: 320px;
   border-radius: 50%;
-  background-image: ${({ image }) => `url(${image})`};
+  background-image: ${({ image }) => `url(${image})`}, url('${fallback}');
   background-position: center;
   background-size: cover;
   position: absolute;
