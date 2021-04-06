@@ -7,6 +7,7 @@ const createContent = async ({
   link,
   libraryContent,
   therapistLibraryUserId,
+  type,
 }) => {
   const sql = `
     INSERT INTO contents(
@@ -15,7 +16,8 @@ const createContent = async ({
       instructions,
       link,
       library_content,
-      therapist_library_user_id
+      therapist_library_user_id,
+      type
     )
       VALUES (
         $1,
@@ -23,7 +25,8 @@ const createContent = async ({
         $3,
         $4,
         $5,
-        $6
+        $6,
+        $7
       ) RETURNING *
   `;
   const res = await query(sql, [
@@ -33,6 +36,7 @@ const createContent = async ({
     link,
     libraryContent,
     therapistLibraryUserId,
+    type,
   ]);
   return res.rows[0];
 };
@@ -45,6 +49,7 @@ const createContents = async ({ media, therapistClients }) => {
     link: null,
     libraryContent: true,
     therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
+    type: 'VIDEO',
   });
   const content2 = await createContent({
     mediaId: media.audio1.id,
@@ -53,6 +58,7 @@ const createContents = async ({ media, therapistClients }) => {
     link: null,
     libraryContent: true,
     therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
+    type: 'AUDIO',
   });
 
   const content3 = await createContent({
@@ -62,6 +68,7 @@ const createContents = async ({ media, therapistClients }) => {
     link: 'www.audiocontent.com',
     libraryContent: true,
     therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
+    type: 'DOCUMENT',
   });
 
   return {

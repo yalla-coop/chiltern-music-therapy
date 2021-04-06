@@ -8,11 +8,8 @@ import * as T from '../../../components/Typography';
 import { Row, Col } from '../../../components/Grid';
 import { dateFormatter } from '../../../helpers';
 import { Basic, Expandable } from '../../../components/Cards';
-import Button from '../../../components/Button';
 
 import { Contents, Programmes } from '../../../api-calls';
-
-import { navRoutes } from '../../../constants';
 
 import UpdateSection from './UpdateSection';
 import FeedbackSection from './FeedbackSection';
@@ -22,7 +19,6 @@ const IndividProgramme = () => {
   const [update, setUpdate] = useState({});
   const [feedback, setFeedback] = useState({});
   const [therapist, setTherapist] = useState({});
-  const [openContent, setOpenContent] = useState([]);
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -107,8 +103,6 @@ const IndividProgramme = () => {
                   fileType: type?.toLowerCase(),
                   path,
                 }}
-                open={openContent.includes(index)}
-                setOpen={() => setOpenContent([index, ...openContent])}
               />
             </Col>
           ))
