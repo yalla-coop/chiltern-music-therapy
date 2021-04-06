@@ -22,6 +22,7 @@ const IndividProgramme = () => {
   const [update, setUpdate] = useState({});
   const [feedback, setFeedback] = useState({});
   const [therapist, setTherapist] = useState({});
+  const [openContent, setOpenContent] = useState([]);
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -95,7 +96,7 @@ const IndividProgramme = () => {
       </Row>
       <Row mb="8">
         {contentToView ? (
-          contents.map(({ type, path, ...content }) => (
+          contents.map(({ type, path, ...content }, index) => (
             <Col w={[4, 6, 4]} mb="4">
               <Expandable
                 borderColor={decideBorder(type)}
@@ -103,9 +104,11 @@ const IndividProgramme = () => {
                   download: path,
                   streamable: decideStreamable(type, path),
                   ...content,
-                  fileType: type.toLowerCase(),
+                  fileType: type?.toLowerCase(),
                   path,
                 }}
+                open={openContent.includes(index)}
+                setOpen={() => setOpenContent([index, ...openContent])}
               />
             </Col>
           ))

@@ -35,9 +35,16 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
     <S.Wrapper
       borderColor={borderColor}
       open={open}
-      onClick={() => setOpen(!open)}
+      onClick={() => !open && setOpen(true)}
       height={selectedHeight}
+      ref={contentRef}
     >
+      {open && (
+        <S.CrossBtn onClick={() => setOpen(false)}>
+          <Icon icon="cross" width="16" height="16" color="gray8" />
+        </S.CrossBtn>
+      )}
+
       <S.Title open={open}>
         <Icon icon={titleData[fileType]?.icon} mr="3" width="33" height="33" />
 
@@ -57,7 +64,7 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
           </T.P>
         )}
       </S.Title>
-      <S.Content open={open} ref={contentRef} height={selectedHeight}>
+      <S.Content open={open} height={selectedHeight}>
         {streamable && (
           <div style={{ marginBottom: '24px' }}>VIDEO/AUDIO HERE</div>
         )}
@@ -73,9 +80,9 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
             />
           </a>
         )}
-        {link && (
-          <T.Link external to={linkFormatter(link)}>
-            View content link
+        {link && open && (
+          <T.Link external to={linkFormatter(link)} mb="5" underline>
+            Click to open content
           </T.Link>
         )}
         {instructions && (

@@ -1,7 +1,7 @@
 import { query } from '../connect';
 import { bucket, region } from '../../services/files-storage/config';
 
-const createMedia = async ({ type, fileName, key, createdBy }) => {
+const createMedia = async ({ type, fileName, key, createdBy, path }) => {
   const sql = `
     INSERT INTO media(
       type,
@@ -9,7 +9,8 @@ const createMedia = async ({ type, fileName, key, createdBy }) => {
       key,
       bucket,
       bucket_region,
-      created_by
+      created_by,
+      path
     )
       VALUES (
         $1,
@@ -17,7 +18,8 @@ const createMedia = async ({ type, fileName, key, createdBy }) => {
         $3,
         $4,
         $5,
-        $6
+        $6,
+        $7
       ) RETURNING *
   `;
   const res = await query(sql, [
@@ -27,6 +29,7 @@ const createMedia = async ({ type, fileName, key, createdBy }) => {
     bucket,
     region,
     createdBy,
+    path,
   ]);
   return res.rows[0];
 };
@@ -50,6 +53,7 @@ const createMedias = async ({ users }) => {
     type: 'AUDIO',
     fileName: 'therapist-test-audio-1.mp3',
     key: 'dummyKey3',
+    path: '/test.mp3',
     createdBy: users.therapist1.id,
   });
 

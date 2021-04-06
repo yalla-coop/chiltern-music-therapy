@@ -69,3 +69,12 @@ export const DateTitle = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
+export const CrossBtn = styled.button`
+  cursor: pointer;
+  border: none;
+  background: none;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+`;
