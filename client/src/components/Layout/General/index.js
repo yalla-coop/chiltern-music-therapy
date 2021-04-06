@@ -4,8 +4,10 @@ import * as S from './style';
 import { ReactComponent as TextLogo } from '../../Icon/icons/TextLogo.svg';
 import Navbar from '../../Navbar';
 import { Link } from 'react-router-dom';
+import GoBack from '../../GoBack';
+import theme from '../../../theme';
 
-const General = ({ children, maxWidth, ...props }) => {
+const General = ({ children, goBack, maxWidth, ...props }) => {
   return (
     <>
       <S.Wrapper>
@@ -16,7 +18,18 @@ const General = ({ children, maxWidth, ...props }) => {
           <Navbar />
         </S.OnboardingHeader>
       </S.Wrapper>
-      <S.Content maxWidth={maxWidth}>{children}</S.Content>
+      <S.Content maxWidth={maxWidth}>
+        {goBack && (
+          <GoBack
+            mb="6"
+            mbM="5"
+            ml={`${theme.constants.gridGutter.desktop / 2}px`}
+            mlT={`${theme.constants.gridGutter.tablet / 2}px`}
+            mlM={`${theme.constants.gridGutter.mobile / 2}px`}
+          />
+        )}
+        {children}
+      </S.Content>
     </>
   );
 };
