@@ -87,7 +87,7 @@ const Link = ({
                 <span style={{ fontWeight: 'bold' }}>
                   {client.firstInitial}
                 </span>{' '}
-                {client.secondInitial} {client.postcode}
+                {client.lastInitial} {client.postcode}
               </T.P>
             ) : (
               <T.P weight="light">N/A</T.P>

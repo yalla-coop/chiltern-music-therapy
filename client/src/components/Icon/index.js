@@ -28,7 +28,7 @@ import Video from './icons/Video';
 import Edit from './icons/Edit';
 
 const Icon = (props) => {
-  const { icon, color, text } = props;
+  const { icon, color, text, jc } = props;
 
   const IconMap = {
     email: Email,
@@ -67,6 +67,7 @@ const Icon = (props) => {
     ${setMargin}
     display: flex;
     align-items: center;
+    justify-content: ${jc || 'flex-start'};
   `;
 
   return (
