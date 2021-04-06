@@ -7,7 +7,7 @@ export const WelcomeDiv = styled.div`
 `;
 
 export const BoldSpan = styled.span`
-  font-weight: 900;
+  font-weight: 700;
 `;
 
 export const CardWrapper = styled.div`
