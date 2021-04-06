@@ -36,6 +36,7 @@ const findProgrammeById = async ({ id }) => {
   `;
 
   const res = await query(sql, values);
+
   return res.rows[0];
 };
 

@@ -30,6 +30,8 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
     setSelectedHeight(contentRef.current.offsetHeight);
   }, [contentRef]);
 
+  console.log('HE', content);
+
   return (
     <S.Wrapper
       borderColor={borderColor}
