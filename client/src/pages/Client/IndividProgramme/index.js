@@ -12,10 +12,16 @@ import Button from '../../../components/Button';
 
 import { Contents, Programmes } from '../../../api-calls';
 
+import { navRoutes } from '../../../constants';
+
+import UpdateSection from './UpdateSection';
+import FeedbackSection from './FeedbackSection';
+
 const IndividProgramme = () => {
   const [contents, setContents] = useState([]);
   const [update, setUpdate] = useState({});
   const [feedback, setFeedback] = useState({});
+  const [therapist, setTherapist] = useState({});
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -56,6 +62,7 @@ const IndividProgramme = () => {
       if (!error) {
         setUpdate(data.update);
         setFeedback(data.feedback);
+        setTherapist(data.therapist);
       }
     };
 
@@ -86,7 +93,7 @@ const IndividProgramme = () => {
           </T.P>
         </Col>
       </Row>
-      <Row mb="5">
+      <Row mb="8">
         {contentToView ? (
           contents.map(({ type, path, ...content }) => (
             <Col w={[4, 6, 4]} mb="4">
@@ -108,6 +115,8 @@ const IndividProgramme = () => {
           </Col>
         )}
       </Row>
+      <UpdateSection id={id} update={update} therapist={therapist} />
+      <FeedbackSection id={id} feedback={feedback} />
     </>
   );
 };

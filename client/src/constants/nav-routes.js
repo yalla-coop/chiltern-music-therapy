@@ -18,6 +18,8 @@ const CLIENT = {
   THERAPIST: '/my-therapist',
   ACCOUNT: '/account',
   INDIVID_PROGRAMME: '/programmes/:id',
+  SEND_UPDATE: `/programmes/:id/update`,
+  SEND_FEEDBACK: `/programmes/:id/feedback`,
 };
 
 const THERAPIST_BASE = '/therapist';
