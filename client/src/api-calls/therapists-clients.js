@@ -36,4 +36,19 @@ const getTherapistByInviteToken = async ({ inviteToken, options }) => {
   }
 };
 
-export { getTherapistsClientsById, getTherapistByInviteToken, getMyTherapist };
+const getMyTherapy = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.get(`${THERAPISTS_CLIENTS_BASE}/my-therapy`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export {
+  getTherapistsClientsById,
+  getTherapistByInviteToken,
+  getMyTherapy,
+  getMyTherapist,
+};
