@@ -13,7 +13,7 @@ const { Row, Col } = Grid;
 const { AddContentSection } = Content;
 
 const AddContent = ({ state, actions, decidePath }) => {
-  const { UPDATE_CONTENT } = actions;
+  const { ADD_CONTENT } = actions;
   const { content } = state;
 
   const goNext = () => decidePath(flowTypes.reviewFinish);
@@ -52,7 +52,7 @@ const AddContent = ({ state, actions, decidePath }) => {
           content={content}
           // TODO add library content
           libraryContent={testLibraryContent}
-          setLibraryContent={UPDATE_CONTENT}
+          setLibraryContent={ADD_CONTENT}
         />
       </Row>
 

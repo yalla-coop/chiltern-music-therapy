@@ -3,10 +3,28 @@ import actionTypes from './actionTypes';
 const reducer = (state, action) => {
   const { type, key, value } = action;
   switch (type) {
-    case actionTypes.updateContent:
+    case actionTypes.addContent:
       return {
         ...state,
         content: [...state.content, value],
+      };
+    case actionTypes.updateSingleContent:
+      return {
+        ...state,
+        content: state.content.map((el) => {
+          if (el.id === value.id) {
+            return Object.assign({}, el, { ...el, ...value });
+          }
+          return el;
+        }),
+      };
+    case actionTypes.addSingleContent:
+      return {
+        ...state,
+        singleContent: {
+          ...state.singleContent,
+          [key]: value,
+        },
       };
     case actionTypes.setDescription:
       return {
@@ -18,14 +36,15 @@ const reducer = (state, action) => {
         ...state,
         validationErrs: value,
       };
-    case actionTypes.updateSingleContent:
-      return {
-        ...state,
-        singleContent: {
-          ...state.singleContent,
-          [key]: value,
-        },
-      };
+
+    // case actionTypes.updateSingleContent:
+    //   return {
+    //     ...state,
+    //     singleContent: {
+    //       ...state.singleContent,
+    //       ...value,
+    //     },
+    //   };
     // takes initial state as value
     case actionTypes.resetSingleContent:
       return {

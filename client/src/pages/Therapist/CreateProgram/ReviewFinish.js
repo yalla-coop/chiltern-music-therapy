@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import moment from 'moment';
 import {
   GoBack,
@@ -8,6 +9,8 @@ import {
   Cards,
 } from '../../../components';
 
+import { navRoutes, dropdowns } from '../../../constants';
+
 import * as S from './style';
 import flowTypes from './flowTypes';
 
@@ -15,35 +18,53 @@ const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Expandable } = Cards;
 
+const { therapyGoalsCategories } = dropdowns;
+
 const ReviewFinish = ({ state, actions, decidePath }) => {
   const { description, content } = state;
+  let { singleContent } = state;
+
+  const { UPDATE_SINGLE_CONTENT, ADD_SINGLE_CONTENT, SET_ERRORS } = actions;
 
   const goBack = () => decidePath(flowTypes.addContent);
 
+  const handleSingleSubmit = () => {
+    //  single Content validation
+    // update content array
+    // reset single content
+  };
+  console.log('cont', content);
   const renderReviewCards = (_content) => {
     if (_content.length > 0) {
       return _content.map((el) => {
         const content = {
+          ...el,
+          id: el.id,
           title: el.title,
           fileType: el.type,
           streamable: true,
-          download: el.link || el.uploadedFileInfo.name,
+          // TODO get url
+          download: el.uploadedFileInfo && el.uploadedFileInfo.name,
           instructions: el.instructions,
           categories: el.categories,
-          savedToLibrary: el.libraryContent,
+          libraryContent: el.libraryContent,
           date: el.date || moment(),
+          validationErrs: el.validationErrs,
         };
 
         return (
-          <Col mb={5} w={[4, 9, 4]}>
+          <Col mb={5} w={[4, 9, 5]}>
             <Expandable
               content={content}
               editing
               withDate
-              // remove={removeFunc}
-              // saveChanges={saveChanges}
-              // handleInput={handleInput}
-              // onCancel={onCancel}
+              remove={'removeFunc'}
+              saveChanges={'saveChanges'}
+              onCancel={'onCancel'}
+              singleContent={singleContent}
+              updateSingleContent={UPDATE_SINGLE_CONTENT}
+              handleInput={ADD_SINGLE_CONTENT}
+              categoryOptions={therapyGoalsCategories}
             />
           </Col>
         );
@@ -93,7 +114,12 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           />
         </Col>
         <Col w={[4, 9, 4]}>
-          <Button variant="secondary" text="Save Changes" type="submit" />
+          <Button
+            variant="secondary"
+            text="Save Changes"
+            type="submit"
+            // onClick={handleSubmit}
+          />
         </Col>
       </Row>
     </>

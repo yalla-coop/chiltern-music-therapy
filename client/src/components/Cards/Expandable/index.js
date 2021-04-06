@@ -10,6 +10,8 @@ import EditMode from './EditMode';
 const Expandable = ({
   borderColor,
   content = {},
+  singleContent,
+  // setNewSingleContent,
   remove,
   edit,
   withDate,
@@ -20,12 +22,11 @@ const Expandable = ({
   errors,
   categoryOptions,
   onCancel,
+  updateSingleContent,
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
-  // const { fileType, title, date } = content;
-  console.log(`content`, content);
   const titleData = {
     video: { action: 'Watch', title: 'video', icon: 'video' },
     document: { action: 'View', title: 'content', icon: 'document' },
@@ -72,6 +73,9 @@ const Expandable = ({
       {editing ? (
         <EditMode
           content={content}
+          updateSingleContent={updateSingleContent}
+          singleContent={singleContent}
+          // setNewSingleContent={setNewSingleContent}
           open={open}
           contentRef={contentRef}
           selectedHeight={selectedHeight}

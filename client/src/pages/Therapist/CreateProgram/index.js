@@ -20,6 +20,7 @@ const initialState = {
   content: [],
   // single item
   singleContent: {
+    id: null,
     type: null,
     title: '',
     categories: [],
@@ -59,12 +60,15 @@ const CreateProgram = () => {
     SET_DESCRIPTION: (str) => {
       dispatch({ type: actionTypes.setDescription, value: str });
     },
-    UPDATE_SINGLE_CONTENT: (_key, _value) => {
+    ADD_SINGLE_CONTENT: (_key, _value) => {
       dispatch({
-        type: actionTypes.updateSingleContent,
+        type: actionTypes.addSingleContent,
         key: _key,
         value: _value,
       });
+    },
+    UPDATE_SINGLE_CONTENT: (data) => {
+      dispatch({ type: actionTypes.updateSingleContent, value: data });
     },
     RESET_SINGLE_CONTENT: () => {
       dispatch({ type: actionTypes.resetSingleContent, value: initialState });
@@ -80,6 +84,9 @@ const CreateProgram = () => {
       dispatch({ type: actionTypes.setFileUploadError, value: error });
     },
     // content overall
+    ADD_CONTENT: (formData) => {
+      dispatch({ type: actionTypes.addContent, value: formData });
+    },
     UPDATE_CONTENT: (formData) => {
       dispatch({ type: actionTypes.updateContent, value: formData });
     },

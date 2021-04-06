@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import * as S from './style';
 import * as T from '../../Typography';
 
@@ -6,7 +8,8 @@ import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 import Button from '../../Button';
 
 const EditMode = ({
-  content = {},
+  content,
+  singleContent,
   open,
   contentRef,
   selectedHeight,
@@ -17,6 +20,7 @@ const EditMode = ({
   saveChanges,
   categoryOptions,
   onCancel,
+  updateSingleContent,
 }) => {
   const {
     streamable,
@@ -24,8 +28,26 @@ const EditMode = ({
     instructions,
     categories,
     title,
-    savedToLibrary,
+    libraryContent,
+    id,
+    fileType,
+    link,
+    validationErrs,
   } = content;
+
+  useEffect(() => {
+    // re-assign parent state
+    const formattedSingleContent = {
+      categories,
+      title,
+      id,
+      instructions,
+      libraryContent: libraryContent,
+      link,
+      type: fileType,
+    };
+    updateSingleContent(formattedSingleContent);
+  }, []);
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
@@ -44,38 +66,38 @@ const EditMode = ({
           />
         </a>
       )}
-      {title && (
-        <BasicInput
-          label="Title"
-          placeholder="Type title..."
-          value={title}
-          type="text"
-          // handleChange={handleInput}
-          // error={errors.title}
-          m={{ mb: '5' }}
-        />
-      )}
-      {categories && (
-        <Dropdown
-          multi
-          label="Categories"
-          selected={categories}
-          options={categoryOptions}
-          //  handleChange={handleInput}
-          //  error={errors.categories}
-          m={{ mb: '5' }}
-        />
-      )}
-      {instructions && (
-        <Textarea
-          value={instructions}
-          placeholder="Type instructions here..."
-          label="Want to add any more specific instructions for this video?"
-          m={{ mb: '5' }}
-        />
-      )}
 
-      {savedToLibrary && library ? (
+      <BasicInput
+        label="Title"
+        placeholder="Type title..."
+        value={title}
+        type="text"
+        handleChange={(val) => updateSingleContent({ id, title: val })}
+        error={validationErrs && validationErrs.title}
+        m={{ mb: '5' }}
+      />
+
+      <Dropdown
+        multi
+        label="Categories"
+        selected={categories}
+        options={categoryOptions}
+        handleChange={(val) => updateSingleContent({ id, categories: val })}
+        error={validationErrs && validationErrs.categories}
+        search={false}
+        m={{ mb: '5' }}
+      />
+
+      <Textarea
+        value={instructions}
+        placeholder="Type instructions here..."
+        label="Want to add any more specific instructions for this video?"
+        m={{ mb: '5' }}
+        handleChange={(val) => updateSingleContent({ id, instructions: val })}
+      />
+
+      {/* library */}
+      {library ? (
         <>
           <Button text="Save changes" handleClick={saveChanges} mb="4" />
           <S.InvisibleBtn mb="5" onClick={onCancel}>
@@ -91,9 +113,11 @@ const EditMode = ({
       ) : (
         <>
           <Checkbox
-            checked={savedToLibrary}
-            handleChange={handleInput}
-            // error={errors.savedToLibrary}
+            checked={libraryContent}
+            handleChange={(val) =>
+              updateSingleContent({ id, libraryContent: val })
+            }
+            error={validationErrs && validationErrs.libraryContent}
             label={
               <T.P color="gray9">
                 Save this video to{' '}

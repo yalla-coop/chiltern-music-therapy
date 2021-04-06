@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useLocation, useHistory, Prompt } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
 
 import {
   GoBack,
@@ -10,13 +11,14 @@ import {
   FileUpload,
 } from '../../../components';
 
-import { content, navRoutes } from '../../../constants';
+import { content, navRoutes, dropdowns } from '../../../constants';
 
 import validate from '../../../validation/schemas/programSingleContent';
 
 import * as S from './style';
 
 const { fileCategories } = content;
+const { therapyGoalsCategories } = dropdowns;
 
 const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
@@ -51,8 +53,8 @@ const AddSingleContent = ({ state: parentState, actions }) => {
   const history = useHistory();
 
   const {
-    UPDATE_CONTENT,
-    UPDATE_SINGLE_CONTENT,
+    ADD_CONTENT,
+    ADD_SINGLE_CONTENT,
     RESET_SINGLE_CONTENT,
     HANDLE_UPLOAD_STATUS,
     HANDLE_FILE_UPLOAD_INFO,
@@ -107,13 +109,13 @@ const AddSingleContent = ({ state: parentState, actions }) => {
       validate(formData);
 
       if (!allContentInputsMissing) {
-        UPDATE_SINGLE_CONTENT('validationErrs', {});
+        ADD_SINGLE_CONTENT('validationErrs', {});
       }
 
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
-        UPDATE_SINGLE_CONTENT('validationErrs', error.inner);
+        ADD_SINGLE_CONTENT('validationErrs', error.inner);
       }
       return false;
     }
@@ -126,9 +128,10 @@ const AddSingleContent = ({ state: parentState, actions }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, categories, link, docContent, libraryContent, instructions]);
 
-  const handleAddSingleContent = async (submitType) => {
+  const handleAddSingleContent = (submitType) => {
     // add single content to overall content
     const formData = {
+      id: uuid(),
       type: category,
       title,
       categories,
@@ -137,7 +140,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
       uploadedFileInfo,
     };
 
-    await UPDATE_CONTENT(formData);
+    ADD_CONTENT(formData);
     RESET_SINGLE_CONTENT();
 
     if (submitType === 'content') {
@@ -165,11 +168,6 @@ const AddSingleContent = ({ state: parentState, actions }) => {
     await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
   };
 
-  const fakeCategories = [
-    { label: 'Option 1', value: 'Option 1' },
-    { label: 'Option 2', value: 'Option 2' },
-  ];
-
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <Prompt
@@ -192,7 +190,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             label="Title"
             color="gray8"
             value={title}
-            handleChange={(value) => UPDATE_SINGLE_CONTENT('title', value)}
+            handleChange={(value) => ADD_SINGLE_CONTENT('title', value)}
             error={validationErrs.title}
           />
         </Col>
@@ -200,11 +198,10 @@ const AddSingleContent = ({ state: parentState, actions }) => {
           <Dropdown
             label="Categories"
             color="gray8"
-            options={fakeCategories}
-            multi={true}
+            options={therapyGoalsCategories}
+            multi
             placeholder="Select...(optional)"
-            search={false}
-            handleChange={(value) => UPDATE_SINGLE_CONTENT('categories', value)}
+            handleChange={(value) => ADD_SINGLE_CONTENT('categories', value)}
             error={validationErrs.categories}
           />
         </Col>
@@ -230,7 +227,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             label="If you prefer, you can paste a link to an external resource in the input below"
             color="gray8"
             value={link}
-            handleChange={(value) => UPDATE_SINGLE_CONTENT('link', value)}
+            handleChange={(value) => ADD_SINGLE_CONTENT('link', value)}
             disabled={
               validInput(docContent) || fileUploading || uploadedFileInfo.new
             }
@@ -247,9 +244,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
               placeholder="Type here..."
               rows={5}
               value={docContent}
-              handleChange={(value) =>
-                UPDATE_SINGLE_CONTENT('docContent', value)
-              }
+              handleChange={(value) => ADD_SINGLE_CONTENT('docContent', value)}
               disabled={
                 validInput(link) || fileUploading || uploadedFileInfo.new
               }
@@ -264,9 +259,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             placeholder="Message"
             rows={5}
             value={instructions}
-            handleChange={(value) =>
-              UPDATE_SINGLE_CONTENT('instructions', value)
-            }
+            handleChange={(value) => ADD_SINGLE_CONTENT('instructions', value)}
             error={validationErrs.instructions}
           />
         </Col>
@@ -285,7 +278,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             }
             checked={libraryContent}
             handleChange={(value) =>
-              UPDATE_SINGLE_CONTENT('libraryContent', value)
+              ADD_SINGLE_CONTENT('libraryContent', value)
             }
             error={validationErrs.libraryContent}
           />
