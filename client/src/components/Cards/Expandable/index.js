@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
-import { dateFormatter } from '../../../helpers';
+import { dateFormatter, linkFormatter } from '../../../helpers';
 
 const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
   const [open, setOpen] = useState(false);
@@ -16,6 +16,7 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
     download,
     instructions,
     categories,
+    link,
   } = content;
 
   const titleData = {
@@ -29,8 +30,6 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
   useEffect(() => {
     setSelectedHeight(contentRef.current.offsetHeight);
   }, [contentRef]);
-
-  console.log('HE', content);
 
   return (
     <S.Wrapper
@@ -73,6 +72,11 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
               color="primary"
             />
           </a>
+        )}
+        {link && (
+          <T.Link external to={linkFormatter(link)}>
+            View content link
+          </T.Link>
         )}
         {instructions && (
           <>
