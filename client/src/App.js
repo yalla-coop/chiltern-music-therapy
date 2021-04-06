@@ -64,6 +64,12 @@ function App() {
                 Component={Pages.THERAPIST.CreateProgram}
               />
 
+              <Route
+                exact
+                path={navRoutes.THERAPIST.LIBRARY}
+                Component={Pages.THERAPIST.Library}
+              />
+
               {/* Client Pages */}
               <Route
                 exact
