@@ -8,7 +8,7 @@ import { authenticate } from '../../../api/middlewares';
 
 const router = Router();
 
-router.get('/my-therapist', /* authenticate(), */ getMyTherapist);
+router.get('/my-therapist', authenticate(), getMyTherapist);
 router.get('/token/:token', getTherapistByInviteToken);
 router.get('/:id', authenticate(), getTherapistClientById);
 

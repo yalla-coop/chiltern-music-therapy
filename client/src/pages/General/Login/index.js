@@ -90,7 +90,6 @@ const Login = ({ status, title, msg }) => {
         setState({ httpError: error.message });
       }
     } else {
-      console.log('data', data);
       setUser(data);
       history.push(decideRoute(data?.role));
     }
