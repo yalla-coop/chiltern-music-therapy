@@ -4,7 +4,15 @@ import { createToken } from '../../../helpers';
 
 const signup = async (req, res, next) => {
   try {
-    const { email, password, firstName, lastName, role } = req.body;
+    const {
+      email,
+      password,
+      firstName,
+      lastName,
+      role,
+      over16,
+      inviteToken,
+    } = req.body;
 
     let user;
 
@@ -12,8 +20,8 @@ const signup = async (req, res, next) => {
       user = await User.clientSignup({
         email,
         password,
-        firstName,
-        lastName,
+        over16,
+        inviteToken,
       });
     } else if (role === userRoles.THERAPIST) {
       user = await User.therapistSignup({

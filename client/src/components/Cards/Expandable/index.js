@@ -42,7 +42,7 @@ const Expandable = ({
     <S.Wrapper
       borderColor={borderColor}
       open={open}
-      onClick={() => setOpen(!open)}
+      onClick={() => (editing ? setOpen(true) : setOpen(!open))}
       height={selectedHeight}
     >
       <S.Title open={open}>

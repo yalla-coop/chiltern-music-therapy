@@ -3,9 +3,10 @@ import styled from '@emotion/styled';
 export const OnboardingHeader = styled.header`
   width: 100%;
   background: white;
-  padding: ${({ theme: { spacings } }) => `40px ${spacings[10]}`};
+  padding: ${({ theme: { spacings } }) => `${spacings[6]} ${spacings[10]}`};
   display: flex;
   justify-content: space-between;
+  align-items: center;
   &:after {
     content: '';
     position: absolute;
@@ -21,7 +22,7 @@ export const OnboardingHeader = styled.header`
   }
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) =>
-      `${spacings[7]} ${spacings[9]} ${spacings[0]} ${spacings[9]}`};
+      `40px ${spacings[7]} 40px ${spacings[9]}`};
   }
   ${({ theme }) => theme.media.mobile} {
     padding: ${({ theme: { spacings } }) =>
@@ -35,12 +36,13 @@ export const Wrapper = styled.div`
 
 export const Content = styled.main`
   width: 100%;
+  max-width: ${({ theme: { maxWidths } }) => maxWidths.desktop};
   padding: ${({ theme: { spacings } }) => `${spacings[8]} ${spacings[10]}`};
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) => `${spacings[7]} ${spacings[9]}`};
   }
   ${({ theme }) => theme.media.mobile} {
     padding: ${({ theme: { spacings } }) =>
-      `${spacings[7]} 37px ${spacings[6]} 38px`};
+      `${spacings[6]} 37px ${spacings[8]} 38px`};
   }
 `;

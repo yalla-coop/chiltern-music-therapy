@@ -15,6 +15,7 @@ const createUser = async ({
   bio,
   profilePhotoMediaId,
   organisationId,
+  postcode,
 }) => {
   const sql = `INSERT INTO users(
     first_name,
@@ -30,7 +31,8 @@ const createUser = async ({
     contact_email,
     bio,
     profile_photo_media_id,
-    organisation_id
+    organisation_id,
+    postcode
   ) VALUES (
     $1,
     $2,
@@ -45,7 +47,8 @@ const createUser = async ({
     $11,
     $12,
     $13,
-    $14
+    $14,
+    $15
     ) RETURNING *`;
   const res = await query(sql, [
     firstName,
@@ -62,6 +65,7 @@ const createUser = async ({
     bio,
     profilePhotoMediaId,
     organisationId,
+    postcode,
   ]);
   return res.rows[0];
 };
@@ -84,6 +88,7 @@ const createUsers = async (data) => {
     bio: null,
     profilePhotoMediaId: null,
     organisationId: data.organisations.chilternOrg.id,
+    postcode: 'TW',
   });
 
   const client2 = await createUser({
@@ -101,6 +106,26 @@ const createUsers = async (data) => {
     bio: null,
     profilePhotoMediaId: null,
     organisationId: data.organisations.chilternOrg.id,
+    postcode: 'E2',
+  });
+
+  // invited client
+  const client3 = await createUser({
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'client3@cmt.com',
+    password: null,
+    resetPasswordToken: null,
+    over16: true,
+    mobileNumber: '4448253879',
+    contactNumber: '4432021121',
+    roles: ['CLIENT'],
+    status: 'INVITED',
+    contactEmail: null,
+    bio: null,
+    profilePhotoMediaId: null,
+    organisationId: data.organisations.chilternOrg.id,
+    postcode: 'N1',
   });
 
   const therapist1 = await createUser({
@@ -159,6 +184,7 @@ const createUsers = async (data) => {
   return {
     client1,
     client2,
+    client3,
     therapist1,
     therapist2,
     admin1,

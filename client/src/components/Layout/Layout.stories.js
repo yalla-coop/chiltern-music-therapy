@@ -24,15 +24,18 @@ const Template = (args) => (
 export const OnboardingLayout = Template.bind({});
 OnboardingLayout.args = {
   layout: 'onboarding',
+  goBack: false,
 };
 
 export const InfoLayout = Template.bind({});
 InfoLayout.args = {
   layout: 'info',
   image: 'hands',
+  goBack: false,
 };
 
 export const GeneralLayout = Template.bind({});
 GeneralLayout.args = {
   layout: 'general',
+  goBack: false,
 };

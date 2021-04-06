@@ -18,7 +18,7 @@ const Link = ({
   switch (variant) {
     case 'graphic1':
       return (
-        <ReactLink to={to}>
+        <S.Link to={to}>
           <S.GraphicWrapper {...m}>
             <S.Title>
               <T.P weight="light" mr="1">
@@ -37,11 +37,11 @@ const Link = ({
               alt="circles"
             />
           </S.GraphicWrapper>
-        </ReactLink>
+        </S.Link>
       );
     case 'graphic2':
       return (
-        <ReactLink to={to}>
+        <S.Link to={to}>
           <S.GraphicWrapper {...m}>
             <S.Title>
               <T.P weight="light" mr="1">
@@ -60,11 +60,11 @@ const Link = ({
               alt="circles"
             />
           </S.GraphicWrapper>
-        </ReactLink>
+        </S.Link>
       );
     case 'programme':
       return (
-        <ReactLink to={to}>
+        <S.Link to={to}>
           <S.Wrapper {...m} borderColor={borderColor}>
             <Icon icon="programme" width="40px" height="40px" mr="4" />
             <S.ProgDetails>
@@ -76,30 +76,30 @@ const Link = ({
               </T.P>
             </S.ProgDetails>
           </S.Wrapper>
-        </ReactLink>
+        </S.Link>
       );
     case 'client':
       return (
-        <ReactLink to={to}>
+        <S.Link to={to}>
           <S.Wrapper {...m} borderColor={borderColor}>
             {client ? (
               <T.P weight="light" mr="1">
                 <span style={{ fontWeight: 'bold' }}>
                   {client.firstInitial}
                 </span>{' '}
-                {client.secondInitial} {client.postcode}
+                {client.lastInitial} {client.postcode}
               </T.P>
             ) : (
               <T.P weight="light">N/A</T.P>
             )}
           </S.Wrapper>
-        </ReactLink>
+        </S.Link>
       );
     default:
       return (
-        <ReactLink to={to}>
+        <S.Link to={to}>
           <S.Wrapper {...m}>{children}</S.Wrapper>
-        </ReactLink>
+        </S.Link>
       );
   }
 };

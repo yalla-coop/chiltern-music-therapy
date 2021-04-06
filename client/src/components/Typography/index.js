@@ -21,14 +21,14 @@ const commonStyle = ({ theme, color, caps, ta, ...props }) => `
 const Head1 = styled(Title)`
   ${setMargin};
   ${commonStyle};
-  font-size: 38px !important;
+  font-size: 32px !important;
   line-height: 44px !important;
   font-weight: ${({ weight }) =>
     weight === 'bold' ? '900 !important' : '300 !important'};
 `;
 export const H1 = (props) => <Head1 {...props} level={1} />;
 
-export const Head2 = styled(Title)`
+const Head2 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 24px !important;
@@ -38,7 +38,7 @@ export const Head2 = styled(Title)`
 `;
 export const H2 = (props) => <Head2 {...props} level={2} />;
 
-export const Head3 = styled(Title)`
+const Head3 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 20px !important;
@@ -48,7 +48,7 @@ export const Head3 = styled(Title)`
 `;
 export const H3 = (props) => <Head3 {...props} level={3} />;
 
-export const Head4 = styled(Title)`
+const Head4 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 18px !important;
@@ -58,7 +58,7 @@ export const Head4 = styled(Title)`
 `;
 export const H4 = (props) => <Head4 {...props} level={4} />;
 
-export const Head5 = styled(Title)`
+const Head5 = styled(Title)`
   ${setMargin};
   ${commonStyle};
   font-size: 14px !important;
@@ -76,20 +76,13 @@ export const P = styled(Paragraph)`
   font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
 `;
 
-const AntdLink = ({ to = '/', underline, external = false, ...props }) =>
+const AntdLink = ({ to = '/', external = false, ...props }) =>
   external ? (
-    <Typography.Link
-      target="_blank"
-      href={to}
-      underline={underline}
-      {...props}
-    />
+    <Typography.Link target="_blank" href={to} {...props} />
   ) : (
     <RouterLink
       to={to}
-      component={() => (
-        <Typography.Link href={to} underline={underline} {...props} />
-      )}
+      component={() => <Typography.Link href={to} {...props} />}
     />
   );
 
@@ -99,7 +92,9 @@ export const Link = styled(AntdLink)`
   font-size: 16px !important;
   line-height: 150% !important;
   font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
-  border-bottom: 1px solid;
+  border-bottom: ${({ underline }) =>
+    underline ? '1px solid' : 'none'} !important;
+  text-decoration: none;
   border-color: ${({ theme, color }) =>
     theme.colors[color] || color || theme.colors.black} !important;
 `;

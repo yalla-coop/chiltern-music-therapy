@@ -130,7 +130,7 @@ Programme.args = {
 export const Client = LinkExample.bind({});
 Client.args = {
   variant: 'client',
-  client: { firstInitial: 'J', secondInitial: 'P', postcode: 'SW', id: 1 },
+  client: { firstInitial: 'J', lastInitial: 'P', postcode: 'SW', id: 1 },
   borderColor: 'rainbowHorizontal',
 };
 

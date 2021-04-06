@@ -20,6 +20,13 @@ function App() {
               {/* Auth Routes */}
               <Route
                 exact
+                path={navRoutes.GENERAL.LOGIN}
+                Component={Pages.GENERAL.Login}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.SIGNUP}
                 Component={Pages.THERAPIST.Signup}
                 layout="onboarding"
@@ -27,15 +34,59 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.CLIENT.SIGNUP}
+                Component={Pages.CLIENT.Signup}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
                 path={navRoutes.GENERAL.HOME}
                 Component={Pages.GENERAL.Example}
-                layout="info"
+                layout="general"
                 image="hands"
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.DASHBOARD}
+                Component={Pages.CLIENT.Dashboard}
+                layout="general"
+              />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.DASHBOARD}
+                Component={Pages.THERAPIST.Dashboard}
+                layout="general"
               />
               <Route
                 exact
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
+              />
+
+              {/* Client Pages */}
+              <Route
+                exact
+                path={navRoutes.CLIENT.THERAPIST}
+                Component={Pages.CLIENT.MyTherapist}
+                layout="general"
+                image="hands"
+                goBack
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.CONTACT_THERAPIST}
+                Component={Pages.CLIENT.MyTherapist}
+                layout="general"
+                image="hands"
+                goBack
+                contactDetails
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.PROGRAMMES}
+                Component={Pages.CLIENT.AllProgrammes}
               />
               <Route
                 Component={Pages.GENERAL.ErrorPages}

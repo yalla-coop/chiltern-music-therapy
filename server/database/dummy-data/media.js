@@ -60,11 +60,19 @@ const createMedias = async ({ users }) => {
     createdBy: users.therapist1.id,
   });
 
+  const therapist1ProfileImage = await createMedia({
+    type: 'PROFILE_IMAGE',
+    fileName: 'therapist-profile-image-1.mp3',
+    key: 'dummyKey5',
+    createdBy: users.therapist1.id,
+  });
+
   return {
     video1,
     video2,
     audio1,
     audio2,
+    therapist1ProfileImage,
   };
 };
 
