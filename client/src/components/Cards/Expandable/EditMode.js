@@ -3,13 +3,14 @@ import { useState, useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 
-import Icon from '../../Icon';
-import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 import Button from '../../Button';
+import Icon from '../../Icon';
+import Modal from '../../Modal';
+
+import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 
 const EditMode = ({
   content,
-  singleContent,
   open,
   contentRef,
   selectedHeight,
@@ -20,7 +21,6 @@ const EditMode = ({
   saveChanges,
   categoryOptions,
   onCancel,
-  updateSingleContent,
 }) => {
   const {
     streamable,
@@ -35,6 +35,8 @@ const EditMode = ({
     validationErrs,
   } = content;
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   useEffect(() => {
     // re-assign parent state
     const formattedSingleContent = {
@@ -46,11 +48,19 @@ const EditMode = ({
       link,
       type: fileType,
     };
-    updateSingleContent(formattedSingleContent);
+    handleInput(formattedSingleContent);
   }, []);
+
+  const modalParentFunction = (_id) => remove({ id });
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
+      <Modal
+        visible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        type="removeFromProgramme"
+        parentFunc={() => modalParentFunction(id)}
+      />
       {streamable && (
         <div style={{ marginBottom: '24px' }}>VIDEO/AUDIO HERE</div>
       )}
@@ -72,7 +82,7 @@ const EditMode = ({
         placeholder="Type title..."
         value={title}
         type="text"
-        handleChange={(val) => updateSingleContent({ id, title: val })}
+        handleChange={(val) => handleInput({ id, title: val })}
         error={validationErrs && validationErrs.title}
         m={{ mb: '5' }}
       />
@@ -82,7 +92,7 @@ const EditMode = ({
         label="Categories"
         selected={categories}
         options={categoryOptions}
-        handleChange={(val) => updateSingleContent({ id, categories: val })}
+        handleChange={(val) => handleInput({ id, categories: val })}
         error={validationErrs && validationErrs.categories}
         search={false}
         m={{ mb: '5' }}
@@ -93,7 +103,7 @@ const EditMode = ({
         placeholder="Type instructions here..."
         label="Want to add any more specific instructions for this video?"
         m={{ mb: '5' }}
-        handleChange={(val) => updateSingleContent({ id, instructions: val })}
+        handleChange={(val) => handleInput({ id, instructions: val })}
         error={validationErrs && validationErrs.instructions}
       />
 
@@ -115,9 +125,7 @@ const EditMode = ({
         <>
           <Checkbox
             checked={libraryContent}
-            handleChange={(val) =>
-              updateSingleContent({ id, libraryContent: val })
-            }
+            handleChange={(val) => handleInput({ id, libraryContent: val })}
             error={validationErrs && validationErrs.libraryContent}
             label={
               <T.P color="gray9">
@@ -128,7 +136,7 @@ const EditMode = ({
             }
             m={{ mb: '5' }}
           />
-          <S.InvisibleBtn onClick={remove}>
+          <S.InvisibleBtn onClick={() => setIsModalVisible(true)}>
             <Icon
               icon="bin"
               width="16"

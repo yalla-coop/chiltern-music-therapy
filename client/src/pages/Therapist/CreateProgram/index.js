@@ -67,9 +67,6 @@ const CreateProgram = () => {
         value: _value,
       });
     },
-    UPDATE_SINGLE_CONTENT: (data) => {
-      dispatch({ type: actionTypes.updateSingleContent, value: data });
-    },
     RESET_SINGLE_CONTENT: () => {
       dispatch({ type: actionTypes.resetSingleContent, value: initialState });
     },
@@ -89,6 +86,12 @@ const CreateProgram = () => {
     },
     UPDATE_CONTENT: (formData) => {
       dispatch({ type: actionTypes.updateContent, value: formData });
+    },
+    UPDATE_CONTENT_ITEM: (data) => {
+      dispatch({ type: actionTypes.updateContentItem, value: data });
+    },
+    REMOVE_CONTENT_ITEM: (data) => {
+      dispatch({ type: actionTypes.deleteContentItem, value: data });
     },
   };
 

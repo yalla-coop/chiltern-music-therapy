@@ -26,9 +26,13 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
   const { description, content, validationErrs } = state;
-  let { singleContent } = state;
 
-  const { UPDATE_SINGLE_CONTENT, ADD_SINGLE_CONTENT, SET_ERRORS } = actions;
+  const {
+    SET_DESCRIPTION,
+    UPDATE_CONTENT_ITEM,
+    REMOVE_CONTENT_ITEM,
+    SET_ERRORS,
+  } = actions;
 
   const goBack = () => decidePath(flowTypes.addContent);
 
@@ -36,10 +40,18 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
     try {
       const formData = {
         content,
+        description,
         part: 'review',
       };
       validate(formData);
-      SET_ERRORS({});
+
+      if (content.length === 0) {
+        SET_ERRORS({
+          noContent: 'Please add content to this programme',
+        });
+      } else {
+        SET_ERRORS({});
+      }
 
       return true;
     } catch (error) {
@@ -49,6 +61,16 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
       return false;
     }
   };
+  useEffect(() => {
+    if (content.length === 0) {
+      SET_ERRORS({
+        noContent: 'Please add content to this programme',
+      });
+    } else {
+      SET_ERRORS({});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [content]);
 
   useEffect(() => {
     if (submitAttempt) {
@@ -84,6 +106,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           categories: el.categories,
           libraryContent: el.libraryContent,
           date: el.date || moment(),
+          // get these from form validation above
           validationErrs: validationErrs && validationErrs[`content[${idx}]`],
         };
 
@@ -93,12 +116,8 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
               content={content}
               editing
               withDate
-              remove={'removeFunc'}
-              saveChanges={'saveChanges'}
-              onCancel={'onCancel'}
-              singleContent={singleContent}
-              updateSingleContent={UPDATE_SINGLE_CONTENT}
-              handleInput={ADD_SINGLE_CONTENT}
+              remove={REMOVE_CONTENT_ITEM}
+              handleInput={UPDATE_CONTENT_ITEM}
               categoryOptions={therapyGoalsCategories}
             />
           </Col>
@@ -114,7 +133,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
       );
     }
   };
-
+  console.log(`validationErrs`, validationErrs);
   return (
     <>
       <GoBack customFn={goBack} />
@@ -127,19 +146,26 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           </S.HeadlineWrapper>
         </Col>
       </Row>
-      {description && (
+      <Row mt={5}>
+        <Col w={[4, 6, 6]}>
+          <Textarea
+            label="Programme description"
+            rows={5}
+            value={description}
+            handleChange={(val) => SET_DESCRIPTION(val)}
+            error={validationErrs && validationErrs.description}
+          />
+        </Col>
+      </Row>
+
+      <Row mt={7}>{renderReviewCards(content)}</Row>
+      {validationErrs && validationErrs.noContent && (
         <Row mt={5}>
-          <Col w={[4, 6, 6]}>
-            <Textarea
-              label="Programme description"
-              rows={5}
-              value={description}
-              disabled
-            />
-          </Col>
+          <T.P bold color="pink">
+            {validationErrs.noContent}
+          </T.P>
         </Row>
       )}
-      <Row mt={7}>{renderReviewCards(content)}</Row>
       <Row mt={7}>
         <Col w={[4, 9, 4]}>
           <Button

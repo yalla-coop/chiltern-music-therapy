@@ -8,7 +8,7 @@ const reducer = (state, action) => {
         ...state,
         content: [...state.content, value],
       };
-    case actionTypes.updateSingleContent:
+    case actionTypes.updateContentItem:
       return {
         ...state,
         content: state.content.map((el) => {
@@ -16,6 +16,14 @@ const reducer = (state, action) => {
             return Object.assign({}, el, { ...el, ...value });
           }
           return el;
+        }),
+      };
+    case actionTypes.deleteContentItem:
+      console.log('REACHED');
+      return {
+        ...state,
+        content: state.content.filter((el) => {
+          return el.id !== value.id;
         }),
       };
     case actionTypes.addSingleContent:
@@ -36,7 +44,6 @@ const reducer = (state, action) => {
         ...state,
         validationErrs: value,
       };
-
     // takes initial state as value
     case actionTypes.resetSingleContent:
       return {

@@ -9,9 +9,7 @@ import EditMode from './EditMode';
 
 const Expandable = ({
   borderColor,
-  content = {},
-  singleContent,
-  // setNewSingleContent,
+  content,
   remove,
   edit,
   withDate,
@@ -22,7 +20,6 @@ const Expandable = ({
   errors,
   categoryOptions,
   onCancel,
-  updateSingleContent,
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
@@ -73,9 +70,6 @@ const Expandable = ({
       {editing ? (
         <EditMode
           content={content}
-          updateSingleContent={updateSingleContent}
-          singleContent={singleContent}
-          // setNewSingleContent={setNewSingleContent}
           open={open}
           contentRef={contentRef}
           selectedHeight={selectedHeight}
