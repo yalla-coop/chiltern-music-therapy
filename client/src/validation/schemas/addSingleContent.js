@@ -6,8 +6,8 @@ const {
   libraryContent,
   instructions,
   // contentInput,
-  link,
-  docContent,
+  // link,
+  // docContent,
 } = fields;
 
 const formData = {
@@ -15,8 +15,8 @@ const formData = {
   categories,
   libraryContent,
   instructions,
-  link,
-  docContent,
+  // link,
+  // docContent,
 };
 
 const schema = createSchema(formData);

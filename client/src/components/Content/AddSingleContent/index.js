@@ -10,7 +10,7 @@ import {
   FileUpload,
 } from '../../../components';
 
-import { content, navRoutes, roles } from '../../../constants';
+import { content, navRoutes } from '../../../constants';
 
 import validate from '../../../validation/schemas/addSingleContent';
 
@@ -25,7 +25,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
   const [unsavedChanges, setUnsavedChanges] = useState(true);
   const [submitAttempt, setSubmitAttempt] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [contentInput, setContentInput] = useState(null);
+  const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
 
   const { singleContent, fileUpload } = parentState;
 
@@ -73,14 +73,32 @@ const AddSingleContent = ({ state: parentState, actions }) => {
         },
       };
 
-      if (link.length > 0) {
-        formData.link = link;
-      } else if (docContent.length > 0) {
-        formData.docContent = docContent;
+      // case 1: document, no file, no link, no docContent
+      // case 2: audio, video, no file, no link
+      const errorMsg = 'please chose of of the options';
+      console.log(`fileUploadInfo`, uploadedFileInfo);
+
+      if (
+        category === fileCategories.document &&
+        !uploadedFileInfo.new &&
+        docContent.trim().length === 0 &&
+        link.trim().length === 0
+      ) {
+        setAllContentInputsMissing(errorMsg);
+      } else if (
+        [fileCategories.audio, fileCategories.video].includes(category) &&
+        !uploadedFileInfo.new &&
+        link.trim().length === 0
+      ) {
+        setAllContentInputsMissing(errorMsg);
+      } else {
+        setAllContentInputsMissing(null);
       }
 
       validate(formData);
+
       UPDATE_SINGLE_CONTENT('validationErrs', {});
+
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -120,7 +138,6 @@ const AddSingleContent = ({ state: parentState, actions }) => {
       handleAddSingleContent(submitType);
     }
   };
-  console.log('s', singleContent);
 
   const fakeCategories = [
     { label: 'Option 1', value: 'Option 1' },
@@ -176,11 +193,9 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             fileInfo={uploadedFileInfo}
             setError={HANDLE_FILE_UPLOAD_ERROR}
             error={fileUploadError}
+            contentInputMissingError={allContentInputsMissing}
             // disable when user adds link to resource
-            disabled={
-              (typeof link === 'string' && link.length > 0) ||
-              (typeof docContent === 'string' && docContent.length > 0)
-            }
+            disabled={link.length > 0 || docContent.length > 0}
           />
         </Col>
         <Col w={[4, 12, 4]} mb={7} mbM={5}>
@@ -191,13 +206,9 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             value={link}
             handleChange={(value) => UPDATE_SINGLE_CONTENT('link', value)}
             disabled={
-              (typeof docContent === 'string' && docContent.length > 0) ||
-              fileUploading ||
-              uploadedFileInfo.uploadedToS3
+              docContent.length > 0 || fileUploading || uploadedFileInfo.new
             }
-            error={
-              validationErrs.contentInput && validationErrs.contentInput.link
-            }
+            error={validationErrs.link || allContentInputsMissing}
           />
         </Col>
       </Row>
@@ -214,14 +225,9 @@ const AddSingleContent = ({ state: parentState, actions }) => {
                 UPDATE_SINGLE_CONTENT('docContent', value)
               }
               disabled={
-                (typeof link === 'string' && link.length > 0) ||
-                fileUploading ||
-                uploadedFileInfo.uploadedToS3
+                link.length > 0 || fileUploading || uploadedFileInfo.new
               }
-              error={
-                validationErrs.contentInput &&
-                validationErrs.contentInput.docContent
-              }
+              error={validationErrs.docContent || allContentInputsMissing}
             />
           </Col>
         )}

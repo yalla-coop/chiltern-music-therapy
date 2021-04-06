@@ -24,6 +24,7 @@ const FileUpload = ({
   error,
   maxSize,
   disabled,
+  contentInputMissingError,
 }) => {
   const [fileList, setFileList] = useState([]);
   const [fileName, setFileName] = useState(null);
@@ -168,7 +169,11 @@ const FileUpload = ({
   };
 
   return (
-    <S.Wrapper disabled={disabled} error={error} w={w}>
+    <S.Wrapper
+      disabled={disabled}
+      error={error || contentInputMissingError}
+      w={w}
+    >
       <Dragger {...props}>
         <S.UploadDetails>
           <Icon error={error} icon="inbox" />
@@ -197,6 +202,11 @@ const FileUpload = ({
             </T.P>
           )}
         </S.FileNameWrapper>
+      )}
+      {contentInputMissingError && (
+        <T.P bold color="pink">
+          {contentInputMissingError}
+        </T.P>
       )}
     </S.Wrapper>
   );

@@ -3,23 +3,15 @@ import actionTypes from './actionTypes';
 const reducer = (state, action) => {
   const { type, key, value } = action;
   switch (type) {
-    case actionTypes.setFlow:
+    case actionTypes.updateContent:
       return {
         ...state,
-        flow: value,
+        content: [...state.content, value],
       };
     case actionTypes.setDescription:
       return {
         ...state,
         description: value,
-      };
-    case actionTypes.showModal:
-      return {
-        ...state,
-        singleContent: {
-          ...state.singleContent,
-          showModal: !state.singleContent.showModal,
-        },
       };
     case actionTypes.setContentType:
       return {
@@ -28,11 +20,6 @@ const reducer = (state, action) => {
           ...state.singleContent,
           contentType: value,
         },
-      };
-    case actionTypes.updateContent:
-      return {
-        ...state,
-        content: [...state.content, value],
       };
     case actionTypes.updateSingleContent:
       return {

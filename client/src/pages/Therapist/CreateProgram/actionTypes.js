@@ -9,7 +9,6 @@ const actionTypes = {
   updateFileUploadStatus: 'UPDATE_FILE_UPLOAD_STATUS',
   updateFileUploadInfo: 'UPDATE_FILE_UPLOAD_INFO',
   setFileUploadError: 'SET_FILE_UPLOAD_ERROR',
-  // setSingleContentValidationErrors: "SET_VALIDATION_ERRORS"
 };
 
 export default actionTypes;
