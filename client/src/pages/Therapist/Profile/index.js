@@ -51,7 +51,7 @@ const Profile = () => {
   return (
     <div style={{ maxWidth: 1065 }}>
       <Title boldSection="profile" lightSection="Your" />
-      <Row>
+      <Row mb={7}>
         <Col w={[4, 12, 6]}>
           <T.P color="gray8">
             Please start by adding your biography, profile pic and contact
@@ -60,7 +60,7 @@ const Profile = () => {
           </T.P>
         </Col>
       </Row>
-      <Row mt={7}>
+      <Row mb={7}>
         <Col w={[4, 6, 4]}>
           <Textarea
             label="Your biography"
@@ -71,7 +71,7 @@ const Profile = () => {
             error={errors.biography}
           />
         </Col>
-        <Col w={[4, 6, 4]}>
+        <Col w={[4, 6, 4]} style={{ paddingTop: 32 }}>
           <FileUpload
             error={fileUploadError}
             setError={setFileUploadError}
@@ -83,7 +83,7 @@ const Profile = () => {
           />
         </Col>
       </Row>
-      <Row>
+      <Row mb={8}>
         <Col w={[4, 6, 4]}>
           <BasicInput
             label="Your contact email"
@@ -105,9 +105,9 @@ const Profile = () => {
           />
         </Col>
       </Row>
-      <Row mt={8}>
+      <Row>
         <Col w={[4, 6, 4]}>
-          <Button handleClick={handleSubmit} />
+          <Button handleClick={handleSubmit} text="Click" />
         </Col>
       </Row>
     </div>
