@@ -1,5 +1,19 @@
 import { query } from '../../../database';
 
+const findTherapistClientByClientId = async (clientId, client) => {
+  const values = [clientId];
+  const sql = `
+    SELECT
+      id,
+      therapist_user_id
+    FROM therapist_clients
+    WHERE client_user_id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
 const findClientByInviteToken = async (inviteToken, client) => {
   const values = [inviteToken];
   const sql = `
@@ -57,4 +71,5 @@ export {
   findClientByInviteToken,
   findTherapistByInviteToken,
   findClientByUserId,
+  findTherapistClientByClientId,
 };

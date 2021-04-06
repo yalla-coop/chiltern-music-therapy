@@ -5,7 +5,7 @@ import * as S from './style';
 import * as T from '../../../components/Typography';
 import { Row, Col } from '../../../components/Grid';
 import Button from '../../../components/Button';
-import { Link } from '../../../components/Cards';
+import { Basic, Link } from '../../../components/Cards';
 import moment from 'moment';
 
 import { Programmes, TherapistClients } from '../../../api-calls';
@@ -33,15 +33,18 @@ const SingleClient = () => {
       }
     };
     const getProgrammes = async () => {
-      const { error, data } = await Programmes.getProgrammes({ id });
+      const { error, data } = await Programmes.getProgrammes({
+        clientUserId: id,
+      });
       if (!error) {
-        setState(data);
+        setProgrammes(data);
       }
     };
 
     getClientById();
+    getProgrammes();
   }, [id]);
-  const data = [1, 2, 3, 4, 5, 6, 7];
+
   return (
     <S.Wrapper>
       <Row>
@@ -71,6 +74,7 @@ const SingleClient = () => {
               color="black"
               weight={700}
               mt={4}
+              underline
             >
               Read more
             </T.Link>
@@ -103,8 +107,8 @@ const SingleClient = () => {
         </Col>
       </Row>
       <Row>
-        {data?.length > 0 &&
-          data.slice(0, elementsOnView).map((id) => (
+        {(programmes?.length > 0 &&
+          programmes.slice(0, elementsOnView).map((id) => (
             <Col w={[4, 6, 4]} mb="5">
               <Link
                 programme={{ date: moment(), id: 1 }}
@@ -112,10 +116,15 @@ const SingleClient = () => {
                 to={THERAPIST.SINGLE_PROGRAMME}
               />
             </Col>
-          ))}
+          ))) || (
+          <Col w={[4, 4, 4]}>
+            {/* TODO create new version for the therapist */}
+            <Basic variant="noProgrammes" />
+          </Col>
+        )}
       </Row>
 
-      {elementsOnView < data.length && (
+      {elementsOnView < programmes.length && (
         <Row>
           <Col w={[4, 12, 12]} jc="center">
             <T.Link
