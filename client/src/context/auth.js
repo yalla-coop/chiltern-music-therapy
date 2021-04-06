@@ -36,6 +36,10 @@ const AuthProvider = (props) => {
   const [user, setUser] = useState(getUserInfoFromStorage);
 
   const _setUser = (data) => {
+    // TODO: get active role when multiple roles when its implemented
+    if (data.roles) {
+      data.role = data?.roles[0];
+    }
     // set User in local storage
     storeUserInfoIntoStorage(data);
     // set user in state

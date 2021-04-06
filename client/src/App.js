@@ -20,8 +20,22 @@ function App() {
               {/* Auth Routes */}
               <Route
                 exact
+                path={navRoutes.GENERAL.LOGIN}
+                Component={Pages.GENERAL.Login}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.SIGNUP}
                 Component={Pages.THERAPIST.Signup}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.SIGNUP}
+                Component={Pages.CLIENT.Signup}
                 layout="onboarding"
               />
 
@@ -31,6 +45,18 @@ function App() {
                 Component={Pages.GENERAL.Example}
                 layout="general"
                 image="hands"
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.DASHBOARD}
+                Component={Pages.CLIENT.Dashboard}
+                layout="general"
+              />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.DASHBOARD}
+                Component={Pages.THERAPIST.Dashboard}
+                layout="general"
               />
               <Route
                 exact
@@ -57,6 +83,11 @@ function App() {
                 contactDetails
               />
 
+              <Route
+                exact
+                path={navRoutes.CLIENT.PROGRAMMES}
+                Component={Pages.CLIENT.AllProgrammes}
+              />
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"

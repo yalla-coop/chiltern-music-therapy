@@ -16,6 +16,7 @@ const getTherapistsClientsById = async ({ id, options }) => {
 const getMyTherapist = async ({ options } = {}) => {
   try {
     const { data } = await axios.get(`${THERAPISTS_CLIENTS_BASE}/my-therapist`);
+
     return { data };
   } catch (error) {
     const err = handleError(error, options);
@@ -23,4 +24,16 @@ const getMyTherapist = async ({ options } = {}) => {
   }
 };
 
-export { getTherapistsClientsById, getMyTherapist };
+const getTherapistByInviteToken = async ({ inviteToken, options }) => {
+  try {
+    const { data } = await axios.get(
+      `${THERAPISTS_CLIENTS_BASE}/token/${inviteToken}`
+    );
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export { getTherapistsClientsById, getTherapistByInviteToken, getMyTherapist };

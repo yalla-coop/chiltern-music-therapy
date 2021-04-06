@@ -103,6 +103,24 @@ const createUsers = async (data) => {
     organisationId: data.organisations.chilternOrg.id,
   });
 
+  // invited client
+  const client3 = await createUser({
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'client3@cmt.com',
+    password: null,
+    resetPasswordToken: null,
+    over16: true,
+    mobileNumber: '4448253879',
+    contactNumber: '4432021121',
+    roles: ['CLIENT'],
+    status: 'INVITED',
+    contactEmail: null,
+    bio: null,
+    profilePhotoMediaId: null,
+    organisationId: data.organisations.chilternOrg.id,
+  });
+
   const therapist1 = await createUser({
     firstName: 'Raoul',
     lastName: 'Mahoney',
@@ -159,6 +177,7 @@ const createUsers = async (data) => {
   return {
     client1,
     client2,
+    client3,
     therapist1,
     therapist2,
     admin1,

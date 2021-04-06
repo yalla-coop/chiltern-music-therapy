@@ -9,7 +9,7 @@ CREATE TABLE "therapist_clients" (
   "therapist_bio" TEXT,
   "therapist_intro" TEXT,
   "therapist_message" TEXT,
-  "invite_token" VARCHAR(9) NOT NULL UNIQUE,
+  "invite_token" VARCHAR(8) NOT NULL UNIQUE,
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()
 );
