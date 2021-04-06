@@ -29,7 +29,6 @@ const initialState = {
     libraryContent: false,
     instructions: '',
     validationErrs: {},
-    httpError: '',
   },
   // file upload
   fileUpload: {
@@ -45,6 +44,7 @@ const initialState = {
       uploadedToS3: false,
     },
     // form submission
+    validationErrs: {},
   },
 };
 
@@ -53,12 +53,12 @@ const CreateProgram = () => {
   const history = useHistory();
 
   const actions = {
+    SET_ERRORS: (errors) => {
+      dispatch({ type: actionTypes.setErrors, value: errors });
+    },
     // set description
     SET_DESCRIPTION: (str) => {
       dispatch({ type: actionTypes.setDescription, value: str });
-    },
-    HANDLE_CONTENT_TYPE: (contentType) => {
-      dispatch({ type: actionTypes.setContentType, value: contentType });
     },
     UPDATE_SINGLE_CONTENT: (_key, _value) => {
       dispatch({
@@ -95,7 +95,7 @@ const CreateProgram = () => {
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAM_DESCRIPTION}
         actions={actions}
-        description={state.description}
+        state={state}
         decidePath={decidePath}
       />
       <AddContent

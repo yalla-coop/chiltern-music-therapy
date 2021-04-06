@@ -7,11 +7,24 @@ import Icon from '../Icon';
 import * as T from '../Typography';
 import * as S from './style';
 import { content } from '../../constants';
-import theme from '../../theme';
 
-const { printFileTypes, allowedFileTypesAndSizes } = content;
+const { printFileTypes, allowedFileTypesAndSizes, fileCategories } = content;
 
 const { Dragger } = Upload;
+
+const initState = {
+  fileUploading: false,
+  data: {
+    id: null,
+    name: '',
+    key: '',
+    bucketRegion: '',
+    bucket: '',
+    fileType: '',
+    new: false,
+    uploadedToS3: false,
+  },
+};
 
 const FileUpload = ({
   w, // width
@@ -27,7 +40,6 @@ const FileUpload = ({
   contentInputMissingError,
 }) => {
   const [fileList, setFileList] = useState([]);
-  const [fileName, setFileName] = useState(null);
   const [progress, setProgress] = useState(0);
 
   let updatedFile;
@@ -37,6 +49,9 @@ const FileUpload = ({
     // size in Megabites
     const sizeInMb = size > 0 && size / 1024 / 1024;
 
+    if (type === 'application') {
+      type = fileCategories.document;
+    }
     //  check 1: correct file type
     if (!allowedFileTypesAndSizes[category].types.includes(type)) {
       setError(
@@ -62,18 +77,20 @@ const FileUpload = ({
       setError('');
       correctFileType = true;
     }
+
     // if false upload doesn't run
     return correctFileType ? true : false;
   };
 
   // here you can controll state depending on upload status
   const handleFileChanged = async ({ file }) => {
-    const { status, name } = file;
+    const { status } = file;
 
-    setFileName(name);
     if (!error) {
       if (status === 'removed') {
+        setUploading(false);
         setFileList([]);
+        setFileInfo(initState);
       } else if (status === 'uploading') {
         setUploading(true);
         setFileList([file]);
@@ -165,7 +182,6 @@ const FileUpload = ({
       strokeWidth: 3,
       format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
     },
-    showUploadList: !!uploading && !error,
   };
 
   return (
@@ -176,36 +192,13 @@ const FileUpload = ({
     >
       <Dragger {...props}>
         <S.UploadDetails>
-          <Icon error={error} icon="inbox" />
+          <Icon error={error || contentInputMissingError} icon="inbox" />
           <T.P color="gray9">Click or drag file to this area to upload</T.P>
         </S.UploadDetails>
       </Dragger>
-      {fileName && (
-        <S.FileNameWrapper>
-          {!error ? (
-            <>
-              <Icon color="blue" icon="attachment" />
-              <T.P
-                color="blue"
-                bold
-                style={{
-                  marginLeft: theme.spacings[1],
-                  marginTop: -theme.spacings[1],
-                }}
-              >
-                {fileName}
-              </T.P>
-            </>
-          ) : (
-            <T.P bold color="pink">
-              {error}
-            </T.P>
-          )}
-        </S.FileNameWrapper>
-      )}
-      {contentInputMissingError && (
+      {(error || contentInputMissingError) && (
         <T.P bold color="pink">
-          {contentInputMissingError}
+          {error || contentInputMissingError}
         </T.P>
       )}
     </S.Wrapper>

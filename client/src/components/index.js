@@ -6,6 +6,7 @@ import Route from './Route';
 import FileUpload from './FileUpload';
 import GoBack from './GoBack';
 import Example from './Example';
+import Modal from './Modal';
 import * as Typography from './Typography';
 import * as Inputs from './Inputs';
 import * as Content from './Content';
@@ -24,6 +25,7 @@ export {
   Inputs,
   Content,
   Example,
+  Modal,
   Cards,
   Icon,
 };

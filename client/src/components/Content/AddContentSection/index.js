@@ -1,33 +1,76 @@
-import { Grid, Typography as T, Inputs } from '../../';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { Grid, Typography as T, Inputs, Modal } from '../../';
 import { AddContentType } from '../../Cards';
 import Icon from '../../Icon';
 import * as S from './style';
 
-import { content } from '../../../constants';
+import { content, navRoutes } from '../../../constants';
 
 const { Col } = Grid;
 const { Dropdown } = Inputs;
 
 const { fileCategories } = content;
 
-const AddContentSection = ({ m, libraryContent = [], mode, error }) => {
-  // TODO make this dynamic
-  libraryContent = [
-    { label: 'Option 1 Super Long with Lots of Info', value: 'Option 1' },
-    { label: 'Option 2', value: 'Option 2' },
-  ];
+const AddContentSection = ({
+  m,
+  content,
+  libraryContent = [],
+  setLibraryContent,
+  mode,
+}) => {
+  const [duplicateError, setDuplicateError] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const history = useHistory();
+
+  const renderLibraryContentDropdownValues = libraryContent.map((el) => {
+    const res = { label: el.title, value: el.contentId };
+    return res;
+  });
+
+  const handleSubmitLibraryContent = async (val) => {
+    const selectLibraryContent = libraryContent.filter(
+      (el) => el.contentId === val
+    );
+    const duplicates = content.filter((el) => el.contentId === val);
+
+    if (duplicates.length > 0) {
+      setDuplicateError(
+        'This piece of content has already been added to your program. Please select another one.'
+      );
+    } else if (selectLibraryContent.length > 0) {
+      setLibraryContent(selectLibraryContent[0]);
+      setIsModalVisible(true);
+    }
+    return false;
+  };
+
+  const modalParentFunction = (type) =>
+    type === 'addMoreContent'
+      ? history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT)
+      : history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
 
   return (
     <S.Wrapper>
+      <Modal
+        visible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        type="addSuccess"
+        parentFunc={modalParentFunction}
+      />
       <Col mt={5} mb={5} w={[4, 9, 4]}>
         <T.P weight color="gray9" mb={2}>
           Add content from My Library
         </T.P>
         <Dropdown
-          error={error}
-          options={libraryContent}
+          // TODO add get content error
+          error={duplicateError}
+          options={renderLibraryContentDropdownValues}
           multi={false}
           placeholder="Select one..."
+          handleChange={(value) => handleSubmitLibraryContent(value)}
         />
         <S.IconWrapper>
           <Icon icon="or" />

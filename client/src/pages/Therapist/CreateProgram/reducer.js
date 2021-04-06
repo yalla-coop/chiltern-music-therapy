@@ -13,13 +13,10 @@ const reducer = (state, action) => {
         ...state,
         description: value,
       };
-    case actionTypes.setContentType:
+    case actionTypes.setErrors:
       return {
         ...state,
-        singleContent: {
-          ...state.singleContent,
-          contentType: value,
-        },
+        validationErrs: value,
       };
     case actionTypes.updateSingleContent:
       return {

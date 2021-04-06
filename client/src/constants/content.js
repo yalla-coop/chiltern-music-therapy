@@ -39,7 +39,7 @@ const printFileTypes = (category) => {
   switch (category) {
     case fileCategories.video:
       return `${fileTypesShort.videoMp4}`;
-    case fileCategories.application:
+    case fileCategories.document:
       return `${fileTypesShort.applicationPdf}, ${fileTypesShort.applicationDoc}, ${fileTypesShort.applicationDocX} `;
     case fileCategories.audio:
       return `${fileTypesShort.audioMpeg}, ${fileTypesShort.audioWav}`;

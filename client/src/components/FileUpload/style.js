@@ -15,6 +15,12 @@ export const Wrapper = styled.div`
   .ant-upload-drag-container {
     padding: 10px;
   }
+  .ant-upload-list-item-name {
+    color:  ${({ theme }) => theme.colors.blue}}
+    font-size: 16px;
+    font-weight: bold;
+  }
+
 `;
 
 export const UploadDetails = styled.div`

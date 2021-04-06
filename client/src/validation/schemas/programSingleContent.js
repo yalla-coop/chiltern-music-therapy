@@ -5,9 +5,8 @@ const {
   categories,
   libraryContent,
   instructions,
-  // contentInput,
-  // link,
-  // docContent,
+  link,
+  docContent,
 } = fields;
 
 const formData = {
@@ -15,14 +14,13 @@ const formData = {
   categories,
   libraryContent,
   instructions,
-  // link,
-  // docContent,
+  link,
+  docContent,
 };
 
 const schema = createSchema(formData);
 
 const validate = (data) => {
-  console.log(`data`, data);
   return _validate(schema, data);
 };
 

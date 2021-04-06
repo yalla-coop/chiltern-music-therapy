@@ -13,9 +13,26 @@ const { Row, Col } = Grid;
 const { AddContentSection } = Content;
 
 const AddContent = ({ state, actions, decidePath }) => {
-  const goNext = () => decidePath(flowTypes.reviewFinish);
+  const { UPDATE_CONTENT } = actions;
+  const { content } = state;
 
+  const goNext = () => decidePath(flowTypes.reviewFinish);
   const goBack = () => decidePath(flowTypes.description);
+
+  console.log(`singleContent`, state.singleContent);
+  console.log('content', state.content);
+  const testLibraryContent = [
+    {
+      contentId: 1,
+      type: 'video',
+      title: 'test video 1',
+      categories: [],
+      link: 'www.youtube.com/test',
+      docContent: '',
+      libraryContent: true,
+      instructions: 'this is a test',
+    },
+  ];
 
   return (
     <S.Wrapper>
@@ -34,7 +51,12 @@ const AddContent = ({ state, actions, decidePath }) => {
         </Col>
       </Row>
       <Row mt={5}>
-        <AddContentSection libraryContent={[]} />
+        <AddContentSection
+          content={content}
+          // TODO add library content
+          libraryContent={testLibraryContent}
+          setLibraryContent={UPDATE_CONTENT}
+        />
       </Row>
 
       <Row mt={7}>
@@ -48,38 +70,6 @@ const AddContent = ({ state, actions, decidePath }) => {
         </Col>
       </Row>
       {/*
-      {!showModal && (
-        <>
-          <button
-            onClick={() => {
-              actions.HANDLE_SINGLE_CONTENT_MODAL();
-              actions.HANDLE_CONTENT_TYPE('video');
-            }}
-          >
-            Add Video
-          </button>
-
-          <button
-            onClick={() => {
-              actions.HANDLE_SINGLE_CONTENT_MODAL();
-              actions.HANDLE_CONTENT_TYPE('application');
-            }}
-          >
-            Add Doc
-          </button>
-
-          <button
-            onClick={() => {
-              actions.HANDLE_SINGLE_CONTENT_MODAL();
-              actions.HANDLE_CONTENT_TYPE('audio');
-            }}
-          >
-            Add Audio
-          </button>
-        </>
-      )}
-
-      {showModal && <AddSingleContent state={state} actions={actions} />}
       {state.content.length > 0 &&
         state.content.map((el) => (
           <ul>

@@ -1,3 +1,6 @@
+import { useState, useEffect } from 'react';
+import { Prompt } from 'react-router-dom';
+
 import {
   GoBack,
   Typography as T,
@@ -7,24 +10,61 @@ import {
   Example,
 } from '../../../components';
 
+import validate from '../../../validation/schemas/program';
+
 import flowTypes from './flowTypes';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
-const AddDescription = ({ decidePath, description, actions }) => {
-  const { SET_DESCRIPTION, SET_FLOW } = actions;
+const AddDescription = ({ decidePath, state, actions }) => {
+  const [submitAttempt, setSubmitAttempt] = useState(false);
+  const [unsavedChanges, setUnsavedChanges] = useState(true);
 
-  const goNext = () => {
-    return SET_FLOW(flowTypes.addContent);
+  const { description, validationErrs } = state;
+  const { SET_DESCRIPTION, SET_ERRORS } = actions;
+
+  const validateForm = () => {
+    try {
+      const formData = {
+        description,
+        part: 'description',
+      };
+      validate(formData);
+      SET_ERRORS({});
+
+      return true;
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        SET_ERRORS(error.inner);
+      }
+      return false;
+    }
   };
 
-  const setDescription = (val) => {
-    return SET_DESCRIPTION(val);
+  useEffect(() => {
+    if (submitAttempt) {
+      validateForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [description]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitAttempt(true);
+    setUnsavedChanges(false);
+    const isValid = validateForm();
+    if (isValid) {
+      decidePath(flowTypes.addContent);
+    }
   };
 
   return (
     <>
+      <Prompt
+        when={unsavedChanges}
+        message="All changes will be lost. Are you sure you want to leave?"
+      />
       <GoBack />
       <Row mt={5}>
         <Col w={[4, 12, 12]}>
@@ -39,7 +79,8 @@ const AddDescription = ({ decidePath, description, actions }) => {
             label="Please add a brief description of the content you are sharing and what you would like them to work on this week."
             rows={5}
             value={description}
-            handleChange={setDescription}
+            handleChange={(val) => SET_DESCRIPTION(val)}
+            error={validationErrs && validationErrs.description}
           />
         </Col>
       </Row>
@@ -57,9 +98,10 @@ const AddDescription = ({ decidePath, description, actions }) => {
       <Row mt={7}>
         <Col w={[4, 4, 4]}>
           <Button
+            type="submit"
             variant="primary"
             text="Next"
-            handleClick={() => decidePath(flowTypes.addContent)}
+            handleClick={handleSubmit}
           />
         </Col>
       </Row>

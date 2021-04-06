@@ -54,12 +54,9 @@ export const optionalText = string()
   .nullable();
 
 export const urlRequired = string()
-  .matches(
-    /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#.-]+)*\/?(\?[a-zA-Z0-9-_.-]+=[a-zA-Z0-9-%?&=.-]+&?)?$/,
-    {
-      message: errMsgs.INVALID_LINK,
-    }
-  )
+  .matches(URLregex, {
+    message: errMsgs.INVALID_LINK,
+  })
   .required(errMsgs.DEFAULT_REQUIRED);
 
 // SINGLE CONTENT FIELDS
@@ -79,69 +76,13 @@ export const instructions = string()
   .max(1000)
   .required(errMsgs.DEFAULT_REQUIRED);
 
-export const contentInput = object().shape(
-  {
-    // link: string().when(
-    //   ['docContent', 'fileUploaded', 'category'],
-    //   (docContent, fileUploaded, category) => {
-    //     if (['audio', 'video'].includes(category)) {
-    //       if (!fileUploaded) {
-    //         string()
-    //           .matches(URLregex, {
-    //             message: errMsgs.INVALID_LINK,
-    //           })
-    //           .required(errMsgs.DEFAULT_REQUIRED);
-    //       } else {
-    //         string().notRequired();
-    //       }
-    //     } else {
-    //       if (!fileUploaded && !docContent.length) {
-    //         string()
-    //           .matches(URLregex, {
-    //             message: errMsgs.INVALID_LINK,
-    //           })
-    //           .required(errMsgs.DEFAULT_REQUIRED);
-    //       } else {
-    //         string().notRequired();
-    //       }
-    //     }
-    //   }
-    // ),
+export const link = string().matches(URLregex, {
+  message: errMsgs.INVALID_LINK,
+});
 
-    // docContent: string()
-    //   .notRequired()
-    //   .when(
-    //     ['fileUploaded', 'link', 'category'],
-    //     (fileUploaded, link, category) => {
-    //       console.log(`reached`);
-    //       if (category === 'document') {
-    //         return !fileUploaded && !link.length
-    //           ? string().required(errMsgs.DEFAULT_REQUIRED)
-    //           : string().notRequired();
-    //       } else {
-    //         return string().notRequired();
-    //       }
-    //     }
-    //   ),
+export const docContent = string().min(1, errMsgs.DEFAULT_REQUIRED).max(1000);
 
-    // link: string().when('link', (link) => {
-    //   return link && link.length
-    //     ? string()
-    //         .matches(URLregex, {
-    //           message: errMsgs.INVALID_LINK,
-    //         })
-    //         .required(errMsgs.DEFAULT_REQUIRED)
-    //     : string().notRequired();
-    // }),
-    // link: string().required(errMsgs.DEFAULT_REQUIRED),
-    docContent: string().required(errMsgs.DEFAULT_REQUIRED),
-  },
-  ['link', 'docContent']
-);
-
-export const link = number().required(errMsgs.DEFAULT_REQUIRED);
-
-export const docContent = string()
+export const description = string()
   .min(1, errMsgs.DEFAULT_REQUIRED)
-  .max(1000)
+  .max(500)
   .required(errMsgs.DEFAULT_REQUIRED);

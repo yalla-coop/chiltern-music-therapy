@@ -12,7 +12,7 @@ import {
 
 import { content, navRoutes } from '../../../constants';
 
-import validate from '../../../validation/schemas/addSingleContent';
+import validate from '../../../validation/schemas/programSingleContent';
 
 import * as S from './style';
 
@@ -22,9 +22,8 @@ const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
 const AddSingleContent = ({ state: parentState, actions }) => {
-  const [unsavedChanges, setUnsavedChanges] = useState(true);
   const [submitAttempt, setSubmitAttempt] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [unsavedChanges, setUnsavedChanges] = useState(true);
   const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
 
   const { singleContent, fileUpload } = parentState;
@@ -52,13 +51,41 @@ const AddSingleContent = ({ state: parentState, actions }) => {
   const history = useHistory();
 
   const {
-    // UPDATE_CONTENT,
+    UPDATE_CONTENT,
     UPDATE_SINGLE_CONTENT,
+    RESET_SINGLE_CONTENT,
     HANDLE_UPLOAD_STATUS,
     HANDLE_FILE_UPLOAD_INFO,
     HANDLE_FILE_UPLOAD_ERROR,
-    // RESET_SINGLE_CONTENT,
   } = actions;
+
+  const validInput = (input) =>
+    typeof input === 'string' && input.trim().length > 0;
+
+  const checkMissingContentInput = () => {
+    // case 1: document, no file, no link, no docContent
+    // case 2: audio, video, no file, no link
+
+    const missingErrorMsg = 'Please pick one of the options';
+
+    if (
+      category === fileCategories.document &&
+      !uploadedFileInfo.new &&
+      !validInput(docContent) &&
+      !validInput(link)
+    ) {
+      setAllContentInputsMissing(missingErrorMsg);
+    } else if (
+      [fileCategories.audio, fileCategories.video].includes(category) &&
+      !uploadedFileInfo.new &&
+      !validInput(link)
+    ) {
+      setAllContentInputsMissing(missingErrorMsg);
+    } else {
+      setAllContentInputsMissing(null);
+      HANDLE_FILE_UPLOAD_ERROR('');
+    }
+  };
 
   const validateForm = () => {
     try {
@@ -67,37 +94,21 @@ const AddSingleContent = ({ state: parentState, actions }) => {
         categories,
         libraryContent,
         instructions,
-        contentInput: {
-          // category,
-          // fileUploaded: uploadedFileInfo.uploadedToS3,
-        },
       };
 
-      // case 1: document, no file, no link, no docContent
-      // case 2: audio, video, no file, no link
-      const errorMsg = 'please chose of of the options';
-      console.log(`fileUploadInfo`, uploadedFileInfo);
-
-      if (
-        category === fileCategories.document &&
-        !uploadedFileInfo.new &&
-        docContent.trim().length === 0 &&
-        link.trim().length === 0
-      ) {
-        setAllContentInputsMissing(errorMsg);
-      } else if (
-        [fileCategories.audio, fileCategories.video].includes(category) &&
-        !uploadedFileInfo.new &&
-        link.trim().length === 0
-      ) {
-        setAllContentInputsMissing(errorMsg);
-      } else {
-        setAllContentInputsMissing(null);
+      //  add content inputs if they exist
+      if (validInput(docContent)) {
+        formData.docContent = docContent;
+      } else if (validInput(link)) {
+        formData.link = link;
       }
 
+      checkMissingContentInput();
       validate(formData);
 
-      UPDATE_SINGLE_CONTENT('validationErrs', {});
+      if (!allContentInputsMissing) {
+        UPDATE_SINGLE_CONTENT('validationErrs', {});
+      }
 
       return true;
     } catch (error) {
@@ -116,41 +127,54 @@ const AddSingleContent = ({ state: parentState, actions }) => {
   }, [title, categories, link, docContent, libraryContent, instructions]);
 
   const handleAddSingleContent = async (submitType) => {
-    setLoading(true);
     // add single content to overall content
-    console.log('adding ...');
-    setLoading(false);
-    // error handling
+    const formData = {
+      type: category,
+      title,
+      categories,
+      libraryContent,
+      instructions,
+      uploadedFileInfo,
+    };
+
+    UPDATE_CONTENT(formData);
+    await RESET_SINGLE_CONTENT();
+
     if (submitType === 'content') {
-      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
-    } else {
-      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
+      await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
     }
+    await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
   };
 
   const handleSubmit = (e, submitType) => {
     e.preventDefault();
+
     setSubmitAttempt(true);
-    setUnsavedChanges(false);
 
     const isValid = validateForm();
     if (isValid) {
+      setUnsavedChanges(false);
       handleAddSingleContent(submitType);
     }
+  };
+
+  const goBack = async () => {
+    RESET_SINGLE_CONTENT();
+    await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
   };
 
   const fakeCategories = [
     { label: 'Option 1', value: 'Option 1' },
     { label: 'Option 2', value: 'Option 2' },
   ];
+
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <Prompt
         when={unsavedChanges}
         message="All changes will be lost. Are you sure you want to leave?"
       />
-      {/* TODO ADD CUSTOM FUNCTION TO RESET STATE */}
-      <GoBack />
+      <GoBack customFn={goBack} />
       <Row mt={5} mb={7}>
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">
@@ -195,7 +219,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             error={fileUploadError}
             contentInputMissingError={allContentInputsMissing}
             // disable when user adds link to resource
-            disabled={link.length > 0 || docContent.length > 0}
+            disabled={validInput(docContent) || validInput(link)}
           />
         </Col>
         <Col w={[4, 12, 4]} mb={7} mbM={5}>
@@ -206,7 +230,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             value={link}
             handleChange={(value) => UPDATE_SINGLE_CONTENT('link', value)}
             disabled={
-              docContent.length > 0 || fileUploading || uploadedFileInfo.new
+              validInput(docContent) || fileUploading || uploadedFileInfo.new
             }
             error={validationErrs.link || allContentInputsMissing}
           />
@@ -225,7 +249,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
                 UPDATE_SINGLE_CONTENT('docContent', value)
               }
               disabled={
-                link.length > 0 || fileUploading || uploadedFileInfo.new
+                validInput(link) || fileUploading || uploadedFileInfo.new
               }
               error={validationErrs.docContent || allContentInputsMissing}
             />
@@ -269,17 +293,19 @@ const AddSingleContent = ({ state: parentState, actions }) => {
         <Col w={[4, 12, 4]} mbM={5} mbT={5}>
           <Button
             variant="primary"
-            text="Add more content"
+            text={fileUploading ? 'Uploading ...' : 'Add more content'}
             type="submit"
             handleClick={(e) => handleSubmit(e, 'content')}
+            loading={fileUploading}
           />
         </Col>
         <Col w={[4, 12, 4]}>
           <Button
             variant="secondary"
-            text="Review and finish"
+            text={fileUploading ? 'Uploading ...' : 'Review and finish'}
             type="submit"
             handleClick={(e) => handleSubmit(e, 'review')}
+            loading={fileUploading}
           />
         </Col>
       </Row>

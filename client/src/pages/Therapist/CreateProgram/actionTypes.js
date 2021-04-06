@@ -1,9 +1,7 @@
 const actionTypes = {
-  setFlow: 'SET_FLOW',
   setDescription: 'SET_DESCRIPTION',
-  showModal: 'SHOW_MODAL',
-  setContentType: 'SET_CONTENT_TYPE',
   updateContent: 'UPDATE_CONTENT',
+  setErrors: 'SET_ERRORS',
   updateSingleContent: 'UPDATE_SINGLE_CONTENT',
   resetSingleContent: 'RESET_SINGLE_CONTENT',
   updateFileUploadStatus: 'UPDATE_FILE_UPLOAD_STATUS',
