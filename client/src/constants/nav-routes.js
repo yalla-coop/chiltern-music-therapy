@@ -16,9 +16,8 @@ const CLIENT = {
   CONTACT_THERAPIST: '/contact-therapist',
   PROGRAMMES: '/programmes',
   THERAPIST: '/my-therapist',
-  PROGRAMME: '/programmes/:id',
   ACCOUNT: '/account',
-  SINGLE_PROGRAMME: '/programmes/:id',
+  INDIVID_PROGRAMME: '/programmes/:id',
 };
 
 const THERAPIST_BASE = '/therapist';

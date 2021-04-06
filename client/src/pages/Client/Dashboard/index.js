@@ -69,7 +69,10 @@ const Dashboard = () => {
                 <Link
                   variant="programme"
                   programme={data.programme}
-                  to={CLIENT.PROGRAMME.replace(':id', data.programme.id)}
+                  to={CLIENT.INDIVID_PROGRAMME.replace(
+                    ':id',
+                    data.programme.id
+                  )}
                 />
               </S.CardWrapper>
               <T.Link to={CLIENT.PROGRAMMES} weight="bold" mt={7}>

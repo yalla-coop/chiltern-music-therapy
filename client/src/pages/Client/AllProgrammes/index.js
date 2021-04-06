@@ -41,7 +41,7 @@ const AllProgrammes = () => {
             <Col w={[4, 12, 4]}>
               <Link
                 variant="programme"
-                to={navRoutes.CLIENT.SINGLE_PROGRAMME.replace(':id', id)}
+                to={navRoutes.CLIENT.INDIVID_PROGRAMME.replace(':id', id)}
                 programme={{ date: createdAt }}
               />
             </Col>

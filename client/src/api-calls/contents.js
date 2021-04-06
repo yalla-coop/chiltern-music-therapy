@@ -3,7 +3,7 @@ import handleError from './format-error';
 
 const CONTENTS_BASE = '/contents';
 
-const getContentById = async ({ id, options }) => {
+const getContentByProgId = async ({ id, options }) => {
   try {
     const { data } = await axios.get(`${CONTENTS_BASE}/${id}`);
     return { data };
@@ -13,4 +13,4 @@ const getContentById = async ({ id, options }) => {
   }
 };
 
-export { getContentById };
+export { getContentByProgId };
