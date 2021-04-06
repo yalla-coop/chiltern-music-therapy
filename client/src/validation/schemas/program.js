@@ -1,19 +1,21 @@
 import { fields, createSchema, validate as _validate } from '..';
 
-const { description } = fields;
+const { description, content } = fields;
 
-const formData = {
-  description,
-};
-
-const descriptionSchema = createSchema(formData);
+const descriptionSchema = createSchema({ description });
+const contentSchema = createSchema({ content });
 
 const validate = (data) => {
   const { part } = data;
-  if (part === 'description') {
-    return _validate(descriptionSchema, data);
+  switch (part) {
+    case 'description':
+      return _validate(descriptionSchema, data);
+    case 'review':
+      return _validate(contentSchema, data);
+
+    default:
+      break;
   }
-  // TODO ADD content submit
 };
 
 export default validate;

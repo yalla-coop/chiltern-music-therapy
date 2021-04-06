@@ -63,6 +63,11 @@ export const urlRequired = string()
   })
   .required(errMsgs.DEFAULT_REQUIRED);
 
+export const description = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(500)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
 // SINGLE CONTENT FIELDS
 export const title = string()
   .min(1, errMsgs.DEFAULT_REQUIRED)
@@ -86,11 +91,15 @@ export const link = string().matches(URLregex, {
 
 export const docContent = string().min(1, errMsgs.DEFAULT_REQUIRED).max(1000);
 
-export const description = string()
-  .min(1, errMsgs.DEFAULT_REQUIRED)
-  .max(500)
-  .required(errMsgs.DEFAULT_REQUIRED);
-
 export const inviteToken = string()
   .length(8)
   .required(errMsgs.DEFAULT_REQUIRED);
+
+export const content = array().of(
+  object().shape({
+    title,
+    categories,
+    libraryContent,
+    instructions,
+  })
+);

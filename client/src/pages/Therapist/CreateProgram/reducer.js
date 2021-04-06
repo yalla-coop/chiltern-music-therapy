@@ -37,14 +37,6 @@ const reducer = (state, action) => {
         validationErrs: value,
       };
 
-    // case actionTypes.updateSingleContent:
-    //   return {
-    //     ...state,
-    //     singleContent: {
-    //       ...state.singleContent,
-    //       ...value,
-    //     },
-    //   };
     // takes initial state as value
     case actionTypes.resetSingleContent:
       return {

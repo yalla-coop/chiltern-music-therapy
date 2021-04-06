@@ -9,6 +9,8 @@ import {
   Cards,
 } from '../../../components';
 
+import validate from '../../../validation/schemas/program';
+
 import { navRoutes, dropdowns } from '../../../constants';
 
 import * as S from './style';
@@ -21,24 +23,57 @@ const { Expandable } = Cards;
 const { therapyGoalsCategories } = dropdowns;
 
 const ReviewFinish = ({ state, actions, decidePath }) => {
-  const { description, content } = state;
+  const [submitAttempt, setSubmitAttempt] = useState(false);
+
+  const { description, content, validationErrs } = state;
   let { singleContent } = state;
 
   const { UPDATE_SINGLE_CONTENT, ADD_SINGLE_CONTENT, SET_ERRORS } = actions;
 
   const goBack = () => decidePath(flowTypes.addContent);
 
-  const handleSingleSubmit = () => {
-    //  single Content validation
-    // update content array
-    // reset single content
+  const validateForm = () => {
+    try {
+      const formData = {
+        content,
+        part: 'review',
+      };
+      validate(formData);
+      SET_ERRORS({});
+
+      return true;
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        SET_ERRORS(error.inner);
+      }
+      return false;
+    }
   };
-  console.log('cont', content);
+
+  useEffect(() => {
+    if (submitAttempt) {
+      validateForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitAttempt(true);
+
+    const isValid = validateForm();
+    if (isValid) {
+      // decidePath(flowTypes.addContent);
+      console.log('valid');
+    }
+  };
+
   const renderReviewCards = (_content) => {
     if (_content.length > 0) {
-      return _content.map((el) => {
+      return _content.map((el, idx) => {
         const content = {
           ...el,
+          idx,
           id: el.id,
           title: el.title,
           fileType: el.type,
@@ -49,7 +84,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           categories: el.categories,
           libraryContent: el.libraryContent,
           date: el.date || moment(),
-          validationErrs: el.validationErrs,
+          validationErrs: validationErrs && validationErrs[`content[${idx}]`],
         };
 
         return (
@@ -118,7 +153,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
             variant="secondary"
             text="Save Changes"
             type="submit"
-            // onClick={handleSubmit}
+            onClick={handleSubmit}
           />
         </Col>
       </Row>

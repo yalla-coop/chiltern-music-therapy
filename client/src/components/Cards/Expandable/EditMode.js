@@ -94,6 +94,7 @@ const EditMode = ({
         label="Want to add any more specific instructions for this video?"
         m={{ mb: '5' }}
         handleChange={(val) => updateSingleContent({ id, instructions: val })}
+        error={validationErrs && validationErrs.instructions}
       />
 
       {/* library */}
