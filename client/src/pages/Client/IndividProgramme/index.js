@@ -115,8 +115,10 @@ const IndividProgramme = () => {
           </Col>
         )}
       </Row>
-      <UpdateSection id={id} update={update} therapist={therapist} />
-      <FeedbackSection id={id} feedback={feedback} />
+      <Row>
+        <UpdateSection id={id} update={update} therapist={therapist} />
+        <FeedbackSection id={id} feedback={feedback} />
+      </Row>
     </>
   );
 };
