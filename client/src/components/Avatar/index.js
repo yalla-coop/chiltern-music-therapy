@@ -1,5 +1,4 @@
 import * as S from './style';
-import { Avatar as AntAvatar } from 'antd';
 import Icon from '../Icon';
 
 const Avatar = ({ status = 'loading', image }) => {
@@ -11,10 +10,9 @@ const Avatar = ({ status = 'loading', image }) => {
     );
   }
   return (
-    <AntAvatar
-      size={180}
-      icon={<Icon icon="user" style={{ height: '100%' }} />}
-    />
+    <S.LoadingAvatar>
+      <Icon icon="user" color="white" />
+    </S.LoadingAvatar>
   );
 };
 

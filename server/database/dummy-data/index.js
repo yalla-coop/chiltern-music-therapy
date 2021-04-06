@@ -11,6 +11,7 @@ import createContents from './contents';
 import createProgrammesContents from './programmes-contents';
 import createContentCategories from './content-categories';
 import createContentsContentCategories from './contents-content-categories';
+import updateRefs from './update-refs';
 
 if (process.env.NODE_ENV !== 'production') {
   dotenv.config();
@@ -34,6 +35,8 @@ const buildData = async () => {
   createdData.contentsContentCategories = await createContentsContentCategories(
     createdData,
   );
+
+  await updateRefs(createdData);
 
   return createdData;
 };
