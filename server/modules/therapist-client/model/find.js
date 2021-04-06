@@ -83,6 +83,7 @@ const findClientByUserId = async (clientId, client) => {
       u.last_name,
       u.postcode,
       tc.therapy_background,
+      tc.therapy_goals,
       tc.therapist_user_id
     FROM therapist_clients AS tc
     INNER JOIN users AS u ON(u.id = tc.client_user_id)

@@ -69,6 +69,12 @@ export const P = styled(Paragraph)`
   font-size: ${({ small }) => (small ? '14px !important' : '16px !important')};
   line-height: 150% !important;
   font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
+  pre {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 `;
 
 const AntdLink = ({ to, external = false, ...props }) =>

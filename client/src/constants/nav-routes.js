@@ -35,6 +35,7 @@ const THERAPIST = {
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
   CLIENT_HISTORY: `${THERAPIST_BASE}/clients/:id/history`,
   CONTACT_CLIENT: `${THERAPIST_BASE}/clients/:id/contact`,
+  EDIT_CLIENT: `${THERAPIST_BASE}/clients/:id/edit`,
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
   SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
 };

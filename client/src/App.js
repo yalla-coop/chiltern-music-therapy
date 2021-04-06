@@ -61,6 +61,14 @@ function App() {
                 layout="general"
                 goBack
               />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CLIENT_HISTORY}
+                Component={Pages.THERAPIST.SingleClient}
+                layout="general"
+                goBack
+                clientHistory
+              />
 
               {/* Client Pages */}
               <Route

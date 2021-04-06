@@ -10,13 +10,16 @@ import moment from 'moment';
 
 import { Programmes, TherapistClients } from '../../../api-calls';
 import { THERAPIST } from '../../../constants/nav-routes';
+import ClientHistory from './ClientHistory';
+import Title from '../../../components/Title';
 
-const SingleClient = () => {
+const SingleClient = ({ clientHistory }) => {
   const [state, setState] = useState({
     firstInitial: '',
     lastInitial: '',
     postcode: '',
     therapyBackground: '',
+    therapyGoals: [],
   });
   const [programmes, setProgrammes] = useState([]);
 
@@ -45,15 +48,27 @@ const SingleClient = () => {
     getProgrammes();
   }, [id]);
 
+  if (clientHistory) {
+    return (
+      <ClientHistory
+        firstInitial={state.firstInitial}
+        lastInitial={state.lastInitial}
+        postcode={state.postcode}
+        therapyBackground={state.therapyBackground}
+        therapyGoals={state.therapyGoals}
+        id={id}
+      />
+    );
+  }
   return (
     <S.Wrapper>
       <Row>
         <Col w={[4, 12, 12]}>
-          <T.H1 color="black" mb={7} mbM={5}>
-            <span style={{ fontWeight: '900' }}>{state?.firstInitial}</span>{' '}
-            {state?.lastInitial}
-            {state?.postcode}
-          </T.H1>
+          <Title
+            boldSection={state.firstInitial}
+            lightSection={`${state.lastInitial} ${state.postcode}`}
+            boldFirst
+          />
         </Col>
       </Row>
 
@@ -78,7 +93,7 @@ const SingleClient = () => {
             >
               Read more
             </T.Link>
-          )}{' '}
+          )}
         </Col>
       </Row>
       <Row mb="8">
@@ -86,7 +101,7 @@ const SingleClient = () => {
           <Link
             title="client history"
             variant="graphic1"
-            to={THERAPIST.CLIENT_HISTORY}
+            to={THERAPIST.CLIENT_HISTORY.replace(':id', id)}
           />
         </Col>
       </Row>
@@ -117,7 +132,7 @@ const SingleClient = () => {
               <Link
                 programme={{ date: moment(createdAt), id }}
                 variant="programme"
-                to={THERAPIST.SINGLE_PROGRAMME}
+                to={THERAPIST.SINGLE_PROGRAMME.replace(':id', id)}
               />
             </Col>
           ))) || (
