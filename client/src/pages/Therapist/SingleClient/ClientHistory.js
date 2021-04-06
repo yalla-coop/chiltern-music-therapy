@@ -16,15 +16,11 @@ const ClientHistory = ({
 }) => {
   return (
     <S.Wrapper>
-      <Row>
-        <Col w={[4, 12, 12]}>
-          <Title
-            boldSection={firstInitial}
-            lightSection={`${lastInitial} ${postcode}`}
-            boldFirst
-          />
-        </Col>
-      </Row>
+      <Title
+        boldSection={firstInitial}
+        lightSection={`${lastInitial} ${postcode}`}
+        boldFirst
+      />
 
       <Row mb="7">
         <Col w={[4, 12, 12]}>
