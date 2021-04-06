@@ -22,14 +22,7 @@ const getUserDashboard = async (req, res, next) => {
         id: user.id,
       });
 
-      const protectedClients = clients.map((c) => ({
-        firstInitial: c.firstName[0],
-        lastInitial: c.lastName[0],
-        postcode: c.postcode,
-        id: c.id,
-      }));
-
-      return res.json(protectedClients);
+      return res.json(clients);
     }
 
     throw new Error(`Invalid role`);

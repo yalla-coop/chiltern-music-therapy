@@ -27,10 +27,10 @@ const Dashboard = () => {
       }
     };
 
-    if (user) {
+    if (user?.id) {
       getDashboard();
     }
-  }, [user]);
+  }, [user.id]);
 
   const programmesToView = programmes.length > 0;
 

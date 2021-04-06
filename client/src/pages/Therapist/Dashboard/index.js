@@ -26,10 +26,10 @@ const Dashboard = () => {
       }
     };
 
-    if (user) {
+    if (user?.id) {
       getDashboard();
     }
-  }, [user]);
+  }, [user.id]);
 
   return (
     <div style={{ maxWidth: 1068 }}>
