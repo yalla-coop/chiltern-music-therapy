@@ -1,5 +1,4 @@
 import * as TherapistClient from '../../therapist-client/use-cases';
-import * as Programmes from '../../programme/use-cases';
 
 const getUserDashboard = async (req, res, next) => {
   const { user } = req;
@@ -10,11 +9,7 @@ const getUserDashboard = async (req, res, next) => {
         id: user.id,
       });
 
-      const programmes = await Programmes.getProgrammesByClient({
-        userId: user.id,
-      });
-
-      return res.json({ therapist, programmes });
+      return res.json(therapist);
     }
 
     if (role === 'THERAPIST') {

@@ -6,7 +6,7 @@ import { Link, Basic } from '../../../components/Cards';
 import { useAuth } from '../../../context/auth';
 import { getInitials } from '../../../helpers';
 
-import { Users } from '../../../api-calls';
+import { Users, Programmes } from '../../../api-calls';
 
 import * as S from './style';
 
@@ -19,11 +19,17 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getDashboard = async () => {
-      const { data, error } = await Users.getUserDashboard();
+      const { data: therapistData, error } = await Users.getUserDashboard();
+      const {
+        data: programmeData,
+        error: err,
+      } = await Programmes.getProgrammesByClient();
 
       if (!error) {
-        setTherapist(data?.therapist);
-        setProgrammes(data?.programmes);
+        setTherapist(therapistData);
+      }
+      if (!err) {
+        setProgrammes(programmeData);
       }
     };
 
