@@ -152,7 +152,7 @@ export const ExpandableCard = ExpandableExample.bind({});
 ExpandableCard.args = {
   borderColor: 'rainbowHorizontal',
   content: {
-    fileType: 'video',
+    type: 'video',
     streamable: true,
     download: '/file.mp4',
     instructions:
@@ -165,7 +165,7 @@ ExpandableCard.args = {
 export const ExpandableCardv2 = ExpandableExample.bind({});
 ExpandableCardv2.args = {
   content: {
-    fileType: 'video',
+    type: 'video',
     streamable: true,
     download: '/file.mp4',
     instructions:
@@ -182,7 +182,7 @@ export const AudioExample = ExpandableExample.bind({});
 AudioExample.args = {
   borderColor: 'rainbowHorizontal',
   content: {
-    fileType: 'audio',
+    type: 'audio',
     streamable: true,
     download: '/file.mp4',
     instructions:
@@ -196,7 +196,7 @@ export const DocExample = ExpandableExample.bind({});
 DocExample.args = {
   borderColor: 'rainbowHorizontal',
   content: {
-    fileType: 'document',
+    type: 'document',
     streamable: true,
     download: '/file.mp4',
     instructions:

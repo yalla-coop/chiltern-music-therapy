@@ -1,4 +1,4 @@
-import { Row, Col } from '../../../components/Grid';
+import { Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { navRoutes } from '../../../constants';
 import Button from '../../../components/Button';

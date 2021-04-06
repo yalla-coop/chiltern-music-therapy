@@ -37,7 +37,6 @@ const IndividProgramme = () => {
   };
 
   const decideStreamable = (type, path) => {
-    console.log('HEY', type, path);
     if (['VIDEO', 'AUDIO'].includes(type) && path) {
       return true;
     }

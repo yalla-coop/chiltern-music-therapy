@@ -7,7 +7,7 @@ const getContentByProg = async (req, res, next) => {
     const content = await Content.getContentByProg({
       id,
       userId: user.id,
-      userRole: user.roles,
+      userRole: user.roles[0],
     });
     res.json(content);
   } catch (error) {
