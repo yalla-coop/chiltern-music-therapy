@@ -8,8 +8,8 @@ const findContentByProg = async (id) => {
     c.title,
     c.instructions,
     c.link,
+    c.type,
     m.file_name,
-    m.type,
     m.path
     FROM contents c
     INNER JOIN programmes_contents pc ON pc.content_id = c.id

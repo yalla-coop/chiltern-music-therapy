@@ -68,7 +68,7 @@ const createContents = async ({ media, therapistClients }) => {
     link: 'www.audiocontent.com',
     libraryContent: true,
     therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
-    type: 'DOCUMENT',
+    type: 'AUDIO',
   });
 
   return {

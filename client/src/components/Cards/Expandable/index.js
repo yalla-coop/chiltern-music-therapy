@@ -9,7 +9,7 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
   const [selectedHeight, setSelectedHeight] = useState(0);
 
   const {
-    fileType,
+    type,
     title,
     date,
     streamable,
@@ -46,7 +46,7 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
       )}
 
       <S.Title open={open}>
-        <Icon icon={titleData[fileType]?.icon} mr="3" width="33" height="33" />
+        <Icon icon={titleData[type]?.icon} mr="3" width="33" height="33" />
 
         {withDate ? (
           <S.DateTitle>
@@ -57,10 +57,8 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
           </S.DateTitle>
         ) : (
           <T.P weight="light" mr="1">
-            {titleData[fileType]?.action}{' '}
-            <span style={{ fontWeight: 'bold' }}>
-              {titleData[fileType]?.title}
-            </span>
+            {titleData[type]?.action}{' '}
+            <span style={{ fontWeight: 'bold' }}>{titleData[type]?.title}</span>
           </T.P>
         )}
       </S.Title>
@@ -81,7 +79,14 @@ const Expandable = ({ borderColor, content, remove, edit, withDate }) => {
           </a>
         )}
         {link && open && (
-          <T.Link external to={linkFormatter(link)} mb="5" underline>
+          <T.Link
+            weight="bold"
+            color="primary"
+            external
+            to={linkFormatter(link)}
+            mb="5"
+            underline
+          >
             Click to open content
           </T.Link>
         )}

@@ -23,8 +23,8 @@ const IndividProgramme = () => {
   const { user } = useAuth();
   const { id } = useParams();
 
-  const decideBorder = (fileType) => {
-    switch (fileType) {
+  const decideBorder = (type) => {
+    switch (type) {
       case 'VIDEO':
         return 'rainbowHorizontal';
       case 'DOCUMENT':
@@ -36,9 +36,9 @@ const IndividProgramme = () => {
     }
   };
 
-  const decideStreamable = (fileType, path) => {
-    console.log('HEY', fileType, path);
-    if (['VIDEO', 'AUDIO'].includes(fileType) && path) {
+  const decideStreamable = (type, path) => {
+    console.log('HEY', type, path);
+    if (['VIDEO', 'AUDIO'].includes(type) && path) {
       return true;
     }
     return false;
@@ -100,7 +100,7 @@ const IndividProgramme = () => {
                   download: path,
                   streamable: decideStreamable(type, path),
                   ...content,
-                  fileType: type?.toLowerCase(),
+                  type: type?.toLowerCase(),
                   path,
                 }}
               />
