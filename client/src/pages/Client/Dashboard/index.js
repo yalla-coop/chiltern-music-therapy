@@ -1,37 +1,58 @@
+import { useEffect, useState } from 'react';
 import { CLIENT } from '../../../constants/nav-routes';
 import { Col, Row } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { Link, Basic } from '../../../components/Cards';
-import moment from 'moment';
+import { useAuth } from '../../../context/auth';
+import { getInitials } from '../../../helpers';
+
+import { Users, Programmes } from '../../../api-calls';
 
 import * as S from './style';
 
 const Dashboard = () => {
-  const data = {
-    firstName: 'Joe',
-    lastName: 'Petter',
-    therapistInfo: {
-      firstName: 'Elizabeth',
-      lastName: 'Peters',
-      id: '1',
-    },
-    programme: { date: moment(), id: 0 },
-  };
-  const firstLatter = data.firstName[0].toUpperCase();
-  const lastLatter = data.lastName[0].toUpperCase();
+  const [therapist, setTherapist] = useState({});
+  const [programmes, setProgrammes] = useState([]);
+
+  const { user } = useAuth();
+  const initials = getInitials(user.firstName, user.lastName);
+
+  useEffect(() => {
+    const getDashboard = async () => {
+      const { data: therapistData, error } = await Users.getUserDashboard();
+      const {
+        data: programmeData,
+        error: err,
+      } = await Programmes.getProgrammesByClient();
+
+      if (!error) {
+        setTherapist(therapistData);
+      }
+      if (!err) {
+        setProgrammes(programmeData);
+      }
+    };
+
+    if (user?.id) {
+      getDashboard();
+    }
+  }, [user.id]);
+
+  const programmesToView = programmes.length > 0;
+
   return (
     <div style={{ maxWidth: 1068 }}>
       <Row>
         <Col w={[4, 12, 12]}>
           <T.H2>
-            Welcome <S.BoldSpan> {firstLatter} </S.BoldSpan> {lastLatter}!
+            Welcome <S.BoldSpan> {initials.first} </S.BoldSpan> {initials.last}!
           </T.H2>
         </Col>
       </Row>
       <Row>
         <Col w={[4, 6, 4]} mt={5}>
           <S.CardWrapper>
-            <Basic therapistInfo={data.therapistInfo} variant="therapistInfo" />
+            <Basic therapistInfo={therapist} variant="therapistInfo" />
           </S.CardWrapper>
         </Col>
         <Col w={[4, 6, 4]} mt={5}>
@@ -62,20 +83,17 @@ const Dashboard = () => {
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
-          {data?.programme?.date ? (
+        <Col w={[4, 6, 4]}>
+          {programmesToView ? (
             <>
               <S.CardWrapper>
                 <Link
                   variant="programme"
-                  programme={data.programme}
-                  to={CLIENT.INDIVID_PROGRAMME.replace(
-                    ':id',
-                    data.programme.id
-                  )}
+                  programme={{ date: programmes[0].createdAt }}
+                  to={CLIENT.INDIVID_PROGRAMME.replace(':id', programmes[0].id)}
                 />
               </S.CardWrapper>
-              <T.Link to={CLIENT.PROGRAMMES} weight="bold" mt={7}>
+              <T.Link to={CLIENT.PROGRAMMES} weight="bold" mt={7} underline>
                 View more
               </T.Link>
             </>
