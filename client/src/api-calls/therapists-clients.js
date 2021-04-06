@@ -36,4 +36,23 @@ const getTherapistByInviteToken = async ({ inviteToken, options }) => {
   }
 };
 
-export { getTherapistsClientsById, getTherapistByInviteToken, getMyTherapist };
+const updateTherapiesProfile = async ({ updates, options } = {}) => {
+  try {
+    // const { data } = await axios.post(
+    //   `${THERAPISTS_CLIENTS_BASE}/update-therapies-profile`
+    // )
+    // return data;
+    console.log('ssss');
+    return { data: updates };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export {
+  getTherapistsClientsById,
+  getTherapistByInviteToken,
+  getMyTherapist,
+  updateTherapiesProfile,
+};
