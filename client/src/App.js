@@ -85,8 +85,7 @@ function App() {
 
               <Route
                 exact
-                // path={navRoutes.THERAPIST.CREATE_PROGRAM}
-                path="/test"
+                path={navRoutes.THERAPIST.NEW_CLIENT}
                 Component={Pages.THERAPIST.AddClient}
               />
 
