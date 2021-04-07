@@ -293,7 +293,7 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
               <T.P color="gray9">
                 Save this video to
                 <T.Link
-                  style={{ fontWeight: '700' }}
+                  weight="700"
                   to={navRoutes.THERAPIST.LIBRARY}
                   bold
                   external
