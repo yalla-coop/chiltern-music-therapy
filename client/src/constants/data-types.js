@@ -6,3 +6,11 @@ export const userRoles = {
   ADMIN: 'ADMIN',
   SUPER_ADMIN: 'SUPER_ADMIN',
 };
+
+export const mediaTypes = {
+  PROFILE_IMAGE: 'PROFILE_IMAGE',
+  VIDEO: 'VIDEO',
+  AUDIO: 'AUDIO',
+  DOCUMENT: 'DOCUMENT',
+  IMAGE: 'IMAGE',
+};

@@ -32,7 +32,6 @@ const Library = () => {
   const [editingErrors, setEditingErrors] = useState({});
 
   const { user } = useAuth();
-  console.log('rol', user);
 
   const contentToView = filteredContents.length > 0;
 
@@ -179,7 +178,7 @@ const Library = () => {
                   content={{
                     download: path,
                     streamable: decideStreamable(type, path),
-                    categories,
+                    categories: categories.filter((cat) => cat !== null),
                     ...content,
                     type: type?.toLowerCase(),
                     path,

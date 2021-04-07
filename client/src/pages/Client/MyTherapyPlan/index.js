@@ -14,7 +14,6 @@ const MyTherapyPlan = () => {
     const getMyTherapy = async () => {
       const { data, error } = await TherapistClients.getMyTherapy();
       if (!error) {
-        console.log(data);
         setTherapy(data);
       }
     };

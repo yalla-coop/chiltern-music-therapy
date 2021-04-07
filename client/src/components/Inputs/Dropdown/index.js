@@ -23,6 +23,7 @@ const Dropdown = ({
   m,
   bold,
   search,
+  addNew,
 }) => {
   const [open, setOpen] = useState(false);
   const [focus, setFocus] = useState(false);
@@ -70,6 +71,12 @@ const Dropdown = ({
     return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0;
   };
 
+  const decideMode = () => {
+    if (addNew) return 'tags';
+    if (multi) return 'multiple';
+    return;
+  };
+
   return (
     <S.Field
       w={w}
@@ -94,21 +101,22 @@ const Dropdown = ({
           value={selected || undefined}
           onSelect={multi ? undefined : handleChange}
           onChange={multi ? handleChange : undefined}
-          mode={multi && 'multiple'}
+          mode={decideMode()}
           placeholder={placeholder || 'Type here...'}
           showArrow
+          allowClear
           onDropdownVisibleChange={(open) => setOpen(open)}
           dropdownStyle={S.menuStyle}
           disabled={disabled}
           onFocus={() => setFocus(true)}
           onBlur={() => setFocus(false)}
-          filterOption={handleSearch}
+          filterOption={addNew || handleSearch}
           suffixIcon={
             search ? (
               <Icon icon="search" width="24" height="24" color="black" />
             ) : undefined
           }
-          showSearch={search}
+          showSearch={addNew || search}
         >
           {renderOptions()}
         </AntdSelect>

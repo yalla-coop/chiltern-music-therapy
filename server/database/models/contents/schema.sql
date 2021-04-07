@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS "contents" CASCADE;
 CREATE TABLE "contents" (
   "id" SERIAL PRIMARY KEY,
   "media_id" INTEGER REFERENCES media(id),
+  "type" media_types NOT NULL,
   "title" VARCHAR(100) NOT NULL,
   "instructions" TEXT,
   "link" TEXT,

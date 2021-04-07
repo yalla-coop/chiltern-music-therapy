@@ -1,7 +1,6 @@
 import * as S from './style';
 import { P } from '../Typography';
 const Tag = ({ tag, tags, ...props }) => {
-  console.log('tags', tags);
   if (tags && tags.length > 0) {
     return (
       <S.Container {...props}>

@@ -1,9 +1,9 @@
-import { useReducer, useEffect } from 'react';
+import { useEffect, useReducer } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import * as S from './style';
 import * as T from '../../../components/Typography';
-import { Row, Col } from '../../../components/Grid';
+import { Col, Row } from '../../../components/Grid';
 import { BasicInput } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { navRoutes } from '../../../constants';

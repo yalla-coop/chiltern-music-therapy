@@ -57,7 +57,7 @@ const clientSignup = async ({ email, password, over16, inviteToken }) => {
       client,
     );
 
-    events.emit(events.types.user.CLIENT_SIGNUP, user);
+    events.emit(events.types.USER.CLIENT_SIGNUP, user);
     await client.query('COMMIT');
     return user;
   } catch (error) {

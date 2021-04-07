@@ -36,6 +36,28 @@ const getTherapistByInviteToken = async ({ inviteToken, options }) => {
   }
 };
 
+const getClientById = async ({ id, options } = {}) => {
+  try {
+    const { data } = await axios.get(`${THERAPISTS_CLIENTS_BASE}/client/${id}`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+const updateTherapiesProfile = async ({ updates, options } = {}) => {
+  try {
+    // const { data } = await axios.post(
+    //   `${THERAPISTS_CLIENTS_BASE}/update-therapies-profile`
+    // )
+    // return data;
+    return { data: updates };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
 const getMyTherapy = async ({ options } = {}) => {
   try {
     const { data } = await axios.get(`${THERAPISTS_CLIENTS_BASE}/my-therapy`);
@@ -49,6 +71,8 @@ const getMyTherapy = async ({ options } = {}) => {
 export {
   getTherapistsClientsById,
   getTherapistByInviteToken,
-  getMyTherapy,
   getMyTherapist,
+  getClientById,
+  updateTherapiesProfile,
+  getMyTherapy,
 };
