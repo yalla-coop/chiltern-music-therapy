@@ -10,6 +10,8 @@ import { useAuth } from '../../../context/auth';
 
 import { Contents } from '../../../api-calls';
 
+import * as T from '../../../components/Typography';
+
 const typeOptions = [
   { label: 'All', value: 'ALL' },
   { label: 'Video', value: 'VIDEO' },
@@ -19,13 +21,14 @@ const typeOptions = [
 
 const Library = () => {
   const [contents, setContents] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [viewNum, setViewNum] = useState(10);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [filter, setFilter] = useState({});
+  const [filteredContents, setFilteredContents] = useState([]);
 
   const { user } = useAuth();
 
-  const contentToView = contents.length > 0;
+  const contentToView = filteredContents.length > 0;
 
   const handleSelect = (e, filterType) => {
     setFilter({ ...filter, [filterType]: e });
@@ -38,22 +41,22 @@ const Library = () => {
     return false;
   };
 
-  const filterContent = (categories, type) => {
-    let passFilter = true;
+  // const filterContent = (categories, type) => {
+  //   let passFilter = true;
 
-    if (
-      filter.category &&
-      !categories?.includes(filter.category) &&
-      filter.category !== 'ALL'
-    ) {
-      passFilter = false;
-    }
-    if (filter.type && filter.type !== type && filter.type !== 'ALL') {
-      passFilter = false;
-    }
+  //   if (
+  //     filter.category &&
+  //     !categories?.includes(filter.category) &&
+  //     filter.category !== 'ALL'
+  //   ) {
+  //     passFilter = false;
+  //   }
+  //   if (filter.type && filter.type !== type && filter.type !== 'ALL') {
+  //     passFilter = false;
+  //   }
 
-    return passFilter;
-  };
+  //   return passFilter;
+  // };
 
   useEffect(() => {
     const getContent = async () => {
@@ -68,9 +71,8 @@ const Library = () => {
       const { data, error } = await Contents.getCategories();
 
       if (!error) {
-        const allCats = data.map((cat) => cat.text);
-        setCategories(allCats);
-        setCategoryOptions(allCats.map((cat) => ({ label: cat, value: cat })));
+        const allCats = data.map(({ text }) => ({ label: text, value: text }));
+        setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
       }
     };
 
@@ -79,6 +81,27 @@ const Library = () => {
       getCategories();
     }
   }, [user.id]);
+
+  useEffect(() => {
+    const filtered = contents.filter(({ categories, type }) => {
+      let passFilter = true;
+
+      if (
+        filter.category &&
+        !categories?.includes(filter.category) &&
+        filter.category !== 'ALL'
+      ) {
+        passFilter = false;
+      }
+      if (filter.type && filter.type !== type && filter.type !== 'ALL') {
+        passFilter = false;
+      }
+
+      return passFilter;
+    });
+
+    setFilteredContents(filtered);
+  }, [filter, contents]);
 
   return (
     <>
@@ -101,10 +124,10 @@ const Library = () => {
           />
         </Col>
       </Row>
-      <Row>
+      <Row mb="4">
         {contentToView ? (
-          contents
-            .filter(({ categories, type }) => filterContent(categories, type))
+          filteredContents
+            .slice(0, viewNum)
             .map(({ type, path, ...content }, index) => (
               <Col w={[4, 6, 4]} mb="4" key={index}>
                 <Expandable
@@ -127,6 +150,21 @@ const Library = () => {
           </Col>
         )}
       </Row>
+      {viewNum < filteredContents.length && (
+        <Row>
+          <Col w={[4, 12, 12]} jc="flex-start" jcT="center">
+            <T.Link
+              weight="bold"
+              to={false}
+              mt={6}
+              underline
+              onClick={() => setViewNum((_old) => _old + 10)}
+            >
+              View more
+            </T.Link>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };
