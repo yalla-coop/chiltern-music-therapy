@@ -6,17 +6,17 @@ const findTherapistClientWithUsersById = async (id) => {
   const values = [id];
   const sql = `
   SELECT
-    id,
-    therapist_user_id,
-    client_user_id,
-    therapy_background,
-    therapy_goals,
-    therapist_bio,
-    therapist_intro,
-    therapist_message,
-    invite_token,
-    created_at,
-    updated_at,
+    tc.id,
+    tc.therapist_user_id,
+    tc.client_user_id,
+    tc.therapy_background,
+    tc.therapy_goals,
+    tc.therapist_bio,
+    tc.therapist_intro,
+    tc.therapist_message,
+    tc.invite_token,
+    tc.created_at,
+    tc.updated_at,
     --
     c.id AS "client.id",
     c.first_name AS "client.first_name",

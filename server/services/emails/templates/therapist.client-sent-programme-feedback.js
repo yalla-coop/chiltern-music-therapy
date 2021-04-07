@@ -21,7 +21,7 @@ export default ({
     <div>
       <p>Dear ${therapistName},</p>
       <br>
-      <p>Your client, ${firstInitial}, has completed a feedback form about the ${programmeLink} you created for them on ${_date}.</p>
+      <p>Your client ${firstInitial}, has completed a feedback form about the ${programmeLink} you created for them on ${_date}.</p>
       <p>Follow this ${loginLink} to log in and view his/her message.</p>
       <br>
       <p>Best wishes</p>

@@ -14,6 +14,9 @@ pubSub.listen(events.PROGRESS_UPDATE.CREATED, async ({ progressId }) => {
   await sendMail(keys.THERAPIST_CLIENT_SENT_PROGRESS_UPDATE, {
     firstInitial,
     therapistName,
+    programmeId: progressUpdate.programme.id,
+    programmeCreatedAt: progressUpdate.programme.createdAt,
+    to: progressUpdate.therapist.email,
   });
   // more subscribers go here
 });
@@ -31,6 +34,7 @@ pubSub.listen(
     await sendMail(keys.CLIENT_THERAPIST_RESPOND_TO_PROGRESS_UPDATE, {
       firstInitial,
       therapistName,
+      to: progressUpdate.client.email,
     });
     // more subscribers go here
   },

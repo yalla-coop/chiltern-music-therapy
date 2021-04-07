@@ -17,7 +17,7 @@ export default ({ firstInitial, therapistName, inviteToken }) => {
       <br>
       <p>Welcome to Chiltern Music Therapy Digital Platform!</p>
       <br>
-      <p>Your therapist, ${therapistName}, has created an account for you to access your digital music therapy resources in between in-person sessions.</p>
+      <p>Your therapist ${therapistName}, has created an account for you to access your digital music therapy resources in between in-person sessions.</p>
       <p>Follow this ${link} to log in and complete your registration.</p>
       <br>
       <p>Best wishes</p>

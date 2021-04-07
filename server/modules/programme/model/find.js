@@ -7,12 +7,12 @@ const findProgrammeWithUsersById = async (programmeId) => {
 
   const sql = `
     SELECT 
-      id,
-      therapists_clients_id,
-      description,
-      status,
-      created_at,
-      updated_at,
+      p.id,
+      p.therapists_clients_id,
+      p.description,
+      p.status,
+      p.created_at,
+      p.updated_at,
       --
       tc.id AS "therapist_client.id",
       tc.therapist_user_id AS "therapist_client.therapist_user_id",
@@ -72,7 +72,7 @@ const findProgrammeWithUsersById = async (programmeId) => {
   `;
 
   const res = await query(sql, values);
-  return res.rows;
+  return res.rows[0];
 };
 
 // for pub/sub
@@ -93,12 +93,12 @@ const findProgrammeFeedbackWithUsersById = async (feedbackId) => {
       pf.created_at,
       pf.updated_at,
       --
-      p.id AS "programme.id,
-      p.therapists_clients_id AS "programme.therapists_clients_id,
-      p.description AS "programme.description,
-      p.status AS "programme.status,
-      p.created_at AS "programme.created_at,
-      p.updated_at AS "programme.updated_at,
+      p.id AS "programme.id",
+      p.therapists_clients_id AS "programme.therapists_clients_id",
+      p.description AS "programme.description",
+      p.status AS "programme.status",
+      p.created_at AS "programme.created_at",
+      p.updated_at AS "programme.updated_at",
       --
       tc.id AS "therapist_client.id",
       tc.therapist_user_id AS "therapist_client.therapist_user_id",
@@ -159,7 +159,7 @@ const findProgrammeFeedbackWithUsersById = async (feedbackId) => {
   `;
 
   const res = await query(sql, values);
-  return res.rows;
+  return res.rows[0];
 };
 
 const findProgrammesByClient = async (userId) => {

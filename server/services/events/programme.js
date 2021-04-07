@@ -12,6 +12,8 @@ pubSub.listen(events.PROGRAMME.CREATED, async ({ programmeId }) => {
   await sendMail(keys.CLIENT_THERAPIST_CREATED_PROGRAMME, {
     firstInitial,
     therapistName,
+    programmeId: programme.id,
+    to: programme.client.email,
   });
   // more subscribers go here
 });
@@ -25,6 +27,9 @@ pubSub.listen(events.PROGRAMME.UPDATED, async ({ programmeId }) => {
   await sendMail(keys.CLIENT_THERAPIST_UPDATED_PROGRAMME, {
     firstInitial,
     therapistName,
+    programmeId: programme.id,
+    programmeCreatedAt: programme.createdAt,
+    to: programme.client.email,
   });
 });
 
@@ -41,5 +46,6 @@ pubSub.listen(events.PROGRAMME.FEEDBACK.CREATED, async ({ feedbackId }) => {
     therapistName,
     programmeCreatedAt: feedback.programme.createdAt,
     programmeId: feedback.programme.id,
+    to: feedback.client.email,
   });
 });

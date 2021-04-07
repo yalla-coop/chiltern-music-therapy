@@ -15,6 +15,7 @@ pubSub.listen(
     const { inviteToken } = therapistClient;
 
     await sendMail(keys.CLIENT_SIGNUP_INVITE, {
+      to: therapistClient.client.email,
       firstInitial,
       therapistName,
       inviteToken,

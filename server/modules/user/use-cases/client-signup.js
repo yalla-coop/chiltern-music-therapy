@@ -11,6 +11,10 @@ import { userRoles, userStatuses } from '../../../constants';
 
 import { getClient } from '../../../database/connect';
 
+events.emit(events.types.PROGRESS_UPDATE.THERAPIST_RESPOND, {
+  progressId: 1,
+});
+
 const clientSignup = async ({ email, password, over16, inviteToken }) => {
   const client = await getClient();
 
@@ -57,7 +61,7 @@ const clientSignup = async ({ email, password, over16, inviteToken }) => {
       client,
     );
 
-    events.emit(events.types.user.CLIENT_SIGNUP, user);
+    events.emit(events.types.USER.CLIENT_SIGNUP, user);
     await client.query('COMMIT');
     return user;
   } catch (error) {

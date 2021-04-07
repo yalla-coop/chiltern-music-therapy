@@ -16,12 +16,12 @@ const findProgressUpdateWithUsersById = async (progressId) => {
       pu.created_at,
       pu.updated_at,
       --
-      p.id AS "programme.id,
-      p.therapists_clients_id AS "programme.therapists_clients_id,
-      p.description AS "programme.description,
-      p.status AS "programme.status,
-      p.created_at AS "programme.created_at,
-      p.updated_at AS "programme.updated_at,
+      p.id AS "programme.id",
+      p.therapists_clients_id AS "programme.therapists_clients_id",
+      p.description AS "programme.description",
+      p.status AS "programme.status",
+      p.created_at AS "programme.created_at",
+      p.updated_at AS "programme.updated_at",
       --
       tc.id AS "therapist_client.id",
       tc.therapist_user_id AS "therapist_client.therapist_user_id",
@@ -82,7 +82,7 @@ const findProgressUpdateWithUsersById = async (progressId) => {
   `;
 
   const res = await query(sql, values);
-  return res.rows;
+  return res.rows[0];
 };
 
 export { findProgressUpdateWithUsersById };

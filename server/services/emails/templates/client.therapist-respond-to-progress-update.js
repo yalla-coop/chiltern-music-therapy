@@ -11,7 +11,7 @@ export default ({ firstInitial, therapistName }) => {
     <div>
       <p>Dear ${firstInitial},</p>
       <br>
-      <p>Your Music Therapist, ${therapistName}, has sent you a response to your feedback.</p>
+      <p>Your Music Therapist ${therapistName}, has sent you a response to your feedback.</p>
       <p>Follow this ${loginLink} to log in and view his/her comments!.</p>
       <br>
       <p>Best wishes</p>

@@ -23,7 +23,7 @@ const templatesKeys = {
   [keys.THERAPIST_CLIENT_SENT_PROGRAMME_FEEDBACK]:
     templates.therapistClientSentProgrammeFeedback,
   [keys.THERAPIST_CLIENT_SENT_PROGRESS_UPDATE]:
-    templates.therapistClientSentProgrammeUpdate,
+    templates.therapistClientSentProgressUpdate,
 };
 
 export { templatesKeys };
