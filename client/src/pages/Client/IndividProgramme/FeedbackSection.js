@@ -20,7 +20,7 @@ const FeedbackSection = ({ feedback, id }) =>
       </T.P>
       <Button
         to={navRoutes.CLIENT.SEND_FEEDBACK.replace('id', id)}
-        text="Send update"
+        text="Send feedback"
         variant="tertiary"
       />
     </Col>
