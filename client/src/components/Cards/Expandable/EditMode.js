@@ -1,9 +1,16 @@
+import { useState, useEffect } from 'react';
+
 import * as S from './style';
 import * as T from '../../Typography';
 
-import Icon from '../../Icon';
-import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 import Button from '../../Button';
+import Icon from '../../Icon';
+import Modal from '../../Modal';
+
+import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
+
+import { Media } from '../../../api-calls';
+import { fileCategories } from '../../../constants/content';
 
 const EditMode = ({
   content,
@@ -19,21 +26,70 @@ const EditMode = ({
   onCancel,
 }) => {
   const {
-    streamable,
-    download,
     instructions,
     categories,
     title,
-    savedToLibrary,
+    libraryContent,
+    id,
+    fileType,
+    link,
+    validationErrs,
+    fileUpload,
   } = content;
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [mediaUrl, setMediaUrl] = useState(false);
+
+  const getMediaUrl = async (file) => {
+    const { data, error: _error } = await Media.getMediadURL({
+      key: file.key,
+      bucket: file.bucket,
+    });
+    if (!_error) {
+      setMediaUrl(data);
+    }
+  };
+
+  useEffect(() => {
+    // re-assign parent state
+    const formattedSingleContent = {
+      categories,
+      title,
+      id,
+      instructions,
+      libraryContent: libraryContent,
+      link,
+      type: fileType,
+    };
+    handleInput(formattedSingleContent);
+  }, []);
+
+  useEffect(() => {
+    // re-assign parent state
+    if (fileUpload && fileUpload.uploadedToS3) {
+      return getMediaUrl(fileUpload);
+    }
+  }, []);
+
+  const modalParentFunction = (_id) => remove({ id });
+
+  const streamable =
+    [fileCategories.audio, fileCategories.video].includes(fileType) &&
+    (mediaUrl || link);
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
+      <Modal
+        visible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        type="removeFromProgramme"
+        parentFunc={() => modalParentFunction(id)}
+      />
       {streamable && (
-        <div style={{ marginBottom: '24px' }}>VIDEO/AUDIO HERE</div>
+        <div style={{ marginBottom: '24px' }}>STREAM GOES HERE</div>
       )}
-      {download && (
-        <a href={download} download>
+      {mediaUrl && (
+        <a href={mediaUrl} download>
           <Icon
             icon="download"
             width="16"
@@ -44,30 +100,39 @@ const EditMode = ({
           />
         </a>
       )}
+
       <BasicInput
         label="Title"
         placeholder="Type title..."
         value={title}
         type="text"
-        handleChange={handleInput}
-        error={errors.title}
+        handleChange={(val) => handleInput({ id, title: val.trim() })}
+        error={validationErrs && validationErrs.title}
         m={{ mb: '5' }}
       />
+
       <Dropdown
         multi
         label="Categories"
         selected={categories}
         options={categoryOptions}
-        handleChange={handleInput}
-        error={errors.categories}
+        addNew
+        handleChange={(val) => handleInput({ id, categories: val })}
+        error={validationErrs && validationErrs.categories}
+        search={false}
         m={{ mb: '5' }}
       />
+
       <Textarea
         value={instructions}
         placeholder="Type instructions here..."
         label="Want to add any more specific instructions for this video?"
         m={{ mb: '5' }}
+        handleChange={(val) => handleInput({ id, instructions: val })}
+        error={validationErrs && validationErrs.instructions}
       />
+
+      {/* library */}
       {library ? (
         <>
           <Button text="Save changes" handleClick={saveChanges} mb="4" />
@@ -84,9 +149,9 @@ const EditMode = ({
       ) : (
         <>
           <Checkbox
-            checked={savedToLibrary}
-            handleChange={handleInput}
-            error={errors.savedToLibrary}
+            checked={libraryContent}
+            handleChange={(val) => handleInput({ id, libraryContent: val })}
+            error={validationErrs && validationErrs.libraryContent}
             label={
               <T.P color="gray9">
                 Save this video to{' '}
@@ -96,7 +161,7 @@ const EditMode = ({
             }
             m={{ mb: '5' }}
           />
-          <S.InvisibleBtn onClick={remove}>
+          <S.InvisibleBtn onClick={() => setIsModalVisible(true)}>
             <Icon
               icon="bin"
               width="16"

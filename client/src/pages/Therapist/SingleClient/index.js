@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import * as S from './style';
 import * as T from '../../../components/Typography';
@@ -25,6 +25,7 @@ const SingleClient = ({ clientHistory }) => {
 
   const [elementsOnView, setElementsOnView] = useState(3);
 
+  const history = useHistory();
   const { id } = useParams();
 
   useEffect(() => {
@@ -120,7 +121,10 @@ const SingleClient = ({ clientHistory }) => {
 
       <Row mb="8">
         <Col w={[4, 12, 4]}>
-          <Button text="Add new programme" to={THERAPIST.CREATE_PROGRAM} />
+          <Button
+            text="Add new programme"
+            to={THERAPIST.CREATE_PROGRAMME.replace(':id', id)}
+          />
         </Col>
       </Row>
       <Row>
