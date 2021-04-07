@@ -51,7 +51,6 @@ const AddClient = () => {
   const boldSection = currentStep === 6 ? 'Success!' : 'Add';
   return (
     <>
-      {currentStep}
       <Title lightSection={lightSection} boldSection={boldSection} boldFirst />
       {renderStep()}
     </>
