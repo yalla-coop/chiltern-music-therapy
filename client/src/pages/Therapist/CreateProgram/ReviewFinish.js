@@ -10,7 +10,7 @@ import {
   Cards,
 } from '../../../components';
 
-import validate from '../../../validation/schemas/program';
+import validate from '../../../validation/schemas/programme';
 
 import { dropdowns } from '../../../constants';
 
@@ -129,7 +129,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
         }
 
         return (
-          <Col mb={5} w={[4, 9, 5]}>
+          <Col mb={5} w={[4, 6, 5]}>
             <Expandable
               content={content}
               editing
@@ -137,6 +137,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
               remove={REMOVE_CONTENT_ITEM}
               handleInput={UPDATE_CONTENT_ITEM}
               categoryOptions={therapyGoalsCategories}
+              review
             />
           </Col>
         );
@@ -168,6 +169,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
         <Col w={[4, 6, 6]}>
           <Textarea
             label="Programme description"
+            placeholder="Programme description..."
             rows={5}
             value={description}
             handleChange={(val) => SET_DESCRIPTION(val)}
@@ -185,14 +187,14 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
         </Row>
       )}
       <Row mt={7}>
-        <Col w={[4, 9, 4]} mbM={5} mbT={5}>
+        <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button
             variant="primary"
             text="Add more content"
             handleClick={goBack}
           />
         </Col>
-        <Col w={[4, 9, 4]}>
+        <Col w={[4, 6, 4]}>
           <Button
             variant="secondary"
             text="Save Changes"

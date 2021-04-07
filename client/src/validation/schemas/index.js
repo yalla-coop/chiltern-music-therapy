@@ -1,7 +1,7 @@
 import signup from './signup';
 import login from './login';
-import programSingleContent from './programSingleContent';
-import program from './program';
+import programmeSingleContent from './programmeSingleContent';
+import programme from './programme';
 import profile from './profile';
 
-export { signup, login, profile, programSingleContent, program };
+export { signup, login, profile, programmeSingleContent, programme };

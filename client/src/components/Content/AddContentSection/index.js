@@ -36,7 +36,7 @@ const AddContentSection = ({
 
     if (duplicates.length > 0) {
       setDuplicateError(
-        'This piece of content has already been added to your program. Please select another one.'
+        'This piece of content has already been added to your programme. Please select another one.'
       );
     } else if (selectLibraryContent.length > 0) {
       setLibraryContent(selectLibraryContent[0]);
@@ -47,8 +47,8 @@ const AddContentSection = ({
 
   const modalParentFunction = (type) =>
     type === 'addMoreContent'
-      ? history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT)
-      : history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
+      ? history.push(navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT)
+      : history.push(navRoutes.THERAPIST.CREATE_PROGRAMME_REVIEW);
 
   return (
     <S.Wrapper>

@@ -101,6 +101,7 @@ dropdown.args = {
   multi: false,
   bold: false,
   search: false,
+  addNew: false,
 };
 
 // CHECKBOX

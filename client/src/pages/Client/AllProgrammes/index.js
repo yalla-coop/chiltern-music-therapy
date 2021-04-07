@@ -15,7 +15,7 @@ const AllProgrammes = () => {
   useEffect(() => {
     // put in api call to get the programme data
     const getProgrammes = async () => {
-      const { data, error } = await Programmes.getProgrammesByClient();
+      const { data, error } = await Programmes.getProgrammes();
       if (!error) {
         setProgrammes(data);
       }
@@ -40,7 +40,7 @@ const AllProgrammes = () => {
             <Col w={[4, 12, 4]}>
               <Link
                 variant="programme"
-                to={navRoutes.CLIENT.SINGLE_PROGRAMME.replace(':id', id)}
+                to={navRoutes.CLIENT.INDIVID_PROGRAMME.replace(':id', id)}
                 programme={{ date: createdAt }}
               />
             </Col>

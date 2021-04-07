@@ -3,6 +3,7 @@ const flowTypes = {
   addContent: 'content',
   addSingleContent: 'ADD_SINGLE_CONTENT',
   reviewFinish: 'review',
+  howToRecord: 'how-to-record',
   success: 'success',
 };
 

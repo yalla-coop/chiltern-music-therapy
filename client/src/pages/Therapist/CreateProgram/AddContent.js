@@ -55,16 +55,17 @@ const AddContent = ({ state, actions, decidePath }) => {
           setLibraryContent={ADD_CONTENT}
         />
       </Row>
-
-      <Row mt={7}>
-        <Col w={[4, 9, 4]}>
-          <Button
-            variant="secondary"
-            text="Review and finish"
-            handleClick={goNext}
-          />
-        </Col>
-      </Row>
+      {content && content.length > 0 && (
+        <Row mt={7}>
+          <Col w={[4, 9, 4]}>
+            <Button
+              variant="secondary"
+              text="Review and finish"
+              handleClick={goNext}
+            />
+          </Col>
+        </Row>
+      )}
     </S.Wrapper>
   );
 };

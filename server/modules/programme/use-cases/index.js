@@ -1,4 +1,4 @@
 import getProgrammeById from './get-programme-by-id';
-import getProgrammesByClient from './get-programmes-by-client';
+import getProgrammes from './get-programmes';
 
-export { getProgrammeById, getProgrammesByClient };
+export { getProgrammeById, getProgrammes };

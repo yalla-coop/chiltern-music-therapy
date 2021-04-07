@@ -92,6 +92,7 @@ const EditMode = ({
         label="Categories"
         selected={categories}
         options={categoryOptions}
+        addNew
         handleChange={(val) => handleInput({ id, categories: val })}
         error={validationErrs && validationErrs.categories}
         search={false}

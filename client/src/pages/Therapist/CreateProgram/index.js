@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useReducer, useEffect } from 'react';
 
 import { Switch, useHistory } from 'react-router-dom';
 
@@ -14,6 +14,7 @@ import AddDescription from './AddDescription';
 import AddContent from './AddContent';
 import ReviewFinish from './ReviewFinish';
 import Success from './Success';
+import flowTypes from './flowTypes';
 
 const initialState = {
   description: '',
@@ -97,44 +98,50 @@ const CreateProgram = () => {
   };
 
   const decidePath = (flow) =>
-    history.push(`${navRoutes.THERAPIST.CREATE_PROGRAM}/${flow}`);
+    history.push(`${navRoutes.THERAPIST.CREATE_PROGRAMME}/${flow}`);
+
+  useEffect(() => {
+    decidePath(flowTypes.description);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Switch>
       <AddDescription
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_DESCRIPTION}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_DESCRIPTION}
         actions={actions}
         state={state}
         decidePath={decidePath}
       />
       <AddContent
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT}
         actions={actions}
         state={state}
         decidePath={decidePath}
       />
       <HowToRecord
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_HOW_TO_RECORD}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_HOW_TO_RECORD}
       />
       <AddSingleContent
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_SINGLE}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_SINGLE}
         actions={actions}
         state={state}
+        decidePath={decidePath}
       />
       <ReviewFinish
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_REVIEW}
         actions={actions}
         state={state}
         decidePath={decidePath}
       />
       <Success
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_SUCCESS}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_SUCCESS}
         actions={actions}
         state={state}
         decidePath={decidePath}

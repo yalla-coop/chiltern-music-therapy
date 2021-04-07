@@ -10,10 +10,9 @@ import {
   Example,
 } from '../../../components';
 
-import validate from '../../../validation/schemas/program';
+import validate from '../../../validation/schemas/programme';
 
 import flowTypes from './flowTypes';
-import { navRoutes } from '../../../constants';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -81,9 +80,10 @@ const AddDescription = ({ decidePath, state, actions }) => {
         </Col>
       </Row>
       <Row mt={5}>
-        <Col w={[4, 6, 6]}>
+        <Col w={[4, 9, 6]}>
           <Textarea
             label="Please add a brief description of the content you are sharing and what you would like them to work on this week."
+            placeholder="Programme description..."
             rows={5}
             value={description}
             handleChange={(val) => SET_DESCRIPTION(val)}
@@ -92,7 +92,7 @@ const AddDescription = ({ decidePath, state, actions }) => {
         </Col>
       </Row>
       <Row mt={2}>
-        <Col w={[4, 6, 6]}>
+        <Col w={[4, 9, 6]}>
           <Example>
             Between our therapy sessions and home programme content, we’ll
             continue supporting J in 4 key areas: social interaction &
@@ -103,7 +103,7 @@ const AddDescription = ({ decidePath, state, actions }) => {
         </Col>
       </Row>
       <Row mt={7}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 9, 4]}>
           <Button
             type="submit"
             variant="primary"
