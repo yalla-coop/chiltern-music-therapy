@@ -5,10 +5,13 @@ const findLibraryContent = async ({ id }) => {
 
   const sql = `
     SELECT 
+      c.id,
       c.title,
       c.instructions,
       c.link,
       c.type,
+      c.library_content "saved_to_library",
+      c.created_at "date",
       m.file_name,
       m.path,
       tc.therapist_user_id,
@@ -33,10 +36,13 @@ const findLibraryContentAdmin = async () => {
 
   const sql = `
     SELECT 
+      c.id,
       c.title,
       c.instructions,
       c.link,
       c.type,
+      c.library_content "saved_to_library",
+      c.created_at "date",
       m.file_name,
       m.path,
       tc.therapist_user_id,

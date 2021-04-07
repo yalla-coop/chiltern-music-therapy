@@ -28,6 +28,8 @@ const Library = () => {
   const [filter, setFilter] = useState({});
   const [filteredContents, setFilteredContents] = useState([]);
   const [therapistOptions, setTherapistOptions] = useState([]);
+  const [contentToEdit, setContentToEdit] = useState('');
+  const [editingErrors, setEditingErrors] = useState({});
 
   const { user } = useAuth();
   console.log('rol', user);
@@ -43,6 +45,22 @@ const Library = () => {
       return true;
     }
     return false;
+  };
+
+  const removeContent = () => {
+    console.log('Remove content');
+  };
+
+  const editContent = (contentId) => {
+    console.log(
+      'Clear away formstate in case stuff frmo another card they didnt save'
+    );
+    setContentToEdit(contentId);
+  };
+
+  const cancelChanges = () => {
+    console.log('Clear away formstate');
+    setContentToEdit('');
   };
 
   useEffect(() => {
@@ -154,19 +172,26 @@ const Library = () => {
         {contentToView ? (
           filteredContents
             .slice(0, viewNum)
-            .map(({ type, path, ...content }, index) => (
+            .map(({ type, path, id, categories, ...content }, index) => (
               <Col w={[4, 6, 4]} mb="4" key={index}>
                 <Expandable
                   borderColor={decideBorder(type)}
                   content={{
                     download: path,
                     streamable: decideStreamable(type, path),
+                    categories,
                     ...content,
                     type: type?.toLowerCase(),
                     path,
                   }}
+                  remove={removeContent}
+                  edit={() => editContent(id)}
+                  onCancel={cancelChanges}
                   withDate
                   actions
+                  editing={contentToEdit === id}
+                  errors={editingErrors}
+                  library
                 />
               </Col>
             ))

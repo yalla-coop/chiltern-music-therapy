@@ -57,7 +57,7 @@ const EditMode = ({
         multi
         label="Categories"
         selected={categories}
-        options={categoryOptions}
+        options={categoryOptions || []}
         handleChange={handleInput}
         error={errors.categories}
         m={{ mb: '5' }}
