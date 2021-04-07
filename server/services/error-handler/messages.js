@@ -6,6 +6,7 @@ const errors = {
   VALIDATION_ERROR: 'error message for more details to user',
   CUSTOM_ERROR_MESSAGE: 'error message for more details to user',
   NOT_FOUND: "We cannot find what you're looking for",
+  UNAUTHORISED: 'You do not have permission to view this content',
 };
 
 export default errors;

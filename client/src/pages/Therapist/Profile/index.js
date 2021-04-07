@@ -72,7 +72,7 @@ const Profile = () => {
           />
         </Col>
         <Col w={[4, 6, 4]} style={{ paddingTop: 32 }}>
-          <FileUpload
+          {/* <FileUpload
             error={fileUploadError}
             setError={setFileUploadError}
             setFileInfo={setUploadedFileInfo}
@@ -80,7 +80,7 @@ const Profile = () => {
             uploading={fileUploading}
             setUploading={setFileUploading}
             category="application"
-          />
+          /> */}
         </Col>
       </Row>
       <Row mb={8}>

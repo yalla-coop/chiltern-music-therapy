@@ -22,7 +22,7 @@ const allowedFileTypesAndSizes = {
     // 2 GB
     maxSize: '2000',
   },
-  application: {
+  document: {
     types: [
       'application/pdf',
       'application/msword',

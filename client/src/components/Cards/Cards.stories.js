@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as T from '../Typography';
 import moment from 'moment';
 
-import { TherapyGoals, Info, Basic, Link, Expandable } from '.';
+import { TherapyGoals, Info, Basic, Link, Expandable, AddContentType } from '.';
 
 export default {
   title: 'Common Components/Cards',
@@ -152,7 +152,7 @@ export const ExpandableCard = ExpandableExample.bind({});
 ExpandableCard.args = {
   borderColor: 'rainbowHorizontal',
   content: {
-    fileType: 'video',
+    type: 'video',
     streamable: true,
     download: '/file.mp4',
     instructions:
@@ -165,7 +165,7 @@ ExpandableCard.args = {
 export const ExpandableCardv2 = ExpandableExample.bind({});
 ExpandableCardv2.args = {
   content: {
-    fileType: 'video',
+    type: 'video',
     streamable: true,
     download: '/file.mp4',
     instructions:
@@ -182,7 +182,7 @@ export const AudioExample = ExpandableExample.bind({});
 AudioExample.args = {
   borderColor: 'rainbowHorizontal',
   content: {
-    fileType: 'audio',
+    type: 'audio',
     streamable: true,
     download: '/file.mp4',
     instructions:
@@ -196,7 +196,7 @@ export const DocExample = ExpandableExample.bind({});
 DocExample.args = {
   borderColor: 'rainbowHorizontal',
   content: {
-    fileType: 'document',
+    type: 'document',
     streamable: true,
     download: '/file.mp4',
     instructions:
@@ -204,6 +204,29 @@ DocExample.args = {
     categories: ['Category 1', 'Category 2'],
   },
   actions: true,
+};
+
+const AddContentTypeExample = (args) => {
+  return (
+    <div style={{ maxWidth: '350px' }}>
+      <AddContentType {...args} />
+    </div>
+  );
+};
+
+export const AddDocCard = AddContentTypeExample.bind({});
+AddDocCard.args = {
+  contentType: 'document',
+};
+
+export const AddVideoCard = AddContentTypeExample.bind({});
+AddVideoCard.args = {
+  contentType: 'video',
+};
+
+export const AddAudioCard = AddContentTypeExample.bind({});
+AddAudioCard.args = {
+  contentType: 'audio',
 };
 
 const ExpandableEditExample = (args) => {
