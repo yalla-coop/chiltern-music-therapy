@@ -72,7 +72,8 @@ const updateResetPasswordToken = async ({ token, userId }) => {
   const sql = `
     UPDATE users 
     SET
-      reset_password_token = $1
+      reset_password_token = $1,
+      reset_password_expiry = NOW() + INTERVAL '1 DAY'
     WHERE 
       id = $2
     RETURNING 
