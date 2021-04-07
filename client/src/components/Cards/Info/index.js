@@ -11,12 +11,13 @@ const Info = ({
   goals,
   title,
   body,
+  infoIconStyle,
   ...props
 }) => {
   return (
     <S.CardWrapper {...m}>
       <S.IconWrapper>
-        <Icon icon="info" width="24" height="24" />
+        <Icon style={infoIconStyle} icon="info" width="24" height="24" />
       </S.IconWrapper>
       <S.Content>
         {title && (

@@ -36,6 +36,7 @@ const THERAPIST = {
   CREATE_PROGRAM_DESCRIPTION: `${THERAPIST_BASE}/program/create/description`,
   CREATE_PROGRAM_CONTENT: `${THERAPIST_BASE}/program/create/content`,
   CREATE_PROGRAM_CONTENT_SINGLE: `${THERAPIST_BASE}/program/create/content/:category`,
+  CREATE_PROGRAM_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/program/create/content/how-to-record`,
   CREATE_PROGRAM_REVIEW: `${THERAPIST_BASE}/program/create/review`,
   CREATE_PROGRAM_SUCCESS: `${THERAPIST_BASE}/program/create/success`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,

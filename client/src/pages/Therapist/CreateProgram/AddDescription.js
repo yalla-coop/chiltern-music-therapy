@@ -61,7 +61,6 @@ const AddDescription = ({ decidePath, state, actions }) => {
     }
   };
 
-  // TODO fix this
   const goBack = async () => {
     setUnsavedChanges(true);
     history.goBack();
@@ -69,7 +68,7 @@ const AddDescription = ({ decidePath, state, actions }) => {
 
   return (
     <>
-      <GoBack />
+      <GoBack customFn={goBack} />
       <Prompt
         when={unsavedChanges}
         message="All changes will be lost. Are you sure you want to leave?"

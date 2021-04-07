@@ -11,8 +11,10 @@ import {
   FileUpload,
 } from '../../../components';
 
-import { content, navRoutes, dropdowns } from '../../../constants';
+import { Info } from '../../Cards';
 
+import { content, navRoutes, dropdowns } from '../../../constants';
+import theme from '../../../theme';
 import validate from '../../../validation/schemas/programSingleContent';
 
 import * as S from './style';
@@ -138,6 +140,8 @@ const AddSingleContent = ({ state: parentState, actions }) => {
       libraryContent,
       instructions,
       uploadedFileInfo,
+      link,
+      docContent,
     };
 
     ADD_CONTENT(formData);
@@ -168,6 +172,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
     await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
   };
 
+  console.log(`validationErrs`, submitAttempt);
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <Prompt
@@ -183,6 +188,25 @@ const AddSingleContent = ({ state: parentState, actions }) => {
         </Col>
       </Row>
       {/* ADD VIDEO EXPLAINER */}
+      {category === fileCategories.video && (
+        <Row mt={5}>
+          <Col w={[4, 12, 4]} mb={5}>
+            <Info
+              title="Want tips for how to record videos?"
+              infoIconStyle={{ color: 'blue', marginTop: theme.spacings[5] }}
+              body={
+                <T.Link
+                  underline
+                  to={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_HOW_TO_RECORD}
+                >
+                  Click to read more
+                </T.Link>
+              }
+            />
+          </Col>
+        </Row>
+      )}
+
       <Row>
         <Col w={[4, 12, 4]} mb={7} mbM={5}>
           <BasicInput

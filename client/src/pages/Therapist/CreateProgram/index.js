@@ -7,7 +7,7 @@ import { navRoutes } from '../../../constants';
 import reducer from './reducer';
 import actionTypes from './actionTypes';
 
-import { AddSingleContent } from '../../../components/Content';
+import { AddSingleContent, HowToRecord } from '../../../components/Content';
 
 // parts
 import AddDescription from './AddDescription';
@@ -114,6 +114,10 @@ const CreateProgram = () => {
         actions={actions}
         state={state}
         decidePath={decidePath}
+      />
+      <HowToRecord
+        exact
+        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_HOW_TO_RECORD}
       />
       <AddSingleContent
         exact
