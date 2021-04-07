@@ -20,14 +20,14 @@ const Step6 = ({ inviteToken }) => {
         </Col>
       </Row>
 
-      <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+      <Row mt={6} mtT={8}>
+        <Col w={[4, 6, 4]} mtT={4}>
           <Button
             text="Start adding content for my client"
             to={THERAPIST.CREATE_PROGRAM}
           />
         </Col>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]} mtT={4}>
           <Button text="Return home" variant="secondary" to={THERAPIST.HOME} />
         </Col>
       </Row>

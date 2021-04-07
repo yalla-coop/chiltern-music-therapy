@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { Row, Col } from '../../../components/Grid';
-import * as T from '../../../components/Typography';
 import { Textarea, Checkbox } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { step4 as validate } from '../../../validation/schemas/addClient';
@@ -22,9 +21,7 @@ const Step4 = ({ submitStep }) => {
       submitStep({ biography, useMeanBio });
       return true;
     } catch (error) {
-      console.log({ error });
       if (error.name === 'ValidationError') {
-        console.log({ error });
         setErrors({ ...error.inner });
       }
       return false;
@@ -34,20 +31,11 @@ const Step4 = ({ submitStep }) => {
   const handleChange = () => setUseMeanBio(!useMeanBio);
   return (
     <>
-      <Row>
-        <Col w={[4, 6, 6]}>
-          <T.P>
-            Follow these simple steps to create an account for your client. When
-            this is done you are ready to start sharing your music therapy
-            digital resources
-          </T.P>
-        </Col>
-      </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 4, 4]} jcT="center">
           <Avatar status="loading" />
         </Col>
-        <Col w={[4, 6, 6]}>
+        <Col w={[4, 6, 6]} mtT={6}>
           <Textarea
             label="Would you like to include your biography for your client to see?"
             placeholder="Tell your clients a little bit about you..."
@@ -66,7 +54,7 @@ const Step4 = ({ submitStep }) => {
         </Col>
       </Row>
 
-      <Row mt={6}>
+      <Row mt={8} mtT={6}>
         <Col w={[4, 4, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>

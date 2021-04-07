@@ -24,7 +24,6 @@ const Step3 = ({ submitStep }) => {
       submitStep({ background, goals });
       return true;
     } catch (error) {
-      console.log({ error });
       if (error.name === 'ValidationError') {
         setErrors({ ...error.inner });
       }
@@ -36,9 +35,8 @@ const Step3 = ({ submitStep }) => {
       <Row>
         <Col w={[4, 6, 6]}>
           <T.P>
-            Follow these simple steps to create an account for your client. When
-            this is done you are ready to start sharing your music therapy
-            digital resources
+            Please add a background of your client's therapy background and
+            goals
           </T.P>
         </Col>
       </Row>
@@ -65,7 +63,7 @@ const Step3 = ({ submitStep }) => {
             </T.P>
           </Example>
         </Col>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 4, 4]} mtT={7}>
           <TherapyGoals
             goals={goals}
             handleChange={setGoals}
@@ -89,7 +87,7 @@ const Step3 = ({ submitStep }) => {
         </Col>
       </Row>
 
-      <Row mt={6}>
+      <Row mt={8} mtT={7}>
         <Col w={[4, 4, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>

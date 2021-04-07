@@ -19,9 +19,7 @@ const Step5 = ({ submitStep }) => {
       submitStep({ message });
       return true;
     } catch (error) {
-      console.log({ error });
       if (error.name === 'ValidationError') {
-        console.log({ error });
         setErrors({ ...error.inner });
       }
       return false;
@@ -33,9 +31,8 @@ const Step5 = ({ submitStep }) => {
       <Row>
         <Col w={[4, 6, 6]}>
           <T.P>
-            Follow these simple steps to create an account for your client. When
-            this is done you are ready to start sharing your music therapy
-            digital resources
+            Nearly there! Please provide a short personal message to welcome
+            them to the tool when they sign up
           </T.P>
         </Col>
       </Row>
@@ -54,7 +51,7 @@ const Step5 = ({ submitStep }) => {
         </Col>
       </Row>
 
-      <Row mt={6}>
+      <Row mt={8} mtT={10}>
         <Col w={[4, 4, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>

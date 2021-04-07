@@ -51,7 +51,7 @@ const Step2 = ({ submitStep }) => {
             error={errors.email}
           />
         </Col>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 4, 4]} mtT={5}>
           <BasicInput
             label="Mobile number"
             placeholder="Mobile number (optional)"

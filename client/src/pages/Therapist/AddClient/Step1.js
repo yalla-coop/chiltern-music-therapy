@@ -51,7 +51,7 @@ const Step1 = ({ submitStep }) => {
             error={errors.firstInitial}
           />
         </Col>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 4, 4]} mtT={5}>
           <BasicInput
             label="Second initial"
             placeholder="Second initial..."
@@ -74,7 +74,7 @@ const Step1 = ({ submitStep }) => {
           />
         </Col>
       </Row>
-      <Row mt={6}>
+      <Row mt={8} mtT={6}>
         <Col w={[4, 4, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>
