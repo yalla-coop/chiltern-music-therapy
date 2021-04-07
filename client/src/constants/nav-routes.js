@@ -41,6 +41,7 @@ const THERAPIST = {
   CREATE_PROGRAM_SUCCESS: `${THERAPIST_BASE}/program/create/success`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
+  PROFILE: `${THERAPIST_BASE}/profile`,
 };
 
 const ADMIN_BASE = '/admin';

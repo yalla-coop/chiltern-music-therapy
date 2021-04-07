@@ -36,7 +36,8 @@ export const Wrapper = styled.div`
 
 export const Content = styled.main`
   width: 100%;
-  max-width: ${({ theme: { maxWidths } }) => maxWidths.desktop};
+  max-width: ${({ maxWidth, theme: { maxWidths } }) =>
+    maxWidth || maxWidths.desktop};
   padding: ${({ theme: { spacings } }) => `${spacings[8]} ${spacings[10]}`};
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) => `${spacings[7]} ${spacings[9]}`};

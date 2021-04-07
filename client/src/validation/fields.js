@@ -1,5 +1,6 @@
 import { string, number, boolean, array, object } from 'yup';
 import * as errMsgs from './err-msgs';
+import './custom-functions';
 
 const URLregex = /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#.-]+)*\/?(\?[a-zA-Z0-9-_.-]+=[a-zA-Z0-9-%?&=.-]+&?)?$/;
 
@@ -103,3 +104,10 @@ export const content = array().of(
     instructions,
   })
 );
+
+export const optionalPhoneNumber = string().when((value, schema) => {
+  if (value) {
+    return schema.phone().typeError(errMsgs.INVALID_PHONE);
+  }
+  return schema.nullable();
+});
