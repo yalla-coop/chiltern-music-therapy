@@ -58,7 +58,6 @@ const AddContent = ({ state, actions, decidePath }) => {
 
       <Row mt={7}>
         <Col w={[4, 9, 4]}>
-          {/* TODO add check to render if content */}
           <Button
             variant="secondary"
             text="Review and finish"
@@ -66,16 +65,6 @@ const AddContent = ({ state, actions, decidePath }) => {
           />
         </Col>
       </Row>
-      {/*
-      {state.content.length > 0 &&
-        state.content.map((el) => (
-          <ul>
-            <li>
-              type: {state.singleContent.contentType}, title: {el.title}, file:{' '}
-              {el.uploadedFileInfo.name}
-            </li>
-          </ul>
-        ))} */}
     </S.Wrapper>
   );
 };

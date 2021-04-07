@@ -19,7 +19,6 @@ const reducer = (state, action) => {
         }),
       };
     case actionTypes.deleteContentItem:
-      console.log('REACHED');
       return {
         ...state,
         content: state.content.filter((el) => {

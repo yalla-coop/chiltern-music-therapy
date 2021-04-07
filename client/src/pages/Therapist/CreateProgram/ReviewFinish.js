@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import moment from 'moment';
 import {
   GoBack,
@@ -11,7 +12,7 @@ import {
 
 import validate from '../../../validation/schemas/program';
 
-import { navRoutes, dropdowns } from '../../../constants';
+import { dropdowns } from '../../../constants';
 
 import * as S from './style';
 import flowTypes from './flowTypes';
@@ -85,14 +86,16 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
 
     const isValid = validateForm();
     if (isValid) {
-      // decidePath(flowTypes.addContent);
-      console.log('valid');
+      //  TODO ADD API CALL TO STORE CONTENT AND DESRIPTION
+
+      decidePath(flowTypes.success);
     }
   };
 
   const renderReviewCards = (_content) => {
     if (_content.length > 0) {
       return _content.map((el, idx) => {
+        console.log(`el`, el);
         const content = {
           ...el,
           idx,
@@ -101,7 +104,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           fileType: el.type,
           streamable: true,
           // TODO get url
-          download: el.uploadedFileInfo && el.uploadedFileInfo.name,
+          download: el.uploadedFileInfo && el.uploadedFileInfo.url,
           instructions: el.instructions,
           categories: el.categories,
           libraryContent: el.libraryContent,
@@ -133,7 +136,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
       );
     }
   };
-  console.log(`validationErrs`, validationErrs);
+
   return (
     <>
       <GoBack customFn={goBack} />
@@ -167,7 +170,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
         </Row>
       )}
       <Row mt={7}>
-        <Col w={[4, 9, 4]}>
+        <Col w={[4, 9, 4]} mbM={5} mbT={5}>
           <Button
             variant="primary"
             text="Add more content"

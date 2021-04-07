@@ -13,6 +13,7 @@ import { AddSingleContent } from '../../../components/Content';
 import AddDescription from './AddDescription';
 import AddContent from './AddContent';
 import ReviewFinish from './ReviewFinish';
+import Success from './Success';
 
 const initialState = {
   description: '',
@@ -123,6 +124,13 @@ const CreateProgram = () => {
       <ReviewFinish
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW}
+        actions={actions}
+        state={state}
+        decidePath={decidePath}
+      />
+      <Success
+        exact
+        path={navRoutes.THERAPIST.CREATE_PROGRAM_SUCCESS}
         actions={actions}
         state={state}
         decidePath={decidePath}

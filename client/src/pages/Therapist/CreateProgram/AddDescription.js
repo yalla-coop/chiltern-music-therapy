@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Prompt } from 'react-router-dom';
+import { Prompt, useHistory } from 'react-router-dom';
 
 import {
   GoBack,
@@ -13,13 +13,15 @@ import {
 import validate from '../../../validation/schemas/program';
 
 import flowTypes from './flowTypes';
+import { navRoutes } from '../../../constants';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
 const AddDescription = ({ decidePath, state, actions }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
-  const [unsavedChanges, setUnsavedChanges] = useState(true);
+  const [unsavedChanges, setUnsavedChanges] = useState(false);
+  const history = useHistory();
 
   const { description, validationErrs } = state;
   const { SET_DESCRIPTION, SET_ERRORS } = actions;
@@ -51,21 +53,27 @@ const AddDescription = ({ decidePath, state, actions }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // setUnsavedChanges(false);
     setSubmitAttempt(true);
-    setUnsavedChanges(false);
     const isValid = validateForm();
     if (isValid) {
       decidePath(flowTypes.addContent);
     }
   };
 
+  // TODO fix this
+  const goBack = async () => {
+    setUnsavedChanges(true);
+    history.goBack();
+  };
+
   return (
     <>
+      <GoBack />
       <Prompt
         when={unsavedChanges}
         message="All changes will be lost. Are you sure you want to leave?"
       />
-      <GoBack />
       <Row mt={5}>
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">
