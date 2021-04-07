@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route as RouterRoute, Redirect, useParams } from 'react-router-dom';
+import { Route as RouterRoute, Redirect } from 'react-router-dom';
 import Layout from './../../components/Layout';
 import { navRoutes } from '../../constants/';
 
