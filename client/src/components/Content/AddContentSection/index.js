@@ -45,8 +45,8 @@ const AddContentSection = ({
 
   const modalParentFunction = (type) =>
     type === 'addMoreContent'
-      ? navFunctions.goToAddContent
-      : navFunctions.goToReview;
+      ? navFunctions.goToAddContent()
+      : navFunctions.goToReview();
 
   return (
     <S.Wrapper>
