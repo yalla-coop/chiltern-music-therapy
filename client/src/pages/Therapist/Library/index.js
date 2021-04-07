@@ -10,15 +10,26 @@ import { useAuth } from '../../../context/auth';
 
 import { Contents } from '../../../api-calls';
 
+const typeOptions = [
+  { label: 'All', value: 'ALL' },
+  { label: 'Video', value: 'VIDEO' },
+  { label: 'Audio', value: 'AUDIO' },
+  { label: 'Document', value: 'DOCUMENT' },
+];
+
 const Library = () => {
   const [contents, setContents] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryOptions, setCategoryOptions] = useState([]);
   const [filter, setFilter] = useState({});
 
   const { user } = useAuth();
 
   const contentToView = contents.length > 0;
 
-  const handleSelect = () => {};
+  const handleSelect = (e, filterType) => {
+    setFilter({ ...filter, [filterType]: e });
+  };
 
   const decideStreamable = (type, path) => {
     if (['VIDEO', 'AUDIO'].includes(type) && path) {
@@ -30,10 +41,14 @@ const Library = () => {
   const filterContent = (categories, type) => {
     let passFilter = true;
 
-    if (filter.category && !categories?.includes(filter.category)) {
+    if (
+      filter.category &&
+      !categories?.includes(filter.category) &&
+      filter.category !== 'ALL'
+    ) {
       passFilter = false;
     }
-    if (filter.type && filter.type !== type) {
+    if (filter.type && filter.type !== type && filter.type !== 'ALL') {
       passFilter = false;
     }
 
@@ -49,8 +64,19 @@ const Library = () => {
       }
     };
 
+    const getCategories = async () => {
+      const { data, error } = await Contents.getCategories();
+
+      if (!error) {
+        const allCats = data.map((cat) => cat.text);
+        setCategories(allCats);
+        setCategoryOptions(allCats.map((cat) => ({ label: cat, value: cat })));
+      }
+    };
+
     if (user.id) {
       getContent();
+      getCategories();
     }
   }, [user.id]);
 
@@ -61,16 +87,16 @@ const Library = () => {
         <Col w={[4, 6, 4]} mb="4">
           <Dropdown
             placeholder="Select one..."
-            options={[]}
-            handleChange={handleSelect}
+            options={categoryOptions}
+            handleChange={(e) => handleSelect(e, 'category')}
             label="Filter by category"
           />
         </Col>
         <Col w={[4, 6, 4]} mb="4">
           <Dropdown
             placeholder="Select one..."
-            options={[]}
-            handleChange={handleSelect}
+            options={typeOptions}
+            handleChange={(e) => handleSelect(e, 'type')}
             label="Filter by type"
           />
         </Col>

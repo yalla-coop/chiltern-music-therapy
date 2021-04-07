@@ -56,4 +56,26 @@ const findLibraryContentAdmin = async () => {
   return res.rows;
 };
 
-export { findLibraryContent, findLibraryContentAdmin };
+const findCategoriesByTherapist = async ({ id }) => {
+  const values = [id];
+
+  const sql = `
+    SELECT 
+      cat.text,
+      cat.id
+    FROM content_categories cat
+    INNER JOIN contents_content_categories ccc ON cat.id = ccc.category_id
+    INNER JOIN contents c ON ccc.content_id = c.id 
+    INNER JOIN users u ON u.id = c.therapist_library_user_id
+    WHERE u.id = $1
+    `;
+
+  const res = await query(sql, values);
+  return res.rows;
+};
+
+export {
+  findLibraryContent,
+  findLibraryContentAdmin,
+  findCategoriesByTherapist,
+};

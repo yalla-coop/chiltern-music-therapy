@@ -23,4 +23,14 @@ const getLibraryContent = async () => {
   }
 };
 
-export { getContentById, getLibraryContent };
+const getCategories = async () => {
+  try {
+    const { data } = await axios.get(`${CONTENTS_BASE}/categories`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+export { getContentById, getLibraryContent, getCategories };
