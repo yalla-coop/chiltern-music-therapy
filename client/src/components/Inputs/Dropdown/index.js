@@ -10,7 +10,7 @@ const { OptGroup: AntdOptGroup } = AntdSelect;
 const Dropdown = ({
   handleChange,
   label,
-  color,
+  color = 'gray9',
   placeholder = 'Select...',
   error,
   helper,

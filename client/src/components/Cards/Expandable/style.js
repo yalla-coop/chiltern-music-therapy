@@ -60,6 +60,7 @@ export const Actions = styled.div`
 `;
 
 export const InvisibleBtn = styled.button`
+  ${setMargin};
   cursor: pointer;
   border: none;
   background: none;

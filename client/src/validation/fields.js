@@ -1,5 +1,6 @@
 import { string, number, boolean, array } from 'yup';
 import * as errMsgs from './err-msgs';
+import './custom-functions';
 
 export const requiredText = string().required(errMsgs.DEFAULT_REQUIRED);
 
@@ -67,3 +68,10 @@ export const urlRequired = string()
 export const inviteToken = string()
   .length(8)
   .required(errMsgs.DEFAULT_REQUIRED);
+
+export const optionalPhoneNumber = string().when((value, schema) => {
+  if (value) {
+    return schema.phone().typeError(errMsgs.INVALID_PHONE);
+  }
+  return schema.nullable();
+});
