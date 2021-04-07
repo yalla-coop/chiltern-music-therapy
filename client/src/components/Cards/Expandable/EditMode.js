@@ -9,6 +9,9 @@ import Modal from '../../Modal';
 
 import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 
+import { Media } from '../../../api-calls';
+import { fileCategories } from '../../../constants/content';
+
 const EditMode = ({
   content,
   open,
@@ -23,8 +26,6 @@ const EditMode = ({
   onCancel,
 }) => {
   const {
-    streamable,
-    download,
     instructions,
     categories,
     title,
@@ -33,9 +34,21 @@ const EditMode = ({
     fileType,
     link,
     validationErrs,
+    fileUpload,
   } = content;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [mediaUrl, setMediaUrl] = useState(false);
+
+  const getMediaUrl = async (file) => {
+    const { data, error: _error } = await Media.getMediadURL({
+      key: file.key,
+      bucket: file.bucket,
+    });
+    if (!_error) {
+      setMediaUrl(data);
+    }
+  };
 
   useEffect(() => {
     // re-assign parent state
@@ -51,7 +64,18 @@ const EditMode = ({
     handleInput(formattedSingleContent);
   }, []);
 
+  useEffect(() => {
+    // re-assign parent state
+    if (fileUpload && fileUpload.uploadedToS3) {
+      return getMediaUrl(fileUpload);
+    }
+  }, []);
+
   const modalParentFunction = (_id) => remove({ id });
+
+  const streamable =
+    [fileCategories.audio, fileCategories.video].includes(fileType) &&
+    (mediaUrl || link);
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
@@ -62,10 +86,10 @@ const EditMode = ({
         parentFunc={() => modalParentFunction(id)}
       />
       {streamable && (
-        <div style={{ marginBottom: '24px' }}>VIDEO/AUDIO HERE</div>
+        <div style={{ marginBottom: '24px' }}>STREAM GOES HERE</div>
       )}
-      {download && (
-        <a href={download} download>
+      {mediaUrl && (
+        <a href={mediaUrl} download>
           <Icon
             icon="download"
             width="16"

@@ -16,7 +16,6 @@ import { dropdowns } from '../../../constants';
 
 import * as S from './style';
 import flowTypes from './flowTypes';
-import { Media } from '../../../api-calls';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -93,17 +92,6 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
     }
   };
 
-  const getMediaUrl = async (file) => {
-    const { data, error: _error } = await Media.getMediadURL({
-      key: file.key,
-      bucket: file.bucket,
-      bucketRegion: file.bucketRegion,
-    });
-    if (!_error) {
-      return data;
-    }
-  };
-
   const renderReviewCards = (_content) => {
     if (_content.length > 0) {
       return _content.map((el, idx) => {
@@ -113,20 +101,14 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           id: el.id,
           title: el.title,
           fileType: el.type,
-          streamable: el.link || el.uploadedFileInfo.uploadedToS3,
-          // TODO get url
           instructions: el.instructions,
           categories: el.categories,
           libraryContent: el.libraryContent,
           date: el.date || moment(),
+          fileUpload: el.uploadedFileInfo,
           // get these from form validation above
           validationErrs: validationErrs && validationErrs[`content[${idx}]`],
         };
-
-        if (el.uploadedFileInfo && el.uploadedFileInfo.uploadedToS3) {
-          const mediaUrl = getMediaUrl(el.uploadedFileInfo);
-          content.download = mediaUrl;
-        }
 
         return (
           <Col mb={5} w={[4, 6, 5]}>

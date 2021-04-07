@@ -58,7 +58,7 @@ const uploadToS3 = async ({ signedURL, file, options } = {}) => {
 
 const getMediadURL = async ({ key, bucket, bucketRegion, options } = {}) => {
   try {
-    const { data } = await axios.get(`${MEDIA_BASE}/media-url`, {
+    const { data } = await axios.get(`${MEDIA_BASE}/url`, {
       params: { key, bucket, bucketRegion },
     });
 
