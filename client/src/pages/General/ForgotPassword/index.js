@@ -32,7 +32,7 @@ const ForgotPassword = () => {
 
   const handleReset = async () => {
     setLoading(true);
-    const { error, data } = await Users.resetPassword({
+    const { error, data } = await Users.resetPasswordLink({
       email: cleanEmail(email),
     });
     if (error) {

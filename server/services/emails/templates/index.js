@@ -4,6 +4,7 @@ import clientTherapistUpdatedProgramme from './client.therapist-updated-programm
 import clientTherapistRespondToProgressUpdate from './client.therapist-respond-to-progress-update';
 import therapistClientSentProgrammeFeedback from './therapist.client-sent-programme-feedback';
 import therapistClientSentProgressUpdate from './therapist.client-sent-progress-update';
+import userResetPassword from './user.reset-password';
 
 export {
   clientSignupInvite,
@@ -12,4 +13,5 @@ export {
   clientTherapistRespondToProgressUpdate,
   therapistClientSentProgrammeFeedback,
   therapistClientSentProgressUpdate,
+  userResetPassword,
 };

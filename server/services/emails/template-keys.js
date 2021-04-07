@@ -10,6 +10,7 @@ const keys = {
     'THERAPIST_CLIENT_SENT_PROGRAMME_FEEDBACK',
   THERAPIST_CLIENT_SENT_PROGRESS_UPDATE:
     'THERAPIST_CLIENT_SENT_PROGRESS_UPDATE',
+  USER_RESET_PASSWORD: 'USER_RESET_PASSWORD',
 };
 
 const templatesKeys = {
@@ -24,6 +25,7 @@ const templatesKeys = {
     templates.therapistClientSentProgrammeFeedback,
   [keys.THERAPIST_CLIENT_SENT_PROGRESS_UPDATE]:
     templates.therapistClientSentProgressUpdate,
+  [keys.USER_RESET_PASSWORD]: templates.userResetPassword,
 };
 
 export { templatesKeys };
