@@ -4,23 +4,23 @@ import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { BasicInput } from '../../../components/Inputs';
 import Button from '../../../components/Button';
-import { addClient as validate } from '../../../validation/schemas';
+import { step2 as validate } from '../../../validation/schemas/addClient';
 
 const Step2 = ({ submitStep }) => {
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
-  const [PrimaryMobileNumber, setPrimaryMobileNumber] = useState('');
-  const [errors, setErrors] = useState('');
+  const [primaryMobileNumber, setPrimaryMobileNumber] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleClick = () => {
     try {
       validate({
         email,
         mobileNumber,
-        PrimaryMobileNumber,
+        primaryMobileNumber,
       });
       setErrors({});
-      submitStep({ email, mobileNumber, PrimaryMobileNumber });
+      submitStep({ email, mobileNumber, primaryMobileNumber });
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -67,10 +67,10 @@ const Step2 = ({ submitStep }) => {
           <BasicInput
             label="Primary contact mobile number"
             placeholder="Mobile number"
-            value={PrimaryMobileNumber}
+            value={primaryMobileNumber}
             handleChange={setPrimaryMobileNumber}
-            name="PrimaryMobileNumber"
-            error={errors.PrimaryMobileNumber}
+            name="primaryMobileNumber"
+            error={errors.primaryMobileNumber}
           />
         </Col>
       </Row>
