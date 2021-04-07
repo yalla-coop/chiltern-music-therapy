@@ -11,10 +11,6 @@ import { userRoles, userStatuses } from '../../../constants';
 
 import { getClient } from '../../../database/connect';
 
-events.emit(events.types.PROGRESS_UPDATE.THERAPIST_RESPOND, {
-  progressId: 1,
-});
-
 const clientSignup = async ({ email, password, over16, inviteToken }) => {
   const client = await getClient();
 
