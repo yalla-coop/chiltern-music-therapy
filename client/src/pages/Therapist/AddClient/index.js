@@ -1,3 +1,4 @@
+import { TherapistClients } from '../../../api-calls';
 import { useState } from 'react';
 import Title from '../../../components/Title';
 import Step1 from './Step1';
@@ -10,10 +11,23 @@ import Step6 from './Step6';
 const AddClient = () => {
   const [state, setState] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
-  const submitStep = (data) => {
-    setState((_state) => ({ ..._state, ...data }));
+  const [inviteToken, setInviteToken] = useState('');
+
+  const submitStep = (stepState) => {
+    setState((_state) => ({ ..._state, ...stepState }));
     setCurrentStep((current) => current + 1);
   };
+
+  const submitFinalStep = async (stepState) => {
+    setState((_state) => ({ ..._state, ...stepState }));
+
+    const { data, error } = await TherapistClients.addNewClient({ state });
+    if (data) {
+      setInviteToken(data.inviteToken);
+      setCurrentStep((current) => current + 1);
+    }
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -25,9 +39,9 @@ const AddClient = () => {
       case 4:
         return <Step4 submitStep={submitStep} />;
       case 5:
-        return <Step5 submitStep={submitStep} />;
+        return <Step5 submitStep={submitFinalStep} />;
       case 6:
-        return <Step6 submitStep={submitStep} />;
+        return <Step6 inviteToken={inviteToken} />;
       default:
         break;
     }
