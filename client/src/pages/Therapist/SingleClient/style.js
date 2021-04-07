@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
 import { H5 } from '../../../components/Typography';
 
-export const Wrapper = styled.div`
-  max-width: 948px;
-`;
+export const Wrapper = styled.div``;
 
 export const TitleWIthBorder = styled(H5)`
   position: relative;

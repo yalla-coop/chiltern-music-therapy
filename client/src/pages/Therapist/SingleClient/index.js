@@ -5,7 +5,7 @@ import * as S from './style';
 import * as T from '../../../components/Typography';
 import { Row, Col } from '../../../components/Grid';
 import Button from '../../../components/Button';
-import { Basic, Link } from '../../../components/Cards';
+import { Link } from '../../../components/Cards';
 import moment from 'moment';
 
 import { Programmes, TherapistClients } from '../../../api-calls';
@@ -23,7 +23,6 @@ const SingleClient = ({ clientHistory }) => {
   });
   const [programmes, setProgrammes] = useState([]);
 
-  const [ellipsis, setEllipsis] = useState(true);
   const [elementsOnView, setElementsOnView] = useState(3);
 
   const { id } = useParams();
@@ -60,6 +59,15 @@ const SingleClient = ({ clientHistory }) => {
       />
     );
   }
+
+  let ellipse = false;
+  let therapyBackground = state.therapyBackground;
+  if (state.therapyBackground && state.therapyBackground.length >= 180) {
+    therapyBackground = therapyBackground.slice(0, 180);
+    therapyBackground = `${therapyBackground}...`;
+    ellipse = true;
+  }
+
   return (
     <S.Wrapper>
       <Title
@@ -70,22 +78,16 @@ const SingleClient = ({ clientHistory }) => {
 
       <Row mb="6">
         <Col w={[4, 12, 6]}>
-          <T.P
-            color="gray8"
-            mt="2"
-            ellipsis={
-              ellipsis ? { rows: 3, expandable: true, symbol: ' ' } : false
-            }
-          >
-            {state.therapyBackground}
+          <T.P color="gray8" mt="2">
+            {therapyBackground}
           </T.P>
-          {ellipsis && (
+          {ellipse && (
             <T.Link
-              onClick={() => setEllipsis(false)}
               color="black"
               weight={700}
               mt={4}
               underline
+              to={THERAPIST.CLIENT_HISTORY.replace(':id', id)}
             >
               Read more
             </T.Link>
@@ -122,7 +124,7 @@ const SingleClient = ({ clientHistory }) => {
         </Col>
       </Row>
       <Row>
-        {(programmes?.length > 0 &&
+        {programmes?.length > 0 &&
           programmes.slice(0, elementsOnView).map(({ id, createdAt }) => (
             <Col w={[4, 6, 4]} mb="5">
               <Link
@@ -131,12 +133,7 @@ const SingleClient = ({ clientHistory }) => {
                 to={THERAPIST.SINGLE_PROGRAMME.replace(':id', id)}
               />
             </Col>
-          ))) || (
-          <Col w={[4, 4, 4]}>
-            {/* TODO create new version for the therapist */}
-            <Basic variant="noProgrammes" />
-          </Col>
-        )}
+          ))}
       </Row>
 
       {elementsOnView < programmes.length && (

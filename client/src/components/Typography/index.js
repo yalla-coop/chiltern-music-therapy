@@ -82,7 +82,7 @@ export const P = styled(Paragraph)`
   }
 `;
 
-const AntdLink = ({ to, external = false, ...props }) =>
+const AntdLink = ({ to, external = false, underline, ...props }) =>
   external ? (
     <Typography.Link target="_blank" href={to} {...props} />
   ) : (
