@@ -90,6 +90,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
 
   const handleCreateProgramme = async () => {
     SET_LOADING(true);
+
     const { error, data } = await Programmes.createProgramme({
       clientId: '1',
       description,

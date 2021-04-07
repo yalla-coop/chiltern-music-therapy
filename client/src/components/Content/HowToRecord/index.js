@@ -1,19 +1,11 @@
-import {
-  GoBack,
-  Typography as T,
-  Button,
-  Grid,
-  Inputs,
-  FileUpload,
-} from '../../../components';
-import Icon from '../../Icon';
+import { GoBack, Typography as T, Grid } from '../../../components';
+
 import ExpandableHowToRecord from '../../Cards/Expandable/HowToRecord';
 import * as S from './style';
 
 const { Row, Col } = Grid;
-const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
-const AddSingleContent = ({}) => {
+const HowToRecord = () => {
   return (
     <S.Wrapper>
       <GoBack />
@@ -39,4 +31,4 @@ const AddSingleContent = ({}) => {
   );
 };
 
-export default AddSingleContent;
+export default HowToRecord;
