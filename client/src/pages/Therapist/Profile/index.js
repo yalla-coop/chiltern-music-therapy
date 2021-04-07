@@ -107,7 +107,7 @@ const Profile = () => {
       </Row>
       <Row>
         <Col w={[4, 6, 4]}>
-          <Button handleClick={handleSubmit} text="Click" />
+          <Button handleClick={handleSubmit} text="Save" />
         </Col>
       </Row>
     </div>
