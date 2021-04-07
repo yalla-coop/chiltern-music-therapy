@@ -40,6 +40,20 @@ const Library = () => {
     return passFilter;
   };
 
+  useEffect(() => {
+    const getContent = async () => {
+      const { data, error } = await Contents.getLibraryContent();
+
+      if (!error) {
+        setContents(data);
+      }
+    };
+
+    if (user.id) {
+      getContent();
+    }
+  }, [user.id]);
+
   return (
     <>
       <Title boldSection="Library" lightSection="My" />
@@ -76,6 +90,8 @@ const Library = () => {
                     type: type?.toLowerCase(),
                     path,
                   }}
+                  withDate
+                  actions
                 />
               </Col>
             ))
