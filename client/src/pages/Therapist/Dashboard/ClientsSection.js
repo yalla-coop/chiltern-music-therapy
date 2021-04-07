@@ -20,13 +20,10 @@ const generateOptions = (data) =>
     : [];
 
 const decideBorderColor = (n) => {
-  if (n > 3) {
-    return decideBorderColor(n - 3);
-  } else {
-    if (n === 1) return 'rainbowHorizontal';
-    if (n === 2) return 'darkBlueH';
-    if (n === 3) return 'PinkUnderH';
-  }
+  const a = n % 3;
+  if (a === 0) return 'rainbowHorizontal';
+  if (a === 1) return 'darkBlueH';
+  if (a === 2) return 'PinkUnderH';
 };
 
 const ClientsSection = ({ clients }) => {
@@ -61,7 +58,7 @@ const ClientsSection = ({ clients }) => {
                     title="therapy plan"
                     client={client}
                     to={THERAPIST.CLIENT.replace(':id', client.id)}
-                    borderColor={decideBorderColor(index + 1)}
+                    borderColor={decideBorderColor(index)}
                   />
                 </S.CardWrapper>
               </Col>
@@ -83,6 +80,7 @@ const ClientsSection = ({ clients }) => {
               mt={6}
               underline
               onClick={() => setViewClients((_old) => _old + 5)}
+              underline
             >
               View more
             </T.Link>

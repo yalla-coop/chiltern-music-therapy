@@ -52,6 +52,25 @@ function App() {
                 Component={Pages.CLIENT.Dashboard}
                 layout="general"
               />
+
+              {/* Therapist Pages */}
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CLIENT}
+                Component={Pages.THERAPIST.SingleClient}
+                layout="general"
+                goBack
+              />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CLIENT_HISTORY}
+                Component={Pages.THERAPIST.SingleClient}
+                layout="general"
+                goBack
+                clientHistory
+              />
+
+              {/* Client Pages */}
               <Route
                 exact
                 path={navRoutes.THERAPIST.DASHBOARD}
@@ -96,7 +115,11 @@ function App() {
                 goBack
                 contactDetails
               />
-
+              <Route
+                exact
+                path={navRoutes.CLIENT.INDIVID_PROGRAMME}
+                Component={Pages.CLIENT.IndividProgramme}
+              />
               <Route
                 exact
                 path={navRoutes.CLIENT.PROGRAMMES}
