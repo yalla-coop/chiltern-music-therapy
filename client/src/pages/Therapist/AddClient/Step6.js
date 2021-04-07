@@ -1,27 +1,10 @@
-import { useState } from 'react';
-
 import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
-import { Textarea } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import Copy from '../../../components/Copy';
+import { THERAPIST } from '../../../constants/nav-routes';
 
-const Step6 = ({ submitStep }) => {
-  const handleClick = () => {
-    // try {
-    //   setErrors({});
-    //   submitStep({ message });
-    //   return true;
-    // } catch (error) {
-    //   console.log({ error });
-    //   if (error.name === 'ValidationError') {
-    //     console.log({ error });
-    //     setErrors({ ...error.inner });
-    //   }
-    //   return false;
-    // }
-  };
-
+const Step6 = ({ inviteToken }) => {
   return (
     <>
       <Row>
@@ -33,19 +16,19 @@ const Step6 = ({ submitStep }) => {
       </Row>
       <Row mt={4}>
         <Col w={[4, 6, 6]}>
-          <Copy />
-          <T.Link to="/" underline>
-            Email link
-          </T.Link>
+          <Copy inviteToken={inviteToken} />
         </Col>
       </Row>
 
       <Row mt={6}>
         <Col w={[4, 4, 4]}>
-          <Button text="Next" handleClick={handleClick} />
+          <Button
+            text="Start adding content for my client"
+            to={THERAPIST.CREATE_PROGRAM}
+          />
         </Col>
         <Col w={[4, 4, 4]}>
-          <Button text="Next" handleClick={handleClick} variant="secondary" />
+          <Button text="Return home" variant="secondary" to={THERAPIST.HOME} />
         </Col>
       </Row>
     </>
