@@ -58,6 +58,20 @@ const updateTherapiesProfile = async ({ updates, options } = {}) => {
     return { error: err };
   }
 };
+
+const addNewClient = async ({ state, options } = {}) => {
+  try {
+    // const { data } = await axios.post(
+    //   `${THERAPISTS_CLIENTS_BASE}/add-new-client`
+    // )
+    // return data;
+    return { data: { state, inviteToken: 'http://bit.ly/afjwlejfafjla' } };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 const getMyTherapy = async ({ options } = {}) => {
   try {
     const { data } = await axios.get(`${THERAPISTS_CLIENTS_BASE}/my-therapy`);
@@ -75,4 +89,5 @@ export {
   getClientById,
   updateTherapiesProfile,
   getMyTherapy,
+  addNewClient,
 };
