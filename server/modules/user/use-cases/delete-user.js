@@ -1,15 +1,18 @@
 import Boom from '@hapi/boom';
 import * as User from '../model';
 import { userRoles as roles } from '../../../constants';
+import events from '../../../services/events';
 
-function deleteUser({ id, role }) {
+const deleteUser = async ({ id, role }) => {
   switch (role) {
     case roles.CLIENT:
-      return User.deleteUserCredentials(id);
+      await User.deleteUserDetails(id);
+      events.emit(events.types.USER.CLIENT_SIGNUP, { userId: id });
+      break;
 
     default:
       throw Boom.forbidden();
   }
-}
+};
 
 export default deleteUser;
