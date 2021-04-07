@@ -41,7 +41,12 @@ const reducer = (state, action) => {
     case actionTypes.setErrors:
       return {
         ...state,
-        validationErrs: value,
+        errors: value,
+      };
+    case actionTypes.setLoading:
+      return {
+        ...state,
+        loading: value,
       };
     // takes initial state as value
     case actionTypes.resetSingleContent:

@@ -16,7 +16,7 @@ import { dropdowns } from '../../../constants';
 
 import * as S from './style';
 import flowTypes from './flowTypes';
-import { Media } from '../../../api-calls';
+import { Media, Programmes } from '../../../api-calls';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -27,13 +27,14 @@ const { therapyGoalsCategories } = dropdowns;
 const ReviewFinish = ({ state, actions, decidePath }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
-  const { description, content, validationErrs } = state;
+  const { description, content, errors, loading } = state;
 
   const {
     SET_DESCRIPTION,
     UPDATE_CONTENT_ITEM,
     REMOVE_CONTENT_ITEM,
     SET_ERRORS,
+    SET_LOADING,
   } = actions;
 
   const goBack = () => decidePath(flowTypes.addContent);
@@ -48,9 +49,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
       validate(formData);
 
       if (content.length === 0) {
-        SET_ERRORS({
-          noContent: 'Please add content to this programme',
-        });
+        SET_ERRORS('Please add content to this programme');
       } else {
         SET_ERRORS({});
       }
@@ -65,9 +64,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
   };
   useEffect(() => {
     if (content.length === 0) {
-      SET_ERRORS({
-        noContent: 'Please add content to this programme',
-      });
+      SET_ERRORS('Please add content to this programme');
     } else {
       SET_ERRORS({});
     }
@@ -87,9 +84,27 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
 
     const isValid = validateForm();
     if (isValid) {
-      //  TODO ADD API CALL TO STORE CONTENT AND DESRIPTION
+      handleCreateProgramme();
+    }
+  };
 
-      decidePath(flowTypes.success);
+  const handleCreateProgramme = async () => {
+    SET_LOADING(true);
+    const { error, data } = await Programmes.createProgramme({
+      clientId: '1',
+      description,
+      content,
+    });
+    SET_LOADING(false);
+    if (error) {
+      if (error.statusCode === 409) {
+        SET_ERRORS(error.message);
+      } else {
+        console.log('SUCCESSSSS');
+        // TODO add modal
+        // history.push(navRoutes.THERAPIST.WELCOME);
+        decidePath(flowTypes.success);
+      }
     }
   };
 
@@ -120,7 +135,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           libraryContent: el.libraryContent,
           date: el.date || moment(),
           // get these from form validation above
-          validationErrs: validationErrs && validationErrs[`content[${idx}]`],
+          validationErrs: errors && errors[`content[${idx}]`],
         };
 
         if (el.uploadedFileInfo && el.uploadedFileInfo.uploadedToS3) {
@@ -152,6 +167,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
     }
   };
 
+  console.log('er', errors);
   return (
     <>
       <GoBack customFn={goBack} />
@@ -171,16 +187,24 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
             rows={5}
             value={description}
             handleChange={(val) => SET_DESCRIPTION(val)}
-            error={validationErrs && validationErrs.description}
+            error={errors && errors.description}
           />
         </Col>
       </Row>
 
       <Row mt={7}>{renderReviewCards(content)}</Row>
-      {validationErrs && validationErrs.noContent && (
+      {errors && typeof errors === 'string' && (
         <Row mt={5}>
           <T.P bold color="pink">
-            {validationErrs.noContent}
+            {errors}
+          </T.P>
+        </Row>
+      )}
+      {errors && typeof errors === 'object' && (
+        <Row mt={5}>
+          <T.P bold color="pink">
+            Errors storing your programme. Please check if all inputs are filled
+            in correctly.
           </T.P>
         </Row>
       )}
@@ -198,6 +222,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
             text="Save Changes"
             type="submit"
             onClick={handleSubmit}
+            loading={loading}
           />
         </Col>
       </Row>

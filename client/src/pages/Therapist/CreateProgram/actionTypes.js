@@ -5,6 +5,7 @@ const actionTypes = {
   deleteContentItem: 'DELETE_CONTENT_ITEM',
   updateContentItem: 'UPDATE_CONTENT_ITEM',
   setErrors: 'SET_ERRORS',
+  setLoading: 'SET_LOADING',
   addSingleContent: 'ADD_SINGLE_CONTENT',
   resetSingleContent: 'RESET_SINGLE_CONTENT',
   updateFileUploadStatus: 'UPDATE_FILE_UPLOAD_STATUS',

@@ -1,5 +1,4 @@
 import { useReducer } from 'react';
-
 import { Switch, useHistory } from 'react-router-dom';
 
 import { navRoutes } from '../../../constants';
@@ -46,6 +45,7 @@ const initialState = {
     },
     // form submission
     validationErrs: {},
+    loading: false,
   },
 };
 
@@ -56,6 +56,9 @@ const CreateProgram = () => {
   const actions = {
     SET_ERRORS: (errors) => {
       dispatch({ type: actionTypes.setErrors, value: errors });
+    },
+    SET_LOADING: (bool) => {
+      dispatch({ type: actionTypes.setLoading, value: bool });
     },
     // set description
     SET_DESCRIPTION: (str) => {

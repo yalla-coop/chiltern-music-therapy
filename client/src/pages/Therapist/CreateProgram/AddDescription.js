@@ -23,7 +23,7 @@ const AddDescription = ({ decidePath, state, actions }) => {
   const [unsavedChanges, setUnsavedChanges] = useState(false);
   const history = useHistory();
 
-  const { description, validationErrs } = state;
+  const { description, errors } = state;
   const { SET_DESCRIPTION, SET_ERRORS } = actions;
 
   const validateForm = () => {
@@ -87,7 +87,7 @@ const AddDescription = ({ decidePath, state, actions }) => {
             rows={5}
             value={description}
             handleChange={(val) => SET_DESCRIPTION(val)}
-            error={validationErrs && validationErrs.description}
+            error={errors && errors.description}
           />
         </Col>
       </Row>
