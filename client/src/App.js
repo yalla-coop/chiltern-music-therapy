@@ -63,11 +63,19 @@ function App() {
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
               />
+
               <Route
                 exact
                 // path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 path="/test"
                 Component={Pages.THERAPIST.AddClient}
+              />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.PROFILE}
+                Component={Pages.THERAPIST.Profile}
+                layout="onboarding"
               />
 
               {/* Client Pages */}
@@ -93,6 +101,19 @@ function App() {
                 exact
                 path={navRoutes.CLIENT.PROGRAMMES}
                 Component={Pages.CLIENT.AllProgrammes}
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.THERAPY_PLAN}
+                Component={Pages.CLIENT.MyTherapyPlan}
+                goBack
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.THERAPY_GOALS}
+                Component={Pages.CLIENT.MyTherapyGoals}
+                goBack
+                maxWidth="none"
               />
               <Route
                 Component={Pages.GENERAL.ErrorPages}
