@@ -2,6 +2,7 @@ import * as S from './style';
 import * as T from '../../Typography';
 
 import Icon from '../../Icon';
+import Tag from '../../Tag';
 
 const ViewMode = ({
   content,
@@ -41,14 +42,15 @@ const ViewMode = ({
         </>
       )}
       {categories && (
-        <>
-          <T.H4 weight="bold" mb="2">
-            Categories
-          </T.H4>
-          {categories.map((cat, i) => (
-            <div key={i}>Tags to go here with {cat}</div>
-          ))}
-        </>
+        // <>
+        //   <T.H4 weight="bold" mb="2">
+        //     Categories
+        //   </T.H4>
+        //   {categories.map((cat, i) => (
+        //     <div key={i}>Tags to go here with {cat}</div>
+        //   ))}
+        // </>
+        <Tag tags={categories} />
       )}
       {(remove || edit) && (
         <S.Actions>
