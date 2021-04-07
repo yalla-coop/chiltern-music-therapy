@@ -53,7 +53,7 @@ const AddDescription = ({ decidePath, state, actions }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setUnsavedChanges(false);
+
     setSubmitAttempt(true);
     const isValid = validateForm();
     if (isValid) {

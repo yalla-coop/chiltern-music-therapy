@@ -61,7 +61,7 @@ const getMediadURL = async ({ key, bucket, bucketRegion, options } = {}) => {
     const { data } = await axios.get(`${MEDIA_BASE}/media-url`, {
       params: { key, bucket, bucketRegion },
     });
-    console.log(`data`, data);
+
     return { data };
   } catch (error) {
     const err = handleError(error, options);
