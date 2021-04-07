@@ -5,10 +5,12 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-width: 520px;
 
   ${({ theme }) => theme.media.tablet} {
     padding-top: 0;
     flex-grow: 1;
+    max-width: none;
   }
 `;
 

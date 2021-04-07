@@ -38,13 +38,13 @@ const Welcome = () => {
     <S.Wrapper>
       <Title {...decideContent().title} mbM="3" />
       <Row mb="6" mbM="4">
-        <Col w={[4, 8, 8]}>
+        <Col w={[4, 12, 12]}>
           <T.P color="gray8">{decideContent().text}</T.P>
         </Col>
       </Row>
 
       <S.ButtonWrapper>
-        <Col w={[4, 6, 6]}>
+        <Col w={[4, 8, 8]}>
           <Button to={decideNextPage()} text={decideContent().btn} />
         </Col>
       </S.ButtonWrapper>
