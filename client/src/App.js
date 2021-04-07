@@ -107,7 +107,11 @@ function App() {
                 goBack
                 contactDetails
               />
-
+              <Route
+                exact
+                path={navRoutes.CLIENT.INDIVID_PROGRAMME}
+                Component={Pages.CLIENT.IndividProgramme}
+              />
               <Route
                 exact
                 path={navRoutes.CLIENT.PROGRAMMES}
