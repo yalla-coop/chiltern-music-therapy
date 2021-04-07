@@ -4,13 +4,13 @@ import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { BasicInput } from '../../../components/Inputs';
 import Button from '../../../components/Button';
-import { addClient as validate } from '../../../validation/schemas';
+import { step1 as validate } from '../../../validation/schemas/addClient';
 
 const Step1 = ({ submitStep }) => {
   const [firstInitial, setFirstInitial] = useState('');
   const [secondInitial, setSecondInitial] = useState('');
   const [postcodeLetters, setPostcodeLetters] = useState('');
-  const [errors, setErrors] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleClick = () => {
     try {
