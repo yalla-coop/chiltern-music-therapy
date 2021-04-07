@@ -17,6 +17,8 @@ const CLIENT = {
   PROGRAMMES: '/programmes',
   THERAPIST: '/my-therapist',
   ACCOUNT: '/account',
+  ACCOUNT_DELETED: '/account-deleted',
+  DELETE_ACCOUNT: '/delete-account',
   INDIVID_PROGRAMME: '/programmes/:id',
   SEND_UPDATE: `/programmes/:id/update`,
   SEND_FEEDBACK: `/programmes/:id/feedback`,

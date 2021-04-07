@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import theme, { globalStyle } from './theme';
 import { Route } from './components';
 import * as Pages from './pages';
-import { navRoutes } from './constants';
+import { navRoutes, roles } from './constants';
 import { AuthProvider } from './context/auth';
 
 import 'antd/dist/antd.css';
@@ -90,6 +90,22 @@ function App() {
               />
 
               {/* Client Pages */}
+              <Route
+                exact
+                path={navRoutes.CLIENT.DELETE_ACCOUNT}
+                Component={Pages.CLIENT.DeleteAccount}
+                layout="general"
+                allowedRoles={[roles.CLIENT]}
+                isPrivate
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.ACCOUNT_DELETED}
+                Component={Pages.CLIENT.AccountDeleted}
+                layout="general"
+              />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPIST}
