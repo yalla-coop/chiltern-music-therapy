@@ -3,13 +3,18 @@ import { appLinks } from '../../../constants';
 
 // Notifying a therapist that their client has completed a programme and provided feedback
 // recipient => 'THERAPIST'
-export default ({ firstInitial, therapistName, date, programmeId }) => {
+export default ({
+  firstInitial,
+  therapistName,
+  programmeCreatedAt,
+  programmeId,
+}) => {
   const loginLink = htmlLink(appLinks.LOGIN, 'link');
   const programmeLink = htmlLink(
     appLinks.THERAPIST_SINGLE_PROGRAMME.replace(':id', programmeId),
     'home programme',
   );
-  const _date = formateDate(date);
+  const _date = formateDate(programmeCreatedAt);
 
   const subject = 'Your client completed a feedback!';
   const html = `

@@ -37,7 +37,4 @@ const sendMail = (templateKey, data = {}) => {
   });
 };
 
-export default {
-  sendMail,
-  keys,
-};
+export { sendMail, keys };

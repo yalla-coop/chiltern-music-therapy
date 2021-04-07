@@ -1,15 +1,15 @@
 import clientSignupInvite from './client.signup-invite';
 import clientTherapistCreatedProgramme from './client.therapist-created-programme';
-import clientTherapistEditedProgramme from './client.therapist-edited-programme';
-import clientTherapistRespondToProgrammeFeedback from './client.therapist-respond-to-programme-feedback';
+import clientTherapistUpdatedProgramme from './client.therapist-updated-programme';
+import clientTherapistRespondToProgressUpdate from './client.therapist-respond-to-progress-update';
 import therapistClientSentProgrammeFeedback from './therapist.client-sent-programme-feedback';
-import therapistClientSentProgrammeUpdate from './therapist.client-sent-programme-update';
+import therapistClientSentProgressUpdate from './therapist.client-sent-progress-update';
 
 export {
   clientSignupInvite,
   clientTherapistCreatedProgramme,
-  clientTherapistEditedProgramme,
-  clientTherapistRespondToProgrammeFeedback,
+  clientTherapistUpdatedProgramme,
+  clientTherapistRespondToProgressUpdate,
   therapistClientSentProgrammeFeedback,
-  therapistClientSentProgrammeUpdate,
+  therapistClientSentProgressUpdate,
 };
