@@ -15,7 +15,7 @@ import validate from '../../../validation/schemas/programme';
 import { dropdowns } from '../../../constants';
 
 import * as S from './style';
-import flowTypes from './flowTypes';
+
 import { Programmes } from '../../../api-calls';
 
 const { Row, Col } = Grid;
@@ -87,23 +87,25 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
   };
 
   const handleCreateProgramme = async () => {
-    SET_LOADING(true);
+    // SET_LOADING(true);
 
-    const { error, data } = await Programmes.createProgramme({
-      clientId,
-      description,
-      content,
-    });
-    SET_LOADING(false);
-    if (error) {
-      if (error.statusCode === 409) {
-        SET_ERRORS(error.message);
-      } else {
-        console.log('SUCCESSSSS');
-        // TODO add modal
-        navFunctions.goToSuccess();
-      }
-    }
+    // const { error, data } = await Programmes.createProgramme({
+    //   clientId,
+    //   description,
+    //   content,
+    // });
+    // SET_LOADING(false);
+    // if (error) {
+    //   if (error.statusCode === 409) {
+    //     SET_ERRORS(error.message);
+    //   } else {
+    //     console.log('SUCCESSSSS');
+    //     // TODO add modal
+    //     navFunctions.goToSuccess();
+    //   }
+    // }
+
+    navFunctions.goToSuccess();
   };
 
   const renderReviewCards = (_content) => {
@@ -149,7 +151,6 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
     }
   };
 
-  console.log('er', errors);
   return (
     <>
       <GoBack customFn={navFunctions.goToAddContent} />
@@ -183,14 +184,14 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           </T.P>
         </Row>
       )}
-      {errors && typeof errors === 'object' && (
+      {/* {errors   && (
         <Row mt={5}>
           <T.P bold color="pink">
             Errors storing your programme. Please check if all inputs are filled
             in correctly.
           </T.P>
         </Row>
-      )}
+      )} */}
       <Row mt={7}>
         <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button

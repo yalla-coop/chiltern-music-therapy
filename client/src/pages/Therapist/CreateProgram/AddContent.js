@@ -7,7 +7,6 @@ import {
 } from '../../../components';
 
 import * as S from './style';
-import flowTypes from './flowTypes';
 
 const { Row, Col } = Grid;
 const { AddContentSection } = Content;

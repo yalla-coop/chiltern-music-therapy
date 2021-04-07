@@ -5,7 +5,7 @@ import { AddContentType } from '../../Cards';
 import Icon from '../../Icon';
 import * as S from './style';
 
-import { content, navRoutes } from '../../../constants';
+import { content } from '../../../constants';
 
 const { Col } = Grid;
 const { Dropdown } = Inputs;

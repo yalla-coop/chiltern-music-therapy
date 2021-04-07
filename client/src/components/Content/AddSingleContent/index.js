@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useHistory, Prompt } from 'react-router-dom';
+import { useLocation, Prompt } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -51,8 +51,6 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
   const {
     state: { category },
   } = useLocation();
-
-  const history = useHistory();
 
   const {
     ADD_CONTENT,

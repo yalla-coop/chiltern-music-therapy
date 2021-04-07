@@ -12,8 +12,6 @@ import {
 
 import validate from '../../../validation/schemas/programme';
 
-import flowTypes from './flowTypes';
-
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
