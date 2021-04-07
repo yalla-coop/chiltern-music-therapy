@@ -63,6 +63,16 @@ const getUserDashboard = async ({ options } = {}) => {
   }
 };
 
+const getTherapists = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.get(`${USERS_BASE}/therapists`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -70,4 +80,5 @@ export {
   login,
   logout,
   getUserDashboard,
+  getTherapists,
 };

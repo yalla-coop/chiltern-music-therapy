@@ -70,6 +70,13 @@ function App() {
                 Component={Pages.THERAPIST.Library}
               />
 
+              {/* Admin Pages */}
+              <Route
+                exact
+                path={navRoutes.ADMIN.ALL_CONTENT}
+                Component={Pages.THERAPIST.Library}
+              />
+
               {/* Client Pages */}
               <Route
                 exact
