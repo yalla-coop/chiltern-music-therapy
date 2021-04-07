@@ -46,14 +46,17 @@ function App() {
                 layout="general"
                 image="hands"
               />
-              <Route
-                exact
-                path={navRoutes.CLIENT.DASHBOARD}
-                Component={Pages.CLIENT.Dashboard}
-                layout="general"
-              />
 
               {/* Therapist Pages */}
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.WELCOME}
+                Component={Pages.GENERAL.Welcome}
+                layout="info"
+                section="welcome"
+              />
+
               <Route
                 exact
                 path={navRoutes.THERAPIST.CLIENT}
@@ -70,7 +73,6 @@ function App() {
                 clientHistory
               />
 
-              {/* Client Pages */}
               <Route
                 exact
                 path={navRoutes.THERAPIST.DASHBOARD}
@@ -85,6 +87,22 @@ function App() {
               />
 
               {/* Client Pages */}
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.WELCOME}
+                Component={Pages.GENERAL.Welcome}
+                layout="info"
+                section="welcome"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.DASHBOARD}
+                Component={Pages.CLIENT.Dashboard}
+                layout="general"
+              />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPIST}

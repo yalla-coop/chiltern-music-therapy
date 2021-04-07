@@ -80,7 +80,6 @@ const ClientsSection = ({ clients }) => {
               mt={6}
               underline
               onClick={() => setViewClients((_old) => _old + 5)}
-              underline
             >
               View more
             </T.Link>

@@ -3,4 +3,4 @@ import * as navRoutes from './nav-routes';
 import * as content from './content';
 import * as dropdowns from './dropdowns';
 
-export { roles, navRoutes, content, dropdowns };
+export { roles, navRoutes, dropdowns, content };
