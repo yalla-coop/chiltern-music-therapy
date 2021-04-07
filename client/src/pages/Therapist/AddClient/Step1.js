@@ -4,12 +4,31 @@ import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { BasicInput } from '../../../components/Inputs';
 import Button from '../../../components/Button';
+import { addClient as validate } from '../../../validation/schemas';
 
-const Step1 = () => {
+const Step1 = ({ submitStep }) => {
   const [firstInitial, setFirstInitial] = useState('');
   const [secondInitial, setSecondInitial] = useState('');
-  const [postcodeLetter, setPostcodeLetter] = useState('');
+  const [postcodeLetters, setPostcodeLetters] = useState('');
   const [errors, setErrors] = useState('');
+
+  const handleClick = () => {
+    try {
+      validate({
+        firstInitial,
+        secondInitial,
+        postcodeLetters,
+      });
+      setErrors({});
+      submitStep({ firstInitial, secondInitial, postcodeLetters });
+      return true;
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        setErrors({ ...error.inner });
+      }
+      return false;
+    }
+  };
   return (
     <>
       <Row>
@@ -38,8 +57,8 @@ const Step1 = () => {
             placeholder="Second initial..."
             value={secondInitial}
             handleChange={setSecondInitial}
-            name="setSecondInitial"
-            error={errors.setSecondInitial}
+            name="secondInitial"
+            error={errors.secondInitial}
           />
         </Col>
       </Row>
@@ -48,16 +67,16 @@ const Step1 = () => {
           <BasicInput
             label="First two letters of their postcode"
             placeholder="e.g. SW..."
-            value={postcodeLetter}
-            handleChange={setPostcodeLetter}
-            name="postcodeLetter"
-            error={errors.postcodeLetter}
+            value={postcodeLetters}
+            handleChange={setPostcodeLetters}
+            name="postcodeLetters"
+            error={errors.postcodeLetters}
           />
         </Col>
       </Row>
       <Row mt={6}>
         <Col w={[4, 4, 4]}>
-          <Button text="Next" />
+          <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>
     </>

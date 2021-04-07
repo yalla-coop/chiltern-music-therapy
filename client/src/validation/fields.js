@@ -75,3 +75,8 @@ export const optionalPhoneNumber = string().when((value, schema) => {
   }
   return schema.nullable();
 });
+
+export const postcodeLetters = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(2)
+  .required(errMsgs.DEFAULT_REQUIRED);

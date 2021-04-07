@@ -6,7 +6,7 @@ import { BasicInput } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { addClient as validate } from '../../../validation/schemas';
 
-const Step2 = ({ submitStep }) => {
+const Step3 = ({ submitStep }) => {
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [PrimaryMobileNumber, setPrimaryMobileNumber] = useState('');
@@ -83,4 +83,4 @@ const Step2 = ({ submitStep }) => {
   );
 };
 
-export default Step2;
+export default Step3;
