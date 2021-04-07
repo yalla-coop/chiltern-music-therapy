@@ -2,9 +2,21 @@ import * as yup from 'yup';
 
 const envVarsSchema = yup
   .object({
-    APP_URL: yup.string().required(),
-    SENDER_EMAIL: yup.string().required(),
-    SENDER_PASSWORD: yup.string().required(),
+    APP_URL: yup.string().when('NODE_ENV', {
+      is: 'test',
+      then: yup.string(),
+      otherwise: yup.string().required(),
+    }),
+    SENDER_EMAIL: yup.string().when('NODE_ENV', {
+      is: 'test',
+      then: yup.string(),
+      otherwise: yup.string().required(),
+    }),
+    SENDER_PASSWORD: yup.string().when('NODE_ENV', {
+      is: 'test',
+      then: yup.string(),
+      otherwise: yup.string().required(),
+    }),
   })
   .required();
 
