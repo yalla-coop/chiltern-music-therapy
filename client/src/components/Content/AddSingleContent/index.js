@@ -172,7 +172,6 @@ const AddSingleContent = ({ state: parentState, actions }) => {
     await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
   };
 
-  console.log(`validationErrs`, submitAttempt);
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <Prompt
@@ -214,7 +213,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             label="Title"
             color="gray8"
             value={title}
-            handleChange={(value) => ADD_SINGLE_CONTENT('title', value)}
+            handleChange={(value) => ADD_SINGLE_CONTENT('title', value.trim())}
             error={validationErrs.title}
           />
         </Col>
@@ -251,7 +250,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             label="If you prefer, you can paste a link to an external resource in the input below"
             color="gray8"
             value={link}
-            handleChange={(value) => ADD_SINGLE_CONTENT('link', value)}
+            handleChange={(value) => ADD_SINGLE_CONTENT('link', value.trim())}
             disabled={
               validInput(docContent) || fileUploading || uploadedFileInfo.new
             }

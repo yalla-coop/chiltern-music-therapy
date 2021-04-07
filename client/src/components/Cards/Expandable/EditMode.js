@@ -82,7 +82,7 @@ const EditMode = ({
         placeholder="Type title..."
         value={title}
         type="text"
-        handleChange={(val) => handleInput({ id, title: val })}
+        handleChange={(val) => handleInput({ id, title: val.trim() })}
         error={validationErrs && validationErrs.title}
         m={{ mb: '5' }}
       />
