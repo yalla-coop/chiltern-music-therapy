@@ -63,6 +63,16 @@ const getUserDashboard = async ({ options } = {}) => {
   }
 };
 
+const resetPassword = async ({ options } = {}) => {
+  try {
+    await axios.post(`${USERS_BASE}/reset-password`);
+    return {};
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -70,4 +80,5 @@ export {
   login,
   logout,
   getUserDashboard,
+  resetPassword,
 };
