@@ -9,9 +9,7 @@ const createProgramme = async ({ userId, body }) => {
   const { clientId, description, content } = body;
   try {
     await validateCreateProgramme({ description, content });
-  } catch (err) {
-    console.log('ERRR', err);
-  }
+  } catch (err) {}
 
   // get therapist_client_id
   // 1. create programmme using ther_cl_id / description / status - active -> return programme_id
