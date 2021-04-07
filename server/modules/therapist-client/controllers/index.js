@@ -5,6 +5,7 @@ import getMyTherapist from './get-my-therapist';
 import getTherapistByInviteToken from './get-therapist-by-invite-token';
 import getClientById from './get-client-by-id';
 import { userRoles } from '../../../constants';
+import getMyTherapy from './get-my-therapy';
 
 import { authenticate, authorize } from '../../../api/middlewares';
 
@@ -18,6 +19,7 @@ router.get(
   authorize([userRoles.THERAPIST]),
   getClientById,
 );
+router.get('/my-therapy', authenticate(), getMyTherapy);
 router.get('/:id', authenticate(), getTherapistClientById);
 
 export default router;

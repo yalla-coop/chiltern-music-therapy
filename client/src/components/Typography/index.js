@@ -23,7 +23,8 @@ const Head1 = styled(Title)`
   ${commonStyle};
   font-size: 32px !important;
   line-height: 44px !important;
-  font-weight: ${({ bold }) => (bold ? '900 !important' : '300 !important')};
+  font-weight: ${({ weight }) =>
+    weight === 'bold' ? '900 !important' : '300 !important'};
 `;
 export const H1 = (props) => <Head1 {...props} level={1} />;
 
@@ -32,7 +33,8 @@ const Head2 = styled(Title)`
   ${commonStyle};
   font-size: 24px !important;
   line-height: 44px !important;
-  font-weight: ${({ bold }) => (bold ? '900 !important' : '300 !important')};
+  font-weight: ${({ weight }) =>
+    weight === 'bold' ? '900 !important' : '300 !important'};
 `;
 export const H2 = (props) => <Head2 {...props} level={2} />;
 
@@ -41,7 +43,8 @@ const Head3 = styled(Title)`
   ${commonStyle};
   font-size: 20px !important;
   line-height: 32px !important;
-  font-weight: 700 !important;
+  font-weight: ${({ weight }) =>
+    weight === 'bold' ? '700 !important' : '300 !important'};
 `;
 export const H3 = (props) => <Head3 {...props} level={3} />;
 
@@ -50,7 +53,8 @@ const Head4 = styled(Title)`
   ${commonStyle};
   font-size: 18px !important;
   line-height: 150% !important;
-  font-weight: ${({ bold }) => (bold ? '700 !important' : '300 !important')};
+  font-weight: ${({ weight }) =>
+    weight === 'bold' ? '700 !important' : '300 !important'};
 `;
 export const H4 = (props) => <Head4 {...props} level={4} />;
 
@@ -59,7 +63,8 @@ const Head5 = styled(Title)`
   ${commonStyle};
   font-size: 14px !important;
   line-height: 150% !important;
-  font-weight: 400 !important;
+  font-weight: ${({ weight }) =>
+    weight === 'bold' ? '700 !important' : '400 !important'};
 `;
 export const H5 = (props) => <Head5 {...props} level={5} />;
 
@@ -93,10 +98,9 @@ export const Link = styled(AntdLink)`
   font-size: 16px !important;
   line-height: 150% !important;
   font-weight: ${({ weight }) => (weight ? weights[weight] : '400 !important')};
-  border-bottom: 1px solid;
+  border-bottom: ${({ underline }) =>
+    underline ? '1px solid' : 'none'} !important;
+  text-decoration: none;
   border-color: ${({ theme, color }) =>
     theme.colors[color] || color || theme.colors.black} !important;
-  text-decoration: ${({ underline }) =>
-    underline ? 'underline' : 'none'} !important;
-  border-bottom: none;
 `;

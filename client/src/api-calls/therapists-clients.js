@@ -46,9 +46,33 @@ const getClientById = async ({ id, options } = {}) => {
   }
 };
 
+const updateTherapiesProfile = async ({ updates, options } = {}) => {
+  try {
+    // const { data } = await axios.post(
+    //   `${THERAPISTS_CLIENTS_BASE}/update-therapies-profile`
+    // )
+    // return data;
+    return { data: updates };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+const getMyTherapy = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.get(`${THERAPISTS_CLIENTS_BASE}/my-therapy`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getTherapistsClientsById,
   getTherapistByInviteToken,
   getMyTherapist,
   getClientById,
+  updateTherapiesProfile,
+  getMyTherapy,
 };

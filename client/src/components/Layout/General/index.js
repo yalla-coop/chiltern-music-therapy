@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import GoBack from '../../GoBack';
 import theme from '../../../theme';
 
-const General = ({ children, goBack, ...props }) => {
+const General = ({ children, goBack, maxWidth, ...props }) => {
   return (
     <>
       <S.Wrapper>
@@ -18,7 +18,7 @@ const General = ({ children, goBack, ...props }) => {
           <Navbar />
         </S.OnboardingHeader>
       </S.Wrapper>
-      <S.Content>
+      <S.Content maxWidth={maxWidth}>
         {goBack && (
           <GoBack
             mb="6"

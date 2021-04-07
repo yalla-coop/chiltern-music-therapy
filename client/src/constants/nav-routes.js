@@ -38,6 +38,7 @@ const THERAPIST = {
   EDIT_CLIENT: `${THERAPIST_BASE}/clients/:id/edit`,
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
   SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
+  PROFILE: `${THERAPIST_BASE}/profile`,
 };
 
 const ADMIN_BASE = '/admin';
