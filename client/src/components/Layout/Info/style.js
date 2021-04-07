@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 export const Wrapper = styled.div`
   position: relative;
   display: flex;
+  height: 100%;
   min-height: 100vh;
   flex-direction: row;
   justify-content: flex-start;
@@ -26,6 +27,10 @@ export const Content = styled.main`
   width: 50%;
   padding: ${({ theme: { spacings } }) =>
     `40px ${spacings[5]} 40px ${spacings[10]}`};
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
   ${({ theme }) => theme.media.tablet} {
     width: 100%;
     padding: ${({ theme: { spacings } }) => `${spacings[7]} ${spacings[9]}`};
@@ -34,6 +39,6 @@ export const Content = styled.main`
   ${({ theme }) => theme.media.mobile} {
     width: 100%;
     padding: ${({ theme: { spacings } }) =>
-      `${spacings[0]} 38px ${spacings[6]} 38px`};
+      `${spacings[0]} 36px ${spacings[6]} 36px`};
   }
 `;
