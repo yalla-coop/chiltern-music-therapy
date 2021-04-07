@@ -1,11 +1,9 @@
-import { getMediaUrl as getMediaUrlService } from '../../../services/files-storage';
+import { getFilePreSignedUrl as getMediaUrlService } from '../../../services/files-storage';
 
-const getMediaUrl = async ({ userId, key, bucket, bucketRegion }) => {
+const getMediaUrl = async ({ key, bucket }) => {
   const mediaUrl = await getMediaUrlService({
-    userId,
     key,
     bucket,
-    bucketRegion,
   });
   return mediaUrl;
 };

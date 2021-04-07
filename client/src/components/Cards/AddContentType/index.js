@@ -24,22 +24,16 @@ const titleData = {
   },
 };
 
-const AddContentType = ({ mode = 'create', contentType }) => {
+const AddContentType = ({ mode = 'create', contentType, navFunctions }) => {
   const history = useHistory();
 
   // mode can be create / edit program
 
   const decidePath = (type) =>
     mode === 'create'
-      ? history.push({
-          pathname: navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_SINGLE.replace(
-            ':category',
-            type
-          ),
-          state: { category: type },
-        })
+      ? navFunctions.goToAddSingleContent(type)
       : history.push(
-          navRoutes.THERAPIST.EDIT_PROGRAM_CONTENT_SINGLE.replace(
+          navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SINGLE.replace(
             ':category',
             type
           )

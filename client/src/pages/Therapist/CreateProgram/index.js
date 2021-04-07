@@ -1,5 +1,6 @@
-import { useReducer } from 'react';
-import { Switch, useHistory } from 'react-router-dom';
+import { useReducer, useEffect } from 'react';
+
+import { Switch, useHistory, useParams } from 'react-router-dom';
 
 import { navRoutes } from '../../../constants';
 
@@ -13,6 +14,7 @@ import AddDescription from './AddDescription';
 import AddContent from './AddContent';
 import ReviewFinish from './ReviewFinish';
 import Success from './Success';
+import flowTypes from './flowTypes';
 
 const initialState = {
   description: '',
@@ -52,6 +54,9 @@ const initialState = {
 const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
+  const { id: clientId } = useParams();
+
+  console.log(`location`, clientId);
 
   const actions = {
     SET_ERRORS: (errors) => {
@@ -100,47 +105,73 @@ const CreateProgram = () => {
   };
 
   const decidePath = (flow) =>
-    history.push(`${navRoutes.THERAPIST.CREATE_PROGRAM}/${flow}`);
+    history.push(
+      `${navRoutes.THERAPIST.CREATE_PROGRAMME.replace(':id', clientId)}/${flow}`
+    );
+
+  const decidePathSingle = (flow, type) =>
+    history.push({
+      pathname: `${navRoutes.THERAPIST.CREATE_PROGRAMME.replace(
+        ':id',
+        clientId
+      )}/${flow}`.replace(':category', type),
+      state: { category: type },
+    });
+
+  const navFunctions = {
+    goToDescription: () => decidePath(flowTypes.description),
+    goToAddContent: () => decidePath(flowTypes.addContent),
+    goToAddSingleContent: (type) =>
+      decidePathSingle(flowTypes.addSingleContent, type),
+    goToReview: () => decidePath(flowTypes.reviewFinish),
+    goToHowToRecord: () => decidePath(flowTypes.howToRecord),
+    goToSuccess: () => decidePath(flowTypes.success),
+  };
+
+  useEffect(() => {
+    navFunctions.goToDescription();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Switch>
       <AddDescription
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_DESCRIPTION}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_DESCRIPTION}
         actions={actions}
         state={state}
-        decidePath={decidePath}
+        navFunctions={navFunctions}
       />
       <AddContent
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT}
         actions={actions}
         state={state}
-        decidePath={decidePath}
+        navFunctions={navFunctions}
       />
       <HowToRecord
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_HOW_TO_RECORD}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_HOW_TO_RECORD}
       />
       <AddSingleContent
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_SINGLE}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_SINGLE}
         actions={actions}
         state={state}
+        navFunctions={navFunctions}
       />
       <ReviewFinish
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_REVIEW}
         actions={actions}
         state={state}
-        decidePath={decidePath}
+        navFunctions={navFunctions}
       />
       <Success
         exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAM_SUCCESS}
+        path={navRoutes.THERAPIST.CREATE_PROGRAMME_SUCCESS}
         actions={actions}
         state={state}
-        decidePath={decidePath}
       />
     </Switch>
   );

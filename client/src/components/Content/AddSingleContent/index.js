@@ -15,7 +15,7 @@ import { Info } from '../../Cards';
 
 import { content, navRoutes, dropdowns } from '../../../constants';
 import theme from '../../../theme';
-import validate from '../../../validation/schemas/programSingleContent';
+import validate from '../../../validation/schemas/programmeSingleContent';
 
 import * as S from './style';
 
@@ -25,7 +25,7 @@ const { therapyGoalsCategories } = dropdowns;
 const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
-const AddSingleContent = ({ state: parentState, actions }) => {
+const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
   const [unsavedChanges, setUnsavedChanges] = useState(true);
   const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
@@ -124,7 +124,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
   };
 
   useEffect(() => {
-    if (submitAttempt) {
+    if (submitAttempt && (title.length || instructions.length)) {
       validateForm();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -148,9 +148,9 @@ const AddSingleContent = ({ state: parentState, actions }) => {
     RESET_SINGLE_CONTENT();
 
     if (submitType === 'content') {
-      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
+      navFunctions.goToAddContent();
     } else if (submitType === 'review') {
-      history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
+      navFunctions.goToReview();
     }
   };
 
@@ -169,7 +169,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
 
   const goBack = async () => {
     RESET_SINGLE_CONTENT();
-    await history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT);
+    navFunctions.goToAddContent();
   };
 
   return (
@@ -192,14 +192,14 @@ const AddSingleContent = ({ state: parentState, actions }) => {
           <Col w={[4, 12, 4]} mb={5}>
             <Info
               title="Want tips for how to record videos?"
-              infoIconStyle={{ color: 'blue', marginTop: theme.spacings[5] }}
+              infoIconStyle={{
+                color: 'lightBlue',
+                marginTop: theme.spacings[1],
+              }}
               body={
-                <T.Link
-                  underline
-                  to={navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT_HOW_TO_RECORD}
-                >
-                  Click to read more
-                </T.Link>
+                <S.Button onClick={() => navFunctions.goToHowToRecord()}>
+                  <T.Link underline>Click to read more</T.Link>
+                </S.Button>
               }
             />
           </Col>
@@ -223,6 +223,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
             color="gray8"
             options={therapyGoalsCategories}
             multi
+            addNew
             placeholder="Select...(optional)"
             handleChange={(value) => ADD_SINGLE_CONTENT('categories', value)}
             error={validationErrs.categories}
@@ -246,7 +247,7 @@ const AddSingleContent = ({ state: parentState, actions }) => {
         </Col>
         <Col w={[4, 12, 4]} mb={7} mbM={5}>
           <BasicInput
-            placeholder="Type here..."
+            placeholder={`${category} link...`}
             label="If you prefer, you can paste a link to an external resource in the input below"
             color="gray8"
             value={link}
@@ -291,9 +292,14 @@ const AddSingleContent = ({ state: parentState, actions }) => {
         <Col w={[4, 12, 4]} mb={7} mbM={5}>
           <Checkbox
             label={
-              <T.P color="gray8">
+              <T.P color="gray9">
                 Save this video to
-                <T.Link to={navRoutes.THERAPIST.LIBRARY} bold external>
+                <T.Link
+                  style={{ fontWeight: '700' }}
+                  to={navRoutes.THERAPIST.LIBRARY}
+                  bold
+                  external
+                >
                   &nbsp; My Library
                 </T.Link>
                 &nbsp; so I can use it again in the future

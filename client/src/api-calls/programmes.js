@@ -13,9 +13,11 @@ const getProgrammeById = async ({ id, options }) => {
   }
 };
 
-const getProgrammesByClient = async () => {
+const getProgrammes = async ({ clientUserId }) => {
   try {
-    const { data } = await axios.get(`${PROGRAMMES_BASE}`);
+    const { data } = await axios.get(`${PROGRAMMES_BASE}`, {
+      params: { clientUserId },
+    });
     return { data };
   } catch (error) {
     const err = handleError(error);
@@ -33,4 +35,4 @@ const createProgramme = async (formData, { options } = {}) => {
   }
 };
 
-export { getProgrammeById, getProgrammesByClient, createProgramme };
+export { getProgrammeById, getProgrammes, createProgramme };

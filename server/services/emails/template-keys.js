@@ -1,0 +1,30 @@
+import * as templates from './templates';
+
+const keys = {
+  CLIENT_SIGNUP_INVITE: 'CLIENT_SIGNUP_INVITE',
+  CLIENT_THERAPIST_CREATED_PROGRAMME: 'CLIENT_THERAPIST_CREATED_PROGRAMME',
+  CLIENT_THERAPIST_UPDATED_PROGRAMME: 'CLIENT_THERAPIST_UPDATED_PROGRAMME',
+  CLIENT_THERAPIST_RESPOND_TO_PROGRESS_UPDATE:
+    'CLIENT_THERAPIST_RESPOND_TO_PROGRESS_UPDATE',
+  THERAPIST_CLIENT_SENT_PROGRAMME_FEEDBACK:
+    'THERAPIST_CLIENT_SENT_PROGRAMME_FEEDBACK',
+  THERAPIST_CLIENT_SENT_PROGRESS_UPDATE:
+    'THERAPIST_CLIENT_SENT_PROGRESS_UPDATE',
+};
+
+const templatesKeys = {
+  [keys.CLIENT_SIGNUP_INVITE]: templates.clientSignupInvite,
+  [keys.CLIENT_THERAPIST_CREATED_PROGRAMME]:
+    templates.clientTherapistCreatedProgramme,
+  [keys.CLIENT_THERAPIST_UPDATED_PROGRAMME]:
+    templates.clientTherapistUpdatedProgramme,
+  [keys.CLIENT_THERAPIST_RESPOND_TO_PROGRESS_UPDATE]:
+    templates.clientTherapistRespondToProgressUpdate,
+  [keys.THERAPIST_CLIENT_SENT_PROGRAMME_FEEDBACK]:
+    templates.therapistClientSentProgrammeFeedback,
+  [keys.THERAPIST_CLIENT_SENT_PROGRESS_UPDATE]:
+    templates.therapistClientSentProgressUpdate,
+};
+
+export { templatesKeys };
+export default keys;

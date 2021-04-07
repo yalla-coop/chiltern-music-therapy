@@ -10,13 +10,13 @@ import {
   Cards,
 } from '../../../components';
 
-import validate from '../../../validation/schemas/program';
+import validate from '../../../validation/schemas/programme';
 
 import { dropdowns } from '../../../constants';
 
 import * as S from './style';
 import flowTypes from './flowTypes';
-import { Media, Programmes } from '../../../api-calls';
+import { Programmes } from '../../../api-calls';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -24,7 +24,7 @@ const { Expandable } = Cards;
 
 const { therapyGoalsCategories } = dropdowns;
 
-const ReviewFinish = ({ state, actions, decidePath }) => {
+const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
   const { description, content, errors, loading } = state;
@@ -36,8 +36,6 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
     SET_ERRORS,
     SET_LOADING,
   } = actions;
-
-  const goBack = () => decidePath(flowTypes.addContent);
 
   const validateForm = () => {
     try {
@@ -92,7 +90,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
     SET_LOADING(true);
 
     const { error, data } = await Programmes.createProgramme({
-      clientId: '1',
+      clientId,
       description,
       content,
     });
@@ -103,20 +101,8 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
       } else {
         console.log('SUCCESSSSS');
         // TODO add modal
-        // history.push(navRoutes.THERAPIST.WELCOME);
-        decidePath(flowTypes.success);
+        navFunctions.goToSuccess();
       }
-    }
-  };
-
-  const getMediaUrl = async (file) => {
-    const { data, error: _error } = await Media.getMediadURL({
-      key: file.key,
-      bucket: file.bucket,
-      bucketRegion: file.bucketRegion,
-    });
-    if (!_error) {
-      return data;
     }
   };
 
@@ -129,23 +115,17 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
           id: el.id,
           title: el.title,
           fileType: el.type,
-          streamable: el.link || el.uploadedFileInfo.uploadedToS3,
-          // TODO get url
           instructions: el.instructions,
           categories: el.categories,
           libraryContent: el.libraryContent,
           date: el.date || moment(),
+          fileUpload: el.uploadedFileInfo,
           // get these from form validation above
           validationErrs: errors && errors[`content[${idx}]`],
         };
 
-        if (el.uploadedFileInfo && el.uploadedFileInfo.uploadedToS3) {
-          const mediaUrl = getMediaUrl(el.uploadedFileInfo);
-          content.download = mediaUrl;
-        }
-
         return (
-          <Col mb={5} w={[4, 9, 5]}>
+          <Col mb={5} w={[4, 6, 5]}>
             <Expandable
               content={content}
               editing
@@ -153,6 +133,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
               remove={REMOVE_CONTENT_ITEM}
               handleInput={UPDATE_CONTENT_ITEM}
               categoryOptions={therapyGoalsCategories}
+              review
             />
           </Col>
         );
@@ -171,7 +152,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
   console.log('er', errors);
   return (
     <>
-      <GoBack customFn={goBack} />
+      <GoBack customFn={navFunctions.goToAddContent} />
       <Row mt={5}>
         <Col w={[4, 12, 12]}>
           <S.HeadlineWrapper>
@@ -185,6 +166,7 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
         <Col w={[4, 6, 6]}>
           <Textarea
             label="Programme description"
+            placeholder="Programme description..."
             rows={5}
             value={description}
             handleChange={(val) => SET_DESCRIPTION(val)}
@@ -210,14 +192,14 @@ const ReviewFinish = ({ state, actions, decidePath }) => {
         </Row>
       )}
       <Row mt={7}>
-        <Col w={[4, 9, 4]} mbM={5} mbT={5}>
+        <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button
             variant="primary"
             text="Add more content"
-            handleClick={goBack}
+            handleClick={navFunctions.goToAddContent}
           />
         </Col>
-        <Col w={[4, 9, 4]}>
+        <Col w={[4, 6, 4]}>
           <Button
             variant="secondary"
             text="Save Changes"

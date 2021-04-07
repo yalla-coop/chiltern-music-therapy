@@ -17,7 +17,13 @@ const Info = ({
   return (
     <S.CardWrapper {...m}>
       <S.IconWrapper>
-        <Icon style={infoIconStyle} icon="info" width="24" height="24" />
+        <Icon
+          style={infoIconStyle}
+          icon="info"
+          color="lightBlue"
+          width="24"
+          height="24"
+        />
       </S.IconWrapper>
       <S.Content>
         {title && (

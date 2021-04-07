@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 
 import { Grid, Typography as T, Inputs, Modal } from '../../';
 import { AddContentType } from '../../Cards';
@@ -19,11 +18,10 @@ const AddContentSection = ({
   libraryContent = [],
   setLibraryContent,
   mode,
+  navFunctions,
 }) => {
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const history = useHistory();
 
   const renderLibraryContentDropdownValues = libraryContent.map((el) => {
     const res = { label: el.title, value: el.id };
@@ -36,7 +34,7 @@ const AddContentSection = ({
 
     if (duplicates.length > 0) {
       setDuplicateError(
-        'This piece of content has already been added to your program. Please select another one.'
+        'This piece of content has already been added to your programme. Please select another one.'
       );
     } else if (selectLibraryContent.length > 0) {
       setLibraryContent(selectLibraryContent[0]);
@@ -47,8 +45,8 @@ const AddContentSection = ({
 
   const modalParentFunction = (type) =>
     type === 'addMoreContent'
-      ? history.push(navRoutes.THERAPIST.CREATE_PROGRAM_CONTENT)
-      : history.push(navRoutes.THERAPIST.CREATE_PROGRAM_REVIEW);
+      ? navFunctions.goToAddContent
+      : navFunctions.goToReview;
 
   return (
     <S.Wrapper>
@@ -82,7 +80,11 @@ const AddContentSection = ({
       <S.CardsWrapper {...m}>
         {Object.keys(fileCategories).map((category, i) => (
           <Col mb={5} w={[4, 9, 4]}>
-            <AddContentType mode={mode} contentType={category} />
+            <AddContentType
+              navFunctions={navFunctions}
+              mode={mode}
+              contentType={category}
+            />
           </Col>
         ))}
       </S.CardsWrapper>

@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS "media" CASCADE;
 
 CREATE TABLE "media" (
   "id" SERIAL PRIMARY KEY,
-  "type" media_types NOT NULL,
   "file_name" VARCHAR(255),
   "key" TEXT NOT NULL UNIQUE,
   "bucket" VARCHAR(50) NOT NULL,

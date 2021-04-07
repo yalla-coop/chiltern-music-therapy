@@ -23,7 +23,7 @@ const Dashboard = () => {
       const {
         data: programmeData,
         error: err,
-      } = await Programmes.getProgrammesByClient();
+      } = await Programmes.getProgrammes({});
 
       if (!error) {
         setTherapist(therapistData);
@@ -90,7 +90,7 @@ const Dashboard = () => {
                 <Link
                   variant="programme"
                   programme={{ date: programmes[0].createdAt }}
-                  to={CLIENT.SINGLE_PROGRAMME.replace(':id', programmes[0].id)}
+                  to={CLIENT.INDIVID_PROGRAMME.replace(':id', programmes[0].id)}
                 />
               </S.CardWrapper>
               <T.Link to={CLIENT.PROGRAMMES} weight="bold" mt={7} underline>

@@ -53,14 +53,14 @@ const createTherapistsClients = async ({ users }) => {
       'Between our therapy sessions and home programme content, we’ll continue supporting J in 4 key areas: social interaction &  communication, emotional wellbeing, cognition; learning, and physical skills. Each week, we’ll focus on 1 or more of these areas, with an accompanying resource to support her over that week.',
     therapyGoals: [
       {
-        goal: 'Communication',
-        category:
-          '- Goal 1: JE will consistently follow lyrical cues to wait and turn-take',
+        category: 'Communication',
+        goal: `- Goal 1: JE will consistently follow lyrical cues to wait and turn-take
+        - Goal 2: lorem ipsum test goal 2`,
       },
       {
-        goal: 'Emotional wellbeing',
-        category:
-          '- Goal 1: For JE to be able to use eye gaze or visuals to communicate how she is feeling.',
+        category: 'Emotional wellbeing',
+        goal: `- Goal 1: For JE to be able to use eye gaze or visuals to communicate how she is feeling.
+        - Goal 2: lorem ipsum test goal 2`,
       },
     ],
     therapistBio:
@@ -78,14 +78,14 @@ const createTherapistsClients = async ({ users }) => {
       'Between our therapy sessions and home programme content, we’ll continue supporting J in 4 key areas: social interaction &  communication, emotional wellbeing, cognition; learning, and physical skills. Each week, we’ll focus on 1 or more of these areas, with an accompanying resource to support her over that week.2',
     therapyGoals: [
       {
-        goal: 'Communication',
-        category:
-          '- Goal 1: JE will consistently follow lyrical cues to wait and turn-take',
+        category: 'Communication',
+        goal: `- Goal 1: JE will consistently follow lyrical cues to wait and turn-take
+        - Goal 2: lorem ipsum test goal 2`,
       },
       {
-        goal: 'Emotional wellbeing',
-        category:
-          '- Goal 1: For JE to be able to use eye gaze or visuals to communicate how she is feeling.',
+        category: 'Emotional wellbeing',
+        goal: `- Goal 1: For JE to be able to use eye gaze or visuals to communicate how she is feeling.
+        - Goal 2: lorem ipsum test goal 2`,
       },
     ],
     therapistBio:
@@ -104,14 +104,14 @@ const createTherapistsClients = async ({ users }) => {
       'Between our therapy sessions and home programme content, we’ll continue supporting J in 4 key areas: social interaction &  communication, emotional wellbeing, cognition; learning, and physical skills. Each week, we’ll focus on 1 or more of these areas, with an accompanying resource to support her over that week.3',
     therapyGoals: [
       {
-        goal: 'Communication',
-        category:
-          '- Goal 1: JE will consistently follow lyrical cues to wait and turn-take',
+        category: 'Communication',
+        goal: `- Goal 1: JE will consistently follow lyrical cues to wait and turn-take
+        - Goal 2: lorem ipsum test goal 2`,
       },
       {
-        goal: 'Emotional wellbeing',
-        category:
-          '- Goal 1: For JE to be able to use eye gaze or visuals to communicate how she is feeling.',
+        category: 'Emotional wellbeing',
+        goal: `- Goal 1: For JE to be able to use eye gaze or visuals to communicate how she is feeling.
+        - Goal 2: lorem ipsum test goal 2`,
       },
     ],
     therapistBio:

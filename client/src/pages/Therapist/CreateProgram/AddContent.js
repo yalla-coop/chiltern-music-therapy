@@ -12,12 +12,9 @@ import flowTypes from './flowTypes';
 const { Row, Col } = Grid;
 const { AddContentSection } = Content;
 
-const AddContent = ({ state, actions, decidePath }) => {
+const AddContent = ({ state, actions, navFunctions }) => {
   const { ADD_CONTENT } = actions;
   const { content } = state;
-
-  const goNext = () => decidePath(flowTypes.reviewFinish);
-  const goBack = () => decidePath(flowTypes.description);
 
   const testLibraryContent = [
     {
@@ -33,7 +30,7 @@ const AddContent = ({ state, actions, decidePath }) => {
 
   return (
     <S.Wrapper>
-      <GoBack customFn={goBack} />
+      <GoBack customFn={navFunctions.goToDescription} />
       <Row mt={6}>
         <Col w={[4, 12, 9]}>
           <T.H1 color="gray10">
@@ -53,18 +50,20 @@ const AddContent = ({ state, actions, decidePath }) => {
           // TODO add library content
           libraryContent={testLibraryContent}
           setLibraryContent={ADD_CONTENT}
+          navFunctions={navFunctions}
         />
       </Row>
-
-      <Row mt={7}>
-        <Col w={[4, 9, 4]}>
-          <Button
-            variant="secondary"
-            text="Review and finish"
-            handleClick={goNext}
-          />
-        </Col>
-      </Row>
+      {content && content.length > 0 && (
+        <Row mt={7}>
+          <Col w={[4, 9, 4]}>
+            <Button
+              variant="secondary"
+              text="Review and finish"
+              handleClick={navFunctions.goToReview}
+            />
+          </Col>
+        </Row>
+      )}
     </S.Wrapper>
   );
 };

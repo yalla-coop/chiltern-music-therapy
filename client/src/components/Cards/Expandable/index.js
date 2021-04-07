@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
-import { dateFormatter } from '../../../helpers';
+import { dateFormatter, linkFormatter } from '../../../helpers';
 
 import ViewMode from './ViewMode';
 import EditMode from './EditMode';
@@ -14,6 +14,7 @@ const Expandable = ({
   edit,
   withDate,
   editing,
+  review,
   library,
   handleInput,
   saveChanges,
@@ -23,6 +24,8 @@ const Expandable = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
+
+  const { type } = content;
 
   const titleData = {
     video: { action: 'Watch', title: 'video', icon: 'video' },
@@ -40,31 +43,46 @@ const Expandable = ({
     <S.Wrapper
       borderColor={borderColor}
       open={open}
-      onClick={() => (editing ? setOpen(true) : setOpen(!open))}
+      onClick={() => !open && setOpen(true)}
       height={selectedHeight}
+      ref={contentRef}
     >
-      <S.Title open={open}>
-        <Icon
-          icon={titleData[content.fileType]?.icon}
-          mr="3"
-          width="33"
-          height="33"
-        />
+      {open && (
+        <S.CrossBtn onClick={() => setOpen(false)}>
+          <Icon icon="cross" width="16" height="16" color="gray8" />
+        </S.CrossBtn>
+      )}
 
-        {withDate ? (
-          <S.DateTitle>
-            <T.P color="gray8" caps small>
-              {dateFormatter(content.date) || 'N/A'}
-            </T.P>
-            <T.P weight="bold">{content.title || 'N/A'}</T.P>
-          </S.DateTitle>
-        ) : (
+      <S.Title open={open}>
+        <Icon icon={titleData[type]?.icon} mr="3" width="33" height="33" />
+
+        {review ? (
           <T.P weight="light" mr="1">
-            {titleData[content.fileType]?.action}{' '}
-            <span style={{ fontWeight: 'bold' }}>
-              {titleData[content.fileType]?.title}
-            </span>
+            Review
+            <span style={{ fontWeight: 'bold' }}> {titleData[type].title}</span>
           </T.P>
+        ) : (
+          <>
+            {withDate ? (
+              <S.DateTitle>
+                <T.P color="gray8" caps small>
+                  {dateFormatter(content.date) || 'N/A'}
+                </T.P>
+                <T.P weight="bold">{content.title || 'N/A'}</T.P>
+              </S.DateTitle>
+            ) : (
+              <T.P weight="light" mr="1">
+                {titleData[content.fileType]?.action}{' '}
+                <span style={{ fontWeight: 'bold' }}>
+                  {titleData[content.fileType]?.title}
+                </span>
+                {titleData[type]?.action}{' '}
+                <span style={{ fontWeight: 'bold' }}>
+                  {titleData[type]?.title}
+                </span>
+              </T.P>
+            )}
+          </>
         )}
       </S.Title>
       {editing ? (
