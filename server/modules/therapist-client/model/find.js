@@ -65,6 +65,19 @@ const findTherapistClientWithUsersById = async (id) => {
   const res = await query(sql, values);
   return res.rows[0];
 };
+const findTherapistClientByClientId = async (clientId, client) => {
+  const values = [clientId];
+  const sql = `
+    SELECT
+      id,
+      therapist_user_id
+    FROM therapist_clients
+    WHERE client_user_id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
 
 const findTherapistByClientId = async (id) => {
   const values = [id];
@@ -126,6 +139,43 @@ const findTherapistByInviteToken = async (inviteToken, client) => {
   return res.rows[0];
 };
 
+const findClientByUserId = async (clientId, client) => {
+  const values = [clientId];
+  const sql = `
+    SELECT
+      u.id,
+      u.first_name,
+      u.last_name,
+      u.postcode,
+      tc.therapy_background,
+      tc.therapy_goals,
+      tc.therapist_user_id
+    FROM therapist_clients AS tc
+    INNER JOIN users AS u ON(u.id = tc.client_user_id)
+    WHERE tc.client_user_id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+const findTherapyByClientId = async (id) => {
+  const values = [id];
+  const sql = `
+    SELECT
+      therapy_background,
+      therapy_goals,
+      therapist_bio,
+      therapist_intro,
+      therapist_message
+    FROM therapist_clients
+    WHERE client_user_id = $1
+    `;
+
+  const res = await query(sql, values);
+  return res.rows[0];
+};
+
 const findTherapistByClient = async (clientId) => {
   const values = [clientId];
 
@@ -170,4 +220,7 @@ export {
   findClientsByTherapist,
   findTherapistByClientId,
   findTherapistClientWithUsersById,
+  findClientByUserId,
+  findTherapistClientByClientId,
+  findTherapyByClientId,
 };

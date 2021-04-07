@@ -52,6 +52,25 @@ function App() {
                 Component={Pages.CLIENT.Dashboard}
                 layout="general"
               />
+
+              {/* Therapist Pages */}
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CLIENT}
+                Component={Pages.THERAPIST.SingleClient}
+                layout="general"
+                goBack
+              />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CLIENT_HISTORY}
+                Component={Pages.THERAPIST.SingleClient}
+                layout="general"
+                goBack
+                clientHistory
+              />
+
+              {/* Client Pages */}
               <Route
                 exact
                 path={navRoutes.THERAPIST.DASHBOARD}
@@ -62,6 +81,12 @@ function App() {
                 exact
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
+              />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.PROFILE}
+                Component={Pages.THERAPIST.Profile}
+                layout="onboarding"
               />
 
               {/* Client Pages */}
@@ -87,6 +112,19 @@ function App() {
                 exact
                 path={navRoutes.CLIENT.PROGRAMMES}
                 Component={Pages.CLIENT.AllProgrammes}
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.THERAPY_PLAN}
+                Component={Pages.CLIENT.MyTherapyPlan}
+                goBack
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.THERAPY_GOALS}
+                Component={Pages.CLIENT.MyTherapyGoals}
+                goBack
+                maxWidth="none"
               />
               <Route
                 Component={Pages.GENERAL.ErrorPages}

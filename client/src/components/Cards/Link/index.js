@@ -2,7 +2,6 @@ import * as S from './style';
 import * as T from '../../Typography';
 import Image from '../../Image';
 import Icon from '../../Icon';
-import { Link as ReactLink } from 'react-router-dom';
 import { dateFormatter } from '../../../helpers';
 
 const Link = ({
@@ -46,6 +45,29 @@ const Link = ({
             <S.Title>
               <T.P weight="light" mr="1">
                 My
+              </T.P>
+              <T.P weight="bold">{title}</T.P>
+            </S.Title>
+            <Image
+              image="orangeCircles"
+              style={{ position: 'absolute', top: '-30px', right: '-35px' }}
+              alt="circles"
+            />
+            <Image
+              image="pinkCircles"
+              style={{ position: 'absolute', bottom: '-70px', left: '15px' }}
+              alt="circles"
+            />
+          </S.GraphicWrapper>
+        </S.Link>
+      );
+    case 'graphic3':
+      return (
+        <S.Link to={to}>
+          <S.GraphicWrapper {...m}>
+            <S.Title>
+              <T.P weight="light" mr="1">
+                Client
               </T.P>
               <T.P weight="bold">{title}</T.P>
             </S.Title>
