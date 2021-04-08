@@ -16,4 +16,24 @@ const getContentByProg = async ({ id, options }) => {
   }
 };
 
-export { getContentByProg };
+const getLibraryContent = async () => {
+  try {
+    const { data } = await axios.get(`${CONTENTS_BASE}/library`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+const getCategories = async () => {
+  try {
+    const { data } = await axios.get(`${CONTENTS_BASE}/categories`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+export { getContentByProg, getLibraryContent, getCategories };

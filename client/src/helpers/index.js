@@ -3,6 +3,7 @@ import setMargin from './set-margin';
 import dateFormatter from './dateFormatter';
 import cleanEmail from './cleanEmail';
 import getInitials from './getInitials';
+import decideBorder from './decideBorder';
 import linkFormatter from './linkFormatter';
 
 export {
@@ -12,4 +13,5 @@ export {
   getInitials,
   cleanEmail,
   linkFormatter,
+  decideBorder,
 };

@@ -98,6 +98,19 @@ function App() {
                 layout="onboarding"
               />
 
+              <Route
+                exact
+                path={navRoutes.THERAPIST.LIBRARY}
+                Component={Pages.THERAPIST.Library}
+              />
+
+              {/* Admin Pages */}
+              <Route
+                exact
+                path={navRoutes.ADMIN.ALL_CONTENT}
+                Component={Pages.THERAPIST.Library}
+              />
+
               {/* Client Pages */}
 
               <Route

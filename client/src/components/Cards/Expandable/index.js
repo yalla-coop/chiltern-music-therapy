@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
-import { dateFormatter, linkFormatter } from '../../../helpers';
+import { dateFormatter } from '../../../helpers';
 
 import ViewMode from './ViewMode';
 import EditMode from './EditMode';
