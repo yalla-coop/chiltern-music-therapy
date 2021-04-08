@@ -24,7 +24,7 @@ const DeleteClientAccount = ({ clientHistory }) => {
       <Title boldSection="Delete" lightSection="Account" boldFirst />
 
       <Row mb="6" mt="5">
-        <Col w={[4, 12, 6]}>
+        <Col w={[4, 8, 8]}>
           <T.P color="gray8">
             Are you sure you want to delete your account? This cannot be undone
             and all content will be deleted. You can speak to your therapist if
@@ -32,15 +32,17 @@ const DeleteClientAccount = ({ clientHistory }) => {
           </T.P>
         </Col>
       </Row>
-
-      <Row mb="8">
-        <Col w={[4, 12, 4]}>
-          <Button
-            handleClick={onClick}
-            text="Confirm and delete account"
-            variant="primary"
-          />
-        </Col>
+      <Row>
+        <S.ButtonWrapper>
+          <Col w={[4, 6, 4]}>
+            {' '}
+            <Button
+              handleClick={onClick}
+              text="Confirm and delete account"
+              variant="primary"
+            />
+          </Col>
+        </S.ButtonWrapper>
       </Row>
     </S.Wrapper>
   );

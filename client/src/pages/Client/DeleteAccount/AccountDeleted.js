@@ -12,16 +12,17 @@ const AccountDeleted = ({ clientHistory }) => {
       <Title boldSection="delete" lightSection="Your account has been" />
 
       <Row mb="6" mt="5">
-        <Col w={[4, 12, 12]}>
+        <Col w={[4, 8, 8]}>
           <T.P color="gray8">Your therapist has been notified</T.P>
         </Col>
       </Row>
-
-      <S.ButtonWrapper>
-        <Col w={[4, 8, 8]}>
-          <Button to={navRoutes.GENERAL.LOGIN} text="OK" variant="primary" />
-        </Col>
-      </S.ButtonWrapper>
+      <Row>
+        <S.ButtonWrapper>
+          <Col w={[4, 6, 4]}>
+            <Button to={navRoutes.GENERAL.LOGIN} text="OK" variant="primary" />
+          </Col>
+        </S.ButtonWrapper>
+      </Row>
     </S.Wrapper>
   );
 };

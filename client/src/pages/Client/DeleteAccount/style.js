@@ -13,6 +13,8 @@ export const Wrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
+  width: 100%;
+
   ${({ theme }) => theme.media.mobile} {
     height: 100%;
     margin: auto 0 0 0;
