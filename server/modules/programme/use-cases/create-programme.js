@@ -46,15 +46,31 @@ const createProgramme = async ({ userId, body }) => {
           let media;
           // 2. create media content using uploadFileInfo and user_id -> return media_id
           if (uploadedFileInfo.uploadedToS3) {
-            const { name, key, bucket, bucketRegion } = uploadedFileInfo;
+            console.log(`uploadedFileInfo`, uploadedFileInfo);
+            const {
+              name,
+              key,
+              bucket,
+              bucketRegion,
+              size,
+              fileType,
+            } = uploadedFileInfo;
             media = Media.createMedia(
-              { fileName: name, key, bucket, bucketRegion, createdBy: userId },
+              {
+                fileName: name,
+                fileType,
+                size,
+                key,
+                bucket,
+                bucketRegion,
+                createdBy: userId,
+              },
               client,
             );
           }
           // 3. create contents using media_id (if there), title, instructions, link (if there), libraryC, therapistLibId  -> return content_id
           const content = Content.createContent({
-            mediaId: media.id,
+            mediaId: media && media.id,
             title,
             instructions,
             link,

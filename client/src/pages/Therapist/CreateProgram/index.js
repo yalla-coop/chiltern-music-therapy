@@ -2,7 +2,7 @@ import { useReducer, useEffect } from 'react';
 
 import { Switch, useHistory, useParams } from 'react-router-dom';
 
-import { content, navRoutes } from '../../../constants';
+import { navRoutes } from '../../../constants';
 
 import reducer from './reducer';
 import actionTypes from './actionTypes';
@@ -46,6 +46,7 @@ const initialState = {
       bucketRegion: '',
       bucket: '',
       fileType: '',
+      size: 0,
       new: false,
       uploadedToS3: false,
     },
