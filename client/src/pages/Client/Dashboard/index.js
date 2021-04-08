@@ -23,7 +23,7 @@ const Dashboard = () => {
       const {
         data: programmeData,
         error: err,
-      } = await Programmes.getProgrammes({ clientUserId: user.id });
+      } = await Programmes.getProgrammes();
 
       if (!error) {
         setTherapist(therapistData);
