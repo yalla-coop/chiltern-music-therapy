@@ -1,18 +1,28 @@
 import Boom from '@hapi/boom';
 import * as Programme from '../model';
+import * as TherapistClients from '../../therapist-client/model';
 import { errorMsgs } from '../../../services/error-handler';
 
 import { validateCreateProgramme } from '../utils';
 
 const createProgramme = async ({ userId, body }) => {
   // console.log(`reached§`, userId, body);
-  const { clientId, description, content } = body;
-  try {
-    await validateCreateProgramme({ description, content });
-  } catch (err) {}
 
-  // get therapist_client_id
-  // 1. create programmme using ther_cl_id / description / status - active -> return programme_id
+  try {
+    const { clientId, description, content } = body;
+    await validateCreateProgramme({ description, content });
+    // get therapist_client_id
+    const therapistClientId = await TherapistClients.findTherapistClientID({
+      clientId,
+      therapistId: userId,
+    });
+    console.log(`therapistClientId`, therapistClientId.id);
+
+    // 1. create programmme using ther_cl_id / description / status - active -> return programme_id
+  } catch (err) {
+    console.log(`err`, err);
+  }
+
   // FOR EACH ARRAY OBJ
   // 2. create media content using uploadFileInfo and user_id -> return media_id
   // 3. create contents using media_id (if there), title, instructions, link (if there), libraryC, therapistLibId  -> return content_id

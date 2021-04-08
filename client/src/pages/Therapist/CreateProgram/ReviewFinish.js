@@ -87,25 +87,20 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
   };
 
   const handleCreateProgramme = async () => {
-    // SET_LOADING(true);
+    SET_LOADING(true);
 
-    // const { error, data } = await Programmes.createProgramme({
-    //   clientId,
-    //   description,
-    //   content,
-    // });
-    // SET_LOADING(false);
-    // if (error) {
-    //   if (error.statusCode === 409) {
-    //     SET_ERRORS(error.message);
-    //   } else {
-    //     console.log('SUCCESSSSS');
-    //     // TODO add modal
-    //     navFunctions.goToSuccess();
-    //   }
-    // }
-
-    navFunctions.goToSuccess();
+    const { error, data } = await Programmes.createProgramme({
+      clientId,
+      description,
+      content,
+    });
+    SET_LOADING(false);
+    if (error) {
+      SET_ERRORS(error.message);
+    } else {
+      // TODO add modal
+      navFunctions.goToSuccess();
+    }
   };
 
   const renderReviewCards = (_content) => {
