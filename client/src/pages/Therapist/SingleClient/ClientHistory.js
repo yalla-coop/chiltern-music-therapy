@@ -51,12 +51,14 @@ const ClientHistory = ({
 
       <Row mb="7">
         <Col w={[4, 12, 12]}>
-          <S.TitleWIthBorder color="gray7" mb={6} mt={3}>
+          <S.TitleWIthBorder color="gray7" mt={3}>
             CLIENT HISTORY
           </S.TitleWIthBorder>
         </Col>
+      </Row>
+      <Row mb="7">
         <Col w={[4, 12, 6]}>
-          <T.H3 color="black" mb={2} bold>
+          <T.H3 color="black" mb={2} weight="bold" style={{ width: '100%' }}>
             Therapy background
           </T.H3>
           <T.P color="gray8">{therapyBackground}</T.P>
@@ -65,13 +67,13 @@ const ClientHistory = ({
 
       <Row mb="5">
         <Col w={[4, 12, 12]}>
-          <T.H3 color="black" mb={2} bold>
+          <T.H3 color="black" mb={2} weight="bold" mb="4">
             Therapy goals
           </T.H3>
         </Col>
         {goalsToView ? (
           groupedGoals.map((group, i) => (
-            <Col w={[4, 12, 6]} display="block">
+            <Col w={[4, 12, 5]} display="block" mb="4">
               <T.P color="black" mb={2} bold>
                 {group[0]}
               </T.P>

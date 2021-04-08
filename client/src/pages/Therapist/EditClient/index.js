@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+
 import Title from '../../../components/Title';
 import { Textarea } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { TherapyGoals } from '../../../components/Cards';
-import { TherapistClients } from '../../../api-calls';
 import { Row, Col } from '../../../components/Grid';
+import Modal from '../../../components/Modal';
+
+import { TherapistClients } from '../../../api-calls';
+
 import * as S from './style';
+
 import validate from '../../../validation/schemas/editClient';
+
+import { navRoutes } from '../../../constants';
 
 const EditClient = () => {
   const [therapyBackground, setBackground] = useState('');
@@ -18,9 +25,10 @@ const EditClient = () => {
   const [firstInitial, setFirstInitial] = useState('');
   const [restOfTitle, setRestOfTitle] = useState('');
   const [updatingClient, setUpdatingClient] = useState(false);
-  const [modal, setModal] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const { id } = useParams();
+  const history = useHistory();
 
   const handleEdit = () => {
     try {
@@ -47,11 +55,13 @@ const EditClient = () => {
       setErrors({ server: error.message });
       setUpdatingClient(false);
     } else {
-      console.log('data', data);
       setUpdatingClient(false);
-      // show success message modal
+      setIsModalVisible(true);
     }
   };
+
+  const goToClient = () =>
+    history.push(navRoutes.THERAPIST.CLIENT_HISTORY.replace(':id', id));
 
   useEffect(() => {
     if (updatingClient) {
@@ -124,6 +134,12 @@ const EditClient = () => {
           <Button text="Save changes" onClick={handleEdit} />
         </Col>
       </Row>
+      <Modal
+        type="updateClientSuccess"
+        visible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        parentFunc={goToClient}
+      />
     </>
   );
 };
