@@ -52,7 +52,7 @@ const Dashboard = () => {
       <Row>
         <Col w={[4, 6, 4]} mt={5}>
           <S.CardWrapper>
-            <Basic therapistInfo={therapist} variant="therapistInfo" />
+            <Basic open therapistInfo={therapist} variant="therapistInfo" />
           </S.CardWrapper>
         </Col>
         <Col w={[4, 6, 4]} mt={5}>
