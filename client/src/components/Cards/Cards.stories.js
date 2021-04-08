@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as T from '../Typography';
 import moment from 'moment';
 
-import { TherapyGoals, Info, Basic, Link, Expandable } from '.';
+import { TherapyGoals, Info, Basic, Link, Expandable, AddContentType } from '.';
 
 export default {
   title: 'Common Components/Cards',
@@ -204,6 +204,29 @@ DocExample.args = {
     categories: ['Category 1', 'Category 2'],
   },
   actions: true,
+};
+
+const AddContentTypeExample = (args) => {
+  return (
+    <div style={{ maxWidth: '350px' }}>
+      <AddContentType {...args} />
+    </div>
+  );
+};
+
+export const AddDocCard = AddContentTypeExample.bind({});
+AddDocCard.args = {
+  contentType: 'document',
+};
+
+export const AddVideoCard = AddContentTypeExample.bind({});
+AddVideoCard.args = {
+  contentType: 'video',
+};
+
+export const AddAudioCard = AddContentTypeExample.bind({});
+AddAudioCard.args = {
+  contentType: 'audio',
 };
 
 const ExpandableEditExample = (args) => {

@@ -1,4 +1,4 @@
-import { number, string, boolean } from 'yup';
+import { number, string, boolean, array, object } from 'yup';
 import * as errMsgs from './err-msgs';
 
 export const firstName = string()
@@ -34,3 +34,38 @@ export const inviteToken = string()
 export const over16 = boolean()
   .oneOf([true, false], errMsgs.AGREED_AGE)
   .required(errMsgs.DEFAULT_REQUIRED);
+
+export const description = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(500)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const content = array().of(
+  object().shape({
+    title: string()
+      .min(1, errMsgs.DEFAULT_REQUIRED)
+      .max(50)
+      .required(errMsgs.DEFAULT_REQUIRED),
+    categories: array().of(string()).nullable(),
+    libraryContent: boolean()
+      .oneOf([true, false])
+      .required(errMsgs.DEFAULT_REQUIRED),
+    instructions: string()
+      .min(1, errMsgs.DEFAULT_REQUIRED)
+      .max(1000)
+      .required(errMsgs.DEFAULT_REQUIRED),
+    type: string().required(errMsgs.DEFAULT_REQUIRED),
+    link: string().nullable(),
+    docContent: string().nullable(),
+    uploadedFileInfo: object().shape({
+      bucket: string(),
+      bucketRegion: string(),
+      fileType: string(),
+      id: string().nullable(),
+      key: string(),
+      name: string(),
+      new: boolean().oneOf([true, false]),
+      uploadedToS3: boolean().oneOf([true, false]),
+    }),
+  }),
+);

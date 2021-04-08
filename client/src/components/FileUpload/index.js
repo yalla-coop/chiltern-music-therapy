@@ -6,12 +6,25 @@ import { Media } from '../../api-calls';
 import Icon from '../Icon';
 import * as T from '../Typography';
 import * as S from './style';
-import { fileTypeValidation } from '../../constants';
-import theme from '../../theme';
+import { content } from '../../constants';
 
-const { printFileTypes, allowedFileTypesAndSizes } = fileTypeValidation;
+const { printFileTypes, allowedFileTypesAndSizes, fileCategories } = content;
 
 const { Dragger } = Upload;
+
+const initState = {
+  fileUploading: false,
+  data: {
+    id: null,
+    name: '',
+    key: '',
+    bucketRegion: '',
+    bucket: '',
+    fileType: '',
+    new: false,
+    uploadedToS3: false,
+  },
+};
 
 const FileUpload = ({
   w, // width
@@ -24,9 +37,9 @@ const FileUpload = ({
   error,
   maxSize,
   disabled,
+  contentInputMissingError,
 }) => {
   const [fileList, setFileList] = useState([]);
-  const [fileName, setFileName] = useState(null);
   const [progress, setProgress] = useState(0);
 
   let updatedFile;
@@ -36,6 +49,9 @@ const FileUpload = ({
     // size in Megabites
     const sizeInMb = size > 0 && size / 1024 / 1024;
 
+    if (type === 'application') {
+      type = fileCategories.document;
+    }
     //  check 1: correct file type
     if (!allowedFileTypesAndSizes[category].types.includes(type)) {
       setError(
@@ -61,18 +77,20 @@ const FileUpload = ({
       setError('');
       correctFileType = true;
     }
+
     // if false upload doesn't run
     return correctFileType ? true : false;
   };
 
   // here you can controll state depending on upload status
   const handleFileChanged = async ({ file }) => {
-    const { status, name } = file;
+    const { status } = file;
 
-    setFileName(name);
     if (!error) {
       if (status === 'removed') {
+        setUploading(false);
         setFileList([]);
+        setFileInfo(initState);
       } else if (status === 'uploading') {
         setUploading(true);
         setFileList([file]);
@@ -164,39 +182,26 @@ const FileUpload = ({
       strokeWidth: 3,
       format: (percent) => `${parseFloat(percent.toFixed(2))}%`,
     },
-    showUploadList: !!uploading && !error,
   };
 
   return (
-    <S.Wrapper error={error} w={w}>
+    <S.Wrapper
+      disabled={disabled}
+      error={error || contentInputMissingError}
+      w={w}
+    >
       <Dragger {...props}>
         <S.UploadDetails>
-          <Icon error={error} icon="inbox" />
-          <T.P color="gray9">Click or drag file to this area to upload</T.P>
+          <Icon error={error || contentInputMissingError} icon="inbox" />
+          <T.P mt="2" ta="center" color="gray9">
+            Click or drag file to this area to upload
+          </T.P>
         </S.UploadDetails>
       </Dragger>
-      {fileName && (
-        <S.FileNameWrapper>
-          {!error ? (
-            <>
-              <Icon color="blue" icon="attachment" />
-              <T.P
-                color="blue"
-                bold
-                style={{
-                  marginLeft: theme.spacings[1],
-                  marginTop: -theme.spacings[1],
-                }}
-              >
-                {fileName}
-              </T.P>
-            </>
-          ) : (
-            <T.P bold color="pink">
-              {error}
-            </T.P>
-          )}
-        </S.FileNameWrapper>
+      {(error || contentInputMissingError) && (
+        <T.P bold color="pink">
+          {error || contentInputMissingError}
+        </T.P>
       )}
     </S.Wrapper>
   );
