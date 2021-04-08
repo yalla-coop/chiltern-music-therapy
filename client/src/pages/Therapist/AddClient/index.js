@@ -12,6 +12,7 @@ const AddClient = () => {
   const [state, setState] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
   const [inviteLink, setIniviteLink] = useState('');
+  const [clientId, setClientId] = useState('');
   const [submitAttempt, setSubmitAttempt] = useState(false);
   const [serverErr, setServerErr] = useState('');
   const [clientSuccess, setClientSuccess] = useState(false);
@@ -30,10 +31,10 @@ const AddClient = () => {
     const { data, error } = await TherapistClients.addNewClient({ state });
     if (data) {
       setIniviteLink(data.inviteLink);
+      setClientId(data.clientUserId);
       setClientSuccess(true);
     }
     if (error) {
-      console.log('err', error);
       setServerErr(error.message);
     }
     setSubmitAttempt(false);
@@ -66,7 +67,7 @@ const AddClient = () => {
       case 5:
         return <Step5 submitStep={submitFinalStep} serverErr={serverErr} />;
       case 6:
-        return <Step6 inviteLink={inviteLink} />;
+        return <Step6 inviteLink={inviteLink} clientId={clientId} />;
       default:
         break;
     }

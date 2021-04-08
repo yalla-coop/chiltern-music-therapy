@@ -20,7 +20,11 @@ const Step1 = ({ submitStep }) => {
         postcodeLetters,
       });
       setErrors({});
-      submitStep({ firstName, lastName, postcodeLetters });
+      submitStep({
+        firstName: firstName.toUpperCase(),
+        lastName: lastName.toUpperCase(),
+        postcodeLetters: postcodeLetters.toUpperCase(),
+      });
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {

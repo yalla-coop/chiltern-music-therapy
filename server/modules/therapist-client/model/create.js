@@ -32,7 +32,8 @@ const createClient = async (
     )
     RETURNING 
       id,
-      invite_token
+      invite_token,
+      client_user_id
     `;
 
   const values = [

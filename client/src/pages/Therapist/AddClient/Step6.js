@@ -4,7 +4,7 @@ import Button from '../../../components/Button';
 import Copy from '../../../components/Copy';
 import { THERAPIST } from '../../../constants/nav-routes';
 
-const Step6 = ({ inviteLink }) => {
+const Step6 = ({ inviteLink, clientId }) => {
   return (
     <>
       <Row>
@@ -24,7 +24,7 @@ const Step6 = ({ inviteLink }) => {
         <Col w={[4, 6, 4]} mtT={4}>
           <Button
             text="Start adding content for my client"
-            to={THERAPIST.CREATE_PROGRAM}
+            to={THERAPIST.CREATE_PROGRAMME.replace(':id', clientId)}
           />
         </Col>
         <Col w={[4, 6, 4]} mtT={4}>
