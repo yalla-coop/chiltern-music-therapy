@@ -8,7 +8,7 @@ const GENERAL = {
 
 const CLIENT = {
   SIGNUP: '/signup',
-  WELCOME: '/welcome',
+  WELCOME: '/welcome/:id',
   DASHBOARD: '/dashboard',
   MY_THERAPIST: '/my-therapist',
   THERAPY_PLAN: '/therapy-plan',
@@ -27,13 +27,19 @@ const THERAPIST_BASE = '/therapist';
 const THERAPIST = {
   HOME: THERAPIST_BASE,
   SIGNUP: `${THERAPIST_BASE}/signup`,
-  WELCOME: `${THERAPIST_BASE}/welcome`,
+  WELCOME: `${THERAPIST_BASE}/welcome/:id`,
   DASHBOARD: `${THERAPIST_BASE}/dashboard`,
-  CREATE_PROGRAM: `${THERAPIST_BASE}/programme/create`,
-  SINGLE_PROGRAM: `${THERAPIST_BASE}/programme/:id`,
   LIBRARY: `${THERAPIST_BASE}/library`,
   FEEDBACK: `${THERAPIST_BASE}/feedback`,
   ACCOUNT: `${THERAPIST_BASE}/account`,
+  // CREATE PROGRAM
+  CREATE_PROGRAMME: `${THERAPIST_BASE}/clients/:id/programme/create`,
+  CREATE_PROGRAMME_DESCRIPTION: `${THERAPIST_BASE}/clients/:id/programme/create/description`,
+  CREATE_PROGRAMME_CONTENT: `${THERAPIST_BASE}/clients/:id/programme/create/content`,
+  CREATE_PROGRAMME_CONTENT_SINGLE: `${THERAPIST_BASE}/clients/:id/programme/create/content/:category`,
+  CREATE_PROGRAMME_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/clients/:id/programme/create/content/how-to-record`,
+  CREATE_PROGRAMME_REVIEW: `${THERAPIST_BASE}/clients/:id/programme/create/review`,
+  CREATE_PROGRAMME_SUCCESS: `${THERAPIST_BASE}/clients/:id/programme/create/success`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
   CLIENT_HISTORY: `${THERAPIST_BASE}/clients/:id/history`,
   CONTACT_CLIENT: `${THERAPIST_BASE}/clients/:id/contact`,
