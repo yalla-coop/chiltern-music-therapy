@@ -3,34 +3,50 @@ import actionTypes from './actionTypes';
 const reducer = (state, action) => {
   const { type, key, value } = action;
   switch (type) {
-    case actionTypes.showModal:
-      return {
-        ...state,
-        singleContent: {
-          ...state.singleContent,
-          showModal: !state.singleContent.showModal,
-        },
-      };
-    case actionTypes.setContentType:
-      return {
-        ...state,
-        singleContent: {
-          ...state.singleContent,
-          contentType: value,
-        },
-      };
-    case actionTypes.updateContent:
+    case actionTypes.addContent:
       return {
         ...state,
         content: [...state.content, value],
       };
-    case actionTypes.updateSingleContent:
+    case actionTypes.updateContentItem:
+      return {
+        ...state,
+        content: state.content.map((el) => {
+          if (el.id === value.id) {
+            return Object.assign({}, el, { ...el, ...value });
+          }
+          return el;
+        }),
+      };
+    case actionTypes.deleteContentItem:
+      return {
+        ...state,
+        content: state.content.filter((el) => {
+          return el.id !== value.id;
+        }),
+      };
+    case actionTypes.addSingleContent:
       return {
         ...state,
         singleContent: {
           ...state.singleContent,
           [key]: value,
         },
+      };
+    case actionTypes.setDescription:
+      return {
+        ...state,
+        description: value,
+      };
+    case actionTypes.setErrors:
+      return {
+        ...state,
+        errors: value,
+      };
+    case actionTypes.setLoading:
+      return {
+        ...state,
+        loading: value,
       };
     // takes initial state as value
     case actionTypes.resetSingleContent:

@@ -54,7 +54,7 @@ const Library = () => {
     console.log(
       'Clear away formstate in case stuff frmo another card they didnt save'
     );
-    setContentToEdit(contentId);
+    // setContentToEdit(contentId);
   };
 
   const cancelChanges = () => {
