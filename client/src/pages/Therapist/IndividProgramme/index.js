@@ -8,17 +8,18 @@ import * as T from '../../../components/Typography';
 import { Row, Col } from '../../../components/Grid';
 import { dateFormatter } from '../../../helpers';
 import { Basic, Expandable } from '../../../components/Cards';
+import Button from '../../../components/Button';
+import * as S from './style';
 
 import { Contents, Programmes } from '../../../api-calls';
 
 import UpdateSection from './UpdateSection';
-import FeedbackSection from './FeedbackSection';
-
+import { THERAPIST } from '../../../constants/nav-routes';
+const dummyDescription =
+  'Welcome to your Home Programmes. Here you will find weekly, fortnightly or monthly digital resources that your therapist has created especially for you to support your therapeutic goals in between live sessions.';
 const IndividProgramme = () => {
   const [contents, setContents] = useState([]);
   const [update, setUpdate] = useState({});
-  const [feedback, setFeedback] = useState({});
-  const [therapist, setTherapist] = useState({});
   const [description, setDescription] = useState('');
   const [ellipsis, setEllipsis] = useState(true);
 
@@ -59,9 +60,9 @@ const IndividProgramme = () => {
 
       if (!error) {
         setUpdate(data.update);
-        setFeedback(data.feedback);
-        setTherapist(data.therapist);
-        setDescription(data.description);
+        if (data.description) {
+          setDescription(data.description);
+        }
       }
     };
 
@@ -75,14 +76,15 @@ const IndividProgramme = () => {
 
   return (
     <>
-      <Row mb="4">
-        <Col w={[4, 6, 8]}>
+      <Title boldSection="Home Programme" />
+      <Row mb="7" mbT="5">
+        <S.HorizontalCol w={[4, 6, 8]}>
+          <S.GreenLine />
           <T.P small color="gray8" caps>
             {dateFormatter(update.createdAt)}
           </T.P>
-        </Col>
+        </S.HorizontalCol>
       </Row>
-      <Title lightSection="My" boldSection="Home Programme" />
       <Row mb="7" mbT="5">
         <Col w={[4, 6, 6]}>
           <T.P color="gray8" ellipsis={ellipsis ? { rows: 2 } : false}>
@@ -95,23 +97,31 @@ const IndividProgramme = () => {
           )}
         </Col>
       </Row>
-      <Row mb="8">
+      <UpdateSection id={id} update={update} />
+      <Row mb="8" mbT="6">
         {contentToView ? (
-          contents.map(({ type, path, ...content }, index) => (
-            <Col w={[4, 6, 4]} mb="4">
-              <Expandable
-                borderColor={decideBorder(type)}
-                content={{
-                  download: path,
-                  streamable: decideStreamable(type, path),
-                  ...content,
-                  categories: null,
-                  type: type?.toLowerCase(),
-                  path,
-                }}
-              />
+          <>
+            <Col w={[4, 12, 12]}>
+              <T.H2 mb="5" weight="bold">
+                Programme content
+              </T.H2>
             </Col>
-          ))
+            {contents.map(({ type, path, categories, ...content }, index) => (
+              <Col w={[4, 6, 4]} mb="4">
+                <Expandable
+                  borderColor={decideBorder(type)}
+                  content={{
+                    download: path,
+                    streamable: decideStreamable(type, path),
+                    categories: categories.filter((cat) => cat !== null),
+                    ...content,
+                    type: type?.toLowerCase(),
+                    path,
+                  }}
+                />
+              </Col>
+            ))}
+          </>
         ) : (
           <Col w={[4, 6, 4]}>
             <Basic>No content to show</Basic>
@@ -119,8 +129,13 @@ const IndividProgramme = () => {
         )}
       </Row>
       <Row>
-        <UpdateSection id={id} update={update} therapist={therapist} />
-        <FeedbackSection id={id} feedback={feedback} />
+        <Col w={[4, 4, 4]}>
+          <Button
+            text="Edit programme"
+            to={THERAPIST.EDIT_PROGRAMME.replace(':id', id)}
+            variant="secondary"
+          />
+        </Col>
       </Row>
     </>
   );

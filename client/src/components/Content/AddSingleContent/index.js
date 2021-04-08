@@ -227,7 +227,13 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
             multi
             addNew
             placeholder="Select...(optional)"
-            handleChange={(value) => ADD_SINGLE_CONTENT('categories', value)}
+            handleChange={(value, option) => {
+              console.log(`value`, value);
+              console.log(`option`, option);
+              console.log(`value`, value);
+              console.log(`option`, option);
+              return ADD_SINGLE_CONTENT('categories', option);
+            }}
             loading={contentCategoriesLoading}
             error={validationErrs.categories || contentCategoriesError}
           />

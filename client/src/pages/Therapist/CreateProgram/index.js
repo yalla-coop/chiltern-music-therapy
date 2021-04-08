@@ -191,7 +191,7 @@ const CreateProgram = () => {
         const allCats = data.map(({ text, id }) => ({
           label: text,
           value: text,
-          key: id,
+          categoryId: id,
         }));
         actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);
       } else {
@@ -206,6 +206,8 @@ const CreateProgram = () => {
       getCategories();
     }
   }, [user.id]);
+
+  console.log(`state.contentCategories`, state.content);
 
   return (
     <Switch>
