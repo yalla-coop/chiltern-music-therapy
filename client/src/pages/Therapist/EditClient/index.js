@@ -7,7 +7,7 @@ import { TherapyGoals } from '../../../components/Cards';
 import { TherapistClients } from '../../../api-calls';
 import { Row, Col } from '../../../components/Grid';
 import * as S from './style';
-import * as T from '../../../components/Typography';
+import validate from '../../../validation/schemas/editClient';
 
 const EditClient = () => {
   const [therapyBackground, setBackground] = useState('');
@@ -17,8 +17,48 @@ const EditClient = () => {
   const [errors, setErrors] = useState({});
   const [firstInitial, setFirstInitial] = useState('');
   const [restOfTitle, setRestOfTitle] = useState('');
+  const [updatingClient, setUpdatingClient] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const { id } = useParams();
+
+  const handleEdit = () => {
+    try {
+      validate({ therapyBackground, therapyGoals });
+      setErrors({});
+      setUpdatingClient(true);
+      return true;
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        setErrors({ ...error.inner });
+      }
+      return false;
+    }
+  };
+
+  const updateClient = async () => {
+    const { data, error } = await TherapistClients.editClient({
+      therapyBackground,
+      therapyGoals,
+      clientId: id,
+    });
+
+    if (error) {
+      setErrors({ server: error.message });
+      setUpdatingClient(false);
+    } else {
+      console.log('data', data);
+      setUpdatingClient(false);
+      // show success message modal
+    }
+  };
+
+  useEffect(() => {
+    if (updatingClient) {
+      updateClient();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updatingClient]);
 
   useEffect(() => {
     const getData = async () => {
@@ -65,7 +105,7 @@ const EditClient = () => {
           <Textarea
             value={therapyBackground}
             label="Therapy background"
-            rows="6"
+            rows="8"
             handleChange={setBackground}
           />
         </Col>
@@ -81,7 +121,7 @@ const EditClient = () => {
       </Row>
       <Row>
         <Col w={[4, 6, 4]}>
-          <Button text="Save changes" />
+          <Button text="Save changes" onClick={handleEdit} />
         </Col>
       </Row>
     </>
