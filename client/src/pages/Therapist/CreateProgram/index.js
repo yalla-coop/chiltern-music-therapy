@@ -176,7 +176,9 @@ const CreateProgram = () => {
       if (!error) {
         actions.GET_LIBRARY_CONTENT_SUCCESS(data);
       } else {
-        actions.GET_LIBRARY_CONTENT_ERROR(error);
+        actions.GET_LIBRARY_CONTENT_ERROR(
+          (error && error.message) || 'error loading library content'
+        );
       }
     };
 
@@ -188,7 +190,9 @@ const CreateProgram = () => {
         const allCats = data.map(({ text }) => ({ label: text, value: text }));
         actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);
       } else {
-        actions.GET_LIBRARY_CONTENT_ERROR(data);
+        actions.GET_CONTENT_CATEGORIES_ERROR(
+          (error && error.message) || 'error loading content categories'
+        );
       }
     };
 
