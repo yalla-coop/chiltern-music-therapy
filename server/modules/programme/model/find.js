@@ -183,6 +183,7 @@ const findProgrammeById = async ({ id }) => {
     SELECT 
     p.id, 
     p.created_at,
+    p.description,
     pu.id "update.id",
     pu.created_at "update.created_at",
     pu.therapist_message "update.therapist_message",
