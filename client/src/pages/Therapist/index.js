@@ -4,6 +4,7 @@ import Dashboard from './Dashboard';
 import Library from './Library';
 import SingleClient from './SingleClient';
 import Profile from './Profile';
+import AddClient from './AddClient';
 
 export default {
   CreateProgram,
@@ -12,4 +13,5 @@ export default {
   Profile,
   SingleClient,
   Library,
+  AddClient,
 };
