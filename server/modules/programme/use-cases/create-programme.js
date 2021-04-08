@@ -11,9 +11,12 @@ const createProgramme = async ({ userId, body }) => {
   const client = await getClient();
   const { clientId, description, content } = body;
   await validateCreateProgramme({ description, content });
+
   try {
     await client.query('BEGIN');
+    console.log(`content`, content);
     // get therapist_client_id
+
     const therapistClientId = await TherapistClients.findTherapistClientID(
       {
         clientId,
@@ -22,7 +25,8 @@ const createProgramme = async ({ userId, body }) => {
       client,
     );
 
-    // 1. create programmme using ther_cl_id / description / status - active -> return programme_id
+    // create programmme
+
     const programme = await Programme.createProgramme(
       {
         therapistsClientsId: therapistClientId.id,
@@ -31,59 +35,89 @@ const createProgramme = async ({ userId, body }) => {
       client,
     );
 
-    console.log('programme', programme.id);
+    await content.forEach(
+      async ({
+        libraryContent,
+        title,
+        instructions,
+        link,
+        docContent,
+        uploadedFileInfo,
+        type,
+        categories,
+        therapistUserId,
+        id: contentId,
+      }) => {
+        // create media content if present
+        let _media;
+        let _content;
 
-    const createProgrammeContent = await Promise.all(
-      content.map(
-        ({
-          libraryContent,
-          title,
-          instructions,
-          link,
-          uploadedFileInfo,
-          type,
-        }) => {
-          let media;
-          // 2. create media content using uploadFileInfo and user_id -> return media_id
-          if (uploadedFileInfo.uploadedToS3) {
-            console.log(`uploadedFileInfo`, uploadedFileInfo);
-            const {
-              name,
+        if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
+          const {
+            name,
+            key,
+            bucket,
+            bucketRegion,
+            size,
+            fileType,
+          } = uploadedFileInfo;
+
+          _media = await Media.createMedia(
+            {
+              fileName: name,
+              fileType,
+              size,
               key,
               bucket,
               bucketRegion,
-              size,
-              fileType,
-            } = uploadedFileInfo;
-            media = Media.createMedia(
-              {
-                fileName: name,
-                fileType,
-                size,
-                key,
-                bucket,
-                bucketRegion,
-                createdBy: userId,
-              },
-              client,
-            );
-          }
-          // 3. create contents using media_id (if there), title, instructions, link (if there), libraryC, therapistLibId  -> return content_id
-          const content = Content.createContent({
-            mediaId: media && media.id,
-            title,
-            instructions,
-            link,
-            libraryContent,
-            therapistLibraryUserId: userId,
-            type: matchMediaTypes(type),
-          });
-        },
-      ),
+              createdBy: userId,
+            },
+            client,
+          );
+        }
+        // if existing library content only run update
+        if (therapistUserId) {
+          _content = await Content.updateContentById(
+            {
+              contentId,
+              title,
+              instructions,
+              libraryContent,
+            },
+            client,
+          );
+        } else {
+          // create content
+          _content = await Content.createContent(
+            {
+              mediaId: _media && _media.id,
+              title,
+              instructions,
+              link,
+              docContent,
+              libraryContent,
+              therapistLibraryUserId: userId,
+              type: matchMediaTypes(type),
+            },
+            client,
+          );
+        }
+        console.log(`_content`, _content);
+
+        // create programmes_contents
+        await Programme.createProgrammesContent(
+          {
+            programmeId: programme.id,
+            contentId: _content.id,
+          },
+          client,
+        );
+      },
     );
 
+    // create content_categories
+
     await client.query('COMMIT');
-    return createProgrammeContent;
   } catch (err) {
     console.log(`err`, err);
     await client.query('ROLLBACK');
@@ -92,8 +126,6 @@ const createProgramme = async ({ userId, body }) => {
     client.release();
   }
 
-  // 4. create programmes_contents using programme_id, content_id
-  // 5. create categories
   // THINK ABOUT HOW TO HANDLE LIBRARY CONTENT
 };
 

@@ -34,6 +34,7 @@ const createMedia = async (
       ) RETURNING id
   `;
   const res = await query(sql, values, client);
+
   return res.rows[0];
 };
 

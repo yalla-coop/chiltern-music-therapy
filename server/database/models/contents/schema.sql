@@ -7,6 +7,7 @@ CREATE TABLE "contents" (
   "title" VARCHAR(100) NOT NULL,
   "instructions" TEXT,
   "link" TEXT,
+  "doc_content" TEXT,
   "library_content" BOOLEAN DEFAULT FALSE,
   "therapist_library_user_id" INTEGER REFERENCES users(id),
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),

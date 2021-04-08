@@ -6,18 +6,31 @@ const createContent = async (
     title,
     instructions,
     link,
+    docContent,
     libraryContent,
     therapistLibraryUserId,
     type,
   },
   client,
 ) => {
+  const values = [
+    mediaId,
+    title,
+    instructions,
+    link,
+    docContent,
+    libraryContent,
+    therapistLibraryUserId,
+    type,
+  ];
+
   const sql = `
     INSERT INTO contents(
       media_id,
       title,
       instructions,
       link,
+      doc_content,
       library_content,
       therapist_library_user_id,
       type
@@ -29,22 +42,12 @@ const createContent = async (
         $4,
         $5,
         $6,
-        $7
-      ) RETURNING *
+        $7,
+        $8
+      ) RETURNING id
   `;
-  const res = await query(
-    sql,
-    [
-      mediaId,
-      title,
-      instructions,
-      link,
-      libraryContent,
-      therapistLibraryUserId,
-      type,
-    ],
-    client,
-  );
+  const res = await query(sql, values, client);
+
   return res.rows[0];
 };
 
