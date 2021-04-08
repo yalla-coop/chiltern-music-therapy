@@ -43,6 +43,7 @@ const THERAPIST = {
   CREATE_PROGRAMME_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/clients/:id/programme/create/content/how-to-record`,
   CREATE_PROGRAMME_REVIEW: `${THERAPIST_BASE}/clients/:id/programme/create/review`,
   CREATE_PROGRAMME_SUCCESS: `${THERAPIST_BASE}/clients/:id/programme/create/success`,
+  EDIT_PROGRAMME: `${THERAPIST_BASE}/clients/:id/programme/edit`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
   CLIENT_HISTORY: `${THERAPIST_BASE}/clients/:id/history`,
   CONTACT_CLIENT: `${THERAPIST_BASE}/clients/:id/contact`,
@@ -50,6 +51,7 @@ const THERAPIST = {
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
   SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
   PROFILE: `${THERAPIST_BASE}/profile`,
+  MESSAGE: `${THERAPIST_BASE}/message`,
 };
 
 const ADMIN_BASE = '/admin';

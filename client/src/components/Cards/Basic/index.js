@@ -133,7 +133,7 @@ const Basic = ({
       );
     case 'noClients':
       return (
-        <S.BasicWrapper {...m} p="20px 30px">
+        <S.BasicWrapper {...m} p="20px 30px" open={open}>
           <T.P weight="light" color="gray10" mb="1" ta="center">
             You don't have any clients yet.
           </T.P>

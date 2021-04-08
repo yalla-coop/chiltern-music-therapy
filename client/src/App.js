@@ -102,6 +102,12 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.THERAPIST.SINGLE_PROGRAMME}
+                Component={Pages.THERAPIST.IndividProgramme}
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.PROFILE}
                 Component={Pages.THERAPIST.Profile}
                 layout="onboarding"
