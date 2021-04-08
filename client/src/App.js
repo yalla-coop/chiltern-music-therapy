@@ -193,10 +193,19 @@ function App() {
                 Component={Pages.CLIENT.MyTherapyPlan}
                 goBack
               />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_GOALS}
                 Component={Pages.CLIENT.MyTherapyGoals}
+                goBack
+                maxWidth="none"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.SEND_FEEDBACK}
+                Component={Pages.CLIENT.Feedback}
                 goBack
                 maxWidth="none"
               />
