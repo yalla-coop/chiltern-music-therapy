@@ -105,6 +105,7 @@ const IndividProgramme = () => {
                   download: path,
                   streamable: decideStreamable(type, path),
                   ...content,
+                  categories: null,
                   type: type?.toLowerCase(),
                   path,
                 }}
