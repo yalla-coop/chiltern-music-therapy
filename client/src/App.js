@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import theme, { globalStyle } from './theme';
 import { Route } from './components';
 import * as Pages from './pages';
-import { navRoutes } from './constants';
+import { navRoutes, roles } from './constants';
 import { AuthProvider } from './context/auth';
 
 import 'antd/dist/antd.css';
@@ -176,6 +176,7 @@ function App() {
                 path={navRoutes.THERAPIST.CREATE_PROGRAMME}
                 Component={Pages.THERAPIST.CreateProgram}
                 layout="general"
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
