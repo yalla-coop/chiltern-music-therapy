@@ -6,12 +6,14 @@ import Button from '../../../components/Button';
 import { Row, Col } from '../../../components/Grid';
 import validate from '../../../validation/schemas/forgotPassword';
 import { Users } from '../../../api-calls';
+import { navRoutes } from '../../../constants';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [submitAttempt, setSubmitAttempt] = useState(false);
+  const [linkSent, setLinkSent] = useState(false);
 
   const cleanEmail = (email) => email.toLowerCase().trim();
 
@@ -36,7 +38,9 @@ const ForgotPassword = () => {
       email: cleanEmail(email),
     });
     if (error) {
-      setError(error.message);
+      setError({ server: error.message });
+    } else {
+      setLinkSent(true);
     }
     setLoading(false);
   };
@@ -57,6 +61,27 @@ const ForgotPassword = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email]);
+
+  if (linkSent)
+    return (
+      <>
+        <Title boldSection="Reset" lightSection="Password" boldFirst />
+        <Row mb="5">
+          <Col w={[4, 8, 6]}>
+            <T.P color="gray8">
+              A password reset link with instructions has been emailed to you.
+            </T.P>
+          </Col>
+        </Row>
+        <Col w={[4, 8, 4]}>
+          <Button
+            text="Return to log in"
+            to={navRoutes.GENERAL.LOGIN}
+            loading={loading}
+          />
+        </Col>
+      </>
+    );
 
   return (
     <>
@@ -80,6 +105,13 @@ const ForgotPassword = () => {
           />
         </Col>
       </Row>
+      {error?.server && (
+        <Row mb="4">
+          <Col w={[4, 8, 4]}>
+            <T.P color="secondary">{error.server}</T.P>
+          </Col>
+        </Row>
+      )}
       <Col w={[4, 8, 4]}>
         <Button text="Submit" onClick={handleSubmit} loading={loading} />
       </Col>

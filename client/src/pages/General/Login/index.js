@@ -135,7 +135,7 @@ const Login = ({ status, title, msg }) => {
             handleChange={(value) => setState({ password: value })}
             error={validationErrs.password}
           />
-          <T.Link to={navRoutes.GENERAL.RESET_PASSWORD} color="gray8" mt="2">
+          <T.Link to={navRoutes.GENERAL.FORGOT_PASSWORD} color="gray8" mt="2">
             Forgot password?
           </T.Link>
         </Col>
