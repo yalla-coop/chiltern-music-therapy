@@ -146,6 +146,7 @@ const Library = () => {
             options={categoryOptions}
             handleChange={(e) => handleSelect(e, 'category')}
             label="Filter by category"
+            allowClear={false}
           />
         </Col>
         <Col w={[4, 6, 4]} mb="4">
@@ -154,6 +155,7 @@ const Library = () => {
             options={typeOptions}
             handleChange={(e) => handleSelect(e, 'type')}
             label="Filter by type"
+            allowClear={false}
           />
         </Col>
         {[userRoles.ADMIN, userRoles.SUPER_ADMIN].includes(user?.role) && (
@@ -163,6 +165,7 @@ const Library = () => {
               options={therapistOptions}
               handleChange={(e) => handleSelect(e, 'therapist')}
               label="Filter by therapist"
+              allowClear={false}
             />
           </Col>
         )}
