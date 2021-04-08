@@ -7,6 +7,7 @@ const therapist = 'therapist';
 const appLinks = {
   // GENERAL
   LOGIN: `${appUrl}/login`,
+  RESET_PASSWORD: `${appUrl}/reset-password/:token`,
   // CLIENT
   CLIENT_SIGNUP_INVITE: `${appUrl}/signup/invite?:invite`,
   // THERAPIST

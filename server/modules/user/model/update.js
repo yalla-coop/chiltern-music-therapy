@@ -66,4 +66,43 @@ const updateUserById = async (
   return res.rows[0];
 };
 
-export { updateUserById };
+const updateResetPasswordToken = async ({ token, userId }) => {
+  const values = [token, userId];
+
+  const sql = `
+    UPDATE users 
+    SET
+      reset_password_token = $1,
+      reset_password_expiry = NOW() + INTERVAL '1 DAY'
+    WHERE 
+      id = $2
+    RETURNING 
+      reset_password_token, 
+      first_name,
+      email
+  `;
+
+  const res = await query(sql, values);
+  return res.rows[0];
+};
+
+const updatePassword = async ({ password, userId }, client) => {
+  const values = [password, userId];
+
+  const sql = `
+    UPDATE users 
+    SET
+      password = $1,
+      reset_password_expiry = NOW()
+    WHERE 
+      id = $2
+    RETURNING 
+      first_name,
+      email
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+export { updateUserById, updateResetPasswordToken, updatePassword };

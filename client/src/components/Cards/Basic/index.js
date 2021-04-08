@@ -39,7 +39,7 @@ const Basic = ({
   switch (variant) {
     case 'therapistInfo':
       return (
-        <S.Wrapper open={open} {...m}>
+        <S.BasicWrapper open={open} {...m}>
           <T.P weight="light" color="gray8" mb="1">
             My therapist
           </T.P>
@@ -63,7 +63,7 @@ const Basic = ({
               Contact therapist
             </T.Link>
           </S.Links>
-        </S.Wrapper>
+        </S.BasicWrapper>
       );
     case 'textInfoShort':
       return (
@@ -122,31 +122,31 @@ const Basic = ({
       );
     case 'noProgrammes':
       return (
-        <S.Wrapper open={open} {...m} p="20px 30px">
+        <S.BasicWrapper open={open} {...m} p="20px 30px">
           <T.P weight="light" color="gray10" mb="1" ta="center">
             No home programmes added yet.
           </T.P>
           <T.P weight="bold" color="gray10" ta="center">
             Check back soon!
           </T.P>
-        </S.Wrapper>
+        </S.BasicWrapper>
       );
     case 'noClients':
       return (
-        <S.Wrapper open={open} {...m} p="20px 30px">
+        <S.BasicWrapper {...m} p="20px 30px">
           <T.P weight="light" color="gray10" mb="1" ta="center">
             You don't have any clients yet.
           </T.P>
           <T.P weight="bold" color="gray10" ta="center">
             Add a client below
           </T.P>
-        </S.Wrapper>
+        </S.BasicWrapper>
       );
     default:
       return (
-        <S.Wrapper open={open} {...m}>
+        <S.BasicWrapper open={open} {...m}>
           {children}
-        </S.Wrapper>
+        </S.BasicWrapper>
       );
   }
 };

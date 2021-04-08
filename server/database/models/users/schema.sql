@@ -7,6 +7,7 @@ CREATE TABLE "users" (
   "email" VARCHAR(100) UNIQUE,
   "password" TEXT,
   "reset_password_token" TEXT,
+  "reset_password_expiry" TIMESTAMP,
   "over_16" BOOLEAN DEFAULT TRUE,
   "postcode" VARCHAR(9), -- for clients, for now its 2 char, but could be full later
   "mobile_number" VARCHAR(50) UNIQUE,

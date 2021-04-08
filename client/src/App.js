@@ -41,6 +41,20 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.GENERAL.FORGOT_PASSWORD}
+                Component={Pages.GENERAL.ForgotPassword}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
+                path={navRoutes.GENERAL.RESET_PASSWORD}
+                Component={Pages.GENERAL.ResetPassword}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
                 path={navRoutes.GENERAL.HOME}
                 Component={Pages.GENERAL.Example}
                 layout="general"
