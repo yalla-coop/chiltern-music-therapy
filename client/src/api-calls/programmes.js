@@ -13,7 +13,8 @@ const getProgrammeById = async ({ id, options }) => {
   }
 };
 
-const getProgrammes = async ({ clientUserId }) => {
+// clientUserId is needed only for therapist and admin user
+const getProgrammes = async ({ clientUserId } = {}) => {
   try {
     const { data } = await axios.get(`${PROGRAMMES_BASE}`, {
       params: { clientUserId },
