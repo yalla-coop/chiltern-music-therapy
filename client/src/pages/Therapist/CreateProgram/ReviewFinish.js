@@ -17,6 +17,7 @@ import { dropdowns } from '../../../constants';
 import * as S from './style';
 
 import { Programmes } from '../../../api-calls';
+import { decideBorder } from '../../../helpers';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -60,6 +61,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
       return false;
     }
   };
+
   useEffect(() => {
     if (content.length === 0) {
       SET_ERRORS('Please add content to this programme');
@@ -111,7 +113,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           idx,
           id: el.id,
           title: el.title,
-          fileType: el.type,
+          type: el.type.toLowerCase(),
           instructions: el.instructions,
           categories: el.categories,
           libraryContent: el.libraryContent,
@@ -124,6 +126,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
         return (
           <Col mb={5} w={[4, 6, 5]}>
             <Expandable
+              borderColor={decideBorder(el.type)}
               content={content}
               editing
               withDate

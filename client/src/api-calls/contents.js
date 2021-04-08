@@ -19,6 +19,7 @@ const getContentByProg = async ({ id, options }) => {
 const getLibraryContent = async () => {
   try {
     const { data } = await axios.get(`${CONTENTS_BASE}/library`);
+
     return { data };
   } catch (error) {
     const err = handleError(error);

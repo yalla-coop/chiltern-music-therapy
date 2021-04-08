@@ -110,10 +110,7 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
       checkMissingContentInput();
       validate(formData);
 
-      if (!allContentInputsMissing) {
-        ADD_SINGLE_CONTENT('validationErrs', {});
-      }
-      // ADD_SINGLE_CONTENT('validationErrs', {});
+      ADD_SINGLE_CONTENT('validationErrs', {});
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {

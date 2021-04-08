@@ -11,6 +11,9 @@ const actionTypes = {
   updateFileUploadStatus: 'UPDATE_FILE_UPLOAD_STATUS',
   updateFileUploadInfo: 'UPDATE_FILE_UPLOAD_INFO',
   setFileUploadError: 'SET_FILE_UPLOAD_ERROR',
+  getLibraryContentSuccess: 'GET_LIBRARY_CONTENT_SUCCESS',
+  getLibraryContentLoading: 'GET_LIBRARY_CONTENT_LOADING',
+  getLibraryContentError: 'GET_LIBRARY_CONTENT_ERROR',
 };
 
 export default actionTypes;
