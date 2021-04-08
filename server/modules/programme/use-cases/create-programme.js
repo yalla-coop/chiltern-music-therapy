@@ -1,7 +1,7 @@
 import { getClient } from '../../../database/connect';
 import * as Programme from '../model';
 import * as TherapistClients from '../../therapist-client/model';
-import * as Media from '../../media'
+import * as Media from '../../media/model';
 import { validateCreateProgramme } from '../utils';
 
 const createProgramme = async ({ userId, body }) => {
@@ -31,20 +31,21 @@ const createProgramme = async ({ userId, body }) => {
 
     console.log('programme', programme.id);
 
-    // FOR EACH ARRAY OBJ
-
-      if(content.length > 0) {
-        await Promise.all(
-          content.map(({uploadedFileInfo}) => {
-                // 2. create media content using uploadFileInfo and user_id -> return media_id
-             if(uploadedFileInfo.uploadedToS3) {
-               const media =
-             }
-
-      }
-
+    const createProgrammeContent = await Promise.all(
+      content.map(({ libraryContent, uploadedFileInfo }) => {
+        // 2. if not already library content, create media content using uploadFileInfo and user_id -> return media_id
+        if (uploadedFileInfo.uploadedToS3) {
+          const { name, key, bucket, bucketRegion } = uploadedFileInfo;
+          const media = Media.createMedia(
+            { fileName: name, key, bucket, bucketRegion, createdBy: userId },
+            client,
+          );
+        }
+      }),
+    );
 
     await client.query('COMMIT');
+    return createProgrammeContent;
   } catch (err) {
     console.log(`err`, err);
     await client.query('ROLLBACK');

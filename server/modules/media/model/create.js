@@ -1,26 +1,24 @@
-import { query } from '../connect';
+import { query } from '../../../database';
 
 const createMedia = async (
   { fileName, key, bucket, bucketRegion, createdBy, path },
   client,
 ) => {
-  const values = [fileName, key, bucket, bucketRegion, createdBy, path];
+  const values = [fileName, key, bucket, bucketRegion, createdBy];
   const sql = `
     INSERT INTO media(
       file_name,
       key,
       bucket,
       bucket_region,
-      created_by,
-      path
+      created_by
     )
       VALUES (
         $1,
         $2,
         $3,
         $4,
-        $5,
-        $6
+        $5
       ) RETURNING *
   `;
   const res = await query(sql, values, client);
