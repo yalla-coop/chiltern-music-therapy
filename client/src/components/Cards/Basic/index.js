@@ -122,7 +122,7 @@ const Basic = ({
       );
     case 'noProgrammes':
       return (
-        <S.Wrapper {...m} p="20px 30px">
+        <S.Wrapper {...m} p="20px 30px" open="false">
           <T.P weight="light" color="gray10" mb="1" ta="center">
             No home programmes added yet.
           </T.P>
