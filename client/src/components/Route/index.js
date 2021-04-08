@@ -16,26 +16,26 @@ const Route = (props) => {
 
     if (user.id) {
       return (
-        <Layout layout={layout} {...props}>
-          <RouterRoute path={path} props exact={exact}>
+        <RouterRoute path={path} props exact={exact}>
+          <Layout layout={layout} {...props}>
             {authorized ? (
               <Component {...props} />
             ) : (
               <Redirect to={navRoutes.GENERAL.UNAUTHORIZED} {...props} />
             )}
-          </RouterRoute>
-        </Layout>
+          </Layout>
+        </RouterRoute>
       );
     }
     return <Redirect to={navRoutes.GENERAL.LOGIN} />;
   }
 
   return (
-    <Layout layout={layout} {...props}>
-      <RouterRoute path={path} props exact={exact}>
+    <RouterRoute path={path} props exact={exact}>
+      <Layout layout={layout} {...props}>
         <Component {...props} />
-      </RouterRoute>
-    </Layout>
+      </Layout>
+    </RouterRoute>
   );
 };
 

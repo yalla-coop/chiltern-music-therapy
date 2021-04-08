@@ -10,7 +10,7 @@ const { Row, Col } = Grid;
 
 const Success = () => {
   const history = useHistory();
-  // TODO GET CLIENT'S INITIALS
+
   return (
     <>
       <Row mt={5}>
@@ -24,6 +24,7 @@ const Success = () => {
       </Row>
       <Row mt={5}>
         <Col w={[4, 6, 6]}>
+          {/* TODO add client name */}
           <T.P color="gray8">
             J P SW will be notified that they can now view this content when
             they next log in.

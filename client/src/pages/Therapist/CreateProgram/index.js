@@ -2,7 +2,7 @@ import { useReducer, useEffect } from 'react';
 
 import { Switch, useHistory, useParams } from 'react-router-dom';
 
-import { navRoutes } from '../../../constants';
+import { content, navRoutes } from '../../../constants';
 
 import reducer from './reducer';
 import actionTypes from './actionTypes';
@@ -15,6 +15,10 @@ import AddContent from './AddContent';
 import ReviewFinish from './ReviewFinish';
 import Success from './Success';
 import flowTypes from './flowTypes';
+
+import { Contents } from '../../../api-calls';
+
+import { useAuth } from '../../../context/auth';
 
 const initialState = {
   description: '',
@@ -45,9 +49,21 @@ const initialState = {
       new: false,
       uploadedToS3: false,
     },
-    // form submission
-    validationErrs: {},
+  },
+  // form submission
+  errors: {},
+  loading: false,
+  // libraryContent
+  libraryContent: {
+    data: [],
     loading: false,
+    error: null,
+  },
+  // conent categories
+  contentCategories: {
+    data: [],
+    loading: false,
+    error: null,
   },
 };
 
@@ -55,6 +71,7 @@ const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
   const { id: clientId } = useParams();
+  const { user } = useAuth();
 
   const actions = {
     SET_ERRORS: (errors) => {
@@ -76,6 +93,26 @@ const CreateProgram = () => {
     },
     RESET_SINGLE_CONTENT: () => {
       dispatch({ type: actionTypes.resetSingleContent, value: initialState });
+    },
+    // Library content
+    GET_LIBRARY_CONTENT_SUCCESS: (data) => {
+      dispatch({ type: actionTypes.getLibraryContentSuccess, value: data });
+    },
+    GET_LIBRARY_CONTENT_LOADING: (bool) => {
+      dispatch({ type: actionTypes.getLibraryContentLoading, value: bool });
+    },
+    GET_LIBRARY_CONTENT_ERROR: (data) => {
+      dispatch({ type: actionTypes.getLibraryContentError, value: data });
+    },
+    // Content categories
+    GET_CONTENT_CATEGORIES_SUCCESS: (data) => {
+      dispatch({ type: actionTypes.getContentCategoriesSuccess, value: data });
+    },
+    GET_CONTENT_CATEGORIES_LOADING: (bool) => {
+      dispatch({ type: actionTypes.getContentCategoriesLoading, value: bool });
+    },
+    GET_CONTENT_CATEGORIES_ERROR: (data) => {
+      dispatch({ type: actionTypes.getContentCategoriesError, value: data });
     },
     // file upload
     HANDLE_UPLOAD_STATUS: (bool) => {
@@ -131,6 +168,40 @@ const CreateProgram = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const getContent = async () => {
+      actions.GET_LIBRARY_CONTENT_LOADING(true);
+      const { data, error } = await Contents.getLibraryContent();
+
+      if (!error) {
+        actions.GET_LIBRARY_CONTENT_SUCCESS(data);
+      } else {
+        actions.GET_LIBRARY_CONTENT_ERROR(
+          (error && error.message) || 'error loading library content'
+        );
+      }
+    };
+
+    const getCategories = async () => {
+      actions.GET_CONTENT_CATEGORIES_LOADING(true);
+      const { data, error } = await Contents.getCategories();
+
+      if (!error) {
+        const allCats = data.map(({ text }) => ({ label: text, value: text }));
+        actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);
+      } else {
+        actions.GET_CONTENT_CATEGORIES_ERROR(
+          (error && error.message) || 'error loading content categories'
+        );
+      }
+    };
+
+    if (user.id) {
+      getContent();
+      getCategories();
+    }
+  }, [user.id]);
+
   return (
     <Switch>
       <AddDescription
@@ -139,6 +210,7 @@ const CreateProgram = () => {
         actions={actions}
         state={state}
         navFunctions={navFunctions}
+        clientId={clientId}
       />
       <AddContent
         exact

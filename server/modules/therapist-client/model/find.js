@@ -147,6 +147,7 @@ const findClientByUserId = async (clientId, client) => {
       u.first_name,
       u.last_name,
       u.postcode,
+      u.status,
       tc.therapy_background,
       tc.therapy_goals,
       tc.therapist_user_id
@@ -201,7 +202,8 @@ const findClientsByTherapist = async (therapistId) => {
       u.first_name,
       u.last_name,
       u.postcode,
-      u.id
+      u.id,
+      u.status
     FROM therapist_clients tc
     INNER JOIN users u ON tc.client_user_id = u.id
     WHERE tc.therapist_user_id = $1
@@ -211,20 +213,6 @@ const findClientsByTherapist = async (therapistId) => {
   const res = await query(sql, values);
 
   return res.rows;
-};
-
-const findTherapistClientID = async ({ clientId, therapistId }, client) => {
-  const values = [clientId, therapistId];
-
-  const sql = `
-    SELECT
-    tc.id
-    FROM therapist_clients tc
-    WHERE tc.client_user_id = $1 AND tc.therapist_user_id = $2;
-  `;
-
-  const res = await query(sql, values, client);
-  return res.rows[0];
 };
 
 export {
@@ -237,5 +225,4 @@ export {
   findClientByUserId,
   findTherapistClientByClientId,
   findTherapyByClientId,
-  findTherapistClientID,
 };

@@ -7,7 +7,9 @@ const Tag = ({ tag, tags, ...props }) => {
         {tags.map((tag, index) => (
           <S.Wrapper key={tag + index}>
             <S.Div>
-              <P color="gray8">{tag}</P>
+              <S.InnerDiv>
+                <P color="gray8">{tag}</P>
+              </S.InnerDiv>
             </S.Div>
           </S.Wrapper>
         ))}
@@ -18,7 +20,9 @@ const Tag = ({ tag, tags, ...props }) => {
   return (
     <S.Wrapper {...props}>
       <S.Div>
-        <P color="gray8">{tag || props.children}</P>
+        <S.InnerDiv>
+          <P color="gray8">{tag || props.children}</P>
+        </S.InnerDiv>
       </S.Div>
     </S.Wrapper>
   );

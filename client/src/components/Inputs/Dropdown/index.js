@@ -24,6 +24,7 @@ const Dropdown = ({
   bold,
   search,
   addNew,
+  allowClear = true,
 }) => {
   const [open, setOpen] = useState(false);
   const [focus, setFocus] = useState(false);
@@ -104,7 +105,7 @@ const Dropdown = ({
           mode={decideMode()}
           placeholder={placeholder || 'Type here...'}
           showArrow
-          allowClear
+          allowClear={allowClear}
           onDropdownVisibleChange={(open) => setOpen(open)}
           dropdownStyle={S.menuStyle}
           disabled={disabled}

@@ -8,7 +8,7 @@ const GENERAL = {
 
 const CLIENT = {
   SIGNUP: '/signup',
-  WELCOME: '/welcome',
+  WELCOME: '/welcome/:id',
   DASHBOARD: '/dashboard',
   MY_THERAPIST: '/my-therapist',
   THERAPY_PLAN: '/therapy-plan',
@@ -17,6 +17,8 @@ const CLIENT = {
   PROGRAMMES: '/programmes',
   THERAPIST: '/my-therapist',
   ACCOUNT: '/account',
+  ACCOUNT_DELETED: '/account-deleted',
+  DELETE_ACCOUNT: '/delete-account',
   INDIVID_PROGRAMME: '/programmes/:id',
   SEND_UPDATE: `/programmes/:id/update`,
   SEND_FEEDBACK: `/programmes/:id/feedback`,
@@ -27,7 +29,7 @@ const THERAPIST_BASE = '/therapist';
 const THERAPIST = {
   HOME: THERAPIST_BASE,
   SIGNUP: `${THERAPIST_BASE}/signup`,
-  WELCOME: `${THERAPIST_BASE}/welcome`,
+  WELCOME: `${THERAPIST_BASE}/welcome/:id`,
   DASHBOARD: `${THERAPIST_BASE}/dashboard`,
   LIBRARY: `${THERAPIST_BASE}/library`,
   FEEDBACK: `${THERAPIST_BASE}/feedback`,

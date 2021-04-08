@@ -10,6 +10,7 @@ import moment from 'moment';
 
 import { Programmes, TherapistClients } from '../../../api-calls';
 import { THERAPIST } from '../../../constants/nav-routes';
+import { userStatuses } from '../../../constants';
 import ClientHistory from './ClientHistory';
 import Title from '../../../components/Title';
 
@@ -20,6 +21,7 @@ const SingleClient = ({ clientHistory }) => {
     postcode: '',
     therapyBackground: '',
     therapyGoals: [],
+    status: userStatuses.ACTIVE,
   });
   const [programmes, setProgrammes] = useState([]);
 
@@ -71,11 +73,15 @@ const SingleClient = ({ clientHistory }) => {
 
   return (
     <S.Wrapper>
-      <Title
-        boldSection={state.firstInitial}
-        lightSection={`${state.lastInitial} ${state.postcode}`}
-        boldFirst
-      />
+      {state.status === userStatuses.DELETED ? (
+        <Title boldSection={''} lightSection={'Discharged Client'} />
+      ) : (
+        <Title
+          boldSection={state.firstInitial}
+          lightSection={`${state.lastInitial} ${state.postcode}`}
+          boldFirst
+        />
+      )}
 
       <Row mb="6">
         <Col w={[4, 12, 6]}>
@@ -124,6 +130,7 @@ const SingleClient = ({ clientHistory }) => {
           <Button
             text="Add new programme"
             to={THERAPIST.CREATE_PROGRAMME.replace(':id', id)}
+            disabled={state.status === userStatuses.DELETED}
           />
         </Col>
       </Row>
@@ -163,9 +170,10 @@ const SingleClient = ({ clientHistory }) => {
       <Row mb="8" mt="7">
         <Col w={[4, 12, 5]}>
           <Button
-            to={THERAPIST.CONTACT_CLIENT}
+            to={THERAPIST.CONTACT_CLIENT.replace(':id', id)}
             text="Contact client"
             variant="secondary"
+            disabled={state.status === userStatuses.DELETED}
           />
         </Col>
       </Row>

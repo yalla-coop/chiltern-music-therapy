@@ -1,6 +1,7 @@
 import Boom from '@hapi/boom';
 import * as TherapistClients from '../model';
 import { errorMsgs } from '../../../services/error-handler';
+import { userStatuses } from '../../../constants';
 
 const getClientById = async ({ clientId, userId }) => {
   const client = await TherapistClients.findClientByUserId(clientId);
@@ -15,15 +16,17 @@ const getClientById = async ({ clientId, userId }) => {
 
   const { firstName, lastName } = client;
 
-  // eslint-disable-next-line prefer-destructuring
-  client.firstInitial = firstName[0];
-  delete client.firstName;
+  if (client.status !== userStatuses.DELETED) {
+    // eslint-disable-next-line prefer-destructuring
+    client.firstInitial = firstName[0];
+    delete client.firstName;
 
-  // eslint-disable-next-line prefer-destructuring
-  client.lastInitial = lastName[0];
-  delete client.lastName;
+    // eslint-disable-next-line prefer-destructuring
+    client.lastInitial = lastName[0];
+    delete client.lastName;
 
-  client.postcode = (client.postcode && client.postcode.slice(0, 2)) || '';
+    client.postcode = (client.postcode && client.postcode.slice(0, 2)) || '';
+  }
 
   return client;
 };
