@@ -142,11 +142,7 @@ function App() {
                 path={navRoutes.CLIENT.PROGRAMMES}
                 Component={Pages.CLIENT.AllProgrammes}
               />
-              <Route
-                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
-                Component={Pages.THERAPIST.CreateProgram}
-                layout="general"
-              />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_PLAN}
@@ -160,6 +156,15 @@ function App() {
                 goBack
                 maxWidth="none"
               />
+
+              {/* therapist sub routes */}
+
+              <Route
+                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
+                Component={Pages.THERAPIST.CreateProgram}
+                layout="general"
+              />
+
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
