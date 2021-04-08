@@ -20,7 +20,7 @@ const dummyDescription =
 const IndividProgramme = () => {
   const [contents, setContents] = useState([]);
   const [update, setUpdate] = useState({});
-  const [description, setDescription] = useState(dummyDescription);
+  const [description, setDescription] = useState('');
   const [ellipsis, setEllipsis] = useState(true);
 
   const { user } = useAuth();
@@ -77,7 +77,7 @@ const IndividProgramme = () => {
   return (
     <>
       <Title boldSection="Home Programme" />
-      <Row mb="4">
+      <Row mb="7" mbT="5">
         <S.HorizontalCol w={[4, 6, 8]}>
           <S.GreenLine />
           <T.P small color="gray8" caps>
@@ -85,8 +85,8 @@ const IndividProgramme = () => {
           </T.P>
         </S.HorizontalCol>
       </Row>
-      <Row mb="5">
-        <Col w={[4, 6, 8]}>
+      <Row mb="7" mbT="5">
+        <Col w={[4, 6, 6]}>
           <T.P color="gray8" ellipsis={ellipsis ? { rows: 2 } : false}>
             {description}
           </T.P>
@@ -106,13 +106,14 @@ const IndividProgramme = () => {
                 Programme content
               </T.H2>
             </Col>
-            {contents.map(({ type, path, ...content }, index) => (
+            {contents.map(({ type, path, categories, ...content }, index) => (
               <Col w={[4, 6, 4]} mb="4">
                 <Expandable
                   borderColor={decideBorder(type)}
                   content={{
                     download: path,
                     streamable: decideStreamable(type, path),
+                    categories: categories.filter((cat) => cat !== null),
                     ...content,
                     type: type?.toLowerCase(),
                     path,

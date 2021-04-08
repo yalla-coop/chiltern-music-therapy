@@ -19,6 +19,8 @@ const IndividProgramme = () => {
   const [update, setUpdate] = useState({});
   const [feedback, setFeedback] = useState({});
   const [therapist, setTherapist] = useState({});
+  const [description, setDescription] = useState('');
+  const [ellipsis, setEllipsis] = useState(true);
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -59,6 +61,7 @@ const IndividProgramme = () => {
         setUpdate(data.update);
         setFeedback(data.feedback);
         setTherapist(data.therapist);
+        setDescription(data.description);
       }
     };
 
@@ -80,13 +83,16 @@ const IndividProgramme = () => {
         </Col>
       </Row>
       <Title lightSection="My" boldSection="Home Programme" />
-      <Row mb="5">
-        <Col w={[4, 6, 8]}>
-          <T.P color="gray8">
-            Here you will find the weekly resources that your therapist has
-            prepared especially for you. You can access these resources in
-            between sessions to enhance your therapeutic outcomes.
+      <Row mb="7" mbT="5">
+        <Col w={[4, 6, 6]}>
+          <T.P color="gray8" ellipsis={ellipsis ? { rows: 2 } : false}>
+            {description}
           </T.P>
+          {ellipsis && (
+            <T.Link onClick={() => setEllipsis(false)} mt="4" underline>
+              Read more
+            </T.Link>
+          )}
         </Col>
       </Row>
       <Row mb="8">
@@ -99,6 +105,7 @@ const IndividProgramme = () => {
                   download: path,
                   streamable: decideStreamable(type, path),
                   ...content,
+                  categories: null,
                   type: type?.toLowerCase(),
                   path,
                 }}
