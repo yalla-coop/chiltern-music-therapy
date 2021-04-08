@@ -19,6 +19,7 @@ const IndividProgramme = () => {
   const [update, setUpdate] = useState({});
   const [feedback, setFeedback] = useState({});
   const [therapist, setTherapist] = useState({});
+  const [description, setDescription] = useState('');
 
   const { user } = useAuth();
   const { id } = useParams();

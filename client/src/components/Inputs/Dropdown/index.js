@@ -100,8 +100,12 @@ const Dropdown = ({
       <S.Answer>
         <AntdSelect
           value={selected || undefined}
-          onSelect={multi ? undefined : handleChange}
-          onChange={multi ? handleChange : undefined}
+          onSelect={(val, option) =>
+            multi ? undefined : handleChange(val, option)
+          }
+          onChange={(val, option) =>
+            multi ? handleChange(val, option) : undefined
+          }
           mode={decideMode()}
           placeholder={placeholder || 'Type here...'}
           showArrow
