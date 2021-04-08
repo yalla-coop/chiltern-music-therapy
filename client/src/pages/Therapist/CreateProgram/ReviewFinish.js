@@ -12,8 +12,6 @@ import {
 
 import validate from '../../../validation/schemas/programme';
 
-import { dropdowns } from '../../../constants';
-
 import * as S from './style';
 
 import { Programmes } from '../../../api-calls';
@@ -23,12 +21,10 @@ const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Expandable } = Cards;
 
-const { therapyGoalsCategories } = dropdowns;
-
 const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
-  const { description, content, errors, loading } = state;
+  const { description, content, errors, loading, contentCategories } = state;
 
   const {
     SET_DESCRIPTION,
@@ -37,6 +33,8 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
     SET_ERRORS,
     SET_LOADING,
   } = actions;
+
+  const { data: contentCategoriesData } = contentCategories;
 
   const validateForm = () => {
     try {
@@ -132,7 +130,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
               withDate
               remove={REMOVE_CONTENT_ITEM}
               handleInput={UPDATE_CONTENT_ITEM}
-              categoryOptions={therapyGoalsCategories}
+              categoryOptions={contentCategoriesData}
               review
             />
           </Col>

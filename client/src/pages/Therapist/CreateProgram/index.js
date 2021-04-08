@@ -59,6 +59,12 @@ const initialState = {
     loading: false,
     error: null,
   },
+  // conent categories
+  contentCategories: {
+    data: [],
+    loading: false,
+    error: null,
+  },
 };
 
 const CreateProgram = () => {
@@ -88,6 +94,7 @@ const CreateProgram = () => {
     RESET_SINGLE_CONTENT: () => {
       dispatch({ type: actionTypes.resetSingleContent, value: initialState });
     },
+    // Library content
     GET_LIBRARY_CONTENT_SUCCESS: (data) => {
       dispatch({ type: actionTypes.getLibraryContentSuccess, value: data });
     },
@@ -96,6 +103,16 @@ const CreateProgram = () => {
     },
     GET_LIBRARY_CONTENT_ERROR: (data) => {
       dispatch({ type: actionTypes.getLibraryContentError, value: data });
+    },
+    // Content categories
+    GET_CONTENT_CATEGORIES_SUCCESS: (data) => {
+      dispatch({ type: actionTypes.getContentCategoriesSuccess, value: data });
+    },
+    GET_CONTENT_CATEGORIES_LOADING: (bool) => {
+      dispatch({ type: actionTypes.getContentCategoriesLoading, value: bool });
+    },
+    GET_CONTENT_CATEGORIES_ERROR: (data) => {
+      dispatch({ type: actionTypes.getContentCategoriesError, value: data });
     },
     // file upload
     HANDLE_UPLOAD_STATUS: (bool) => {
@@ -163,21 +180,24 @@ const CreateProgram = () => {
       }
     };
 
-    // const getCategories = async () => {
-    //   const { data, error } = await Contents.getCategories();
+    const getCategories = async () => {
+      actions.GET_CONTENT_CATEGORIES_LOADING(true);
+      const { data, error } = await Contents.getCategories();
 
-    //   if (!error) {
-    //     const allCats = data.map(({ text }) => ({ label: text, value: text }));
-    //     setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
-    //   }
-    // };
+      if (!error) {
+        const allCats = data.map(({ text }) => ({ label: text, value: text }));
+        actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);
+      } else {
+        actions.GET_LIBRARY_CONTENT_ERROR(data);
+      }
+    };
 
     if (user.id) {
       getContent();
-      // getCategories();
+      getCategories();
     }
   }, [user.id]);
-  console.log(`state.content`, state.content);
+
   return (
     <Switch>
       <AddDescription
