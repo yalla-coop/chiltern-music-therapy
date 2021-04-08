@@ -1,5 +1,5 @@
 import { TherapistClients } from '../../../api-calls';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Title from '../../../components/Title';
 import Step1 from './Step1';
 import Step2 from './Step2';
@@ -12,6 +12,7 @@ const AddClient = () => {
   const [state, setState] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
   const [inviteToken, setInviteToken] = useState('');
+  const [submitAttempt, setSubmitAttempt] = useState(false);
 
   const submitStep = (stepState) => {
     setState((_state) => ({ ..._state, ...stepState }));
@@ -20,13 +21,24 @@ const AddClient = () => {
 
   const submitFinalStep = async (stepState) => {
     setState((_state) => ({ ..._state, ...stepState }));
+    setSubmitAttempt(true);
+  };
 
+  const addNewClient = async () => {
     const { data, error } = await TherapistClients.addNewClient({ state });
     if (data) {
       setInviteToken(data.inviteToken);
       setCurrentStep((current) => current + 1);
     }
+    setSubmitAttempt(false);
   };
+
+  useEffect(() => {
+    if (submitAttempt) {
+      addNewClient();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitAttempt]);
 
   const renderStep = () => {
     switch (currentStep) {

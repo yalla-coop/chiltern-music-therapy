@@ -30,10 +30,9 @@ const createClient = async (
       $6,
       $7
     )
-    RETURNING (
+    RETURNING 
       id,
       invite_token
-    )
     `;
 
   const values = [
