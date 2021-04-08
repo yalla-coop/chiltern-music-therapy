@@ -63,6 +63,16 @@ const getUserDashboard = async ({ options } = {}) => {
   }
 };
 
+const deleteMyAccount = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.delete(`${USERS_BASE}`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 const getTherapists = async ({ options } = {}) => {
   try {
     const { data } = await axios.get(`${USERS_BASE}/therapists`);
@@ -80,5 +90,6 @@ export {
   login,
   logout,
   getUserDashboard,
+  deleteMyAccount,
   getTherapists,
 };

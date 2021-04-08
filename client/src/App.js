@@ -125,6 +125,22 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.CLIENT.DELETE_ACCOUNT}
+                Component={Pages.CLIENT.DeleteAccount}
+                layout="general"
+                allowedRoles={[roles.CLIENT]}
+                isPrivate
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.ACCOUNT_DELETED}
+                Component={Pages.CLIENT.AccountDeleted}
+                layout="general"
+              />
+
+              <Route
+                exact
                 path={navRoutes.CLIENT.THERAPIST}
                 Component={Pages.CLIENT.MyTherapist}
                 layout="general"
