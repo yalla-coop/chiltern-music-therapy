@@ -77,12 +77,14 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
       !validInput(link)
     ) {
       setAllContentInputsMissing(missingErrorMsg);
+      throw new Error();
     } else if (
       [fileCategories.audio, fileCategories.video].includes(category) &&
       !uploadedFileInfo.new &&
       !validInput(link)
     ) {
       setAllContentInputsMissing(missingErrorMsg);
+      throw new Error();
     } else {
       setAllContentInputsMissing(null);
       HANDLE_FILE_UPLOAD_ERROR('');
@@ -111,7 +113,7 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
       if (!allContentInputsMissing) {
         ADD_SINGLE_CONTENT('validationErrs', {});
       }
-
+      // ADD_SINGLE_CONTENT('validationErrs', {});
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
