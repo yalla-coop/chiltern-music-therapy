@@ -84,7 +84,7 @@ export const phoneNumber = string()
 
 export const postcodeLetters = string()
   .min(1, errMsgs.DEFAULT_REQUIRED)
-  .max(2)
+  .max(2, errMsgs.AT_MOST_TWO_LETTERS)
   .required(errMsgs.DEFAULT_REQUIRED);
 
 export const goalsArrayAtLeastOne = array()
@@ -96,6 +96,11 @@ export const goalsArrayAtLeastOne = array()
   )
   .test('goals', errMsgs.AT_LEAST_ADD_ONE, (goals) => {
     return goals.some((goal) => goal.goal && goal.category);
+  })
+  .test('goals', errMsgs.All_required, (goals) => {
+    return goals.length === 1
+      ? true
+      : goals.every((goal) => goal.goal && goal.category);
   });
 
 export const biography = string().when('useMeanBio', {
