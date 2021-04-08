@@ -39,7 +39,6 @@ const findUserByEmail = async (email, client) => {
   return res.rows[0];
 };
 
-<<<<<<< HEAD
 const findUserByResetToken = async (token, client) => {
   const values = [token];
   const sql = `
@@ -54,8 +53,6 @@ const findUserByResetToken = async (token, client) => {
   return res.rows[0];
 };
 
-export { findUserById, findUserByEmail, findUserByResetToken };
-=======
 const findTherapists = async () => {
   const sql = `
     SELECT first_name, last_name, id, roles::VARCHAR[] FROM users  
@@ -69,5 +66,4 @@ const findTherapists = async () => {
   return therapists;
 };
 
-export { findUserById, findUserByEmail, findTherapists };
->>>>>>> develop
+export { findUserById, findUserByEmail, findTherapists, findUserByResetToken };
