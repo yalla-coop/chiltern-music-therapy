@@ -56,8 +56,6 @@ const CreateProgram = () => {
   const history = useHistory();
   const { id: clientId } = useParams();
 
-  console.log(`location`, clientId);
-
   const actions = {
     SET_ERRORS: (errors) => {
       dispatch({ type: actionTypes.setErrors, value: errors });
@@ -141,6 +139,7 @@ const CreateProgram = () => {
         actions={actions}
         state={state}
         navFunctions={navFunctions}
+        clientId={clientId}
       />
       <AddContent
         exact
