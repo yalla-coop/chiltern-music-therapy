@@ -87,25 +87,20 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
   };
 
   const handleCreateProgramme = async () => {
-    // SET_LOADING(true);
+    SET_LOADING(true);
 
-    // const { error, data } = await Programmes.createProgramme({
-    //   clientId,
-    //   description,
-    //   content,
-    // });
-    // SET_LOADING(false);
-    // if (error) {
-    //   if (error.statusCode === 409) {
-    //     SET_ERRORS(error.message);
-    //   } else {
-    //     console.log('SUCCESSSSS');
-    //     // TODO add modal
-    //     navFunctions.goToSuccess();
-    //   }
-    // }
-
-    navFunctions.goToSuccess();
+    const { error, data } = await Programmes.createProgramme({
+      clientId,
+      description,
+      content,
+    });
+    SET_LOADING(false);
+    if (error) {
+      SET_ERRORS(error.message);
+    } else {
+      // TODO add modal
+      navFunctions.goToSuccess();
+    }
   };
 
   const renderReviewCards = (_content) => {
@@ -136,6 +131,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
               handleInput={UPDATE_CONTENT_ITEM}
               categoryOptions={therapyGoalsCategories}
               review
+              // add border color
             />
           </Col>
         );
@@ -150,6 +146,8 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
       );
     }
   };
+  const hasErrors =
+    typeof errors === 'object' && Object.keys(errors).length > 0;
 
   return (
     <>
@@ -175,7 +173,6 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           />
         </Col>
       </Row>
-
       <Row mt={7}>{renderReviewCards(content)}</Row>
       {errors && typeof errors === 'string' && (
         <Row mt={5}>
@@ -184,14 +181,14 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           </T.P>
         </Row>
       )}
-      {/* {errors   && (
+      {hasErrors && (
         <Row mt={5}>
           <T.P bold color="pink">
             Errors storing your programme. Please check if all inputs are filled
             in correctly.
           </T.P>
         </Row>
-      )} */}
+      )}
       <Row mt={7}>
         <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button

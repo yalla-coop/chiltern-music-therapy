@@ -25,7 +25,11 @@ const Expandable = ({
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
-  const { type } = content;
+  const { type, validationErrs = {} } = content;
+
+  const hasErrors =
+    typeof validationErrs === 'object' &&
+    Object.keys(validationErrs).length > 0;
 
   const titleData = {
     video: { action: 'Watch', title: 'video', icon: 'video' },
@@ -46,6 +50,7 @@ const Expandable = ({
       onClick={() => !open && setOpen(true)}
       height={selectedHeight}
       ref={contentRef}
+      error={hasErrors}
     >
       {open && (
         <S.CrossBtn onClick={() => setOpen(false)}>
