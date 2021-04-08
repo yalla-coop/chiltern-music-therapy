@@ -4,6 +4,7 @@ import therapistSignup from './therapist-signup';
 import login from './login';
 import deleteUser from './delete-user';
 import resetPasswordLink from './reset-password-link';
+import updatePassword from './update-password';
 
 export {
   getUserById,
@@ -12,4 +13,5 @@ export {
   login,
   deleteUser,
   resetPasswordLink,
+  updatePassword,
 };

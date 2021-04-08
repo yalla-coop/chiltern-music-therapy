@@ -142,7 +142,11 @@ const Login = ({ status, title, msg }) => {
       </Row>
       <Row>
         <Col w={[4, 12, 4]}>
-          <T.P color="error">{httpError}</T.P>
+          {httpError && (
+            <T.P mb="4" color="error">
+              {httpError}
+            </T.P>
+          )}
           <Button text="Log in" type="submit" loading={loading} />
         </Col>
       </Row>

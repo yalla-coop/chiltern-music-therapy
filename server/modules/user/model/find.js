@@ -38,4 +38,18 @@ const findUserByEmail = async (email, client) => {
   return res.rows[0];
 };
 
-export { findUserById, findUserByEmail };
+const findUserByResetToken = async (token, client) => {
+  const values = [token];
+  const sql = `
+  SELECT
+    id,
+    reset_password_expiry
+  FROM users
+    WHERE reset_password_token = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+export { findUserById, findUserByEmail, findUserByResetToken };

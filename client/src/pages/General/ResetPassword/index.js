@@ -5,7 +5,7 @@ import * as T from '../../../components/Typography';
 import { BasicInput } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { Row, Col } from '../../../components/Grid';
-import validate from '../../../validation/schemas/forgotPassword';
+import validate from '../../../validation/schemas/updatePassword';
 import { Users } from '../../../api-calls';
 import { navRoutes } from '../../../constants';
 

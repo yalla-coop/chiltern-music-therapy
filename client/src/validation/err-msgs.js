@@ -7,7 +7,7 @@ export const TOO_LONG_MAX_200 = 'Too long - should be 200 characters maximum';
 export const TOO_LONG_MAX_300 = 'Too long - should be 300 characters maximum';
 export const TOO_LONG_MAX_500 = 'Too long - should be 500 characters maximum';
 export const SHORT_PASSWORD =
-  'Password must contain min. 8 characters, one capital letter, one lowercase letter and one number';
+  'Password must contain min. 8 characters, one capital letter, one lowercase letter, one number and one non alphabetical or numeric character';
 export const SHOULD_AGREE_ON_TERMS =
   'You must agree to our terms and conditions';
 export const TOO_SHORT_MIN_5 = 'Too short - should be 5 characters minimum';
