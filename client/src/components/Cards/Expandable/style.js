@@ -79,3 +79,7 @@ export const CrossBtn = styled.button`
   display: flex;
   justify-content: flex-end;
 `;
+
+export const BoldSpan = styled.span`
+  font-weight: bold;
+`;
