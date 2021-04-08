@@ -19,7 +19,7 @@ const createMedia = async (
         $3,
         $4,
         $5
-      ) RETURNING *
+      ) RETURNING id
   `;
   const res = await query(sql, values, client);
   return res.rows[0];

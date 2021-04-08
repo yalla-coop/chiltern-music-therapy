@@ -40,6 +40,7 @@ const createProgramme = async ({ userId, body }) => {
             { fileName: name, key, bucket, bucketRegion, createdBy: userId },
             client,
           );
+          // 3. create contents using media_id (if there), title, instructions, link (if there), libraryC, therapistLibId  -> return content_id
         }
       }),
     );
@@ -54,10 +55,9 @@ const createProgramme = async ({ userId, body }) => {
     client.release();
   }
 
-  // 3. create contents using media_id (if there), title, instructions, link (if there), libraryC, therapistLibId  -> return content_id
   // 4. create programmes_contents using programme_id, content_id
   // 5. create categories
-  // throw Boom.conflict(errorMsgs.EMAIL_ALREADY_EXISTS, { field: 'email' });
+  // THINK ABOUT HOW TO HANDLE LIBRARY CONTENT
 };
 
 export default createProgramme;
