@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
-import { dateFormatter, linkFormatter } from '../../../helpers';
+import { dateFormatter } from '../../../helpers';
 
 import ViewMode from './ViewMode';
 import EditMode from './EditMode';
@@ -14,6 +14,7 @@ const Expandable = ({
   edit,
   withDate,
   editing,
+  review,
   library,
   handleInput,
   saveChanges,
@@ -24,7 +25,7 @@ const Expandable = ({
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
-  const { type, title, date } = content;
+  const { type } = content;
 
   const titleData = {
     video: { action: 'Watch', title: 'video', icon: 'video' },
@@ -55,18 +56,33 @@ const Expandable = ({
       <S.Title open={open}>
         <Icon icon={titleData[type]?.icon} mr="3" width="33" height="33" />
 
-        {withDate ? (
-          <S.DateTitle>
-            <T.P color="gray8" caps small>
-              {dateFormatter(date) || 'N/A'}
-            </T.P>
-            <T.P weight="bold">{title || 'N/A'}</T.P>
-          </S.DateTitle>
-        ) : (
+        {review ? (
           <T.P weight="light" mr="1">
-            {titleData[type]?.action}{' '}
-            <span style={{ fontWeight: 'bold' }}>{titleData[type]?.title}</span>
+            Review
+            <span style={{ fontWeight: 'bold' }}> {titleData[type].title}</span>
           </T.P>
+        ) : (
+          <>
+            {withDate ? (
+              <S.DateTitle>
+                <T.P color="gray8" caps small>
+                  {dateFormatter(content.date) || 'N/A'}
+                </T.P>
+                <T.P weight="bold">{content.title || 'N/A'}</T.P>
+              </S.DateTitle>
+            ) : (
+              <T.P weight="light" mr="1">
+                {titleData[content.fileType]?.action}{' '}
+                <span style={{ fontWeight: 'bold' }}>
+                  {titleData[content.fileType]?.title}
+                </span>
+                {titleData[type]?.action}{' '}
+                <span style={{ fontWeight: 'bold' }}>
+                  {titleData[type]?.title}
+                </span>
+              </T.P>
+            )}
+          </>
         )}
       </S.Title>
       {editing ? (

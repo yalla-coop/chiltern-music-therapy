@@ -10,9 +10,7 @@ const getSignedURL = async (req, res, next) => {
       fileMaxSize,
     } = req.query;
 
-    // TODO update user id
-    // const { id } = req.user;
-    const id = '1';
+    const { id } = req.user;
 
     const fileInfo = await getSignedURLUseCase({
       fileType,

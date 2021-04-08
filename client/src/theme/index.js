@@ -12,7 +12,7 @@ const constants = {
   // ...
 };
 
-const spacings = {
+export const spacings = {
   0: '0px',
   1: '4px',
   2: '8px',
@@ -28,7 +28,7 @@ const spacings = {
 
 export const screensWidth = {
   mobileXS: 374,
-  mobile: 449,
+  mobile: 580,
   tablet: 949,
   desktop: 1442,
 };

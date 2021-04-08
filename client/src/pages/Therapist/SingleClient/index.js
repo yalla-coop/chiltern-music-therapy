@@ -128,7 +128,7 @@ const SingleClient = ({ clientHistory }) => {
         <Col w={[4, 12, 4]}>
           <Button
             text="Add new programme"
-            to={THERAPIST.CREATE_PROGRAM}
+            to={THERAPIST.CREATE_PROGRAMME.replace(':id', id)}
             disabled={state.status === userStatuses.DELETED}
           />
         </Col>

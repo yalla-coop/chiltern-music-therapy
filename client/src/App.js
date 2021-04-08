@@ -46,14 +46,17 @@ function App() {
                 layout="general"
                 image="hands"
               />
-              <Route
-                exact
-                path={navRoutes.CLIENT.DASHBOARD}
-                Component={Pages.CLIENT.Dashboard}
-                layout="general"
-              />
 
               {/* Therapist Pages */}
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.WELCOME}
+                Component={Pages.GENERAL.Welcome}
+                layout="info"
+                section="welcome"
+              />
+
               <Route
                 exact
                 path={navRoutes.THERAPIST.CLIENT}
@@ -70,18 +73,25 @@ function App() {
                 clientHistory
               />
 
-              {/* Client Pages */}
               <Route
                 exact
                 path={navRoutes.THERAPIST.DASHBOARD}
                 Component={Pages.THERAPIST.Dashboard}
                 layout="general"
               />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.NEW_CLIENT}
+                Component={Pages.THERAPIST.AddClient}
+              />
+
               <Route
                 exact
                 path={navRoutes.THERAPIST.CREATE_PROGRAM}
                 Component={Pages.THERAPIST.CreateProgram}
               />
+
               <Route
                 exact
                 path={navRoutes.THERAPIST.PROFILE}
@@ -89,7 +99,36 @@ function App() {
                 layout="onboarding"
               />
 
+              <Route
+                exact
+                path={navRoutes.THERAPIST.LIBRARY}
+                Component={Pages.THERAPIST.Library}
+              />
+
+              {/* Admin Pages */}
+              <Route
+                exact
+                path={navRoutes.ADMIN.ALL_CONTENT}
+                Component={Pages.THERAPIST.Library}
+              />
+
               {/* Client Pages */}
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.WELCOME}
+                Component={Pages.GENERAL.Welcome}
+                layout="info"
+                section="welcome"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.DASHBOARD}
+                Component={Pages.CLIENT.Dashboard}
+                layout="general"
+              />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.DELETE_ACCOUNT}
@@ -133,6 +172,7 @@ function App() {
                 path={navRoutes.CLIENT.PROGRAMMES}
                 Component={Pages.CLIENT.AllProgrammes}
               />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_PLAN}
@@ -146,6 +186,16 @@ function App() {
                 goBack
                 maxWidth="none"
               />
+
+              {/* therapist sub routes */}
+
+              <Route
+                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
+                Component={Pages.THERAPIST.CreateProgram}
+                layout="general"
+                allowedRoles={[roles.THERAPIST]}
+              />
+
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"

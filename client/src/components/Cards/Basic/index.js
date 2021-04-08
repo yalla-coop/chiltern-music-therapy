@@ -2,7 +2,15 @@ import * as S from './style';
 import * as T from '../../Typography';
 import { navRoutes } from '../../../constants';
 
-const Basic = ({ children, variant, therapistInfo, m }) => {
+const Basic = ({
+  children,
+  variant,
+  therapistInfo,
+  m,
+  open,
+  contentRef,
+  selectedHeight,
+}) => {
   const textInfoShort = [
     'Open your camera app',
     "Press record and stop when you're finished",
@@ -59,7 +67,7 @@ const Basic = ({ children, variant, therapistInfo, m }) => {
       );
     case 'textInfoShort':
       return (
-        <S.Wrapper {...m}>
+        <S.Wrapper open={open} ref={contentRef} height={selectedHeight} {...m}>
           <T.H4 bold color="gray10" mb="4">
             On your phone or tablet
           </T.H4>
@@ -78,9 +86,9 @@ const Basic = ({ children, variant, therapistInfo, m }) => {
       );
     case 'textInfoLong':
       return (
-        <S.Wrapper {...m}>
+        <S.Wrapper open={open} ref={contentRef} height={selectedHeight} {...m}>
           <T.H4 bold color="gray10" mb="5">
-            On your phone or tablet
+            On your Computer
           </T.H4>
           <T.P weight="bold" color="gray9" mb="4">
             Option 1

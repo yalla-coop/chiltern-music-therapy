@@ -1,6 +1,8 @@
-import { string, number, boolean, array } from 'yup';
+import { string, number, boolean, array, object } from 'yup';
 import * as errMsgs from './err-msgs';
 import './custom-functions';
+
+const URLregex = /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#.-]+)*\/?(\?[a-zA-Z0-9-_.-]+=[a-zA-Z0-9-%?&=.-]+&?)?$/;
 
 export const requiredText = string().required(errMsgs.DEFAULT_REQUIRED);
 
@@ -57,17 +59,51 @@ export const optionalText = string()
   .nullable();
 
 export const urlRequired = string()
-  .matches(
-    /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#.-]+)*\/?(\?[a-zA-Z0-9-_.-]+=[a-zA-Z0-9-%?&=.-]+&?)?$/,
-    {
-      message: errMsgs.INVALID_LINK,
-    }
-  )
+  .matches(URLregex, {
+    message: errMsgs.INVALID_LINK,
+  })
   .required(errMsgs.DEFAULT_REQUIRED);
+
+export const description = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(500)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+// SINGLE CONTENT FIELDS
+export const title = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(50)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const categories = array().of(string()).nullable();
+
+export const libraryContent = boolean()
+  .oneOf([true, false])
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const instructions = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(1000)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const link = string().matches(URLregex, {
+  message: errMsgs.INVALID_LINK,
+});
+
+export const docContent = string().min(1, errMsgs.DEFAULT_REQUIRED).max(1000);
 
 export const inviteToken = string()
   .length(8)
   .required(errMsgs.DEFAULT_REQUIRED);
+
+export const content = array().of(
+  object().shape({
+    title,
+    categories,
+    libraryContent,
+    instructions,
+  })
+);
 
 export const optionalPhoneNumber = string().when((value, schema) => {
   if (value) {
@@ -75,3 +111,40 @@ export const optionalPhoneNumber = string().when((value, schema) => {
   }
   return schema.nullable();
 });
+
+export const phoneNumber = string()
+  .required(errMsgs.DEFAULT_REQUIRED)
+  .when((value, schema) => {
+    return schema.phone().typeError(errMsgs.INVALID_PHONE);
+  });
+
+export const postcodeLetters = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(2, errMsgs.AT_MOST_TWO_LETTERS)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const goalsArrayAtLeastOne = array()
+  .of(
+    object().shape({
+      goal: string().required(errMsgs.DEFAULT_REQUIRED),
+      category: string().required(errMsgs.DEFAULT_REQUIRED),
+    })
+  )
+  .test('goals', errMsgs.AT_LEAST_ADD_ONE, (goals) => {
+    return goals.some((goal) => goal.goal && goal.category);
+  })
+  .test('goals', errMsgs.All_required, (goals) => {
+    return goals.length === 1
+      ? true
+      : goals.every((goal) => goal.goal && goal.category);
+  });
+
+export const biography = string().when('useMeanBio', {
+  is: false,
+  then: requiredText,
+  otherwise: optionalText,
+});
+
+export const optionalCheckbox = boolean()
+  .typeError(errMsgs.DEFAULT_REQUIRED)
+  .nullable();

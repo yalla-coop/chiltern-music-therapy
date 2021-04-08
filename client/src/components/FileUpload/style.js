@@ -5,7 +5,9 @@ export const Wrapper = styled.div`
   ${setMargin};
   width: ${({ w }) => w || '100%'};
 
+
   .ant-upload.ant-upload-drag {
+    opacity: ${({ disabled }) => (disabled ? '0.6' : '1')};
     background: none;
     border-radius: 10px;
     border: ${({ error, theme }) =>
@@ -14,6 +16,12 @@ export const Wrapper = styled.div`
   .ant-upload-drag-container {
     padding: 10px;
   }
+  .ant-upload-list-item-name {
+    color:  ${({ theme }) => theme.colors.blue}}
+    font-size: 16px;
+    font-weight: bold;
+  }
+
 `;
 
 export const UploadDetails = styled.div`
