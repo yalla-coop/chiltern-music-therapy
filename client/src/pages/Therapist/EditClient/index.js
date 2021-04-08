@@ -60,8 +60,8 @@ const EditClient = () => {
           </S.TitleWIthBorder>
         </Col>
       </Row>
-      <Row>
-        <Col w={[4, 12, 4]}>
+      <Row mb="5">
+        <Col w={[4, 12, 4]} mb="5">
           <Textarea
             value={therapyBackground}
             label="Therapy background"
@@ -69,12 +69,13 @@ const EditClient = () => {
             handleChange={setBackground}
           />
         </Col>
-        <Col w={[4, 12, 4]} style={{ paddingLeft: '40px' }}>
+        <Col w={[4, 12, 7]} ml="5" mlT="0" mb="5">
           <TherapyGoals
             goals={therapyGoals}
             handleChange={setGoals}
             label="Therapy goals"
             error={errors.goals}
+            wrap
           />
         </Col>
       </Row>
