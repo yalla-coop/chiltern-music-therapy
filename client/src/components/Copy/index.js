@@ -5,7 +5,7 @@ import * as T from '../Typography';
 
 const Copy = ({ inviteToken }) => {
   const [inviteLink, setInviteLink] = useState('');
-  const [copied, setCopied] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     // API call to get link to go here
