@@ -94,6 +94,12 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
+                Component={Pages.THERAPIST.CreateProgram}
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.PROFILE}
                 Component={Pages.THERAPIST.Profile}
                 layout="onboarding"
@@ -126,6 +132,22 @@ function App() {
                 exact
                 path={navRoutes.CLIENT.DASHBOARD}
                 Component={Pages.CLIENT.Dashboard}
+                layout="general"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.DELETE_ACCOUNT}
+                Component={Pages.CLIENT.DeleteAccount}
+                layout="general"
+                allowedRoles={[roles.CLIENT]}
+                isPrivate
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.ACCOUNT_DELETED}
+                Component={Pages.CLIENT.AccountDeleted}
                 layout="general"
               />
 

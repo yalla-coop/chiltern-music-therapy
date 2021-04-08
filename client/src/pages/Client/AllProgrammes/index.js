@@ -11,7 +11,6 @@ const introText = `Here you will find the weekly resources that your therapist h
 
 const AllProgrammes = () => {
   const [programmes, setProgrammes] = useState([]);
-
   useEffect(() => {
     // put in api call to get the programme data
     const getProgrammes = async () => {

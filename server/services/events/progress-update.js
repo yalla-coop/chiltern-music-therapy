@@ -1,6 +1,7 @@
 import pubSub from './create-pub-sub';
 import events from './event-types';
 import * as ProgressUpdate from '../../modules/progress-update/model';
+import * as Media from '../../modules/media/use-cases';
 import { sendMail, keys } from '../emails';
 
 pubSub.listen(events.PROGRESS_UPDATE.CREATED, async ({ progressId }) => {
@@ -18,7 +19,6 @@ pubSub.listen(events.PROGRESS_UPDATE.CREATED, async ({ progressId }) => {
     programmeCreatedAt: progressUpdate.programme.createdAt,
     to: progressUpdate.therapist.email,
   });
-  // more subscribers go here
 });
 
 pubSub.listen(
@@ -36,6 +36,11 @@ pubSub.listen(
       therapistName,
       to: progressUpdate.client.email,
     });
-    // more subscribers go here
   },
 );
+
+pubSub.listen(events.PROGRESS_UPDATE.DELETED, async (deletedProgressUpdate) => {
+  if (deletedProgressUpdate.mediaId) {
+    await Media.deleteMediaById({ id: deletedProgressUpdate.mediaId });
+  }
+});
