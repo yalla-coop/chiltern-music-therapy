@@ -101,7 +101,7 @@ const IndividProgramme = () => {
       <Row mb="8" mbT="6">
         {contentToView ? (
           <>
-            <Col w={[4, 6, 12]}>
+            <Col w={[4, 12, 12]}>
               <T.H2 mb="5" weight="bold">
                 Programme content
               </T.H2>
@@ -130,7 +130,7 @@ const IndividProgramme = () => {
       <Row>
         <Col w={[4, 4, 4]}>
           <Button
-            text="Edit porgramme"
+            text="Edit programme"
             to={THERAPIST.EDIT_PROGRAMME.replace(':id', id)}
             variant="secondary"
           />
