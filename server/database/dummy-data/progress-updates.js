@@ -33,10 +33,10 @@ const createProgressUpdate = async ({
   return res.rows[0];
 };
 
-const createProgressUpdates = async ({ programmes }) => {
+const createProgressUpdates = async ({ programmes, media }) => {
   const chilternOrg = await createProgressUpdate({
     programmeId: programmes.programme1.id,
-    mediaId: null,
+    mediaId: media.progress1Video.id,
     clientMessage:
       "Hi Suzan, i've watched the video and it was really helpful, thanks :)",
     therapistMessage: 'Happy to hear that, have a good weekend',

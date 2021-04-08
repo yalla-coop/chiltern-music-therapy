@@ -63,12 +63,19 @@ const createMedias = async ({ users }) => {
     createdBy: users.therapist1.id,
   });
 
+  const progress1Video = await createMedia({
+    fileName: 'progress-video-1.mp3',
+    key: 'dummyKey6',
+    createdBy: users.client1.id,
+  });
+
   return {
     video1,
     video2,
     audio1,
     audio2,
     therapist1ProfileImage,
+    progress1Video,
   };
 };
 
