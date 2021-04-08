@@ -6,13 +6,14 @@ import events from '../../../services/events';
 import { getClient } from '../../../database/connect';
 import { userRoles } from '../../../constants';
 
+const crypto = require('crypto');
+
 const createClient = async ({
   therapistId,
   therapyBackground,
   therapyGoals,
   therapistBio,
   therapistIntro,
-  inviteToken,
   email,
   firstName,
   lastName,
@@ -39,6 +40,10 @@ const createClient = async ({
     });
 
     // set up therapist client relationship
+
+    const buffer = crypto.randomBytes(32);
+    const token = buffer.toString('hex');
+
     const newClient = await TherapistClient.createClient({
       clientId: user.id,
       therapistId,
@@ -46,10 +51,10 @@ const createClient = async ({
       therapyGoals,
       therapistBio,
       therapistIntro,
-      inviteToken,
+      inviteToken: token,
     });
 
-    events.emit(events.types.THERAPIST_CLIENT.CLIENT_INVITED, user);
+    events.emit(events.types.THERAPIST_CLIENT.CLIENT_INVITED, newClient);
     await client.query('COMMIT');
     return newClient;
   } catch (error) {
