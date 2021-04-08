@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
@@ -6,11 +6,14 @@ import { BasicInput } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { step2 as validate } from '../../../validation/schemas/addClient';
 
+import { Users } from '../../../api-calls';
+
 const Step2 = ({ submitStep }) => {
   const [email, setEmail] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
   const [primaryMobileNumber, setPrimaryMobileNumber] = useState('');
   const [errors, setErrors] = useState({});
+  const [checkingEmail, setCheckingEmail] = useState(false);
 
   const handleClick = () => {
     try {
@@ -20,7 +23,7 @@ const Step2 = ({ submitStep }) => {
         primaryMobileNumber,
       });
       setErrors({});
-      submitStep({ email, mobileNumber, primaryMobileNumber });
+      setCheckingEmail(true);
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -29,6 +32,27 @@ const Step2 = ({ submitStep }) => {
       return false;
     }
   };
+
+  const checkDetails = async () => {
+    const { data, error } = await Users.checkUserExists({
+      email,
+      type: 'email',
+    });
+    if (error) {
+      setErrors({ email: error.message });
+    } else {
+      submitStep({ email, mobileNumber, primaryMobileNumber });
+    }
+    setCheckingEmail(false);
+  };
+
+  useEffect(() => {
+    if (checkingEmail) {
+      checkDetails();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkingEmail]);
+
   return (
     <>
       <Row>

@@ -73,6 +73,16 @@ const getTherapists = async ({ options } = {}) => {
   }
 };
 
+const checkUserExists = async (form) => {
+  try {
+    const { data } = await axios.post(`${USERS_BASE}/check-user-exists`, form);
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -81,4 +91,5 @@ export {
   logout,
   getUserDashboard,
   getTherapists,
+  checkUserExists,
 };

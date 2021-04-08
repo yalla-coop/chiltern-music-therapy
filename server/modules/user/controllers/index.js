@@ -8,6 +8,7 @@ import getUserInfo from './get-user-info';
 import getUserDashboard from './get-user-dashboard';
 import { authenticate, authorize } from '../../../api/middlewares';
 import getTherapists from './get-therapists';
+import checkUserExists from './check-user-exists';
 
 import { userRoles } from '../../../constants/data-type';
 
@@ -21,6 +22,7 @@ router.get(
   authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN]),
   getTherapists,
 );
+router.post('/check-user-exists', checkUserExists);
 router.post('/signup', signup);
 router.post('/login', login);
 router.post('/logout', logout);

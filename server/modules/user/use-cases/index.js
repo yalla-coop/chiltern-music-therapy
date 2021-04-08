@@ -4,6 +4,7 @@ import therapistSignup from './therapist-signup';
 import login from './login';
 import deleteUser from './delete-user';
 import getTherapists from './get-therapists';
+import checkUserExists from './check-user-exists';
 
 export {
   getUserById,
@@ -12,4 +13,5 @@ export {
   login,
   deleteUser,
   getTherapists,
+  checkUserExists,
 };
