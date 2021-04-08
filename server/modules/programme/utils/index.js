@@ -1,3 +1,5 @@
 import validateCreateProgramme from './validate-create-programme';
 
-export { validateCreateProgramme };
+import matchMediaTypes from './match-media-types';
+
+export { validateCreateProgramme, matchMediaTypes };

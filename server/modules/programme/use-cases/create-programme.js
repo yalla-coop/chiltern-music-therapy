@@ -2,7 +2,9 @@ import { getClient } from '../../../database/connect';
 import * as Programme from '../model';
 import * as TherapistClients from '../../therapist-client/model';
 import * as Media from '../../media/model';
-import { validateCreateProgramme } from '../utils';
+import * as Content from '../../content/model';
+
+import { validateCreateProgramme, matchMediaTypes } from '../utils';
 
 const createProgramme = async ({ userId, body }) => {
   // console.log(`reached§`, userId, body);
@@ -32,17 +34,36 @@ const createProgramme = async ({ userId, body }) => {
     console.log('programme', programme.id);
 
     const createProgrammeContent = await Promise.all(
-      content.map(({ libraryContent, uploadedFileInfo }) => {
-        // 2. if not already library content, create media content using uploadFileInfo and user_id -> return media_id
-        if (uploadedFileInfo.uploadedToS3) {
-          const { name, key, bucket, bucketRegion } = uploadedFileInfo;
-          const media = Media.createMedia(
-            { fileName: name, key, bucket, bucketRegion, createdBy: userId },
-            client,
-          );
+      content.map(
+        ({
+          libraryContent,
+          title,
+          instructions,
+          link,
+          uploadedFileInfo,
+          type,
+        }) => {
+          let media;
+          // 2. create media content using uploadFileInfo and user_id -> return media_id
+          if (uploadedFileInfo.uploadedToS3) {
+            const { name, key, bucket, bucketRegion } = uploadedFileInfo;
+            media = Media.createMedia(
+              { fileName: name, key, bucket, bucketRegion, createdBy: userId },
+              client,
+            );
+          }
           // 3. create contents using media_id (if there), title, instructions, link (if there), libraryC, therapistLibId  -> return content_id
-        }
-      }),
+          const content = Content.createContent({
+            mediaId: media.id,
+            title,
+            instructions,
+            link,
+            libraryContent,
+            therapistLibraryUserId: userId,
+            type: matchMediaTypes(type),
+          });
+        },
+      ),
     );
 
     await client.query('COMMIT');
