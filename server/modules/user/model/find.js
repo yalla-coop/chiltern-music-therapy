@@ -1,4 +1,5 @@
 import { query } from '../../../database';
+import { userRoles } from '../../../constants/data-type';
 
 const findUserById = async (id, client) => {
   const values = [id];
@@ -38,4 +39,17 @@ const findUserByEmail = async (email, client) => {
   return res.rows[0];
 };
 
-export { findUserById, findUserByEmail };
+const findTherapists = async () => {
+  const sql = `
+    SELECT first_name, last_name, id, roles::VARCHAR[] FROM users  
+  `;
+
+  const res = await query(sql);
+  const therapists = res.rows
+    ? res.rows.filter(({ roles }) => roles.includes(userRoles.THERAPIST))
+    : [];
+
+  return therapists;
+};
+
+export { findUserById, findUserByEmail, findTherapists };

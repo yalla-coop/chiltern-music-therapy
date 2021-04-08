@@ -111,3 +111,40 @@ export const optionalPhoneNumber = string().when((value, schema) => {
   }
   return schema.nullable();
 });
+
+export const phoneNumber = string()
+  .required(errMsgs.DEFAULT_REQUIRED)
+  .when((value, schema) => {
+    return schema.phone().typeError(errMsgs.INVALID_PHONE);
+  });
+
+export const postcodeLetters = string()
+  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .max(2, errMsgs.AT_MOST_TWO_LETTERS)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const goalsArrayAtLeastOne = array()
+  .of(
+    object().shape({
+      goal: string().required(errMsgs.DEFAULT_REQUIRED),
+      category: string().required(errMsgs.DEFAULT_REQUIRED),
+    })
+  )
+  .test('goals', errMsgs.AT_LEAST_ADD_ONE, (goals) => {
+    return goals.some((goal) => goal.goal && goal.category);
+  })
+  .test('goals', errMsgs.All_required, (goals) => {
+    return goals.length === 1
+      ? true
+      : goals.every((goal) => goal.goal && goal.category);
+  });
+
+export const biography = string().when('useMeanBio', {
+  is: false,
+  then: requiredText,
+  otherwise: optionalText,
+});
+
+export const optionalCheckbox = boolean()
+  .typeError(errMsgs.DEFAULT_REQUIRED)
+  .nullable();

@@ -2,6 +2,9 @@ import * as S from './style';
 import * as T from '../../Typography';
 
 import Icon from '../../Icon';
+import Tag from '../../Tag';
+
+import { linkFormatter } from '../../../helpers';
 
 const ViewMode = ({
   content,
@@ -11,7 +14,7 @@ const ViewMode = ({
   remove,
   edit,
 }) => {
-  const { streamable, download, instructions, categories } = content;
+  const { streamable, download, instructions, categories, link } = content;
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
@@ -30,6 +33,17 @@ const ViewMode = ({
           />
         </a>
       )}
+      {link && (
+        <T.Link
+          external
+          to={linkFormatter(link)}
+          weight="bold"
+          color="primary"
+          mb="5"
+        >
+          View content link
+        </T.Link>
+      )}
       {instructions && (
         <>
           <T.H4 weight="bold" mb="2">
@@ -40,16 +54,7 @@ const ViewMode = ({
           </T.P>
         </>
       )}
-      {categories && (
-        <>
-          <T.H4 weight="bold" mb="2">
-            Categories
-          </T.H4>
-          {categories.map((cat, i) => (
-            <div key={i}>Tags to go here with {cat}</div>
-          ))}
-        </>
-      )}
+      {categories?.length > 0 && <Tag tags={categories} />}
       {(remove || edit) && (
         <S.Actions>
           {edit && (

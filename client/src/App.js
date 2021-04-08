@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import theme, { globalStyle } from './theme';
 import { Route } from './components';
 import * as Pages from './pages';
-import { navRoutes } from './constants';
+import { navRoutes, roles } from './constants';
 import { AuthProvider } from './context/auth';
 
 import 'antd/dist/antd.css';
@@ -79,11 +79,37 @@ function App() {
                 Component={Pages.THERAPIST.Dashboard}
                 layout="general"
               />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.NEW_CLIENT}
+                Component={Pages.THERAPIST.AddClient}
+              />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CREATE_PROGRAM}
+                Component={Pages.THERAPIST.CreateProgram}
+              />
+
               <Route
                 exact
                 path={navRoutes.THERAPIST.PROFILE}
                 Component={Pages.THERAPIST.Profile}
                 layout="onboarding"
+              />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.LIBRARY}
+                Component={Pages.THERAPIST.Library}
+              />
+
+              {/* Admin Pages */}
+              <Route
+                exact
+                path={navRoutes.ADMIN.ALL_CONTENT}
+                Component={Pages.THERAPIST.Library}
               />
 
               {/* Client Pages */}
@@ -130,11 +156,7 @@ function App() {
                 path={navRoutes.CLIENT.PROGRAMMES}
                 Component={Pages.CLIENT.AllProgrammes}
               />
-              <Route
-                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
-                Component={Pages.THERAPIST.CreateProgram}
-                layout="general"
-              />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_PLAN}
@@ -148,6 +170,16 @@ function App() {
                 goBack
                 maxWidth="none"
               />
+
+              {/* therapist sub routes */}
+
+              <Route
+                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
+                Component={Pages.THERAPIST.CreateProgram}
+                layout="general"
+                allowedRoles={[roles.THERAPIST]}
+              />
+
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
