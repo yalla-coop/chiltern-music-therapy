@@ -15,7 +15,7 @@ const { fileCategories } = content;
 const AddContentSection = ({
   m,
   content,
-  libraryContent = [],
+  libraryContent,
   setLibraryContent,
   mode,
   navFunctions,
@@ -23,13 +23,15 @@ const AddContentSection = ({
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const renderLibraryContentDropdownValues = libraryContent.map((el) => {
+  const { data, error, loading } = libraryContent;
+
+  const renderLibraryContentDropdownValues = data.map((el) => {
     const res = { label: el.title, value: el.id };
     return res;
   });
 
-  const handleSubmitLibraryContent = async (val) => {
-    const selectLibraryContent = libraryContent.filter((el) => el.id === val);
+  const handleSubmitLibraryContent = (val) => {
+    const selectLibraryContent = data.filter((el) => el.id === val);
     const duplicates = content.filter((el) => el.id === val);
 
     if (duplicates.length > 0) {
@@ -61,8 +63,8 @@ const AddContentSection = ({
           Add content from My Library
         </T.P>
         <Dropdown
-          // TODO add get content error
-          error={duplicateError}
+          error={duplicateError || error}
+          loading={loading}
           options={renderLibraryContentDropdownValues}
           multi={false}
           placeholder="Select one..."

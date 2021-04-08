@@ -7,7 +7,7 @@ const Basic = ({
   variant,
   therapistInfo,
   m,
-  open,
+  open = false,
   contentRef,
   selectedHeight,
 }) => {
@@ -122,7 +122,7 @@ const Basic = ({
       );
     case 'noProgrammes':
       return (
-        <S.BasicWrapper {...m} p="20px 30px">
+        <S.BasicWrapper open={open} {...m} p="20px 30px">
           <T.P weight="light" color="gray10" mb="1" ta="center">
             No home programmes added yet.
           </T.P>
@@ -143,7 +143,11 @@ const Basic = ({
         </S.BasicWrapper>
       );
     default:
-      return <S.BasicWrapper {...m}>{children}</S.BasicWrapper>;
+      return (
+        <S.BasicWrapper open={open} {...m}>
+          {children}
+        </S.BasicWrapper>
+      );
   }
 };
 

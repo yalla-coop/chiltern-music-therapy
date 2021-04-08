@@ -102,12 +102,6 @@ function App() {
 
               <Route
                 exact
-                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
-                Component={Pages.THERAPIST.CreateProgram}
-              />
-
-              <Route
-                exact
                 path={navRoutes.THERAPIST.PROFILE}
                 Component={Pages.THERAPIST.Profile}
                 layout="onboarding"

@@ -181,13 +181,13 @@ const findTherapistByClient = async (clientId) => {
   const values = [clientId];
 
   const sql = `
-    SELECT 
+    SELECT
       u.first_name,
       u.last_name,
       u.id
-    FROM therapist_clients tc 
-    INNER JOIN users u ON tc.therapist_user_id = u.id 
-    WHERE tc.client_user_id = $1; 
+    FROM therapist_clients tc
+    INNER JOIN users u ON tc.therapist_user_id = u.id
+    WHERE tc.client_user_id = $1;
   `;
 
   const res = await query(sql, values);
@@ -198,14 +198,14 @@ const findClientsByTherapist = async (therapistId) => {
   const values = [therapistId];
 
   const sql = `
-    SELECT 
+    SELECT
       u.first_name,
       u.last_name,
       u.postcode,
       u.id,
       u.status
-    FROM therapist_clients tc 
-    INNER JOIN users u ON tc.client_user_id = u.id 
+    FROM therapist_clients tc
+    INNER JOIN users u ON tc.client_user_id = u.id
     WHERE tc.therapist_user_id = $1
     ORDER BY u.created_at DESC;
   `;
