@@ -7,7 +7,12 @@ const deleteUser = async ({ id, role }) => {
   switch (role) {
     case roles.CLIENT:
       await User.deleteUserDetails(id);
-      events.emit(events.types.USER.CLIENT_SIGNUP, { userId: id });
+      // email
+      // progress update
+      // media
+      // s3
+
+      events.emit(events.types.USER.CLIENT_DELETED, { userId: id });
       break;
 
     default:
