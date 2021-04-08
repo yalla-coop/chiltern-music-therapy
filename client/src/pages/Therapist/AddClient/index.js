@@ -11,8 +11,10 @@ import Step6 from './Step6';
 const AddClient = () => {
   const [state, setState] = useState({});
   const [currentStep, setCurrentStep] = useState(1);
-  const [inviteToken, setInviteToken] = useState('');
+  const [inviteLink, setIniviteLink] = useState('');
   const [submitAttempt, setSubmitAttempt] = useState(false);
+  const [serverErr, setServerErr] = useState('');
+  const [clientSuccess, setClientSuccess] = useState(false);
 
   const submitStep = (stepState) => {
     setState((_state) => ({ ..._state, ...stepState }));
@@ -27,8 +29,12 @@ const AddClient = () => {
   const addNewClient = async () => {
     const { data, error } = await TherapistClients.addNewClient({ state });
     if (data) {
-      setInviteToken(data.inviteToken);
-      setCurrentStep((current) => current + 1);
+      setIniviteLink(data.inviteLink);
+      setClientSuccess(true);
+    }
+    if (error) {
+      console.log('err', error);
+      setServerErr(error.message);
     }
     setSubmitAttempt(false);
   };
@@ -39,6 +45,13 @@ const AddClient = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitAttempt]);
+
+  useEffect(() => {
+    if (clientSuccess) {
+      setCurrentStep(6);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clientSuccess]);
 
   const renderStep = () => {
     switch (currentStep) {
@@ -51,9 +64,9 @@ const AddClient = () => {
       case 4:
         return <Step4 submitStep={submitStep} />;
       case 5:
-        return <Step5 submitStep={submitFinalStep} />;
+        return <Step5 submitStep={submitFinalStep} serverErr={serverErr} />;
       case 6:
-        return <Step6 inviteToken={inviteToken} />;
+        return <Step6 inviteLink={inviteLink} />;
       default:
         break;
     }

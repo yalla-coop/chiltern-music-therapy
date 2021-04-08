@@ -4,7 +4,7 @@ import * as User from '../../user/model';
 import events from '../../../services/events';
 import { validateCreateClient } from '../utils';
 import { getClient } from '../../../database/connect';
-import { userRoles, userStatuses } from '../../../constants';
+import { userRoles, userStatuses, appLinks } from '../../../constants';
 
 const crypto = require('crypto');
 
@@ -26,25 +26,10 @@ const createClient = async ({
   try {
     await client.query('BEGIN');
 
-    console.log('everything', {
-      therapistId,
-      therapyBackground,
-      therapyGoals,
-      therapistBio,
-      therapistIntro,
-      email,
-      firstName,
-      lastName,
-      postcode,
-      mobileNumber,
-      contactNumber,
-    });
-
     const buffer = crypto.randomBytes(32);
     const token = buffer.toString('hex');
 
-    // TO DO -> validate create client here
-    const res = await validateCreateClient({
+    await validateCreateClient({
       therapyBackground,
       therapyGoals,
       therapistIntro,
@@ -54,8 +39,6 @@ const createClient = async ({
       postcode,
       token,
     });
-
-    console.log('RES', res);
 
     // set up client as user
     const user = await User.createUser(
@@ -72,10 +55,7 @@ const createClient = async ({
       client,
     );
 
-    console.log('user', user);
-
     // set up therapist client relationship
-
     const newClient = await TherapistClient.createClient(
       {
         clientId: user.id,
@@ -89,9 +69,15 @@ const createClient = async ({
       client,
     );
 
-    events.emit(events.types.THERAPIST_CLIENT.CLIENT_INVITED, newClient);
+    const inviteLink = appLinks.CLIENT_SIGNUP_INVITE.replace(':invite', token);
+
+    // send email
+    events.emit(events.types.THERAPIST_CLIENT.CLIENT_INVITED, {
+      therapistClientId: newClient.id,
+    });
+
     await client.query('COMMIT');
-    return newClient;
+    return { ...newClient, inviteLink };
   } catch (error) {
     await client.query('ROLLBACK');
     throw error;

@@ -4,7 +4,7 @@ import Button from '../../../components/Button';
 import Copy from '../../../components/Copy';
 import { THERAPIST } from '../../../constants/nav-routes';
 
-const Step6 = ({ inviteToken }) => {
+const Step6 = ({ inviteLink }) => {
   return (
     <>
       <Row>
@@ -16,7 +16,7 @@ const Step6 = ({ inviteToken }) => {
       </Row>
       <Row mt={4}>
         <Col w={[4, 6, 6]}>
-          <Copy inviteToken={inviteToken} />
+          <Copy inviteToken={inviteLink} />
         </Col>
       </Row>
 

@@ -65,7 +65,7 @@ const addNewClient = async ({ state, options } = {}) => {
       `${THERAPISTS_CLIENTS_BASE}/add-new-client`,
       state
     );
-    return data;
+    return { data };
     // return { data: { state, inviteToken: 'http://bit.ly/afjwlejfafjla' } };
   } catch (error) {
     const err = handleError(error, options);

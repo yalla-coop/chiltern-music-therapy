@@ -6,7 +6,7 @@ import { Textarea } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { step5 as validate } from '../../../validation/schemas/addClient';
 
-const Step5 = ({ submitStep }) => {
+const Step5 = ({ submitStep, serverErr }) => {
   const [therapistIntro, setTherapistIntro] = useState('');
   const [errors, setErrors] = useState({});
 
@@ -53,6 +53,11 @@ const Step5 = ({ submitStep }) => {
 
       <Row mt={8} mtT={10}>
         <Col w={[4, 4, 4]}>
+          {/* {serverErr && (
+            <T.P color="secondary" mb="4">
+              {serverErr}
+            </T.P>
+          )} */}
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>
