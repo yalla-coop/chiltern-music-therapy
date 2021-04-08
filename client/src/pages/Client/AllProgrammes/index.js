@@ -6,23 +6,26 @@ import Title from '../../../components/Title';
 import { navRoutes } from '../../../constants';
 
 import * as T from '../../../components/Typography';
+import { useAuth } from '../../../context/auth';
 
 const introText = `Here you will find the weekly resources that your therapist has prepared especially for you. You can access these resources in between sessions to enhance your therapeutic outcomes.`;
 
 const AllProgrammes = () => {
   const [programmes, setProgrammes] = useState([]);
-
+  const { user } = useAuth();
   useEffect(() => {
     // put in api call to get the programme data
     const getProgrammes = async () => {
-      const { data, error } = await Programmes.getProgrammes();
+      const { data, error } = await Programmes.getProgrammes({
+        clientUserId: user.id,
+      });
       if (!error) {
         setProgrammes(data);
       }
     };
 
     getProgrammes();
-  }, []);
+  }, [user.id]);
 
   const programmesToView = programmes.length > 0;
 
