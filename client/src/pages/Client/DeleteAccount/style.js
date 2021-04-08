@@ -1,17 +1,20 @@
 import styled from '@emotion/styled';
-import { H5 } from '../../../components/Typography';
 
-export const Wrapper = styled.div``;
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-export const TitleWIthBorder = styled(H5)`
-  position: relative;
+  ${({ theme }) => theme.media.tablet} {
+    padding-top: 0;
+    flex-grow: 1;
+    max-width: none;
+  }
+`;
 
-  &::after {
-    display: block;
-    content: '';
-    border-top: ${({ theme }) => `1px solid ${theme.colors.green}`};
-    width: 50%;
-    top: -10px;
-    position: absolute;
+export const ButtonWrapper = styled.div`
+  ${({ theme }) => theme.media.mobile} {
+    height: 100%;
+    margin: auto 0 0 0;
   }
 `;

@@ -88,7 +88,7 @@ function App() {
 
               <Route
                 exact
-                path={navRoutes.THERAPIST.CREATE_PROGRAM}
+                path={navRoutes.THERAPIST.CREATE_PROGRAMME}
                 Component={Pages.THERAPIST.CreateProgram}
               />
 
