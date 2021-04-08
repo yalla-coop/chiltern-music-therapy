@@ -3,6 +3,8 @@ import setMargin from '../../../helpers/set-margin';
 
 export const Wrapper = styled.div`
   ${setMargin};
+  width: 100%;
+  margin-bottom: ${({ theme }) => theme.spacings[5]};
 `;
 
 export const CardWrapper = styled.div`
@@ -11,6 +13,8 @@ export const CardWrapper = styled.div`
   margin-bottom: ${({ theme }) => theme.spacings[5]};
   box-shadow: ${({ theme }) => theme.shadows.elevation1};
   border-radius: ${({ theme }) => theme.borders.radius};
+  border: ${({ theme, error }) => error && theme.borders.inputs};
+  border-color: ${({ theme, error }) => error && theme.colors.error};
 `;
 
 export const ButtonsWrapper = styled.div`

@@ -115,7 +115,7 @@ const EditMode = ({
         multi
         label="Categories"
         selected={categories}
-        options={categoryOptions}
+        options={categoryOptions || []}
         addNew
         handleChange={(val) => handleInput({ id, categories: val })}
         error={validationErrs && validationErrs.categories}

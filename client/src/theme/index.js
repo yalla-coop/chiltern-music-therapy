@@ -28,7 +28,7 @@ export const spacings = {
 
 export const screensWidth = {
   mobileXS: 374,
-  mobile: 449,
+  mobile: 580,
   tablet: 949,
   desktop: 1442,
 };

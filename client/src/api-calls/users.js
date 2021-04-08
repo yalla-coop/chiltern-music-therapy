@@ -83,6 +83,16 @@ const updatePassword = async (data, { options } = {}) => {
   }
 };
 
+const getTherapists = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.get(`${USERS_BASE}/therapists`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -92,4 +102,5 @@ export {
   getUserDashboard,
   resetPasswordLink,
   updatePassword,
+  getTherapists,
 };

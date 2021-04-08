@@ -10,6 +10,7 @@ const TherapyGoals = ({
   handleChange,
   m, // margins
   goals,
+  label,
   ...props
 }) => {
   const [errors, setErrors] = useState({ goal: '', category: '' });
@@ -57,8 +58,11 @@ const TherapyGoals = ({
 
   return (
     <S.Wrapper {...m}>
+      <T.P color="gray9" m="0" mb="2">
+        {label}
+      </T.P>
       {goals.map(({ goal, category, id }, i) => (
-        <S.CardWrapper key={id}>
+        <S.CardWrapper key={id} error={error}>
           <Textarea
             placeholder="Goal..."
             m={{ mb: 4 }}
@@ -96,6 +100,11 @@ const TherapyGoals = ({
           </S.ButtonsWrapper>
         </S.CardWrapper>
       ))}
+      {error && (
+        <T.P color="error" m="0" mt="0">
+          {error}
+        </T.P>
+      )}
     </S.Wrapper>
   );
 };

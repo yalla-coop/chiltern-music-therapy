@@ -5,6 +5,7 @@ import programme from './programme';
 import profile from './profile';
 import forgotPassword from './forgotPassword';
 import updatePassword from './updatePassword';
+import addClient from './addClient';
 
 export {
   signup,
@@ -14,4 +15,5 @@ export {
   programme,
   forgotPassword,
   updatePassword,
+  addClient,
 };
