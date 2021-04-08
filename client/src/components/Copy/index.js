@@ -3,13 +3,18 @@ import Icon from '../Icon';
 import * as S from './style';
 import * as T from '../Typography';
 
-const Copy = () => {
+const Copy = ({ inviteToken }) => {
   const [inviteLink, setInviteLink] = useState('');
-  const [copied, setCopied] = useState(true);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     // API call to get link to go here
-    setInviteLink('https://www.test.com/sdfsdfsdf');
+    if (inviteToken) {
+      setInviteLink(inviteToken);
+    } else {
+      setInviteLink('https://www.test.com/sdfsdfsdf');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const copyCodeToClipboard = () => {
