@@ -213,20 +213,6 @@ const findClientsByTherapist = async (therapistId) => {
   return res.rows;
 };
 
-const findTherapistClientID = async ({ clientId, therapistId }) => {
-  const values = [clientId, therapistId];
-  console.log(`values`, values);
-  const sql = `
-    SELECT
-    tc.id
-    FROM therapist_clients tc
-    WHERE tc.client_user_id = $1 AND tc.therapist_user_id = $2;
-  `;
-
-  const res = await query(sql, values);
-  return res.rows[0];
-};
-
 export {
   findClientByInviteToken,
   findTherapistByInviteToken,
@@ -237,5 +223,4 @@ export {
   findClientByUserId,
   findTherapistClientByClientId,
   findTherapyByClientId,
-  findTherapistClientID,
 };
