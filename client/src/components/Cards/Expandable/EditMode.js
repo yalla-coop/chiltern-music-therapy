@@ -31,7 +31,7 @@ const EditMode = ({
     title,
     libraryContent,
     id,
-    fileType,
+    type,
     link,
     validationErrs,
     fileUpload,
@@ -59,7 +59,7 @@ const EditMode = ({
       instructions,
       libraryContent: libraryContent,
       link,
-      type: fileType,
+      type,
     };
     handleInput(formattedSingleContent);
   }, []);
@@ -74,7 +74,7 @@ const EditMode = ({
   const modalParentFunction = (_id) => remove({ id });
 
   const streamable =
-    [fileCategories.audio, fileCategories.video].includes(fileType) &&
+    [fileCategories.audio, fileCategories.video].includes(type) &&
     (mediaUrl || link);
 
   return (
@@ -106,7 +106,7 @@ const EditMode = ({
         placeholder="Type title..."
         value={title}
         type="text"
-        handleChange={(val) => handleInput({ id, title: val.trim() })}
+        handleChange={(val) => handleInput({ id, title: val })}
         error={validationErrs && validationErrs.title}
         m={{ mb: '5' }}
       />

@@ -13,19 +13,7 @@ const { AddContentSection } = Content;
 
 const AddContent = ({ state, actions, navFunctions }) => {
   const { ADD_CONTENT } = actions;
-  const { content } = state;
-
-  const testLibraryContent = [
-    {
-      id: 1,
-      type: 'video',
-      title: 'test video 1',
-      categories: ['test', 'this'],
-      link: 'www.youtube.com/test',
-      libraryContent: true,
-      instructions: 'this is a test',
-    },
-  ];
+  const { content, libraryContent } = state;
 
   return (
     <S.Wrapper>
@@ -46,8 +34,7 @@ const AddContent = ({ state, actions, navFunctions }) => {
       <Row mt={5}>
         <AddContentSection
           content={content}
-          // TODO add library content
-          libraryContent={testLibraryContent}
+          libraryContent={libraryContent}
           setLibraryContent={ADD_CONTENT}
           navFunctions={navFunctions}
         />

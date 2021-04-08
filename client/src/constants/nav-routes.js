@@ -3,7 +3,8 @@ const GENERAL = {
   LOGIN: '/login',
   UNAUTHORIZED: '/unauthorized',
   LOGOUT: '/logout',
-  RESET_PASSWORD: '/reset-password',
+  FORGOT_PASSWORD: '/forgot-password',
+  RESET_PASSWORD: '/reset-password/:token',
 };
 
 const CLIENT = {

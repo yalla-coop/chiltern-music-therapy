@@ -11,6 +11,12 @@ const actionTypes = {
   updateFileUploadStatus: 'UPDATE_FILE_UPLOAD_STATUS',
   updateFileUploadInfo: 'UPDATE_FILE_UPLOAD_INFO',
   setFileUploadError: 'SET_FILE_UPLOAD_ERROR',
+  getLibraryContentSuccess: 'GET_LIBRARY_CONTENT_SUCCESS',
+  getLibraryContentLoading: 'GET_LIBRARY_CONTENT_LOADING',
+  getLibraryContentError: 'GET_LIBRARY_CONTENT_ERROR',
+  getContentCategoriesSuccess: 'GET_CONTENT_CATEGORIES_SUCCESS',
+  getContentCategoriesLoading: 'GET_CONTENT_CATEGORIES_LOADING',
+  getContentCategoriesError: 'GET_CONTENT_CATEGORIES_ERROR',
 };
 
 export default actionTypes;

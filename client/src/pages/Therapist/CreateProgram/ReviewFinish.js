@@ -12,22 +12,19 @@ import {
 
 import validate from '../../../validation/schemas/programme';
 
-import { dropdowns } from '../../../constants';
-
 import * as S from './style';
 
 import { Programmes } from '../../../api-calls';
+import { decideBorder } from '../../../helpers';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Expandable } = Cards;
 
-const { therapyGoalsCategories } = dropdowns;
-
 const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
-  const { description, content, errors, loading } = state;
+  const { description, content, errors, loading, contentCategories } = state;
 
   const {
     SET_DESCRIPTION,
@@ -36,6 +33,8 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
     SET_ERRORS,
     SET_LOADING,
   } = actions;
+
+  const { data: contentCategoriesData } = contentCategories;
 
   const validateForm = () => {
     try {
@@ -60,6 +59,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
       return false;
     }
   };
+
   useEffect(() => {
     if (content.length === 0) {
       SET_ERRORS('Please add content to this programme');
@@ -87,25 +87,20 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
   };
 
   const handleCreateProgramme = async () => {
-    // SET_LOADING(true);
+    SET_LOADING(true);
 
-    // const { error, data } = await Programmes.createProgramme({
-    //   clientId,
-    //   description,
-    //   content,
-    // });
-    // SET_LOADING(false);
-    // if (error) {
-    //   if (error.statusCode === 409) {
-    //     SET_ERRORS(error.message);
-    //   } else {
-    //     console.log('SUCCESSSSS');
-    //     // TODO add modal
-    //     navFunctions.goToSuccess();
-    //   }
-    // }
-
-    navFunctions.goToSuccess();
+    const { error, data } = await Programmes.createProgramme({
+      clientId,
+      description,
+      content,
+    });
+    SET_LOADING(false);
+    if (error) {
+      SET_ERRORS(error.message);
+    } else {
+      // TODO add modal
+      navFunctions.goToSuccess();
+    }
   };
 
   const renderReviewCards = (_content) => {
@@ -116,7 +111,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           idx,
           id: el.id,
           title: el.title,
-          fileType: el.type,
+          type: el.type.toLowerCase(),
           instructions: el.instructions,
           categories: el.categories,
           libraryContent: el.libraryContent,
@@ -129,12 +124,13 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
         return (
           <Col mb={5} w={[4, 6, 5]}>
             <Expandable
+              borderColor={decideBorder(el.type)}
               content={content}
               editing
               withDate
               remove={REMOVE_CONTENT_ITEM}
               handleInput={UPDATE_CONTENT_ITEM}
-              categoryOptions={therapyGoalsCategories}
+              categoryOptions={contentCategoriesData}
               review
             />
           </Col>
