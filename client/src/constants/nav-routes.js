@@ -4,7 +4,7 @@ const GENERAL = {
   UNAUTHORIZED: '/unauthorized',
   LOGOUT: '/logout',
   FORGOT_PASSWORD: '/forgot-password',
-  RESET_PASSWORD: '/reset-password',
+  RESET_PASSWORD: '/reset-password/:token',
 };
 
 const CLIENT = {

@@ -73,6 +73,16 @@ const resetPasswordLink = async (emailForm, { options } = {}) => {
   }
 };
 
+const updatePassword = async (data, { options } = {}) => {
+  try {
+    await axios.post(`${USERS_BASE}/update-password`, data);
+    return {};
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -81,4 +91,5 @@ export {
   logout,
   getUserDashboard,
   resetPasswordLink,
+  updatePassword,
 };

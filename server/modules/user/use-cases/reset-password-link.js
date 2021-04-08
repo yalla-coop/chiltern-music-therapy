@@ -5,7 +5,6 @@ const crypto = require('crypto');
 
 const resetPasswordLink = async ({ email }) => {
   const user = await User.findUserByEmail(email);
-  console.log('user', user);
   if (!user) return;
 
   const buffer = crypto.randomBytes(32);
