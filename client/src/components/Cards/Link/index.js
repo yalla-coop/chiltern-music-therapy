@@ -3,6 +3,7 @@ import * as T from '../../Typography';
 import Image from '../../Image';
 import Icon from '../../Icon';
 import { dateFormatter } from '../../../helpers';
+import { userStatuses } from '../../../constants';
 
 const Link = ({
   to,
@@ -106,10 +107,16 @@ const Link = ({
           <S.Wrapper {...m} borderColor={borderColor}>
             {client ? (
               <T.P weight="light" mr="1">
-                <span style={{ fontWeight: 'bold' }}>
-                  {client.firstInitial}
-                </span>{' '}
-                {client.lastInitial} {client.postcode}
+                {client.status === userStatuses.DELETED ? (
+                  'Discharged Client'
+                ) : (
+                  <>
+                    <span style={{ fontWeight: 'bold' }}>
+                      {client.firstInitial}
+                    </span>{' '}
+                    {client.lastInitial} {client.postcode}
+                  </>
+                )}
               </T.P>
             ) : (
               <T.P weight="light">N/A</T.P>
