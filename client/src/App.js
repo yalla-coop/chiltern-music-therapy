@@ -79,16 +79,17 @@ function App() {
                 Component={Pages.THERAPIST.Dashboard}
                 layout="general"
               />
-              <Route
-                exact
-                path={navRoutes.THERAPIST.CREATE_PROGRAM}
-                Component={Pages.THERAPIST.CreateProgram}
-              />
 
               <Route
                 exact
                 path={navRoutes.THERAPIST.NEW_CLIENT}
                 Component={Pages.THERAPIST.AddClient}
+              />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.CREATE_PROGRAM}
+                Component={Pages.THERAPIST.CreateProgram}
               />
 
               <Route
