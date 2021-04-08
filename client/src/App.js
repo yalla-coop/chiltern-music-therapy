@@ -75,6 +75,14 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.THERAPIST.EDIT_CLIENT}
+                Component={Pages.THERAPIST.EditClient}
+                layout="general"
+                goBack
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.DASHBOARD}
                 Component={Pages.THERAPIST.Dashboard}
                 layout="general"

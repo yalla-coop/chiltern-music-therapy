@@ -5,6 +5,7 @@ import Library from './Library';
 import SingleClient from './SingleClient';
 import Profile from './Profile';
 import AddClient from './AddClient';
+import EditClient from './EditClient';
 
 export default {
   CreateProgram,
@@ -14,4 +15,5 @@ export default {
   SingleClient,
   Library,
   AddClient,
+  EditClient,
 };
