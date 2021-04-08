@@ -7,15 +7,22 @@ import Tag from '../../Tag';
 import { linkFormatter } from '../../../helpers';
 
 const ViewMode = ({
-  content,
+  content = {},
   open,
   contentRef,
   selectedHeight,
   remove,
   edit,
+  children,
 }) => {
   const { streamable, download, instructions, categories, link } = content;
-
+  if (children) {
+    return (
+      <S.Content open={open} ref={contentRef} height={selectedHeight}>
+        {children}
+      </S.Content>
+    );
+  }
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
       {streamable && (
