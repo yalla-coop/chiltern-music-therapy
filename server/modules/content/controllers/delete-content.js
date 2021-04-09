@@ -2,7 +2,7 @@ import * as Content from '../use-cases';
 
 const deleteContent = async (req, res, next) => {
   const { user } = req;
-  const { id } = req.body;
+  const { id } = req.query;
   try {
     const updatedContent = await Content.deleteContent({
       id,

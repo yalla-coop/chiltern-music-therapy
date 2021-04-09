@@ -7,7 +7,6 @@ import getLibraryContent from './get-library-content';
 const removeContentFromLibrary = async ({ id, userId, role }) => {
   // check content details
   const contentToDelete = await Content.findContentById(id);
-  console.log('USE', contentToDelete);
 
   if (userId !== contentToDelete.therapistLibraryUserId) {
     throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
@@ -25,7 +24,6 @@ const removeContentFromLibrary = async ({ id, userId, role }) => {
 
   // get updated contents from database
   const updatedLibraryContent = await getLibraryContent({ id: userId, role });
-  console.log('USE2', updatedLibraryContent);
   return updatedLibraryContent;
 };
 

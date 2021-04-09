@@ -39,7 +39,7 @@ const getCategories = async () => {
 
 const deleteContent = async ({ id }) => {
   try {
-    const { data } = await axios.delete(`${CONTENTS_BASE}`, { id });
+    const { data } = await axios.delete(`${CONTENTS_BASE}`, { params: { id } });
     return { data };
   } catch (error) {
     const err = handleError(error);

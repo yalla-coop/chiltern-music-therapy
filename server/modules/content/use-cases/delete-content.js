@@ -18,15 +18,15 @@ const deleteContent = async ({ id, role, userId }) => {
     const contentToDelete = await Content.findContentById(id, client);
 
     if (
-      userId !== contentToDelete.therapist_library_user_id &&
+      userId !== contentToDelete.therapistLibraryUserId &&
       ![roles.ADMIN, roles.SUPER_ADMIN].includes(role)
     ) {
       throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
     }
 
-    await Content.deleteContentById(id, client);
     await Content.deleteContentCategories(id, client);
     await Content.deleteContentFromProgramme(id, client);
+    await Content.deleteContentById(id, client);
 
     // check if media is used anywhere else. if not then delete
     events.emit(events.types.MEDIA.CONTENT_DELETED, {

@@ -72,8 +72,17 @@ const Library = () => {
     }
   };
 
-  const removeCompletely = () => {
-    // function to completely remove content
+  const removeCompletely = async () => {
+    setUpdating(true);
+    const { data, error } = await Contents.deleteContent({
+      id: contentToDelete,
+    });
+    if (error) {
+      console.log('err');
+    } else {
+      setContents(data);
+    }
+    setUpdating(false);
   };
 
   const editContent = (contentId) => {
