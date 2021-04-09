@@ -132,6 +132,39 @@ const Modal = ({
           </S.Modal>
         </>
       );
+    case 'editContent':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            variant="warning"
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Are you sure?</T.H3>
+            <T.P color="gray9" mb="5">
+              This will update the content for all programmes where you have
+              used it.
+            </T.P>
+            <Button
+              handleClick={() => handleOk('editContent')}
+              text="Confirm"
+              mb="3"
+              customColor="pink"
+              loading={loading}
+            />
+            <Button
+              handleClick={handleCancel}
+              text="Go back"
+              m="0"
+              variant="gray"
+              loading={loading}
+            />
+          </S.Modal>
+        </>
+      );
     case 'updateSuccess':
       return (
         <>

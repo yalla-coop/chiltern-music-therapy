@@ -99,6 +99,14 @@ const Library = () => {
     setEditFormState(content);
   };
 
+  const saveEdit = () => {
+    setModalToShow('editContent');
+  };
+
+  const confirmEdit = () => {
+    // edit api
+  };
+
   const handleInput = (value) => {
     console.log('GE', value);
     setEditFormState({ ...editFormState, ...value });
@@ -242,6 +250,7 @@ const Library = () => {
                   withDate
                   actions
                   editing={contentToEdit === content.id}
+                  saveChanges={saveEdit}
                   errors={editingErrors}
                   library
                   handleInput={handleInput}
@@ -270,6 +279,17 @@ const Library = () => {
           </Col>
         </Row>
       )}
+      {/* EDIT CONTENT */}
+      <Modal
+        type="editContent"
+        visible={modalToShow === 'editContent'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        parentFunc={confirmEdit}
+        closeOnOK={false}
+        loading={updating}
+      />
+
+      {/* REMOVE CONTENT */}
       <Modal
         type="removeContent"
         visible={modalToShow === 'removeContent'}
@@ -294,6 +314,8 @@ const Library = () => {
         ].includes(modalToShow)}
         setIsModalVisible={(e) => !e && setModalToShow('')}
       />
+
+      {/* ERROR */}
       <Modal
         type="error"
         visible={modalToShow === 'error'}
