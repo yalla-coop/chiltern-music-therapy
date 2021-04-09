@@ -6,8 +6,12 @@ import { Route } from './components';
 import * as Pages from './pages';
 import { navRoutes, roles } from './constants';
 import { AuthProvider } from './context/auth';
+import CookieBot from 'react-cookiebot';
 
 import 'antd/dist/antd.css';
+
+const domainGroupId = process.env.REACT_APP_COOKIEBOT_DOMAIN_ID;
+const production = process.env.NODE_ENV === 'production';
 
 function App() {
   return (
@@ -221,6 +225,7 @@ function App() {
             </Switch>
           </Router>
         </AuthProvider>
+        {production && <CookieBot domainGroupId={domainGroupId} />}
       </ThemeProvider>
     </div>
   );
