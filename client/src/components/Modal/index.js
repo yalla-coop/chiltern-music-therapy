@@ -14,6 +14,8 @@ const Modal = ({
   type,
   parentFunc,
   closeOnOK = true,
+  loading = { loading },
+  error,
 }) => {
   const handleOk = (action) => {
     parentFunc(action);
@@ -77,6 +79,7 @@ const Modal = ({
               text="Delete completely"
               mb="3"
               customColor="pink"
+              loading={loading}
             />
             <Button
               handleClick={() => handleOk('removeFromLibrary')}
@@ -84,12 +87,14 @@ const Modal = ({
               mb="3"
               m="0"
               variant="remove"
+              loading={loading}
             />
             <Button
               handleClick={handleCancel}
               text="Go back"
               m="0"
               variant="gray"
+              loading={loading}
             />
           </S.Modal>
         </>
@@ -115,12 +120,14 @@ const Modal = ({
               text="Confirm"
               mb="3"
               customColor="pink"
+              loading={loading}
             />
             <Button
               handleClick={handleCancel}
               text="Go back"
               m="0"
               variant="gray"
+              loading={loading}
             />
           </S.Modal>
         </>
@@ -138,6 +145,63 @@ const Modal = ({
             <T.H3 mb="2">Successfully updated</T.H3>
             <T.P color="gray9" mb="5">
               This content has been updated
+            </T.P>
+            <Button handleClick={handleCancel} text="Okay" />
+          </S.Modal>
+        </>
+      );
+    case 'removeFromLibrarySuccess':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Successfully removed</T.H3>
+            <T.P color="gray9" mb="5">
+              This content has been removed from your library
+            </T.P>
+            <Button handleClick={handleCancel} text="Okay" />
+          </S.Modal>
+        </>
+      );
+    case 'removeCompletelySuccess':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Successfully deleted</T.H3>
+            <T.P color="gray9" mb="5">
+              This content has been permanently deleted
+            </T.P>
+            <Button handleClick={handleCancel} text="Okay" />
+          </S.Modal>
+        </>
+      );
+    case 'error':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Error</T.H3>
+            <T.P color="gray9" mb="2">
+              Sorry we encountered an error trying to complete your request
+            </T.P>
+            <T.P color="gray8" mb="5">
+              {error}
             </T.P>
             <Button handleClick={handleCancel} text="Okay" />
           </S.Modal>

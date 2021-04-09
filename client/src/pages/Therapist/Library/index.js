@@ -34,6 +34,7 @@ const Library = () => {
   const [editingErrors, setEditingErrors] = useState({});
   const [modalToShow, setModalToShow] = useState('');
   const [updating, setUpdating] = useState(false);
+  const [updateError, setUpdateError] = useState('');
 
   const { user } = useAuth();
 
@@ -64,9 +65,11 @@ const Library = () => {
         id: contentToDelete,
       });
       if (error) {
-        console.log('err');
+        setUpdateError(error.message || 'Server request error');
+        setModalToShow('error');
       } else {
         setContents(data);
+        setModalToShow('removeFromLibrarySuccess');
       }
       setUpdating(false);
     }
@@ -78,9 +81,11 @@ const Library = () => {
       id: contentToDelete,
     });
     if (error) {
-      console.log('err');
+      setUpdateError(error.message || 'Server request error');
+      setModalToShow('error');
     } else {
       setContents(data);
+      setModalToShow('removeCompletelySuccess');
     }
     setUpdating(false);
   };
@@ -259,6 +264,7 @@ const Library = () => {
         setIsModalVisible={(e) => !e && setModalToShow('')}
         parentFunc={confirmRemove}
         closeOnOK={false}
+        loading={updating}
       />
       <Modal
         type="removeCompletely"
@@ -266,6 +272,21 @@ const Library = () => {
         setIsModalVisible={(e) => !e && setModalToShow('')}
         parentFunc={removeCompletely}
         closeOnOK={false}
+        loading={updating}
+      />
+      <Modal
+        type={modalToShow}
+        visible={[
+          'removeFromLibrarySuccess',
+          'removeCompletelySuccess',
+        ].includes(modalToShow)}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+      />
+      <Modal
+        type="error"
+        visible={modalToShow === 'error'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        error={updateError}
       />
     </>
   );
