@@ -11,7 +11,6 @@ import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 
 import { Media } from '../../../api-calls';
 import { fileCategories } from '../../../constants/content';
-import { isEmptyObject } from '../../../helpers';
 
 const EditMode = ({
   content,

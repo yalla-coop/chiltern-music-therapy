@@ -16,7 +16,6 @@ import { Info } from '../../Cards';
 import { content, navRoutes } from '../../../constants';
 import theme from '../../../theme';
 import validate from '../../../validation/schemas/programmeSingleContent';
-import { isEmptyObject } from '../../../helpers';
 
 import * as S from './style';
 
