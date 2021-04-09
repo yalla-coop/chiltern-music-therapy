@@ -13,10 +13,8 @@ const createProgramme = async ({ userId, body }) => {
 
   try {
     await client.query('BEGIN');
-    console.log(`content`, content);
 
     // get therapist_client_id
-
     const therapistClientId = await TherapistClients.findTherapistClientID(
       {
         clientId,
@@ -26,7 +24,6 @@ const createProgramme = async ({ userId, body }) => {
     );
 
     // create programmme
-
     const programme = await Programme.createProgramme(
       {
         therapistsClientsId: therapistClientId.id,
@@ -114,17 +111,17 @@ const createProgramme = async ({ userId, body }) => {
           client,
         );
 
-        // create new categories
+        // create new categories (all the ones without an id attached)
         let addedCategories = [];
 
-        const newCategories = categories
+        const newCategoryTexts = categories
           .filter((el) => !el.categoryId)
           .map((el) => el.value);
 
-        if (newCategories.length > 0) {
-          newCategories.forEach((value) => {
+        if (newCategoryTexts.length > 0) {
+          newCategoryTexts.forEach((text) => {
             addedCategories.push(
-              Content.createContentCategory({ text: value }),
+              Content.createContentCategory({ text }, client),
             );
           });
           addedCategories = await Promise.all(addedCategories);
@@ -135,22 +132,29 @@ const createProgramme = async ({ userId, body }) => {
           .concat(addedCategories)
           .map((el) => el.categoryId);
 
-        console.log(`allProgrammeCC`, allProgrammeCC);
-
-        // create content_categories
+        // create contents_content_categories
+        const addedContentsContentCategories = [];
+        if (allProgrammeCC.length > 0) {
+          allProgrammeCC.forEach((_categoryId) => {
+            addedContentsContentCategories.push(
+              Content.createContentCategoriesContent(
+                { contentId: _content.id, categoryId: _categoryId },
+                client,
+              ),
+            );
+          });
+          await Promise.all(addedContentsContentCategories);
+        }
       },
     );
 
     await client.query('COMMIT');
   } catch (err) {
-    console.log(`err`, err);
     await client.query('ROLLBACK');
     throw err;
   } finally {
     client.release();
   }
-
-  // THINK ABOUT HOW TO HANDLE LIBRARY CONTENT
 };
 
 export default createProgramme;

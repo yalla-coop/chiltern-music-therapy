@@ -175,7 +175,11 @@ const CreateProgram = () => {
       const { data, error } = await Contents.getLibraryContent();
 
       if (!error) {
-        actions.GET_LIBRARY_CONTENT_SUCCESS(data);
+        const allLibraryC = data.map((el) => ({
+          ...el,
+          categories: el.categoriesEditable,
+        }));
+        actions.GET_LIBRARY_CONTENT_SUCCESS(allLibraryC);
       } else {
         actions.GET_LIBRARY_CONTENT_ERROR(
           (error && error.message) || 'error loading library content'

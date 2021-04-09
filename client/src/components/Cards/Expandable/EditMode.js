@@ -115,7 +115,7 @@ const EditMode = ({
       <Dropdown
         multi
         label="Categories"
-        selected={categories && categories.map((el) => el.value)}
+        selected={categories.map((el) => (el && el.value ? el.value : el))}
         options={categoryOptions || []}
         addNew
         handleChange={(value, option) => {
