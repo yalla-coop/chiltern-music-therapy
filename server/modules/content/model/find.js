@@ -131,10 +131,74 @@ const findCategoriesAdmin = async () => {
   return res.rows;
 };
 
+const findContentById = async (id, client) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      *
+    FROM contents
+    WHERE id = $1
+    `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+const findContentByMediaId = async (id, client) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      *
+    FROM contents
+    WHERE media_id = $1
+    `;
+
+  const res = await query(sql, values, client);
+  return res.rows;
+};
+
+const findContentInProgrammes = async (id, client) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      *
+    FROM programmes_contents
+    WHERE content_id = $1
+    `;
+
+  const res = await query(sql, values, client);
+  return res.rows;
+};
+
+const findCategoriesByContent = async ({ id }) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      cat.text,
+      cat.id,
+      ccc.id "content_cat_id"
+    FROM content_categories cat
+    INNER JOIN contents_content_categories ccc ON cat.id = ccc.category_id
+    INNER JOIN contents c ON ccc.content_id = c.id
+    WHERE c.id = $1
+    `;
+
+  const res = await query(sql, values);
+  return res.rows;
+};
+
 export {
   findLibraryContent,
   findLibraryContentAdmin,
   findCategoriesByTherapist,
   findCategoriesAdmin,
   findContentByProg,
+  findContentById,
+  findContentByMediaId,
+  findContentInProgrammes,
+  findCategoriesByContent,
 };

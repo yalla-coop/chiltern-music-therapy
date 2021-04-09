@@ -111,39 +111,41 @@ const createProgramme = async ({ userId, body }) => {
           client,
         );
 
-        // create new categories (all the ones without an id attached)
-        let addedCategories = [];
+        // update categories
+        const oldCategories = await Content.findCategoriesByContent({
+          id: _content.id,
+        });
+        const oldCategoriesText = oldCategories.map((cat) => cat.text);
+        const newCategories = categories.filter(
+          (cat) => !oldCategoriesText.includes(cat),
+        );
+        const categoriesToRemove = oldCategories.filter(
+          (cat) => !categories.includes(cat.text),
+        );
 
-        const newCategoryTexts = categories
-          .filter((el) => !el.categoryId)
-          .map((el) => el.value);
-
-        if (newCategoryTexts.length > 0) {
-          newCategoryTexts.forEach((text) => {
-            addedCategories.push(
-              Content.createContentCategory({ text }, client),
-            );
-          });
-          addedCategories = await Promise.all(addedCategories);
+        // add new categories
+        if (newCategories.length > 0) {
+          // eslint-disable-next-line no-plusplus
+          for (let i = 0; i < newCategories.length; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            const newCat = await Content.createCategory({
+              text: newCategories[i],
+            });
+            // eslint-disable-next-line no-await-in-loop
+            await Content.createContentCategory({
+              contentId: _content.id,
+              catId: newCat.id,
+            });
+          }
         }
 
-        const allProgrammeCC = categories
-          .filter((el) => el.categoryId)
-          .concat(addedCategories)
-          .map((el) => el.categoryId);
-
-        // create contents_content_categories
-        const addedContentsContentCategories = [];
-        if (allProgrammeCC.length > 0) {
-          allProgrammeCC.forEach((_categoryId) => {
-            addedContentsContentCategories.push(
-              Content.createContentCategoriesContent(
-                { contentId: _content.id, categoryId: _categoryId },
-                client,
-              ),
-            );
-          });
-          await Promise.all(addedContentsContentCategories);
+        // remove categories
+        if (categoriesToRemove.length > 0) {
+          // eslint-disable-next-line no-plusplus
+          for (let i = 0; i < categoriesToRemove.length; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            await Content.deleteContentCategoryById(categoriesToRemove[i].id);
+          }
         }
       },
     );
@@ -158,3 +160,38 @@ const createProgramme = async ({ userId, body }) => {
 };
 
 export default createProgramme;
+
+// create new categories (all the ones without an id attached)
+// let addedCategories = [];
+
+// const newCategoryTexts = categories
+//   .filter((el) => !el.categoryId)
+//   .map((el) => el.value);
+
+// if (newCategoryTexts.length > 0) {
+//   newCategoryTexts.forEach((text) => {
+//     addedCategories.push(
+//       Content.createContentCategory({ text }, client),
+//     );
+//   });
+//   addedCategories = await Promise.all(addedCategories);
+// }
+
+// const allProgrammeCC = categories
+//   .filter((el) => el.categoryId)
+//   .concat(addedCategories)
+//   .map((el) => el.categoryId);
+
+// // create contents_content_categories
+// const addedContentsContentCategories = [];
+// if (allProgrammeCC.length > 0) {
+//   allProgrammeCC.forEach((_categoryId) => {
+//     addedContentsContentCategories.push(
+//       Content.createContentCategoriesContent(
+//         { contentId: _content.id, categoryId: _categoryId },
+//         client,
+//       ),
+//     );
+//   });
+//   await Promise.all(addedContentsContentCategories);
+// }
