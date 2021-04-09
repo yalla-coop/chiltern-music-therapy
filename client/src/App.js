@@ -225,7 +225,7 @@ function App() {
             </Switch>
           </Router>
         </AuthProvider>
-        {production && <CookieBot domainGroupId={domainGroupId} />}
+        <CookieBot domainGroupId={domainGroupId} />
       </ThemeProvider>
     </div>
   );
