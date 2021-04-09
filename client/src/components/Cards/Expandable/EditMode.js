@@ -118,7 +118,7 @@ const EditMode = ({
         selected={categories.map((el) => (el && el.value ? el.value : el))}
         options={categoryOptions || []}
         addNew
-        handleChange={(val) => handleInput({ categories: val })}
+        handleChange={(val) => handleInput({ id, categories: val })}
         error={validationErrs && validationErrs.categories}
         search={false}
         m={{ mb: '5' }}

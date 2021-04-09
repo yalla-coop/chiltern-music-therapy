@@ -115,14 +115,12 @@ const createProgramme = async ({ userId, body }) => {
         const oldCategories = await Content.findCategoriesByContent({
           id: _content.id,
         });
-
-        const newCategories = categories
-          .filter((el) => !el.categoryId)
-          .map((el) => el.value);
-
-        const categoriesToRemove = oldCategories.filter(
-          (cat) => !categories.includes(cat.text),
+        const oldCategoriesText = oldCategories.map((cat) => cat.text);
+        const newCategories = categories.filter(
+          (cat) => !oldCategoriesText.includes(cat),
         );
+
+        console.log("STUFF", categories, oldCategories, oldCategoriesText, newCategories)
 
         // add new categories
         if (newCategories.length > 0) {
@@ -140,14 +138,6 @@ const createProgramme = async ({ userId, body }) => {
           }
         }
 
-        // remove categories
-        if (categoriesToRemove.length > 0) {
-          // eslint-disable-next-line no-plusplus
-          for (let i = 0; i < categoriesToRemove.length; i++) {
-            // eslint-disable-next-line no-await-in-loop
-            await Content.deleteContentCategoryById(categoriesToRemove[i].id);
-          }
-        }
       },
     );
 
