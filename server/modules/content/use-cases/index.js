@@ -4,6 +4,7 @@ import getCategories from './get-categories';
 import getContentByProg from './get-content-by-prog';
 import deleteContent from './delete-content';
 import removeContentFromLibrary from './remove-content-from-library';
+import editContent from './edit-content';
 
 export {
   getContentById,
@@ -12,4 +13,5 @@ export {
   getContentByProg,
   deleteContent,
   removeContentFromLibrary,
+  editContent,
 };

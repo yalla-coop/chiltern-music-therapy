@@ -30,7 +30,7 @@ const Library = () => {
   const [filteredContents, setFilteredContents] = useState([]);
   const [therapistOptions, setTherapistOptions] = useState([]);
   const [contentToEdit, setContentToEdit] = useState('');
-  const [editFormState, setEditFormState] = useState('');
+  const [editFormState, setEditFormState] = useState({});
   const [contentToDelete, setContentToDelete] = useState('');
   const [editingErrors, setEditingErrors] = useState({});
   const [modalToShow, setModalToShow] = useState('');
@@ -103,12 +103,22 @@ const Library = () => {
     setModalToShow('editContent');
   };
 
-  const confirmEdit = () => {
-    // edit api
+  const confirmEdit = async () => {
+    setUpdating(true);
+    const { data, error } = await Contents.editContent(editFormState);
+    if (error) {
+      setUpdateError(error.message || 'Server request error');
+      setModalToShow('error');
+    } else {
+      setEditFormState({});
+      setContentToEdit('');
+      setContents(data);
+      setModalToShow('updateSuccess');
+    }
+    setUpdating(false);
   };
 
   const handleInput = (value) => {
-    console.log('GE', value);
     setEditFormState({ ...editFormState, ...value });
   };
 
@@ -126,15 +136,6 @@ const Library = () => {
       }
     };
 
-    const getCategories = async () => {
-      const { data, error } = await Contents.getCategories();
-
-      if (!error) {
-        const allCats = data.map(({ text }) => ({ label: text, value: text }));
-        setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
-      }
-    };
-
     const getTherapists = async () => {
       const { data, error } = await Users.getTherapists();
 
@@ -149,13 +150,25 @@ const Library = () => {
 
     if (user.id) {
       getContent();
-      getCategories();
 
       if ([userRoles.SUPER_ADMIN, userRoles.ADMIN].includes(user.role)) {
         getTherapists();
       }
     }
   }, [user.id, user.role]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const { data, error } = await Contents.getCategories();
+
+      if (!error) {
+        const allCats = data.map(({ text }) => ({ label: text, value: text }));
+        setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
+      }
+    };
+
+    getCategories();
+  }, [contents]);
 
   useEffect(() => {
     const filtered = contents.filter(
@@ -225,45 +238,53 @@ const Library = () => {
           </Col>
         )}
       </Row>
-      <Row mb="4">
-        {contentToView ? (
-          filteredContents.slice(0, viewNum).map((content, index) => {
-            const contentToUse =
-              content.id === contentToEdit ? editFormState : content;
-            return (
-              <Col w={[4, 6, 4]} mb="4" key={index}>
-                <Expandable
-                  borderColor={decideBorder(content.type)}
-                  content={{
-                    ...contentToUse,
-                    download: content.path,
-                    streamable: decideStreamable(content.type, content.path),
-                    categories: contentToUse.categories.filter(
-                      (cat) => cat !== null
-                    ),
-                    type: content.type?.toLowerCase(),
-                    path: content.path,
-                  }}
-                  remove={() => removeContent(content.id)}
-                  edit={() => editContent(content)}
-                  onCancel={cancelChanges}
-                  withDate
-                  actions
-                  editing={contentToEdit === content.id}
-                  saveChanges={saveEdit}
-                  errors={editingErrors}
-                  library
-                  handleInput={handleInput}
-                />
-              </Col>
-            );
-          })
-        ) : (
-          <Col w={[4, 6, 4]}>
-            <Basic>No content to show</Basic>
+      {updating ? (
+        <Row mb="4">
+          <Col w={[4, 6, 4]} mb="4">
+            Loading...
           </Col>
-        )}
-      </Row>
+        </Row>
+      ) : (
+        <Row mb="4">
+          {contentToView ? (
+            filteredContents.slice(0, viewNum).map((content, index) => {
+              const contentToUse =
+                content.id === contentToEdit ? editFormState : content;
+              return (
+                <Col w={[4, 6, 4]} mb="4" key={index}>
+                  <Expandable
+                    borderColor={decideBorder(content.type)}
+                    content={{
+                      ...contentToUse,
+                      download: content.path,
+                      streamable: decideStreamable(content.type, content.path),
+                      categories: contentToUse.categories.filter(
+                        (cat) => cat !== null
+                      ),
+                      type: content.type?.toLowerCase(),
+                      path: content.path,
+                    }}
+                    remove={() => removeContent(content.id)}
+                    edit={() => editContent(content)}
+                    onCancel={cancelChanges}
+                    withDate
+                    actions
+                    editing={contentToEdit === content.id}
+                    saveChanges={saveEdit}
+                    errors={editingErrors}
+                    library
+                    handleInput={handleInput}
+                  />
+                </Col>
+              );
+            })
+          ) : (
+            <Col w={[4, 6, 4]}>
+              <Basic>No content to show</Basic>
+            </Col>
+          )}
+        </Row>
+      )}
       {viewNum < filteredContents.length && (
         <Row>
           <Col w={[4, 12, 12]} jc="flex-start" jcT="center">
@@ -287,6 +308,11 @@ const Library = () => {
         parentFunc={confirmEdit}
         closeOnOK={false}
         loading={updating}
+      />
+      <Modal
+        type="updateSuccess"
+        visible={modalToShow === 'updateSuccess'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
       />
 
       {/* REMOVE CONTENT */}

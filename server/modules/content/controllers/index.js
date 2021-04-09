@@ -6,6 +6,7 @@ import getCategories from './get-categories';
 import getContentByProg from './get-content-by-prog';
 import deleteContent from './delete-content';
 import removeContentFromLibrary from './remove-content-from-library';
+import editContent from './edit-content';
 
 import { userRoles } from '../../../constants/data-type';
 
@@ -22,6 +23,12 @@ router.post(
   authenticate(),
   authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN, userRoles.THERAPIST]),
   removeContentFromLibrary,
+);
+router.post(
+  '/edit-content',
+  authenticate(),
+  authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN, userRoles.THERAPIST]),
+  editContent,
 );
 router.delete(
   '/',

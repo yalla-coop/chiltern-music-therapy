@@ -171,6 +171,24 @@ const findContentInProgrammes = async (id, client) => {
   return res.rows;
 };
 
+const findCategoriesByContent = async ({ id }) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      cat.text,
+      cat.id,
+      ccc.id "content_cat_id"
+    FROM content_categories cat
+    INNER JOIN contents_content_categories ccc ON cat.id = ccc.category_id
+    INNER JOIN contents c ON ccc.content_id = c.id
+    WHERE c.id = $1
+    `;
+
+  const res = await query(sql, values);
+  return res.rows;
+};
+
 export {
   findLibraryContent,
   findLibraryContentAdmin,
@@ -180,4 +198,5 @@ export {
   findContentById,
   findContentByMediaId,
   findContentInProgrammes,
+  findCategoriesByContent,
 };

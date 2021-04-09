@@ -59,10 +59,24 @@ const removeContentFromLibrary = async ({ id }) => {
   }
 };
 
+const editContent = async (formData) => {
+  try {
+    const { data } = await axios.post(
+      `${CONTENTS_BASE}/edit-content`,
+      formData
+    );
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
 export {
   getContentByProg,
   getLibraryContent,
   getCategories,
   deleteContent,
   removeContentFromLibrary,
+  editContent,
 };
