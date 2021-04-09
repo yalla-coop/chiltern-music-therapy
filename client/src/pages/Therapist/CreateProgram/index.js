@@ -207,8 +207,6 @@ const CreateProgram = () => {
     }
   }, [user.id]);
 
-  console.log(`state.contentCategories`, state.content);
-
   return (
     <Switch>
       <AddDescription

@@ -16,6 +16,7 @@ import { Info } from '../../Cards';
 import { content, navRoutes } from '../../../constants';
 import theme from '../../../theme';
 import validate from '../../../validation/schemas/programmeSingleContent';
+import { isEmptyObject } from '../../../helpers';
 
 import * as S from './style';
 
@@ -228,11 +229,10 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
             addNew
             placeholder="Select...(optional)"
             handleChange={(value, option) => {
-              console.log(`value`, value);
-              console.log(`option`, option);
-              console.log(`value`, value);
-              console.log(`option`, option);
-              return ADD_SINGLE_CONTENT('categories', option);
+              option.map((el, idx) =>
+                isEmptyObject(el) ? (el.value = value[idx]) : el
+              );
+              ADD_SINGLE_CONTENT('categories', option);
             }}
             loading={contentCategoriesLoading}
             error={validationErrs.categories || contentCategoriesError}

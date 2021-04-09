@@ -26,8 +26,6 @@ const reducer = (state, action) => {
         }),
       };
     case actionTypes.addSingleContent:
-      // console.log(`key`, key);
-      // console.log(`value`, value);
       return {
         ...state,
         singleContent: {

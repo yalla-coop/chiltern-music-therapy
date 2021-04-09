@@ -54,6 +54,7 @@ const Dropdown = ({
               value={opt.value}
               points={opt.points}
               isSelected={isSelected(opt.value)}
+              {...options}
             >
               {opt.label}
             </S.Option>

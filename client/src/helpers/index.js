@@ -5,6 +5,7 @@ import cleanEmail from './cleanEmail';
 import getInitials from './getInitials';
 import decideBorder from './decideBorder';
 import linkFormatter from './linkFormatter';
+import isEmptyObject from './isEmptyObject';
 
 export {
   authorization,
@@ -14,4 +15,5 @@ export {
   cleanEmail,
   linkFormatter,
   decideBorder,
+  isEmptyObject,
 };

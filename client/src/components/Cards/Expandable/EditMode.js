@@ -11,6 +11,7 @@ import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 
 import { Media } from '../../../api-calls';
 import { fileCategories } from '../../../constants/content';
+import { isEmptyObject } from '../../../helpers';
 
 const EditMode = ({
   content,
@@ -114,10 +115,15 @@ const EditMode = ({
       <Dropdown
         multi
         label="Categories"
-        selected={categories}
+        selected={categories && categories.map((el) => el.value)}
         options={categoryOptions || []}
         addNew
-        handleChange={(val) => handleInput({ id, categories: val })}
+        handleChange={(value, option) => {
+          option.map((el, idx) =>
+            isEmptyObject(el) ? (el.value = value[idx]) : el
+          );
+          handleInput({ id, categories: option });
+        }}
         error={validationErrs && validationErrs.categories}
         search={false}
         m={{ mb: '5' }}
