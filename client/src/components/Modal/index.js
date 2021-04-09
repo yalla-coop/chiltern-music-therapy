@@ -14,7 +14,7 @@ const Modal = ({
   type,
   parentFunc,
   closeOnOK = true,
-  loading = { loading },
+  loading,
   error,
 }) => {
   const handleOk = (action) => {
