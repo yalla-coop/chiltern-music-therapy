@@ -3,6 +3,7 @@ import Title from '../../../components/Title';
 import { Dropdown } from '../../../components/Inputs';
 import { Basic, Expandable } from '../../../components/Cards';
 import { Row, Col } from '../../../components/Grid';
+import Modal from '../../../components/Modal';
 
 import { decideBorder } from '../../../helpers';
 
@@ -29,7 +30,9 @@ const Library = () => {
   const [filteredContents, setFilteredContents] = useState([]);
   const [therapistOptions, setTherapistOptions] = useState([]);
   const [contentToEdit, setContentToEdit] = useState('');
+  const [contentToDelete, setContentToDelete] = useState('');
   const [editingErrors, setEditingErrors] = useState({});
+  const [modalToShow, setModalToShow] = useState('');
 
   const { user } = useAuth();
 
@@ -46,8 +49,24 @@ const Library = () => {
     return false;
   };
 
-  const removeContent = () => {
-    console.log('Remove content');
+  const removeContent = (id) => {
+    setModalToShow('removeContent');
+    setContentToDelete(id);
+  };
+
+  const confirmRemove = (action) => {
+    console.log('action', action);
+
+    if (action === 'removeCompletely') {
+      console.log('reached', action);
+      setModalToShow('removeCompletely');
+    } else {
+      // remove from library then show success modal
+    }
+  };
+
+  const removeCompletely = () => {
+    // function to completely remove content
   };
 
   const editContent = (contentId) => {
@@ -186,7 +205,7 @@ const Library = () => {
                     type: type?.toLowerCase(),
                     path,
                   }}
-                  remove={removeContent}
+                  remove={() => removeContent(id)}
                   edit={() => editContent(id)}
                   onCancel={cancelChanges}
                   withDate
@@ -218,6 +237,20 @@ const Library = () => {
           </Col>
         </Row>
       )}
+      <Modal
+        type="removeContent"
+        visible={modalToShow === 'removeContent'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        parentFunc={confirmRemove}
+        closeOnOK={false}
+      />
+      <Modal
+        type="removeCompletely"
+        visible={modalToShow === 'removeCompletely'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        parentFunc={removeCompletely}
+        closeOnOK={false}
+      />
     </>
   );
 };

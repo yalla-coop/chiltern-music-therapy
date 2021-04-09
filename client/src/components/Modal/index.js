@@ -7,10 +7,17 @@ import * as T from '../Typography';
 
 const maskStyle = { backgroundColor: 'white', opacity: '0.9' };
 
-const Modal = ({ visible, setIsModalVisible, children, type, parentFunc }) => {
+const Modal = ({
+  visible,
+  setIsModalVisible,
+  children,
+  type,
+  parentFunc,
+  closeOnOK = true,
+}) => {
   const handleOk = (action) => {
     parentFunc(action);
-    setIsModalVisible(false);
+    closeOnOK && setIsModalVisible(false);
   };
 
   const handleCancel = () => {
@@ -66,7 +73,7 @@ const Modal = ({ visible, setIsModalVisible, children, type, parentFunc }) => {
               the content from all programmes where you have used it.
             </T.P>
             <Button
-              handleClick={() => handleOk('deleteCompletely')}
+              handleClick={() => handleOk('removeCompletely')}
               text="Delete completely"
               mb="3"
               customColor="pink"
@@ -77,6 +84,37 @@ const Modal = ({ visible, setIsModalVisible, children, type, parentFunc }) => {
               mb="3"
               m="0"
               variant="remove"
+            />
+            <Button
+              handleClick={handleCancel}
+              text="Go back"
+              m="0"
+              variant="gray"
+            />
+          </S.Modal>
+        </>
+      );
+    case 'removeCompletely':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            variant="warning"
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Are you sure?</T.H3>
+            <T.P color="gray9" mb="5">
+              This will update the content for all programmes where you have
+              used it.
+            </T.P>
+            <Button
+              handleClick={() => handleOk('removeFromProgramme')}
+              text="Confirm"
+              mb="3"
+              customColor="pink"
             />
             <Button
               handleClick={handleCancel}
