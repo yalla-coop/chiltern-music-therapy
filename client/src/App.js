@@ -11,7 +11,6 @@ import CookieBot from 'react-cookiebot';
 import 'antd/dist/antd.css';
 
 const domainGroupId = process.env.REACT_APP_COOKIEBOT_DOMAIN_ID;
-const production = process.env.NODE_ENV === 'production';
 
 function App() {
   return (
