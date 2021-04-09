@@ -2,6 +2,7 @@ import Boom from '@hapi/boom';
 import * as Content from '../model';
 import { errorMsgs } from '../../../services/error-handler';
 import deleteContent from './delete-content';
+import getLibraryContent from './get-library-content';
 
 const removeContentFromLibrary = async ({ id, userId, role }) => {
   // check content details
@@ -19,8 +20,11 @@ const removeContentFromLibrary = async ({ id, userId, role }) => {
     await deleteContent({ id, userId, role });
     return;
   }
-  const updated = await Content.removeContentFromLibrary(id);
-  return updated;
+  await Content.removeContentFromLibrary(id);
+
+  // get updated contents from database
+  const updatedLibraryContent = await getLibraryContent({ id: userId, role });
+  return updatedLibraryContent;
 };
 
 export default removeContentFromLibrary;

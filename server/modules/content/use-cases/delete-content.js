@@ -6,6 +6,8 @@ import { errorMsgs } from '../../../services/error-handler';
 
 import { getClient } from '../../../database/connect';
 
+import getLibraryContent from './get-library-content';
+
 const deleteContent = async ({ id, role, userId }) => {
   const client = await getClient();
 
@@ -33,7 +35,10 @@ const deleteContent = async ({ id, role, userId }) => {
     });
 
     await client.query('COMMIT');
-    return;
+
+    // get updated library content
+    const updatedContent = await getLibraryContent({ id: userId, role });
+    return updatedContent;
   } catch (error) {
     await client.query('ROLLBACK');
     throw error;
