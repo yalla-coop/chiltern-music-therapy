@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-import { Switch, useHistory, useParams } from 'react-router-dom';
+import { Switch, useHistory, useParams, useLocation } from 'react-router-dom';
 
 import { navRoutes } from '../../../constants';
 
@@ -71,6 +71,7 @@ const initialState = {
 const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
+  const location = useLocation();
 
   const { id: clientId } = useParams();
   const { user } = useAuth();
@@ -166,7 +167,11 @@ const CreateProgram = () => {
   };
 
   useEffect(() => {
-    navFunctions.goToDescription();
+    const pathArr = location.pathname.split('/');
+    if (!pathArr.includes(flowTypes.description)) {
+      navFunctions.goToDescription();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

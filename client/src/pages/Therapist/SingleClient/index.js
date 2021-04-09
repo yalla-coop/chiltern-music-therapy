@@ -131,7 +131,10 @@ const SingleClient = ({ clientHistory }) => {
             text="Add new programme"
             onClick={() =>
               history.push({
-                pathname: THERAPIST.CREATE_PROGRAMME.replace(':id', id),
+                pathname: THERAPIST.CREATE_PROGRAMME_DESCRIPTION.replace(
+                  ':id',
+                  id
+                ),
                 state: {
                   clientDetails: {
                     firstInitial: state.firstInitial,
