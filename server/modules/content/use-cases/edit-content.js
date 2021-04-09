@@ -33,8 +33,6 @@ const deleteContent = async ({
 
     await Content.editContent({ id, title, instructions }, client);
 
-    console.log('content edited');
-
     // update categories
     const oldCategories = await Content.findCategoriesByContent({ id });
     const oldCategoriesText = oldCategories.map((cat) => cat.text);
@@ -44,8 +42,6 @@ const deleteContent = async ({
     const categoriesToRemove = oldCategories.filter(
       (cat) => !categories.includes(cat.text),
     );
-
-    console.log('cats 1', oldCategories, newCategories, categoriesToRemove);
 
     // add new categories
     if (newCategories.length > 0) {
@@ -61,8 +57,6 @@ const deleteContent = async ({
       }
     }
 
-    console.log('cats 2');
-
     // remove categories
     if (categoriesToRemove.length > 0) {
       // eslint-disable-next-line no-plusplus
@@ -71,8 +65,6 @@ const deleteContent = async ({
         await Content.deleteContentCategoryById(categoriesToRemove[i].id);
       }
     }
-
-    console.log('cats 3');
 
     await client.query('COMMIT');
 

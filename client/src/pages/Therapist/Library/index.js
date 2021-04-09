@@ -274,6 +274,9 @@ const Library = () => {
                     errors={editingErrors}
                     library
                     handleInput={handleInput}
+                    categoryOptions={categoryOptions.filter(
+                      (opt) => opt.value !== 'ALL'
+                    )}
                   />
                 </Col>
               );
