@@ -27,8 +27,8 @@ const SingleClient = ({ clientHistory }) => {
 
   const [elementsOnView, setElementsOnView] = useState(3);
 
-  const history = useHistory();
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     const getClientById = async () => {
@@ -129,7 +129,18 @@ const SingleClient = ({ clientHistory }) => {
         <Col w={[4, 12, 4]}>
           <Button
             text="Add new programme"
-            to={THERAPIST.CREATE_PROGRAMME.replace(':id', id)}
+            onClick={() =>
+              history.push({
+                pathname: THERAPIST.CREATE_PROGRAMME.replace(':id', id),
+                state: {
+                  clientDetails: {
+                    firstInitial: state.firstInitial,
+                    lastInitial: state.lastInitial,
+                    postcode: state.postcode,
+                  },
+                },
+              })
+            }
             disabled={state.status === userStatuses.DELETED}
           />
         </Col>

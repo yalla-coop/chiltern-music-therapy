@@ -71,6 +71,7 @@ const initialState = {
 const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
+
   const { id: clientId } = useParams();
   const { user } = useAuth();
 
@@ -197,6 +198,7 @@ const CreateProgram = () => {
           value: text,
           categoryId: id,
         }));
+
         actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);
       } else {
         actions.GET_CONTENT_CATEGORIES_ERROR(

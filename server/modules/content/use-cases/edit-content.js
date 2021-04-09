@@ -79,4 +79,3 @@ const deleteContent = async ({
 };
 
 export default deleteContent;
-// // create new categories (all the ones without an id attached)
