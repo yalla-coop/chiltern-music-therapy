@@ -15,6 +15,8 @@ import { Contents, Users } from '../../../api-calls';
 
 import * as T from '../../../components/Typography';
 
+import validate from '../../../validation/schemas/editContent';
+
 const typeOptions = [
   { label: 'All', value: 'ALL' },
   { label: 'Video', value: 'VIDEO' },
@@ -92,15 +94,22 @@ const Library = () => {
   };
 
   const editContent = (content) => {
-    console.log(
-      'Clear away formstate in case stuff frmo another card they didnt save'
-    );
     setContentToEdit(content.id);
     setEditFormState(content);
   };
 
   const saveEdit = () => {
-    setModalToShow('editContent');
+    try {
+      validate({
+        title: editFormState.title,
+        instructions: editFormState.instructions,
+      });
+      setModalToShow('editContent');
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        setEditingErrors({ validationErrs: error.inner });
+      }
+    }
   };
 
   const confirmEdit = async () => {
@@ -263,6 +272,7 @@ const Library = () => {
                       ),
                       type: content.type?.toLowerCase(),
                       path: content.path,
+                      validationErrs: editingErrors?.validationErrs,
                     }}
                     remove={() => removeContent(content.id)}
                     edit={() => editContent(content)}
@@ -271,7 +281,6 @@ const Library = () => {
                     actions
                     editing={contentToEdit === content.id}
                     saveChanges={saveEdit}
-                    errors={editingErrors}
                     library
                     handleInput={handleInput}
                     categoryOptions={categoryOptions.filter(

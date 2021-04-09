@@ -6,6 +6,7 @@ import profile from './profile';
 import forgotPassword from './forgotPassword';
 import updatePassword from './updatePassword';
 import addClient from './addClient';
+import editContent from './editContent';
 
 export {
   signup,
@@ -16,4 +17,5 @@ export {
   forgotPassword,
   updatePassword,
   addClient,
+  editContent,
 };

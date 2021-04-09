@@ -20,7 +20,6 @@ const deleteContent = async ({
   try {
     await client.query('BEGIN');
 
-    console.log('USE', id, title, categories, instructions, role, userId);
     // check content details
     const contentToEdit = await Content.findContentById(id, client);
 

@@ -4,7 +4,6 @@ const editContent = async (req, res, next) => {
   const { user } = req;
   const { id, title, categories, instructions } = req.body;
 
-  console.log('STUFF', id, title, categories, instructions);
   try {
     const updatedContent = await Content.editContent({
       id,
