@@ -7,7 +7,6 @@ import * as Content from '../../content/model';
 import { validateCreateProgramme, matchMediaTypes } from '../utils';
 
 const createProgramme = async ({ userId, body }) => {
-  // console.log(`reached§`, userId, body);
   const client = await getClient();
   const { clientId, description, content } = body;
   await validateCreateProgramme({ description, content });
@@ -15,6 +14,7 @@ const createProgramme = async ({ userId, body }) => {
   try {
     await client.query('BEGIN');
     console.log(`content`, content);
+
     // get therapist_client_id
 
     const therapistClientId = await TherapistClients.findTherapistClientID(
@@ -35,6 +35,7 @@ const createProgramme = async ({ userId, body }) => {
       client,
     );
 
+    // store content
     await content.forEach(
       async ({
         libraryContent,
@@ -48,10 +49,10 @@ const createProgramme = async ({ userId, body }) => {
         therapistUserId,
         id: contentId,
       }) => {
-        // create media content if present
         let _media;
         let _content;
 
+        // create media content if present
         if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
           const {
             name,
@@ -75,7 +76,8 @@ const createProgramme = async ({ userId, body }) => {
             client,
           );
         }
-        // if existing library content only run update
+
+        // if existing library content only run update else create new
         if (therapistUserId) {
           _content = await Content.updateContentById(
             {
@@ -102,7 +104,6 @@ const createProgramme = async ({ userId, body }) => {
             client,
           );
         }
-        console.log(`_content`, _content);
 
         // create programmes_contents
         await Programme.createProgrammesContent(
@@ -112,10 +113,33 @@ const createProgramme = async ({ userId, body }) => {
           },
           client,
         );
+
+        // create new categories
+        let addedCategories = [];
+
+        const newCategories = categories
+          .filter((el) => !el.categoryId)
+          .map((el) => el.value);
+
+        if (newCategories.length > 0) {
+          newCategories.forEach((value) => {
+            addedCategories.push(
+              Content.createContentCategory({ text: value }),
+            );
+          });
+          addedCategories = await Promise.all(addedCategories);
+        }
+
+        const allProgrammeCC = categories
+          .filter((el) => el.categoryId)
+          .concat(addedCategories)
+          .map((el) => el.categoryId);
+
+        console.log(`allProgrammeCC`, allProgrammeCC);
+
+        // create content_categories
       },
     );
-
-    // create content_categories
 
     await client.query('COMMIT');
   } catch (err) {

@@ -51,4 +51,13 @@ const createContent = async (
   return res.rows[0];
 };
 
-export { createContent };
+const createContentCategory = async ({ text }) => {
+  const sql = `
+    INSERT INTO content_categories(text)
+      VALUES ($1) RETURNING id as "category_id"
+  `;
+  const res = await query(sql, [text]);
+  return res.rows[0];
+};
+
+export { createContent, createContentCategory };
