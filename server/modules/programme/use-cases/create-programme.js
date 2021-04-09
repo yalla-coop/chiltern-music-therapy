@@ -4,6 +4,8 @@ import * as TherapistClients from '../../therapist-client/model';
 import * as Media from '../../media/model';
 import * as Content from '../../content/model';
 
+import events from '../../../services/events';
+
 import { validateCreateProgramme, matchMediaTypes } from '../utils';
 
 const createProgramme = async ({ userId, body }) => {
@@ -120,8 +122,6 @@ const createProgramme = async ({ userId, body }) => {
           (cat) => !oldCategoriesText.includes(cat),
         );
 
-        console.log("STUFF", categories, oldCategories, oldCategoriesText, newCategories)
-
         // add new categories
         if (newCategories.length > 0) {
           // eslint-disable-next-line no-plusplus
@@ -137,11 +137,14 @@ const createProgramme = async ({ userId, body }) => {
             });
           }
         }
-
       },
     );
 
     await client.query('COMMIT');
+
+    events.emit(events.types.PROGRAMME.CREATED, {
+      programmeId: programme.id,
+    });
   } catch (err) {
     await client.query('ROLLBACK');
     throw err;
