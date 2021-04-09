@@ -169,7 +169,6 @@ const Library = () => {
   useEffect(() => {
     const getCategories = async () => {
       const { data, error } = await Contents.getCategories();
-
       if (!error) {
         const allCats = data.map(({ text }) => ({ label: text, value: text }));
         setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);

@@ -118,12 +118,7 @@ const EditMode = ({
         selected={categories.map((el) => (el && el.value ? el.value : el))}
         options={categoryOptions || []}
         addNew
-        handleChange={(value, option) => {
-          option.map((el, idx) =>
-            isEmptyObject(el) ? (el.value = value[idx]) : el
-          );
-          handleInput({ id, categories: option });
-        }}
+        handleChange={(val) => handleInput({ categories: val })}
         error={validationErrs && validationErrs.categories}
         search={false}
         m={{ mb: '5' }}
