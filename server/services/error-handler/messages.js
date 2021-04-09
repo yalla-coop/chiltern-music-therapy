@@ -9,6 +9,7 @@ const errors = {
   UNAUTHORISED: 'You do not have permission to view this content',
   INVALID_RESET_TOKEN: 'This reset link does not exist or has expired',
   INVALID_EMAIL_OR_PASSWORD: 'Email and/or password are incorrect',
+  UNAUTHORISED_EDIT: 'You do not have permission to do that',
 };
 
 export default errors;
