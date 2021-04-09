@@ -135,7 +135,7 @@ const findContentById = async (id, client) => {
   const sql = `
     SELECT
       *
-    FROM content
+    FROM contents
     WHERE id = $1
     `;
 
@@ -149,7 +149,7 @@ const findContentByMediaId = async (id, client) => {
   const sql = `
     SELECT
       *
-    FROM content
+    FROM contents
     WHERE media_id = $1
     `;
 
@@ -163,7 +163,7 @@ const findContentInProgrammes = async (id, client) => {
   const sql = `
     SELECT
       *
-    FROM programme_contents
+    FROM programmes_contents
     WHERE content_id = $1
     `;
 

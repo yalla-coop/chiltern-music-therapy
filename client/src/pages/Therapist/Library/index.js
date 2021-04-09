@@ -33,6 +33,7 @@ const Library = () => {
   const [contentToDelete, setContentToDelete] = useState('');
   const [editingErrors, setEditingErrors] = useState({});
   const [modalToShow, setModalToShow] = useState('');
+  const [updating, setUpdating] = useState(false);
 
   const { user } = useAuth();
 
@@ -54,14 +55,20 @@ const Library = () => {
     setContentToDelete(id);
   };
 
-  const confirmRemove = (action) => {
-    console.log('action', action);
-
+  const confirmRemove = async (action) => {
     if (action === 'removeCompletely') {
-      console.log('reached', action);
       setModalToShow('removeCompletely');
     } else {
-      // remove from library then show success modal
+      setUpdating(true);
+      const { data, error } = await Contents.removeContentFromLibrary({
+        id: contentToDelete,
+      });
+      if (error) {
+        console.log('err');
+      } else {
+        setContents(data);
+      }
+      setUpdating(false);
     }
   };
 

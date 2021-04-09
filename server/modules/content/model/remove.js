@@ -2,7 +2,7 @@ import { query } from '../../../database';
 
 const deleteContentById = async (id, client) => {
   const sql = `
-    DELETE FROM content
+    DELETE FROM contents
     WHERE id = $1
     RETURNING *
   `;
@@ -13,7 +13,7 @@ const deleteContentById = async (id, client) => {
 
 const deleteContentCategories = async (id, client) => {
   const sql = `
-    DELETE FROM content_categories_content 
+    DELETE FROM contents_content_categories
     WHERE content_id = $1
     RETURNING *
   `;
@@ -24,7 +24,7 @@ const deleteContentCategories = async (id, client) => {
 
 const deleteContentFromProgramme = async (id, client) => {
   const sql = `
-    DELETE FROM programme_contents
+    DELETE FROM programmes_contents
     WHERE content_id = $1
     RETURNING *
   `;

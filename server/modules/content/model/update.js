@@ -3,7 +3,7 @@ import { query } from '../../../database';
 const removeContentFromLibrary = async (id, client) => {
   const values = [id];
   const sql = `
-    UPDATE content
+    UPDATE contents
     SET 
       library_content = FALSE
     WHERE id = $1

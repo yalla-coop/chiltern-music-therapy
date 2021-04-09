@@ -37,4 +37,32 @@ const getCategories = async () => {
   }
 };
 
-export { getContentByProg, getLibraryContent, getCategories };
+const deleteContent = async ({ id }) => {
+  try {
+    const { data } = await axios.delete(`${CONTENTS_BASE}`, { id });
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+const removeContentFromLibrary = async ({ id }) => {
+  try {
+    const { data } = await axios.post(`${CONTENTS_BASE}/remove-from-library`, {
+      id,
+    });
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+export {
+  getContentByProg,
+  getLibraryContent,
+  getCategories,
+  deleteContent,
+  removeContentFromLibrary,
+};

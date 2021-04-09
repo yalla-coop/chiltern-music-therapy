@@ -9,7 +9,7 @@ pubSub.listen(events.MEDIA.DELETED, async (deletedMedia) => {
   await deleteFile({ key, bucket });
 });
 
-pubSub.listen(events.MEDIA.CONTENT_DELETED, async (mediaId, contentId) => {
+pubSub.listen(events.MEDIA.CONTENT_DELETED, async ({ mediaId, contentId }) => {
   const contents = await Content.findContentByMediaId(mediaId);
   const remainingContents = contents.filter(
     (content) => content.id !== contentId,
