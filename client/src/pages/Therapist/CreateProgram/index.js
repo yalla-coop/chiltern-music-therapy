@@ -193,10 +193,11 @@ const CreateProgram = () => {
       const { data, error } = await Contents.getCategories();
 
       if (!error) {
-        const allCats = data.map(({ text, id }) => ({
-          label: text,
-          value: text,
-          categoryId: id,
+        const allUniqueCats = [...new Set(data.map(({ text }) => text))];
+        const allCats = allUniqueCats.map((cat) => ({
+          label: cat,
+          value: cat,
+          categoryId: cat,
         }));
 
         actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);

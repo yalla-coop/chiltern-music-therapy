@@ -170,7 +170,11 @@ const Library = () => {
     const getCategories = async () => {
       const { data, error } = await Contents.getCategories();
       if (!error) {
-        const allCats = data.map(({ text }) => ({ label: text, value: text }));
+        const allUniqueCats = [...new Set(data.map(({ text }) => text))];
+        const allCats = allUniqueCats.map((cat) => ({
+          label: cat,
+          value: cat,
+        }));
         setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
       }
     };
