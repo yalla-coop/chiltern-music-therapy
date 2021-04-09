@@ -121,6 +121,9 @@ const createProgramme = async ({ userId, body }) => {
         const newCategories = categories.filter(
           (cat) => !oldCategoriesText.includes(cat),
         );
+        const categoriesToRemove = oldCategories.filter(
+          (cat) => !categories.includes(cat.text),
+        );
 
         // add new categories
         if (newCategories.length > 0) {
@@ -135,6 +138,14 @@ const createProgramme = async ({ userId, body }) => {
               contentId: _content.id,
               catId: newCat.id,
             });
+          }
+        }
+        // remove categories
+        if (categoriesToRemove.length > 0) {
+          // eslint-disable-next-line no-plusplus
+          for (let i = 0; i < categoriesToRemove.length; i++) {
+            // eslint-disable-next-line no-await-in-loop
+            await Content.deleteContentCategoryById(categoriesToRemove[i].id);
           }
         }
       },

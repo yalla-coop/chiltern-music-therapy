@@ -6,7 +6,7 @@ const findProgrammeWithUsersById = async (programmeId) => {
   const values = [programmeId];
 
   const sql = `
-    SELECT 
+    SELECT
       p.id,
       p.therapists_clients_id,
       p.description,
@@ -166,7 +166,7 @@ const findProgrammesByClient = async (userId) => {
   const values = [userId];
 
   const sql = `
-    SELECT 
+    SELECT
     p.id, p.created_at
     FROM programmes p
     INNER JOIN therapist_clients tc ON p.therapists_clients_id = tc.id
@@ -179,10 +179,10 @@ const findProgrammesByClient = async (userId) => {
 
 const findProgrammeById = async ({ id }) => {
   const values = [id];
-  console.log("hey", id)
+
   const sql = `
-    SELECT 
-    p.id, 
+    SELECT
+    p.id,
     p.created_at,
     p.description,
     pu.id "update.id",
