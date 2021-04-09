@@ -30,6 +30,7 @@ const Library = () => {
   const [filteredContents, setFilteredContents] = useState([]);
   const [therapistOptions, setTherapistOptions] = useState([]);
   const [contentToEdit, setContentToEdit] = useState('');
+  const [editFormState, setEditFormState] = useState('');
   const [contentToDelete, setContentToDelete] = useState('');
   const [editingErrors, setEditingErrors] = useState({});
   const [modalToShow, setModalToShow] = useState('');
@@ -90,16 +91,22 @@ const Library = () => {
     setUpdating(false);
   };
 
-  const editContent = (contentId) => {
+  const editContent = (content) => {
     console.log(
       'Clear away formstate in case stuff frmo another card they didnt save'
     );
-    // setContentToEdit(contentId);
+    setContentToEdit(content.id);
+    setEditFormState(content);
+  };
+
+  const handleInput = (value) => {
+    console.log('GE', value);
+    setEditFormState({ ...editFormState, ...value });
   };
 
   const cancelChanges = () => {
-    console.log('Clear away formstate');
     setContentToEdit('');
+    setEditFormState({});
   };
 
   useEffect(() => {
@@ -212,31 +219,36 @@ const Library = () => {
       </Row>
       <Row mb="4">
         {contentToView ? (
-          filteredContents
-            .slice(0, viewNum)
-            .map(({ type, path, id, categories, ...content }, index) => (
+          filteredContents.slice(0, viewNum).map((content, index) => {
+            const contentToUse =
+              content.id === contentToEdit ? editFormState : content;
+            return (
               <Col w={[4, 6, 4]} mb="4" key={index}>
                 <Expandable
-                  borderColor={decideBorder(type)}
+                  borderColor={decideBorder(content.type)}
                   content={{
-                    download: path,
-                    streamable: decideStreamable(type, path),
-                    categories: categories.filter((cat) => cat !== null),
-                    ...content,
-                    type: type?.toLowerCase(),
-                    path,
+                    ...contentToUse,
+                    download: content.path,
+                    streamable: decideStreamable(content.type, content.path),
+                    categories: contentToUse.categories.filter(
+                      (cat) => cat !== null
+                    ),
+                    type: content.type?.toLowerCase(),
+                    path: content.path,
                   }}
-                  remove={() => removeContent(id)}
-                  edit={() => editContent(id)}
+                  remove={() => removeContent(content.id)}
+                  edit={() => editContent(content)}
                   onCancel={cancelChanges}
                   withDate
                   actions
-                  editing={contentToEdit === id}
+                  editing={contentToEdit === content.id}
                   errors={editingErrors}
                   library
+                  handleInput={handleInput}
                 />
               </Col>
-            ))
+            );
+          })
         ) : (
           <Col w={[4, 6, 4]}>
             <Basic>No content to show</Basic>
