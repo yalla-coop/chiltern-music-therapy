@@ -116,6 +116,17 @@ const updateAccount = async (accountData) => {
   }
 };
 
+const getAccountInfo = async ({ options } = {}) => {
+  try {
+    console.log('api');
+    const { data } = await axios.get(`${USERS_BASE}/my-account`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -128,4 +139,5 @@ export {
   deleteMyAccount,
   getTherapists,
   updateAccount,
+  getAccountInfo,
 };

@@ -19,7 +19,7 @@ const Title = ({
       </Col>
     </Row>
   ) : (
-    <Row mb="5">
+    <Row mb={mb || '5'} mbM={mbM || '5'}>
       <Col w={[4, 8, 8]} style={{ display: 'flex ' }}>
         <T.H1>
           {lightSection}{' '}

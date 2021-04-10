@@ -66,4 +66,30 @@ const findTherapists = async () => {
   return therapists;
 };
 
-export { findUserById, findUserByEmail, findTherapists, findUserByResetToken };
+const findTherapistAccountInfo = async (id, client) => {
+  const values = [id];
+
+  const sql = `
+    SELECT 
+      first_name, 
+      last_name,
+      email,
+      bio,
+      contact_number,
+      contact_email,
+      profile_photo_media_id
+    FROM users
+      WHERE id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+export {
+  findUserById,
+  findUserByEmail,
+  findTherapists,
+  findUserByResetToken,
+  findTherapistAccountInfo,
+};

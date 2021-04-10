@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import Title from '../../../components/Title';
-import { BasicInput } from '../../../components/Inputs';
+import { BasicInput, Textarea } from '../../../components/Inputs';
+import FileUpload from '../../../components/FileUpload';
+import Avatar from '../../../components/Avatar';
 import Button from '../../../components/Button';
-import Icon from '../../../components/Icon';
 import { Row, Col } from '../../../components/Grid';
 import Modal from '../../../components/Modal';
-
-import { navRoutes } from '../../../constants';
+import * as T from '../../../components/Typography';
 
 import { useAuth } from '../../../context/auth';
 
@@ -22,6 +21,10 @@ const initState = {
   firstName: '',
   lastName: '',
   email: '',
+  profileImg: {},
+  bio: '',
+  contactEmail: '',
+  contactNumber: '',
 };
 
 const MyAccount = () => {
@@ -96,47 +99,107 @@ const MyAccount = () => {
   }, [accountDetails]);
 
   useEffect(() => {
+    const getTherapistInfo = async () => {
+      const { data, error } = await Users.getAccountInfo();
+      if (!error) {
+        console.log('data', data);
+        setAccountDetails(data);
+      }
+    };
     if (user.id) {
-      const { firstName, lastName, email } = user;
-      setAccountDetails({
-        firstName: firstName[0],
-        lastName: lastName[0],
-        email,
-      });
+      getTherapistInfo();
     }
   }, [user.id]);
 
-  const { firstName, lastName, email } = accountDetails;
+  const {
+    firstName,
+    lastName,
+    email,
+    bio,
+    contactEmail,
+    contactNumber,
+  } = accountDetails;
 
   return (
     <>
-      <Title lightSection="My" boldSection="Account" />
-
+      <Title lightSection="My" boldSection="Account" mb="8" />
+      <Row mb="6" mbT="5">
+        <Col w={[4, 8, 8]}>
+          <T.H3 weight="bold">Account Details</T.H3>
+        </Col>
+      </Row>
       <Row>
-        <Col w={[4, 6, 4]} mb="6" mbT="5">
+        <Col w={[4, 6, 4]} mb="5">
           <BasicInput
-            label="First Initial"
+            label="First Name"
             handleChange={(val) => handleInput(val, 'firstName')}
             value={firstName}
             error={errors?.validationErrs?.firstName}
           />
         </Col>
-        <Col w={[4, 6, 4]} mb="6" mbT="5">
+        <Col w={[4, 6, 4]} mb="5">
           <BasicInput
-            label="Last Initial"
+            label="Last Name"
             handleChange={(val) => handleInput(val, 'lastName')}
             value={lastName}
             error={errors?.validationErrs?.lastName}
           />
         </Col>
       </Row>
-      <Row mb="7" mbT="6">
+      <Row mb="8" mbT="6">
         <Col w={[4, 6, 4]}>
           <BasicInput
             label="Email"
             handleChange={(val) => handleInput(val, 'email')}
             value={email}
             error={errors?.validationErrs?.email}
+          />
+        </Col>
+      </Row>
+      <Row mb="6" mbT="5">
+        <Col w={[4, 8, 8]}>
+          <T.H3 weight="bold">Profile</T.H3>
+        </Col>
+      </Row>
+      <Row mb="6" mbT="5">
+        <Col w={[4, 6, 4]}>
+          <Avatar status="loading" />
+          {/* <FileUpload
+            error={fileUploadError}
+            setError={setFileUploadError}
+            setFileInfo={setUploadedFileInfo}
+            fileInfo={uploadedFileInfo}
+            uploading={fileUploading}
+            setUploading={setFileUploading}
+            category="application"
+          /> */}
+        </Col>
+        <Col w={[4, 6, 4]}>
+          <Textarea
+            label="Biography"
+            placeholder="Tell your clients a little bit about you..."
+            rows={5}
+            value={bio}
+            handleChange={(val) => handleInput(val, 'bio')}
+            error={errors.bio}
+          />
+        </Col>
+      </Row>
+      <Row mb="8" mbT="6">
+        <Col w={[4, 6, 4]} mb="5">
+          <BasicInput
+            label="Contact email"
+            handleChange={(val) => handleInput(val, 'contactEmail')}
+            value={contactEmail}
+            error={errors?.validationErrs?.contactEmail}
+          />
+        </Col>
+        <Col w={[4, 6, 4]} mb="5">
+          <BasicInput
+            label="Contact number"
+            handleChange={(val) => handleInput(val, 'contactNumber')}
+            value={contactNumber}
+            error={errors?.validationErrs?.contactNumber}
           />
         </Col>
       </Row>
@@ -147,20 +210,6 @@ const MyAccount = () => {
             onClick={handleSubmit}
             loading={updating}
           />
-        </Col>
-      </Row>
-      <Row>
-        <Col w={[4, 6, 4]}>
-          <Link to={navRoutes.CLIENT.DELETE_ACCOUNT}>
-            <Icon
-              text="Delete account"
-              icon="bin"
-              color="gray9"
-              width="18"
-              height="16"
-              weight="regular"
-            />
-          </Link>
         </Col>
       </Row>
       <Modal

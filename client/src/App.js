@@ -119,6 +119,14 @@ function App() {
                 Component={Pages.THERAPIST.Library}
               />
 
+              <Route
+                exact
+                path={navRoutes.THERAPIST.ACCOUNT}
+                Component={Pages.THERAPIST.MyAccount}
+                goBack
+                maxWidth="none"
+              />
+
               {/* Admin Pages */}
               <Route
                 exact

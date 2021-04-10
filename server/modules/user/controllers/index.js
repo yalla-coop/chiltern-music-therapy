@@ -11,6 +11,7 @@ import updatePassword from './update-password';
 import { authenticate, authorize } from '../../../api/middlewares';
 import getTherapists from './get-therapists';
 import updateAccount from './update-account';
+import getAccountInfo from './get-account-info';
 
 import { userRoles } from '../../../constants/data-type';
 
@@ -24,6 +25,7 @@ router.get(
   authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN]),
   getTherapists,
 );
+router.get('/my-account', authenticate(), getAccountInfo);
 router.post('/signup', signup);
 router.post('/login', login);
 router.post('/logout', logout);
