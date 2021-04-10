@@ -142,9 +142,7 @@ const Library = () => {
 
       const allLibraryC = data.map((el) => ({
         ...el,
-        categories: createUniqueCats(el.categoriesEditable).map(
-          (el) => el.value
-        ),
+        categories: [...new Set(el.categories.map((cat) => cat))],
       }));
 
       if (!error) {
