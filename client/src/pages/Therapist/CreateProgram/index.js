@@ -24,6 +24,7 @@ import { useAuth } from '../../../context/auth';
 
 const initialState = {
   description: '',
+  clientDetails: {},
   // total content
   content: [],
   // single item
@@ -79,6 +80,9 @@ const CreateProgram = () => {
   const { user } = useAuth();
 
   const actions = {
+    SET_CLIENT_DETAILS: (details) => {
+      dispatch({ type: actionTypes.setClientDetails, value: details });
+    },
     SET_ERRORS: (errors) => {
       dispatch({ type: actionTypes.setErrors, value: errors });
     },
@@ -176,6 +180,12 @@ const CreateProgram = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (location.state && location.state.clientDetails) {
+      actions.SET_CLIENT_DETAILS(location.state.clientDetails);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const getContent = async () => {

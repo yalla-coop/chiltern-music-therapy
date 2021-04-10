@@ -124,7 +124,6 @@ const SingleClient = ({ clientHistory }) => {
           </T.P>
         </Col>
       </Row>
-
       <Row mb="8">
         <Col w={[4, 12, 4]}>
           <Button
