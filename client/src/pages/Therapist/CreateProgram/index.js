@@ -185,8 +185,9 @@ const CreateProgram = () => {
       if (!error) {
         const allLibraryC = data.map((el) => ({
           ...el,
-          categories: createUniqueCats(el.categoriesEditable),
+          categories: [...new Set(el.categories.map((cat) => cat))],
         }));
+
         actions.GET_LIBRARY_CONTENT_SUCCESS(allLibraryC);
       } else {
         actions.GET_LIBRARY_CONTENT_ERROR(

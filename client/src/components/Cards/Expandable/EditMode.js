@@ -57,7 +57,7 @@ const EditMode = ({
       title,
       id,
       instructions,
-      libraryContent: libraryContent,
+      libraryContent,
       link,
       type,
     };

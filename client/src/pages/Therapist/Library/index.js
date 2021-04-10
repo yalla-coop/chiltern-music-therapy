@@ -140,8 +140,15 @@ const Library = () => {
     const getContent = async () => {
       const { data, error } = await Contents.getLibraryContent();
 
+      const allLibraryC = data.map((el) => ({
+        ...el,
+        categories: createUniqueCats(el.categoriesEditable).map(
+          (el) => el.value
+        ),
+      }));
+
       if (!error) {
-        setContents(data);
+        setContents(allLibraryC);
       }
     };
 
@@ -269,7 +276,7 @@ const Library = () => {
                       download: content.path,
                       streamable: decideStreamable(content.type, content.path),
                       categories: contentToUse.categories.filter(
-                        (cat) => cat !== null
+                        (cat) => cat.value !== null
                       ),
                       type: content.type?.toLowerCase(),
                       path: content.path,
