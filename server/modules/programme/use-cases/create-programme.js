@@ -130,14 +130,20 @@ const createProgramme = async ({ userId, body }) => {
           // eslint-disable-next-line no-plusplus
           for (let i = 0; i < newCategories.length; i++) {
             // eslint-disable-next-line no-await-in-loop
-            const newCat = await Content.createCategory({
-              text: newCategories[i],
-            });
+            const newCat = await Content.createCategory(
+              {
+                text: newCategories[i],
+              },
+              client,
+            );
             // eslint-disable-next-line no-await-in-loop
-            await Content.createContentCategory({
-              contentId: _content.id,
-              catId: newCat.id,
-            });
+            await Content.createContentCategory(
+              {
+                contentId: _content.id,
+                catId: newCat.id,
+              },
+              client,
+            );
           }
         }
         // remove categories
@@ -145,7 +151,10 @@ const createProgramme = async ({ userId, body }) => {
           // eslint-disable-next-line no-plusplus
           for (let i = 0; i < categoriesToRemove.length; i++) {
             // eslint-disable-next-line no-await-in-loop
-            await Content.deleteContentCategoryById(categoriesToRemove[i].id);
+            await Content.deleteContentCategoryById(
+              categoriesToRemove[i].id,
+              client,
+            );
           }
         }
       },

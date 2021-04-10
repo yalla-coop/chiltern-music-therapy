@@ -72,11 +72,17 @@ const createContentCategory = async ({ contentId, catId }, client) => {
   INSERT INTO contents_content_categories(
     content_id,
     category_id
-  ) VALUES (
-    $1,
-    $2
   )
-  RETURNING *
+  SELECT
+      $1,
+      $2
+  WHERE NOT EXISTS (
+      SELECT
+       1
+      FROM contents_content_categories
+      WHERE (content_id, category_id) = ($1, $2)
+    )
+    RETURNING *
   `;
 
   const values = [contentId, catId];
@@ -86,27 +92,3 @@ const createContentCategory = async ({ contentId, catId }, client) => {
 };
 
 export { createCategory, createContentCategory, createContent };
-
-// const createContentCategoriesContent = async (
-//   { contentId, categoryId },
-//   client,
-// ) => {
-//   const sql = `
-//     INSERT INTO contents_content_categories(
-//       content_id,
-//       category_id
-//     )
-//     SELECT
-//         $1,
-//         $2
-//     WHERE NOT EXISTS (
-//         SELECT
-//          1
-//         FROM contents_content_categories
-//         WHERE (content_id, category_id) = ($1, $2)
-//       )
-//       RETURNING *
-//   `;
-//   const res = await query(sql, [contentId, categoryId], client);
-//   return res.rows[0];
-// };
