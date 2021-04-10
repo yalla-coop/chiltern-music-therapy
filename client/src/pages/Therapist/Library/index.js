@@ -5,7 +5,7 @@ import { Basic, Expandable } from '../../../components/Cards';
 import { Row, Col } from '../../../components/Grid';
 import Modal from '../../../components/Modal';
 
-import { decideBorder } from '../../../helpers';
+import { decideBorder, createUniqueCats } from '../../../helpers';
 
 import { useAuth } from '../../../context/auth';
 
@@ -170,12 +170,10 @@ const Library = () => {
     const getCategories = async () => {
       const { data, error } = await Contents.getCategories();
       if (!error) {
-        const allUniqueCats = [...new Set(data.map(({ text }) => text))];
-        const allCats = allUniqueCats.map((cat) => ({
-          label: cat,
-          value: cat,
-        }));
-        setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
+        setCategoryOptions([
+          { label: 'All', value: 'ALL' },
+          ...createUniqueCats(data),
+        ]);
       }
     };
 

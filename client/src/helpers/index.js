@@ -6,6 +6,7 @@ import getInitials from './getInitials';
 import decideBorder from './decideBorder';
 import linkFormatter from './linkFormatter';
 import isEmptyObject from './isEmptyObject';
+import createUniqueCats from './createUniqueCats';
 
 export {
   authorization,
@@ -16,4 +17,5 @@ export {
   linkFormatter,
   decideBorder,
   isEmptyObject,
+  createUniqueCats,
 };

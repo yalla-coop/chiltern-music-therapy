@@ -18,6 +18,8 @@ import flowTypes from './flowTypes';
 
 import { Contents } from '../../../api-calls';
 
+import { createUniqueCats } from '../../../helpers';
+
 import { useAuth } from '../../../context/auth';
 
 const initialState = {
@@ -183,7 +185,7 @@ const CreateProgram = () => {
       if (!error) {
         const allLibraryC = data.map((el) => ({
           ...el,
-          categories: el.categoriesEditable,
+          categories: createUniqueCats(el.categoriesEditable),
         }));
         actions.GET_LIBRARY_CONTENT_SUCCESS(allLibraryC);
       } else {
@@ -198,14 +200,7 @@ const CreateProgram = () => {
       const { data, error } = await Contents.getCategories();
 
       if (!error) {
-        const allUniqueCats = [...new Set(data.map(({ text }) => text))];
-        const allCats = allUniqueCats.map((cat) => ({
-          label: cat,
-          value: cat,
-          categoryId: cat,
-        }));
-
-        actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);
+        actions.GET_CONTENT_CATEGORIES_SUCCESS(createUniqueCats(data));
       } else {
         actions.GET_CONTENT_CATEGORIES_ERROR(
           (error && error.message) || 'error loading content categories'

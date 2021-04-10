@@ -45,7 +45,7 @@ const findLibraryContent = async ({ id }) => {
       m.path,
       tc.therapist_user_id,
       ARRAY_AGG (cc.text) categories,
-      jsonb_agg(jsonb_build_object('value', cc.text, 'categoryId', cc.id)) as categories_editable
+      jsonb_agg(jsonb_build_object('text', cc.text, 'categoryId', cc.id)) as categories_editable
     FROM contents c
     INNER JOIN programmes_contents pc ON pc.content_id = c.id
     INNER JOIN programmes p ON pc.programme_id = p.id
