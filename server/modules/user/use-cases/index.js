@@ -6,6 +6,7 @@ import deleteUser from './delete-user';
 import resetPasswordLink from './reset-password-link';
 import updatePassword from './update-password';
 import getTherapists from './get-therapists';
+import updateAccount from './update-account';
 
 export {
   getUserById,
@@ -16,4 +17,5 @@ export {
   resetPasswordLink,
   updatePassword,
   getTherapists,
+  updateAccount,
 };

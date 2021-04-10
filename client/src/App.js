@@ -200,6 +200,13 @@ function App() {
                 goBack
                 maxWidth="none"
               />
+              <Route
+                exact
+                path={navRoutes.CLIENT.ACCOUNT}
+                Component={Pages.CLIENT.MyAccount}
+                goBack
+                maxWidth="none"
+              />
 
               {/* therapist sub routes */}
 

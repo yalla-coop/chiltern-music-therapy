@@ -29,7 +29,7 @@ import Edit from './icons/Edit';
 import Or from './icons/Or';
 
 const Icon = (props) => {
-  const { icon, color, text, jc } = props;
+  const { icon, color, text, jc, weight = 'bold' } = props;
 
   const IconMap = {
     email: Email,
@@ -79,7 +79,7 @@ const Icon = (props) => {
         color={theme.colors[color] || color || 'currentColor'}
       />
       {text && (
-        <T.P weight="bold" ml="1" color={color}>
+        <T.P weight={weight} ml="1" color={color}>
           {text}
         </T.P>
       )}

@@ -103,6 +103,19 @@ const getTherapists = async ({ options } = {}) => {
   }
 };
 
+const updateAccount = async (accountData) => {
+  try {
+    const { data } = await axios.post(
+      `${USERS_BASE}/update-account`,
+      accountData
+    );
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -114,4 +127,5 @@ export {
   updatePassword,
   deleteMyAccount,
   getTherapists,
+  updateAccount,
 };
