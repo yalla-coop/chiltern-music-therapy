@@ -57,7 +57,7 @@ const EditMode = ({
       title,
       id,
       instructions,
-      libraryContent: libraryContent,
+      libraryContent,
       link,
       type,
     };
@@ -114,7 +114,7 @@ const EditMode = ({
       <Dropdown
         multi
         label="Categories"
-        selected={categories}
+        selected={categories.map((el) => (el && el.value ? el.value : el))}
         options={categoryOptions || []}
         addNew
         handleChange={(val) => handleInput({ id, categories: val })}

@@ -1,8 +1,8 @@
 import { useReducer, useEffect } from 'react';
 
-import { Switch, useHistory, useParams } from 'react-router-dom';
+import { Switch, useHistory, useParams, useLocation } from 'react-router-dom';
 
-import { content, navRoutes } from '../../../constants';
+import { navRoutes } from '../../../constants';
 
 import reducer from './reducer';
 import actionTypes from './actionTypes';
@@ -18,10 +18,13 @@ import flowTypes from './flowTypes';
 
 import { Contents } from '../../../api-calls';
 
+import { createUniqueCats } from '../../../helpers';
+
 import { useAuth } from '../../../context/auth';
 
 const initialState = {
   description: '',
+  clientDetails: {},
   // total content
   content: [],
   // single item
@@ -46,6 +49,7 @@ const initialState = {
       bucketRegion: '',
       bucket: '',
       fileType: '',
+      size: 0,
       new: false,
       uploadedToS3: false,
     },
@@ -70,10 +74,15 @@ const initialState = {
 const CreateProgram = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const history = useHistory();
+  const location = useLocation();
+
   const { id: clientId } = useParams();
   const { user } = useAuth();
 
   const actions = {
+    SET_CLIENT_DETAILS: (details) => {
+      dispatch({ type: actionTypes.setClientDetails, value: details });
+    },
     SET_ERRORS: (errors) => {
       dispatch({ type: actionTypes.setErrors, value: errors });
     },
@@ -164,9 +173,19 @@ const CreateProgram = () => {
   };
 
   useEffect(() => {
-    navFunctions.goToDescription();
+    const pathArr = location.pathname.split('/');
+    if (!pathArr.includes(flowTypes.description)) {
+      navFunctions.goToDescription();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (location.state && location.state.clientDetails) {
+      actions.SET_CLIENT_DETAILS(location.state.clientDetails);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const getContent = async () => {
@@ -174,7 +193,12 @@ const CreateProgram = () => {
       const { data, error } = await Contents.getLibraryContent();
 
       if (!error) {
-        actions.GET_LIBRARY_CONTENT_SUCCESS(data);
+        const allLibraryC = data.map((el) => ({
+          ...el,
+          categories: [...new Set(el.categories.map((cat) => cat))],
+        }));
+
+        actions.GET_LIBRARY_CONTENT_SUCCESS(allLibraryC);
       } else {
         actions.GET_LIBRARY_CONTENT_ERROR(
           (error && error.message) || 'error loading library content'
@@ -187,8 +211,7 @@ const CreateProgram = () => {
       const { data, error } = await Contents.getCategories();
 
       if (!error) {
-        const allCats = data.map(({ text }) => ({ label: text, value: text }));
-        actions.GET_CONTENT_CATEGORIES_SUCCESS(allCats);
+        actions.GET_CONTENT_CATEGORIES_SUCCESS(createUniqueCats(data));
       } else {
         actions.GET_CONTENT_CATEGORIES_ERROR(
           (error && error.message) || 'error loading content categories'

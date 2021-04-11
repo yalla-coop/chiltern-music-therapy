@@ -24,6 +24,7 @@ const events = {
   },
   MEDIA: {
     DELETED: 'MEDIA.DELETED',
+    CONTENT_DELETED: 'MEDIA.CONTENT_DELETED',
   },
 };
 

@@ -8,6 +8,7 @@ import updatePassword from './updatePassword';
 import addClient from './addClient';
 import videoFeedback from './videoFeedback';
 import documentFeedback from './documentFeedback';
+import editContent from './editContent';
 
 export {
   signup,
@@ -20,4 +21,5 @@ export {
   addClient,
   videoFeedback,
   documentFeedback,
+  editContent,
 };

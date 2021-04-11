@@ -61,6 +61,7 @@ export const content = array().of(
       bucket: string(),
       bucketRegion: string(),
       fileType: string(),
+      size: number(),
       id: string().nullable(),
       key: string(),
       name: string(),

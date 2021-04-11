@@ -15,8 +15,7 @@ import { Contents, Programmes } from '../../../api-calls';
 
 import UpdateSection from './UpdateSection';
 import { THERAPIST } from '../../../constants/nav-routes';
-const dummyDescription =
-  'Welcome to your Home Programmes. Here you will find weekly, fortnightly or monthly digital resources that your therapist has created especially for you to support your therapeutic goals in between live sessions.';
+
 const IndividProgramme = () => {
   const [contents, setContents] = useState([]);
   const [update, setUpdate] = useState({});
@@ -81,13 +80,17 @@ const IndividProgramme = () => {
         <S.HorizontalCol w={[4, 6, 8]}>
           <S.GreenLine />
           <T.P small color="gray8" caps>
-            {dateFormatter(update.createdAt)}
+            {dateFormatter(contents.createdAt)}
           </T.P>
         </S.HorizontalCol>
       </Row>
       <Row mb="7" mbT="5">
         <Col w={[4, 6, 6]}>
-          <T.P color="gray8" ellipsis={ellipsis ? { rows: 2 } : false}>
+          <T.P
+            color="gray8"
+            ellipsis={ellipsis ? { rows: 2 } : false}
+            style={{ width: '100%' }}
+          >
             {description}
           </T.P>
           {ellipsis && (

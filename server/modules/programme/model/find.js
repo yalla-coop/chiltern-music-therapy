@@ -6,7 +6,7 @@ const findProgrammeWithUsersById = async (programmeId) => {
   const values = [programmeId];
 
   const sql = `
-    SELECT 
+    SELECT
       p.id,
       p.therapists_clients_id,
       p.description,
@@ -166,7 +166,7 @@ const findProgrammesByClient = async (userId) => {
   const values = [userId];
 
   const sql = `
-    SELECT 
+    SELECT
     p.id, p.created_at
     FROM programmes p
     INNER JOIN therapist_clients tc ON p.therapists_clients_id = tc.id
@@ -179,9 +179,10 @@ const findProgrammesByClient = async (userId) => {
 
 const findProgrammeById = async ({ id }) => {
   const values = [id];
+
   const sql = `
-    SELECT 
-    p.id, 
+    SELECT
+    p.id,
     p.created_at,
     p.description,
     pu.id "update.id",
@@ -194,10 +195,10 @@ const findProgrammeById = async ({ id }) => {
     u.first_name "therapist.first_name",
     u.last_name "therapist.last_name"
     FROM programmes p
-    INNER JOIN progress_updates pu ON pu.programme_id = p.id
-    INNER JOIN programmes_feedbacks pf ON pf.programme_id = p.id
-    INNER JOIN therapist_clients tc ON tc.id = p.therapists_clients_id
-    INNER JOIN users u ON tc.therapist_user_id = u.id
+    LEFT JOIN progress_updates pu ON pu.programme_id = p.id
+    LEFT JOIN programmes_feedbacks pf ON pf.programme_id = p.id
+    LEFT JOIN therapist_clients tc ON tc.id = p.therapists_clients_id
+    LEFT JOIN users u ON tc.therapist_user_id = u.id
     WHERE p.id = $1
   `;
 
