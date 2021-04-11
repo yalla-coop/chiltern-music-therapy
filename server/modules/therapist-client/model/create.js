@@ -1,6 +1,6 @@
 import { query } from '../../../database';
 
-const createClient = async (
+const createTherapistClient = async (
   {
     clientId,
     therapistId,
@@ -50,4 +50,4 @@ const createClient = async (
   return res.rows[0];
 };
 
-export { createClient };
+export { createTherapistClient };

@@ -1,3 +1,5 @@
+import uniqid from 'uniqid';
+
 import * as TherapistClient from '../model';
 import * as User from '../../user/model';
 
@@ -6,9 +8,7 @@ import { validateCreateClient } from '../utils';
 import { getClient } from '../../../database/connect';
 import { userRoles, userStatuses, appLinks } from '../../../constants';
 
-const crypto = require('crypto');
-
-const createClient = async ({
+const createTherapistClient = async ({
   therapistId,
   therapyBackground,
   therapyGoals,
@@ -26,8 +26,7 @@ const createClient = async ({
   try {
     await client.query('BEGIN');
 
-    const buffer = crypto.randomBytes(32);
-    const token = buffer.toString('hex');
+    const token = uniqid.time();
 
     await validateCreateClient({
       therapyBackground,
@@ -56,7 +55,7 @@ const createClient = async ({
     );
 
     // set up therapist client relationship
-    const newClient = await TherapistClient.createClient(
+    const newTherapistClient = await TherapistClient.createTherapistClient(
       {
         clientId: user.id,
         therapistId,
@@ -73,11 +72,11 @@ const createClient = async ({
 
     // send email
     events.emit(events.types.THERAPIST_CLIENT.CLIENT_INVITED, {
-      therapistClientId: newClient.id,
+      therapistClientId: newTherapistClient.id,
     });
 
     await client.query('COMMIT');
-    return { ...newClient, inviteLink };
+    return { ...newTherapistClient, inviteLink };
   } catch (error) {
     await client.query('ROLLBACK');
     throw error;
@@ -86,4 +85,4 @@ const createClient = async ({
   }
 };
 
-export default createClient;
+export default createTherapistClient;

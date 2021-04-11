@@ -1,6 +1,6 @@
 import * as TherapistClient from '../use-cases';
 
-const createClient = async (req, res, next) => {
+const createTherapistClient = async (req, res, next) => {
   const { id } = req.user;
   const {
     therapyBackground,
@@ -15,7 +15,7 @@ const createClient = async (req, res, next) => {
     primaryMobileNumber,
   } = req.body;
   try {
-    const newClient = await TherapistClient.createClient({
+    const newClient = await TherapistClient.createTherapistClient({
       therapistId: id,
       therapyBackground,
       therapyGoals,
@@ -35,4 +35,4 @@ const createClient = async (req, res, next) => {
   }
 };
 
-export default createClient;
+export default createTherapistClient;

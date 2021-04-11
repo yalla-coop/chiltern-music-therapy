@@ -26,7 +26,6 @@ const createUser = createSchema({
 });
 
 const validate = (data) => {
-  console.log('REAC', data);
   return _validate(createUser, data);
 };
 
