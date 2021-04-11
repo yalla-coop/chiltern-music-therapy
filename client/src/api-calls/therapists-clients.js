@@ -62,7 +62,7 @@ const updateTherapiesProfile = async ({ updates, options } = {}) => {
 const addNewClient = async ({ state, options } = {}) => {
   try {
     const { data } = await axios.post(
-      `${THERAPISTS_CLIENTS_BASE}/add-new-client`,
+      `${THERAPISTS_CLIENTS_BASE}/client`,
       state
     );
     return { data };
