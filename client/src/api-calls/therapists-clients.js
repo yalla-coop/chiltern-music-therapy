@@ -82,6 +82,18 @@ const getMyTherapy = async ({ options } = {}) => {
   }
 };
 
+const sendFeedback = async ({ updates, options } = {}) => {
+  try {
+    // const { data } = await axios.post(
+    //   `${THERAPISTS_CLIENTS_BASE}/send-feedback`
+    // )
+    // return data;
+    return { data: updates };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
 export {
   getTherapistsClientsById,
   getTherapistByInviteToken,
@@ -90,4 +102,5 @@ export {
   updateTherapiesProfile,
   getMyTherapy,
   addNewClient,
+  sendFeedback,
 };
