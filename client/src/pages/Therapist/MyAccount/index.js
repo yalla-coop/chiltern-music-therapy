@@ -129,6 +129,8 @@ const MyAccount = () => {
     });
     if (!_error) {
       setMediaUrl(data);
+    } else {
+      setErrors({ ...errors, getImageError: 'Error loading image' });
     }
   };
 
@@ -149,6 +151,11 @@ const MyAccount = () => {
         if (data.profileImage && data.profileImage.key) {
           getMediaUrl(data.profileImage);
         }
+      } else {
+        setErrors({
+          ...errors,
+          getUserInfoError: 'Error loading account details',
+        });
       }
     };
     if (user.id) {
@@ -169,6 +176,9 @@ const MyAccount = () => {
       <Row mb="6" mbT="5">
         <Col w={[4, 8, 8]}>
           <T.H3 weight="bold">Account Details</T.H3>
+        </Col>
+        <Col w={[4, 6, 4]} mt="4">
+          <T.P color="error">{errors?.getUserInfoError}</T.P>
         </Col>
       </Row>
       <Row>
@@ -210,6 +220,9 @@ const MyAccount = () => {
             status={fileUploading || !mediaUrl ? 'loading' : 'ready'}
             image={mediaUrl}
           />
+          <Col w={[4, 6, 4]}>
+            <T.P color="error">{errors?.getImageError}</T.P>
+          </Col>
           <FileUpload
             category="image"
             error={fileUploadError}
