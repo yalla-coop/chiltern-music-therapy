@@ -7,6 +7,8 @@ import Debug from 'debug';
 import helmet from 'helmet';
 import Boom from '@hapi/boom';
 
+import './services/events/listeners';
+
 import { Sentry } from './services/error-handler';
 
 import router from './api';

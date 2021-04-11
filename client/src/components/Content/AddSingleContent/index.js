@@ -13,14 +13,13 @@ import {
 
 import { Info } from '../../Cards';
 
-import { content, navRoutes, dropdowns } from '../../../constants';
+import { content, navRoutes } from '../../../constants';
 import theme from '../../../theme';
 import validate from '../../../validation/schemas/programmeSingleContent';
 
 import * as S from './style';
 
 const { fileCategories } = content;
-const { therapyGoalsCategories } = dropdowns;
 
 const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
@@ -30,7 +29,7 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
   const [unsavedChanges, setUnsavedChanges] = useState(true);
   const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
 
-  const { singleContent, fileUpload } = parentState;
+  const { singleContent, fileUpload, contentCategories } = parentState;
 
   const {
     fileUploading,
@@ -47,6 +46,12 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
     instructions,
     validationErrs,
   } = singleContent;
+
+  const {
+    data: contentCategoriesData,
+    error: contentCategoriesError,
+    loading: contentCategoriesLoading,
+  } = contentCategories;
 
   const {
     state: { category },
@@ -77,12 +82,14 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
       !validInput(link)
     ) {
       setAllContentInputsMissing(missingErrorMsg);
+      throw new Error();
     } else if (
       [fileCategories.audio, fileCategories.video].includes(category) &&
       !uploadedFileInfo.new &&
       !validInput(link)
     ) {
       setAllContentInputsMissing(missingErrorMsg);
+      throw new Error();
     } else {
       setAllContentInputsMissing(null);
       HANDLE_FILE_UPLOAD_ERROR('');
@@ -108,10 +115,7 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
       checkMissingContentInput();
       validate(formData);
 
-      if (!allContentInputsMissing) {
-        ADD_SINGLE_CONTENT('validationErrs', {});
-      }
-
+      ADD_SINGLE_CONTENT('validationErrs', {});
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -219,12 +223,13 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
           <Dropdown
             label="Categories"
             color="gray8"
-            options={therapyGoalsCategories}
+            options={contentCategoriesData}
             multi
             addNew
             placeholder="Select...(optional)"
             handleChange={(value) => ADD_SINGLE_CONTENT('categories', value)}
-            error={validationErrs.categories}
+            loading={contentCategoriesLoading}
+            error={validationErrs.categories || contentCategoriesError}
           />
         </Col>
       </Row>

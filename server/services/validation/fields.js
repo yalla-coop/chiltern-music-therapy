@@ -19,7 +19,7 @@ export const email = string()
 
 export const password = string()
   .matches(
-    /^(?:(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*)(?=.{8,}).*$/,
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/gm,
     errMsgs.SHORT_PASSWORD,
   )
   .required(errMsgs.DEFAULT_REQUIRED);
@@ -61,6 +61,7 @@ export const content = array().of(
       bucket: string(),
       bucketRegion: string(),
       fileType: string(),
+      size: number(),
       id: string().nullable(),
       key: string(),
       name: string(),

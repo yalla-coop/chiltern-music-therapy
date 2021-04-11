@@ -63,6 +63,36 @@ const getUserDashboard = async ({ options } = {}) => {
   }
 };
 
+const resetPasswordLink = async (emailForm, { options } = {}) => {
+  try {
+    await axios.post(`${USERS_BASE}/reset-password-link`, emailForm);
+    return {};
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+const updatePassword = async (data, { options } = {}) => {
+  try {
+    await axios.post(`${USERS_BASE}/update-password`, data);
+    return {};
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+const deleteMyAccount = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.delete(`${USERS_BASE}`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 const getTherapists = async ({ options } = {}) => {
   try {
     const { data } = await axios.get(`${USERS_BASE}/therapists`);
@@ -90,6 +120,9 @@ export {
   login,
   logout,
   getUserDashboard,
+  resetPasswordLink,
+  updatePassword,
+  deleteMyAccount,
   getTherapists,
   checkUserExists,
 };

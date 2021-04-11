@@ -41,6 +41,20 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.GENERAL.FORGOT_PASSWORD}
+                Component={Pages.GENERAL.ForgotPassword}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
+                path={navRoutes.GENERAL.RESET_PASSWORD}
+                Component={Pages.GENERAL.ResetPassword}
+                layout="onboarding"
+              />
+
+              <Route
+                exact
                 path={navRoutes.GENERAL.HOME}
                 Component={Pages.GENERAL.Example}
                 layout="general"
@@ -88,8 +102,8 @@ function App() {
 
               <Route
                 exact
-                path={navRoutes.THERAPIST.CREATE_PROGRAM}
-                Component={Pages.THERAPIST.CreateProgram}
+                path={navRoutes.THERAPIST.SINGLE_PROGRAMME}
+                Component={Pages.THERAPIST.IndividProgramme}
               />
 
               <Route
@@ -126,6 +140,22 @@ function App() {
                 exact
                 path={navRoutes.CLIENT.DASHBOARD}
                 Component={Pages.CLIENT.Dashboard}
+                layout="general"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.DELETE_ACCOUNT}
+                Component={Pages.CLIENT.DeleteAccount}
+                layout="general"
+                allowedRoles={[roles.CLIENT]}
+                isPrivate
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.ACCOUNT_DELETED}
+                Component={Pages.CLIENT.AccountDeleted}
                 layout="general"
               />
 

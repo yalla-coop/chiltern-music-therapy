@@ -1,6 +1,7 @@
 import * as templates from './templates';
 
 const keys = {
+  CLIENT_ACCOUNT_DELETED: 'CLIENT_ACCOUNT_DELETED',
   CLIENT_SIGNUP_INVITE: 'CLIENT_SIGNUP_INVITE',
   CLIENT_THERAPIST_CREATED_PROGRAMME: 'CLIENT_THERAPIST_CREATED_PROGRAMME',
   CLIENT_THERAPIST_UPDATED_PROGRAMME: 'CLIENT_THERAPIST_UPDATED_PROGRAMME',
@@ -10,9 +11,12 @@ const keys = {
     'THERAPIST_CLIENT_SENT_PROGRAMME_FEEDBACK',
   THERAPIST_CLIENT_SENT_PROGRESS_UPDATE:
     'THERAPIST_CLIENT_SENT_PROGRESS_UPDATE',
+  USER_RESET_PASSWORD: 'USER_RESET_PASSWORD',
+  THERAPIST_CLIENT_ACCOUNT_DELETED: 'THERAPIST_CLIENT_ACCOUNT_DELETED',
 };
 
 const templatesKeys = {
+  [keys.CLIENT_ACCOUNT_DELETED]: templates.clientAccountDeleted,
   [keys.CLIENT_SIGNUP_INVITE]: templates.clientSignupInvite,
   [keys.CLIENT_THERAPIST_CREATED_PROGRAMME]:
     templates.clientTherapistCreatedProgramme,
@@ -24,6 +28,9 @@ const templatesKeys = {
     templates.therapistClientSentProgrammeFeedback,
   [keys.THERAPIST_CLIENT_SENT_PROGRESS_UPDATE]:
     templates.therapistClientSentProgressUpdate,
+  [keys.USER_RESET_PASSWORD]: templates.userResetPassword,
+  [keys.THERAPIST_CLIENT_ACCOUNT_DELETED]:
+    templates.therapistClientAccountDeleted,
 };
 
 export { templatesKeys };

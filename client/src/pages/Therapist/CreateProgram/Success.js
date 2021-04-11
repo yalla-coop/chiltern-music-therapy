@@ -8,8 +8,10 @@ import * as S from './style';
 
 const { Row, Col } = Grid;
 
-const Success = () => {
+const Success = ({ state }) => {
   const history = useHistory();
+  const { clientDetails } = state;
+  const { firstInitial, lastInitial, postcode } = clientDetails;
 
   return (
     <>
@@ -26,8 +28,8 @@ const Success = () => {
         <Col w={[4, 6, 6]}>
           {/* TODO add client name */}
           <T.P color="gray8">
-            J P SW will be notified that they can now view this content when
-            they next log in.
+            {firstInitial} {lastInitial} {postcode} will be notified that they
+            can now view this content when they next log in.
           </T.P>
         </Col>
       </Row>

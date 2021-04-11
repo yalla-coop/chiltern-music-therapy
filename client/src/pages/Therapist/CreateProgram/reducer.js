@@ -38,6 +38,11 @@ const reducer = (state, action) => {
         ...state,
         description: value,
       };
+    case actionTypes.setClientDetails:
+      return {
+        ...state,
+        clientDetails: value,
+      };
     case actionTypes.setErrors:
       return {
         ...state,
@@ -77,6 +82,68 @@ const reducer = (state, action) => {
         fileUpload: {
           ...state.fileUpload,
           error: value,
+        },
+      };
+    // Therapist library content
+    case actionTypes.getLibraryContentLoading:
+      return {
+        ...state,
+        libraryContent: {
+          ...state.libraryContent,
+          data: [],
+          error: null,
+          loading: value,
+        },
+      };
+    case actionTypes.getLibraryContentSuccess:
+      return {
+        ...state,
+        libraryContent: {
+          ...state.libraryContent,
+          data: value,
+          error: null,
+          loading: false,
+        },
+      };
+    case actionTypes.getLibraryContentError:
+      return {
+        ...state,
+        libraryContent: {
+          ...state.libraryContent,
+          data: [],
+          error: value,
+          loading: false,
+        },
+      };
+    // Content categories
+    case actionTypes.getContentCategoriesLoading:
+      return {
+        ...state,
+        contentCategories: {
+          ...state.contentCategories,
+          data: [],
+          error: null,
+          loading: value,
+        },
+      };
+    case actionTypes.getContentCategoriesSuccess:
+      return {
+        ...state,
+        contentCategories: {
+          ...state.contentCategories,
+          data: value,
+          error: null,
+          loading: false,
+        },
+      };
+    case actionTypes.getContentCategoriesError:
+      return {
+        ...state,
+        contentCategories: {
+          ...state.contentCategories,
+          data: [],
+          error: value,
+          loading: false,
         },
       };
 

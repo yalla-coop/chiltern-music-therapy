@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Prompt, useHistory } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
+import { navRoutes } from '../../../constants';
 import {
   GoBack,
   Typography as T,
@@ -15,9 +15,9 @@ import validate from '../../../validation/schemas/programme';
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
-const AddDescription = ({ navFunctions, state, actions }) => {
+const AddDescription = ({ navFunctions, state, actions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
-  const [unsavedChanges, setUnsavedChanges] = useState(false);
+
   const history = useHistory();
 
   const { description, errors } = state;
@@ -58,18 +58,13 @@ const AddDescription = ({ navFunctions, state, actions }) => {
     }
   };
 
-  const goBack = async () => {
-    setUnsavedChanges(true);
-    history.goBack();
+  const goBack = () => {
+    history.push(navRoutes.THERAPIST.CLIENT.replace(':id', clientId));
   };
 
   return (
     <>
       <GoBack customFn={goBack} />
-      <Prompt
-        when={unsavedChanges}
-        message="All changes will be lost. Are you sure you want to leave?"
-      />
       <Row mt={5}>
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">

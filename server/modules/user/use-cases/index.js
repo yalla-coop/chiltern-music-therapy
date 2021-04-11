@@ -3,6 +3,8 @@ import clientSignup from './client-signup';
 import therapistSignup from './therapist-signup';
 import login from './login';
 import deleteUser from './delete-user';
+import resetPasswordLink from './reset-password-link';
+import updatePassword from './update-password';
 import getTherapists from './get-therapists';
 import checkUserExists from './check-user-exists';
 
@@ -12,6 +14,8 @@ export {
   therapistSignup,
   login,
   deleteUser,
+  resetPasswordLink,
+  updatePassword,
   getTherapists,
   checkUserExists,
 };

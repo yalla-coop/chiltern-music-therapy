@@ -19,6 +19,7 @@ const getContentByProg = async ({ id, options }) => {
 const getLibraryContent = async () => {
   try {
     const { data } = await axios.get(`${CONTENTS_BASE}/library`);
+
     return { data };
   } catch (error) {
     const err = handleError(error);
@@ -36,4 +37,46 @@ const getCategories = async () => {
   }
 };
 
-export { getContentByProg, getLibraryContent, getCategories };
+const deleteContent = async ({ id }) => {
+  try {
+    const { data } = await axios.delete(`${CONTENTS_BASE}`, { params: { id } });
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+const removeContentFromLibrary = async ({ id }) => {
+  try {
+    const { data } = await axios.post(`${CONTENTS_BASE}/remove-from-library`, {
+      id,
+    });
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+const editContent = async (formData) => {
+  try {
+    const { data } = await axios.post(
+      `${CONTENTS_BASE}/edit-content`,
+      formData
+    );
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+export {
+  getContentByProg,
+  getLibraryContent,
+  getCategories,
+  deleteContent,
+  removeContentFromLibrary,
+  editContent,
+};

@@ -53,6 +53,20 @@ const findUserByMainPhone = async (primaryMobileNumber, client) => {
 
   FROM users
     WHERE contact_number = $1
+    `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+const findUserByResetToken = async (token, client) => {
+  const values = [token];
+  const sql = `
+  SELECT
+    id,
+    reset_password_expiry
+  FROM users
+    WHERE reset_password_token = $1
   `;
 
   const res = await query(sql, values, client);
@@ -72,4 +86,10 @@ const findTherapists = async () => {
   return therapists;
 };
 
-export { findUserById, findUserByEmail, findTherapists, findUserByMainPhone };
+export {
+  findUserById,
+  findUserByEmail,
+  findTherapists,
+  findUserByMainPhone,
+  findUserByResetToken,
+};
