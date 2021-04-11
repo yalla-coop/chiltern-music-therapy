@@ -47,6 +47,7 @@ const MyAccount = () => {
   // file upload
   const [fileUploading, setFileUploading] = useState(false);
   const [fileUploadError, setFileUploadError] = useState(null);
+  const [mediaLoading, setMediaLoading] = useState(false);
   const [mediaUrl, setMediaUrl] = useState(null);
 
   const { user, setUser } = useAuth();
@@ -123,13 +124,16 @@ const MyAccount = () => {
   };
 
   const getMediaUrl = async (file) => {
+    setMediaLoading(true);
     const { data, error: _error } = await Media.getMediadURL({
       key: file.key,
       bucket: file.bucket,
     });
     if (!_error) {
+      setMediaLoading(false);
       setMediaUrl(data);
     } else {
+      setMediaLoading(false);
       setErrors({ ...errors, getImageError: 'Error loading image' });
     }
   };
@@ -217,7 +221,9 @@ const MyAccount = () => {
       <Row mb="6" mbT="5">
         <Col w={[4, 6, 4]}>
           <Avatar
-            status={fileUploading || !mediaUrl ? 'loading' : 'ready'}
+            status={
+              !mediaUrl || fileUploading || mediaLoading ? 'loading' : 'ready'
+            }
             image={mediaUrl}
           />
           <Col w={[4, 6, 4]}>

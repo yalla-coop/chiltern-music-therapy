@@ -15,6 +15,8 @@ const Step4 = ({ submitStep }) => {
   const [biography, setBiography] = useState('');
   const [useMeanBio, setUseMeanBio] = useState(false);
   const [mediaUrl, setMediaUrl] = useState(null);
+  const [mediaLoading, setMediaLoading] = useState(false);
+
   const [errors, setErrors] = useState({});
 
   const { user, setUser } = useAuth();
@@ -49,12 +51,15 @@ const Step4 = ({ submitStep }) => {
   };
 
   const getTherapistInfoImageURL = async () => {
+    setMediaLoading(true);
     const { data, error } = await Users.getAccountInfo();
 
     if (!error) {
+      setMediaLoading(false);
       if (data.profileImage && data.profileImage.key) {
         getMediaUrl(data.profileImage);
       } else {
+        setMediaLoading(false);
         setErrors({ ...errors, getImageError: 'Error loading image' });
       }
     }
@@ -70,7 +75,10 @@ const Step4 = ({ submitStep }) => {
     <>
       <Row mt={6}>
         <Col w={[4, 4, 4]} jcT="center">
-          <Avatar status={!mediaUrl ? 'loading' : 'ready'} image={mediaUrl} />
+          <Avatar
+            status={!mediaUrl || mediaLoading ? 'loading' : 'ready'}
+            image={mediaUrl}
+          />
           <Col w={[4, 6, 4]}>
             <T.P color="error">{errors?.getImageError}</T.P>
           </Col>
