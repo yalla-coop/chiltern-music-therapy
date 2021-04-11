@@ -13,7 +13,7 @@ import { useAuth } from '../../../context/auth';
 
 import validate from '../../../validation/schemas/account';
 
-import { roles } from './../../../constants';
+import { roles, content } from './../../../constants';
 
 import { Users, Media } from '../../../api-calls';
 
@@ -230,7 +230,7 @@ const MyAccount = () => {
             <T.P color="error">{errors?.getImageError}</T.P>
           </Col>
           <FileUpload
-            category="image"
+            category={content.fileCategories.image}
             error={fileUploadError}
             setError={setFileUploadError}
             setFileInfo={(val) => handleInput(val, 'uploadedFileInfo')}
