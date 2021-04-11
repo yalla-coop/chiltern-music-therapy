@@ -122,6 +122,16 @@ const MyAccount = () => {
     }
   };
 
+  const getMediaUrl = async (file) => {
+    const { data, error: _error } = await Media.getMediadURL({
+      key: file.key,
+      bucket: file.bucket,
+    });
+    if (!_error) {
+      setMediaUrl(data);
+    }
+  };
+
   useEffect(() => {
     if (updateAttempt) {
       validateForm();
@@ -132,8 +142,13 @@ const MyAccount = () => {
   useEffect(() => {
     const getTherapistInfo = async () => {
       const { data, error } = await Users.getAccountInfo();
+
       if (!error) {
         setAccountDetails(data);
+
+        if (data.profileImage && data.profileImage.key) {
+          getMediaUrl(data.profileImage);
+        }
       }
     };
     if (user.id) {
@@ -143,16 +158,6 @@ const MyAccount = () => {
 
   // get image url once upload is done
   useEffect(() => {
-    const getMediaUrl = async (file) => {
-      const { data, error: _error } = await Media.getMediadURL({
-        key: file.key,
-        bucket: file.bucket,
-      });
-      if (!_error) {
-        setMediaUrl(data);
-      }
-    };
-
     if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
       return getMediaUrl(uploadedFileInfo);
     }

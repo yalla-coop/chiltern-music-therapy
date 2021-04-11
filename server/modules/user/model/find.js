@@ -55,7 +55,7 @@ const findUserByResetToken = async (token, client) => {
 
 const findTherapists = async () => {
   const sql = `
-    SELECT first_name, last_name, id, roles::VARCHAR[] FROM users  
+    SELECT first_name, last_name, id, roles::VARCHAR[] FROM users
   `;
 
   const res = await query(sql);
@@ -70,16 +70,19 @@ const findTherapistAccountInfo = async (id, client) => {
   const values = [id];
 
   const sql = `
-    SELECT 
-      first_name, 
-      last_name,
-      email,
-      bio,
-      contact_number,
-      contact_email,
-      profile_photo_media_id
-    FROM users
-      WHERE id = $1
+    SELECT
+      u.first_name,
+      u.last_name,
+      u.email,
+      u.bio,
+      u.contact_number,
+      u.contact_email,
+      u.profile_photo_media_id,
+      m.key "profile_image.key",
+      m.bucket "profile_image.bucket"
+    FROM users u
+    JOIN media m ON u.profile_photo_media_id = m.id
+      WHERE u.id = $1
   `;
 
   const res = await query(sql, values, client);
