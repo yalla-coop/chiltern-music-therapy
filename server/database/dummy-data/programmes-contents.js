@@ -28,11 +28,16 @@ const createProgrammesContents = async ({ programmes, contents }) => {
     programmeId: programmes.programme1.id,
     contentId: contents.content3.id,
   });
+  const programme1Content4 = await createProgrammesContent({
+    programmeId: programmes.programme1.id,
+    contentId: contents.content4.id,
+  });
 
   return {
     programme1Content1,
     programme1Content2,
     programme1Content3,
+    programme1Content4,
   };
 };
 

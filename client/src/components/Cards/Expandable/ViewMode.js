@@ -3,6 +3,7 @@ import * as T from '../../Typography';
 
 import Icon from '../../Icon';
 import Tag from '../../Tag';
+import Video from '../../Video';
 
 import { linkFormatter } from '../../../helpers';
 
@@ -14,12 +15,22 @@ const ViewMode = ({
   remove,
   edit,
 }) => {
-  const { streamable, download, instructions, categories, link } = content;
+  const {
+    streamable,
+    download,
+    instructions,
+    categories,
+    link,
+    url,
+    type,
+  } = content;
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
       {streamable && (
-        <div style={{ marginBottom: '24px' }}>VIDEO/AUDIO HERE</div>
+        <div style={{ marginBottom: '24px', marginTop: '8px' }}>
+          <Video url={url} type={type} />
+        </div>
       )}
       {download && (
         <a href={download} download>
@@ -27,7 +38,7 @@ const ViewMode = ({
             icon="download"
             width="16"
             height="16"
-            text="Download file"
+            text={`Download ${type}`}
             mb="5"
             color="primary"
           />
