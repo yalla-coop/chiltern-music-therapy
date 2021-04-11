@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Row, Col } from '../../../components/Grid';
 import { Textarea, Checkbox } from '../../../components/Inputs';
@@ -27,6 +27,12 @@ const Step4 = ({ submitStep }) => {
       return false;
     }
   };
+
+  useEffect(() => {
+    if (useMainBio) {
+      setBiography('');
+    }
+  }, [useMainBio]);
 
   const handleChange = () => setUseMainBio(!useMainBio);
 
