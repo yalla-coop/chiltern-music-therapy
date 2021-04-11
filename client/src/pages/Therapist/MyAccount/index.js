@@ -15,7 +15,7 @@ import validate from '../../../validation/schemas/account';
 
 import { roles } from './../../../constants';
 
-import { Users } from '../../../api-calls';
+import { Users, Media } from '../../../api-calls';
 
 const initState = {
   firstName: '',
@@ -25,6 +25,18 @@ const initState = {
   bio: '',
   contactEmail: '',
   contactNumber: '',
+  // file upload
+  uploadedFileInfo: {
+    id: null,
+    name: '',
+    key: '',
+    bucketRegion: '',
+    bucket: '',
+    fileType: '',
+    new: false,
+    uploadedToS3: false,
+    size: 0,
+  },
 };
 
 const MyAccount = () => {
@@ -33,6 +45,10 @@ const MyAccount = () => {
   const [updateAttempt, setUpdateAttempt] = useState(false);
   const [updating, setUpdating] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  // file upload
+  const [fileUploading, setFileUploading] = useState(false);
+  const [fileUploadError, setFileUploadError] = useState(null);
+  const [mediaUrl, setMediaUrl] = useState(null);
 
   const { user, setUser } = useAuth();
 
@@ -44,6 +60,7 @@ const MyAccount = () => {
     contactEmail,
     contactNumber,
     profileImg,
+    uploadedFileInfo,
   } = accountDetails;
 
   const handleInput = (value, type) => {
@@ -126,6 +143,23 @@ const MyAccount = () => {
     }
   }, [user.id]);
 
+  // get image url once upload is done
+  useEffect(() => {
+    const getMediaUrl = async (file) => {
+      const { data, error: _error } = await Media.getMediadURL({
+        key: file.key,
+        bucket: file.bucket,
+      });
+      if (!_error) {
+        setMediaUrl(data);
+      }
+    };
+
+    if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
+      return getMediaUrl(uploadedFileInfo);
+    }
+  }, [uploadedFileInfo]);
+
   return (
     <>
       <Title lightSection="My" boldSection="Account" mb="8" />
@@ -169,16 +203,19 @@ const MyAccount = () => {
       </Row>
       <Row mb="6" mbT="5">
         <Col w={[4, 6, 4]}>
-          <Avatar status="loading" />
-          {/* <FileUpload
+          <Avatar
+            status={fileUploading || !mediaUrl ? 'loading' : 'ready'}
+            image={mediaUrl}
+          />
+          <FileUpload
+            category="image"
             error={fileUploadError}
             setError={setFileUploadError}
-            setFileInfo={setUploadedFileInfo}
+            setFileInfo={(val) => handleInput(val, 'uploadedFileInfo')}
             fileInfo={uploadedFileInfo}
             uploading={fileUploading}
             setUploading={setFileUploading}
-            category="application"
-          /> */}
+          />
         </Col>
         <Col w={[4, 6, 4]}>
           <Textarea
