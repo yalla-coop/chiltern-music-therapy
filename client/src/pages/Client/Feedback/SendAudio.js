@@ -73,7 +73,7 @@ const SendAudio = () => {
   const handleSubmit = () => {
     let fileUploadErr = '';
     try {
-      if (!fileUpload.name && !fileUpload.key && !link) {
+      if (!fileUpload?.data?.name && !fileUpload?.data?.key && !link) {
         fileUploadErr = 'this field is requeued';
       } else {
         fileUploadErr = '';
@@ -81,7 +81,7 @@ const SendAudio = () => {
       validate({
         link: state.link,
         message: state.message,
-        video: uploadedFileInfo,
+        audio: uploadedFileInfo,
       });
     } catch (e) {
       actions.HANDLE_VALIDATIONS_ERROR({

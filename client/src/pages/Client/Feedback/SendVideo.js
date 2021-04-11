@@ -73,7 +73,7 @@ const AddVideo = () => {
   const handleSubmit = () => {
     let fileUploadErr = '';
     try {
-      if (!fileUpload.name && !fileUpload.key && !link) {
+      if (!fileUpload?.data?.name && !fileUpload?.data?.key && !link) {
         fileUploadErr = 'this field is requeued';
       } else {
         fileUploadErr = '';
