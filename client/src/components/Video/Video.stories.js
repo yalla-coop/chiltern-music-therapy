@@ -6,14 +6,15 @@ export default {
 };
 
 const Template = (args) => (
-  <div style={{ height: '300px' }}>
-    <Video {...args} />;
+  // should be handled in the grid
+  <div style={{ height: '300px', width: '300px' }}>
+    <Video {...args} />
   </div>
 );
 
 export const video = Template.bind({});
 video.args = {
-  url: 'http://vjs.zencdn.net/v/oceans.mp4',
+  url: 'http://techslides.com/demos/sample-videos/small.mp4',
   type: 'video',
 };
 
