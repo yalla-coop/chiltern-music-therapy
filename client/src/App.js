@@ -210,6 +210,14 @@ function App() {
                 maxWidth="none"
               />
 
+              <Route
+                exact
+                path={navRoutes.CLIENT.SUCCESS_UPDATE}
+                Component={Pages.CLIENT.SuccessUpdate}
+                goBack
+                maxWidth="none"
+              />
+
               {/* therapist sub routes */}
 
               <Route
