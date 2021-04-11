@@ -5,7 +5,7 @@ import { Basic, Expandable } from '../../../components/Cards';
 import { Row, Col } from '../../../components/Grid';
 import Modal from '../../../components/Modal';
 
-import { decideBorder } from '../../../helpers';
+import { decideBorder, createUniqueCats } from '../../../helpers';
 
 import { useAuth } from '../../../context/auth';
 
@@ -140,8 +140,13 @@ const Library = () => {
     const getContent = async () => {
       const { data, error } = await Contents.getLibraryContent();
 
+      const allLibraryC = data.map((el) => ({
+        ...el,
+        categories: [...new Set(el.categories.map((cat) => cat))],
+      }));
+
       if (!error) {
-        setContents(data);
+        setContents(allLibraryC);
       }
     };
 
@@ -169,10 +174,11 @@ const Library = () => {
   useEffect(() => {
     const getCategories = async () => {
       const { data, error } = await Contents.getCategories();
-
       if (!error) {
-        const allCats = data.map(({ text }) => ({ label: text, value: text }));
-        setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
+        setCategoryOptions([
+          { label: 'All', value: 'ALL' },
+          ...createUniqueCats(data),
+        ]);
       }
     };
 
@@ -268,7 +274,7 @@ const Library = () => {
                       download: content.path,
                       streamable: decideStreamable(content.type, content.path),
                       categories: contentToUse.categories.filter(
-                        (cat) => cat !== null
+                        (cat) => cat.value !== null
                       ),
                       type: content.type?.toLowerCase(),
                       path: content.path,

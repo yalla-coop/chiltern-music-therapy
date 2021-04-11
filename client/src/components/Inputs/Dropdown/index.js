@@ -54,6 +54,7 @@ const Dropdown = ({
               value={opt.value}
               points={opt.points}
               isSelected={isSelected(opt.value)}
+              {...options}
             >
               {opt.label}
             </S.Option>
@@ -61,11 +62,15 @@ const Dropdown = ({
         </AntdOptGroup>
       ));
     }
-    return options.map(({ value: _value, label: _label }) => (
-      <S.Option key={_value} value={_value} label={_label}>
-        {_label}
-      </S.Option>
-    ));
+    return options.map((options) => {
+      const { value: _value, label: _label } = options;
+
+      return (
+        <S.Option key={_value} value={_value} label={_label} {...options}>
+          {_label}
+        </S.Option>
+      );
+    });
   };
 
   const handleSearch = (input, option) => {

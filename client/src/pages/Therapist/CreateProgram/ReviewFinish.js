@@ -15,7 +15,7 @@ import validate from '../../../validation/schemas/programme';
 import * as S from './style';
 
 import { Programmes } from '../../../api-calls';
-import { decideBorder } from '../../../helpers';
+import { decideBorder, isEmptyObject } from '../../../helpers';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -98,7 +98,6 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
     if (error) {
       SET_ERRORS(error.message);
     } else {
-      // TODO add modal
       navFunctions.goToSuccess();
     }
   };
@@ -180,14 +179,14 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           </T.P>
         </Row>
       )}
-      {/* {errors   && (
+      {errors && !isEmptyObject(errors) && (
         <Row mt={5}>
           <T.P bold color="pink">
             Errors storing your programme. Please check if all inputs are filled
             in correctly.
           </T.P>
         </Row>
-      )} */}
+      )}
       <Row mt={7}>
         <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button
