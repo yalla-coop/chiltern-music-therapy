@@ -21,7 +21,6 @@ const initState = {
   firstName: '',
   lastName: '',
   email: '',
-  profileImg: {},
   bio: '',
   contactEmail: '',
   contactNumber: '',
@@ -59,7 +58,6 @@ const MyAccount = () => {
     bio,
     contactEmail,
     contactNumber,
-    profileImg,
     uploadedFileInfo,
   } = accountDetails;
 
@@ -95,10 +93,10 @@ const MyAccount = () => {
       email: cleanEmail(email),
       firstName,
       lastName,
-      profileImg,
       bio,
       contactEmail: contactEmail ? cleanEmail(contactEmail) : '',
       contactNumber,
+      uploadedFileInfo,
       role: user.role,
     });
     if (error) {

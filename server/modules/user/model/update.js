@@ -70,14 +70,14 @@ const updateResetPasswordToken = async ({ token, userId }) => {
   const values = [token, userId];
 
   const sql = `
-    UPDATE users 
+    UPDATE users
     SET
       reset_password_token = $1,
       reset_password_expiry = NOW() + INTERVAL '1 DAY'
-    WHERE 
+    WHERE
       id = $2
-    RETURNING 
-      reset_password_token, 
+    RETURNING
+      reset_password_token,
       first_name,
       email
   `;
@@ -90,13 +90,13 @@ const updatePassword = async ({ password, userId }, client) => {
   const values = [password, userId];
 
   const sql = `
-    UPDATE users 
+    UPDATE users
     SET
       password = $1,
       reset_password_expiry = NOW()
-    WHERE 
+    WHERE
       id = $2
-    RETURNING 
+    RETURNING
       first_name,
       email
   `;
@@ -112,14 +112,14 @@ const updateClientAccount = async (
   const values = [email, firstName, lastName, id];
 
   const sql = `
-    UPDATE users 
+    UPDATE users
     SET
       email = $1,
       first_name = $2,
       last_name= $3
-    WHERE 
+    WHERE
       id = $4
-    RETURNING 
+    RETURNING
       first_name,
       last_name,
       email,
@@ -152,23 +152,25 @@ const updateTherapistAccount = async (
     bio,
     contactNumber,
     contactEmail,
+    profilePhotoMediaId,
     id,
   ];
 
   // NEED TO SORT PROFILE IMAGE
 
   const sql = `
-    UPDATE users 
+    UPDATE users
     SET
       email = $1,
       first_name = $2,
       last_name= $3,
       bio = $4,
       contact_number = $5,
-      contact_email = $6
-    WHERE 
-      id = $7
-    RETURNING 
+      contact_email = $6,
+      profile_photo_media_id  = $7
+    WHERE
+      id = $8
+    RETURNING
       first_name,
       last_name,
       email,
