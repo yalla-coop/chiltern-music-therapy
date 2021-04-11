@@ -23,6 +23,7 @@ const CLIENT = {
   INDIVID_PROGRAMME: '/programmes/:id',
   SEND_UPDATE: `/programmes/:id/update`,
   SEND_FEEDBACK: `/programmes/:id/feedback`,
+  SUCCESS_UPDATE: '/success-update',
 };
 
 const THERAPIST_BASE = '/therapist';
