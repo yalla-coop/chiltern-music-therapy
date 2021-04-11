@@ -6,7 +6,7 @@ const checkUserExists = async (req, res, next) => {
   try {
     await User.checkUserExists({
       data,
-      type: data.type,
+      fields: data.fields,
     });
     res.json();
   } catch (error) {

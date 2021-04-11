@@ -9,7 +9,7 @@ CREATE TABLE "users" (
   "reset_password_token" TEXT,
   "over_16" BOOLEAN DEFAULT TRUE NOT NULL,
   "postcode" VARCHAR(9), -- for clients, for now its 2 char, but could be full later
-  "mobile_number" VARCHAR(50),
+  "mobile_number" VARCHAR(50) UNIQUE,
   "contact_number" VARCHAR(50),
   "roles" user_roles[] NOT NULL,
   "status" user_statuses NOT NULL DEFAULT 'ACTIVE',

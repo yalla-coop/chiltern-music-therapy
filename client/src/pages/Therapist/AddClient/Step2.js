@@ -36,10 +36,11 @@ const Step2 = ({ submitStep }) => {
   const checkDetails = async () => {
     const { data, error } = await Users.checkUserExists({
       email,
-      type: 'email',
+      primaryMobileNumber,
+      fields: ['email', 'primaryMobileNumber'],
     });
     if (error) {
-      setErrors({ email: error.message });
+      setErrors({ [error.data?.field]: error.message });
     } else {
       submitStep({ email, mobileNumber, primaryMobileNumber });
     }

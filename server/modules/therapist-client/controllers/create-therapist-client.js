@@ -25,8 +25,8 @@ const createTherapistClient = async (req, res, next) => {
       firstName,
       lastName,
       postcode: postcodeLetters,
-      mobileNumber,
-      contactNumber: primaryMobileNumber,
+      mobileNumber: primaryMobileNumber,
+      contactNumber: mobileNumber,
     });
 
     res.json(newClient);
