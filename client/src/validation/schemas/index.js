@@ -6,6 +6,8 @@ import profile from './profile';
 import forgotPassword from './forgotPassword';
 import updatePassword from './updatePassword';
 import addClient from './addClient';
+import videoFeedback from './videoFeedback';
+import documentFeedback from './documentFeedback';
 
 export {
   signup,
@@ -16,4 +18,6 @@ export {
   forgotPassword,
   updatePassword,
   addClient,
+  videoFeedback,
+  documentFeedback,
 };
