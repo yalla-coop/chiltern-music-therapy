@@ -29,6 +29,7 @@ const Step4 = ({ submitStep }) => {
   };
 
   const handleChange = () => setUseMainBio(!useMainBio);
+
   return (
     <>
       <Row mt={6}>
@@ -45,6 +46,7 @@ const Step4 = ({ submitStep }) => {
             error={errors.therapistBio}
             rows={5}
             mb={4}
+            disabled={useMainBio}
           />
           <Checkbox
             checked={useMainBio}
