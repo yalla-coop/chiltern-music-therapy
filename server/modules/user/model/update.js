@@ -132,9 +132,59 @@ const updateClientAccount = async (
   return res.rows[0];
 };
 
+const updateTherapistAccount = async (
+  {
+    email,
+    firstName,
+    lastName,
+    bio,
+    contactNumber,
+    contactEmail,
+    profilePhotoMediaId,
+    id,
+  },
+  client,
+) => {
+  const values = [
+    email,
+    firstName,
+    lastName,
+    bio,
+    contactNumber,
+    contactEmail,
+    id,
+  ];
+
+  // NEED TO SORT PROFILE IMAGE
+
+  const sql = `
+    UPDATE users 
+    SET
+      email = $1,
+      first_name = $2,
+      last_name= $3,
+      bio = $4,
+      contact_number = $5,
+      contact_email = $6
+    WHERE 
+      id = $7
+    RETURNING 
+      first_name,
+      last_name,
+      email,
+      postcode,
+      roles::VARCHAR[],
+      id
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
 export {
   updateUserById,
   updateResetPasswordToken,
   updatePassword,
   updateClientAccount,
+  updateTherapistAccount,
 };

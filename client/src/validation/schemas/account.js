@@ -16,7 +16,7 @@ const therapist = createSchema({
   email,
   firstName,
   lastName,
-  biography: requiredText,
+  bio: requiredText,
   contactEmail: email,
 });
 

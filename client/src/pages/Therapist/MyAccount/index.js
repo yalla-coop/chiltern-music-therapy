@@ -36,6 +36,16 @@ const MyAccount = () => {
 
   const { user, setUser } = useAuth();
 
+  const {
+    firstName,
+    lastName,
+    email,
+    bio,
+    contactEmail,
+    contactNumber,
+    profileImg,
+  } = accountDetails;
+
   const handleInput = (value, type) => {
     setAccountDetails({ ...accountDetails, [type]: value });
   };
@@ -45,10 +55,12 @@ const MyAccount = () => {
   const validateForm = () => {
     try {
       validate({
-        role: roles.CLIENT,
+        role: roles.THERAPIST,
         email: cleanEmail(email),
         firstName,
         lastName,
+        bio,
+        contactEmail,
       });
       setErrors({ validationErrs: {} });
       return true;
@@ -66,6 +78,10 @@ const MyAccount = () => {
       email: cleanEmail(email),
       firstName,
       lastName,
+      profileImg,
+      bio,
+      contactEmail: contactEmail ? cleanEmail(contactEmail) : '',
+      contactNumber,
       role: user.role,
     });
     if (error) {
@@ -102,7 +118,6 @@ const MyAccount = () => {
     const getTherapistInfo = async () => {
       const { data, error } = await Users.getAccountInfo();
       if (!error) {
-        console.log('data', data);
         setAccountDetails(data);
       }
     };
@@ -110,15 +125,6 @@ const MyAccount = () => {
       getTherapistInfo();
     }
   }, [user.id]);
-
-  const {
-    firstName,
-    lastName,
-    email,
-    bio,
-    contactEmail,
-    contactNumber,
-  } = accountDetails;
 
   return (
     <>

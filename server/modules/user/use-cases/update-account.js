@@ -7,7 +7,16 @@ import { errorMsgs } from '../../../services/error-handler';
 import { userRoles as roles } from '../../../constants';
 
 const updateAccount = async ({ accountData, id, role }) => {
+  // for both
   const { email, firstName, lastName } = accountData;
+
+  // for therapist only
+  const {
+    bio,
+    contactNumber,
+    contactEmail,
+    profileImg: profilePhotoMediaId,
+  } = accountData;
 
   const user = await User.findUserByEmail(email);
   if (user && user.id !== id) {
@@ -22,9 +31,17 @@ const updateAccount = async ({ accountData, id, role }) => {
         lastName,
         id,
       });
-    case role.THERAPIST:
-      console.log('QUERY HERE');
-      break;
+    case roles.THERAPIST:
+      return User.updateTherapistAccount({
+        email,
+        firstName,
+        lastName,
+        bio,
+        contactNumber,
+        contactEmail,
+        profilePhotoMediaId,
+        id,
+      });
     default:
       throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
   }
