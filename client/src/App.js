@@ -23,6 +23,7 @@ function App() {
                 path={navRoutes.GENERAL.LOGIN}
                 Component={Pages.GENERAL.Login}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -30,6 +31,7 @@ function App() {
                 path={navRoutes.THERAPIST.SIGNUP}
                 Component={Pages.THERAPIST.Signup}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -37,6 +39,7 @@ function App() {
                 path={navRoutes.CLIENT.SIGNUP}
                 Component={Pages.CLIENT.Signup}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -44,6 +47,7 @@ function App() {
                 path={navRoutes.GENERAL.FORGOT_PASSWORD}
                 Component={Pages.GENERAL.ForgotPassword}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -51,14 +55,7 @@ function App() {
                 path={navRoutes.GENERAL.RESET_PASSWORD}
                 Component={Pages.GENERAL.ResetPassword}
                 layout="onboarding"
-              />
-
-              <Route
-                exact
-                path={navRoutes.GENERAL.HOME}
-                Component={Pages.GENERAL.Example}
-                layout="general"
-                image="hands"
+                loggedOutOnly
               />
 
               {/* Therapist Pages */}
