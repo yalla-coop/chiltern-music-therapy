@@ -7,6 +7,7 @@ import getClientById from './get-client-by-id';
 import { userRoles } from '../../../constants';
 import getMyTherapy from './get-my-therapy';
 import editTherapistClientById from './edit-therapist-client-by-id';
+import createTherapistClient from './create-therapist-client';
 
 import { authenticate, authorize } from '../../../api/middlewares';
 
@@ -27,6 +28,12 @@ router.patch(
   authenticate(),
   authorize([userRoles.THERAPIST]),
   editTherapistClientById,
+);
+router.post(
+  '/client',
+  authenticate(),
+  authorize([userRoles.THERAPIST]),
+  createTherapistClient,
 );
 
 export default router;
