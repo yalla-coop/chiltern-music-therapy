@@ -15,7 +15,7 @@ const { fileCategories } = content;
 const AddContentSection = ({
   m,
   content,
-  libraryContent,
+  libraryContent = {},
   setLibraryContent,
   mode,
   navFunctions,
@@ -23,7 +23,7 @@ const AddContentSection = ({
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { data, error, loading } = libraryContent;
+  const { data = [], error = null, loading = false } = libraryContent;
 
   const renderLibraryContentDropdownValues = data.map((el) => {
     const res = { label: el.title, value: el.id };

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../../context/auth';
 
@@ -24,6 +24,7 @@ const IndividProgramme = () => {
 
   const { user } = useAuth();
   const { id } = useParams();
+  const history = useHistory();
 
   const decideBorder = (type) => {
     switch (type) {
@@ -136,6 +137,19 @@ const IndividProgramme = () => {
           <Button
             text="Edit programme"
             to={THERAPIST.EDIT_PROGRAMME.replace(':id', id)}
+            onClick={() =>
+              history.push({
+                pathname: THERAPIST.EDIT_PROGRAMME_REVIEW.replace(':id', id),
+                // TODO add client details
+                state: {
+                  clientDetails: {
+                    firstInitial: 'S',
+                    lastInitial: 'D',
+                    postcode: 'KB',
+                  },
+                },
+              })
+            }
             variant="secondary"
           />
         </Col>
