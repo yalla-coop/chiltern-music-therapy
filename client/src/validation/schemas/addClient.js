@@ -12,8 +12,8 @@ const {
 } = fields;
 
 const addClient = createSchema({
-  firstInitial: requiredText,
-  secondInitial: requiredText,
+  firstName: requiredText,
+  lastName: requiredText,
   postcodeLetters,
   mobileNumber: optionalPhoneNumber,
   primaryMobileNumber: phoneNumber,
@@ -21,8 +21,8 @@ const addClient = createSchema({
 });
 
 const step1Schema = createSchema({
-  firstInitial: requiredText,
-  secondInitial: requiredText,
+  firstName: requiredText,
+  lastName: requiredText,
   postcodeLetters,
 });
 
@@ -33,17 +33,17 @@ const step2Schema = createSchema({
 });
 
 const step3Schema = createSchema({
-  background: requiredText,
-  goals: goalsArrayAtLeastOne,
+  therapyBackground: requiredText,
+  therapyGoals: goalsArrayAtLeastOne,
 });
 
 const step4Schema = createSchema({
-  biography,
-  useMeanBio: optionalCheckbox,
+  therapistBio: biography,
+  useMainBio: optionalCheckbox,
 });
 
 const step5Schema = createSchema({
-  message: requiredText,
+  therapistIntro: requiredText,
 });
 
 const validate = (data) => _validate(addClient, data);
