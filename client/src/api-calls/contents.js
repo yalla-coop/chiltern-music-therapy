@@ -72,6 +72,21 @@ const editContent = async (formData) => {
   }
 };
 
+const removeContentFromProgramme = async ({ contentId, programmeId }) => {
+  try {
+    const { data } = await axios.delete(
+      `${CONTENTS_BASE}/remove-from-programme`,
+      {
+        params: { contentId, programmeId },
+      }
+    );
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
 export {
   getContentByProg,
   getLibraryContent,
@@ -79,4 +94,5 @@ export {
   deleteContent,
   removeContentFromLibrary,
   editContent,
+  removeContentFromProgramme,
 };

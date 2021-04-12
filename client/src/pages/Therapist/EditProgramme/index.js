@@ -25,6 +25,7 @@ const EditProgramme = () => {
   const [programmeContents, setProgrammeContents] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [errors, setErrors] = useState({});
+  const [clientDetails, setClientDetails] = useState({});
 
   const history = useHistory();
   const location = useLocation();
@@ -60,18 +61,18 @@ const EditProgramme = () => {
 
   useEffect(() => {
     const pathArr = location.pathname.split('/');
-    console.log(`pathArr]`, pathArr);
+
     if (!pathArr.includes(flowTypes.reviewProgramme)) {
       navFunctions.goToReviewProgramme();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // useEffect(() => {
-  //   if (location.state && location.state.clientDetails) {
-  //     actions.SET_CLIENT_DETAILS(location.state.clientDetails);
-  //   }
-  // }, [location.state]);
+  useEffect(() => {
+    if (location.state && location.state.clientDetails) {
+      setClientDetails(location.state.clientDetails);
+    }
+  }, [location.state]);
 
   useEffect(() => {
     const getContent = async () => {
@@ -81,6 +82,7 @@ const EditProgramme = () => {
 
       const allProgrammeC = data.map((el) => ({
         ...el,
+        existingContent: true,
         categories: [...new Set(el.categories.map((cat) => cat))],
       }));
 
@@ -145,9 +147,12 @@ const EditProgramme = () => {
           description,
           programmeContents,
           categoryOptions,
+          errors,
           setProgrammeContents,
           setDescription,
+          setErrors,
         }}
+        programmeId={programmeId}
       />
       <AddContent
         exact
@@ -170,6 +175,7 @@ const EditProgramme = () => {
       <Success
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SUCCESS}
+        clientDetails={clientDetails}
         // actions={actions}
         // state={state}
       />

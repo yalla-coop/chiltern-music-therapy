@@ -163,8 +163,8 @@ const findContentByMediaId = async (id, client) => {
   return res.rows;
 };
 
-const findContentInProgrammes = async (id, client) => {
-  const values = [id];
+const findContentInProgrammes = async (contentId, client) => {
+  const values = [contentId];
 
   const sql = `
     SELECT
@@ -195,6 +195,20 @@ const findCategoriesByContent = async ({ id }) => {
   return res.rows;
 };
 
+const findProgrammeContentId = async ({ contentId, programmeId }, client) => {
+  const values = [contentId, programmeId];
+
+  const sql = `
+    SELECT
+      *
+    FROM programmes_contents
+    WHERE (content_id, programme_id) = ($1, $2)
+    `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
 export {
   findLibraryContent,
   findLibraryContentAdmin,
@@ -205,4 +219,5 @@ export {
   findContentByMediaId,
   findContentInProgrammes,
   findCategoriesByContent,
+  findProgrammeContentId,
 };

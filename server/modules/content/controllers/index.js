@@ -7,6 +7,7 @@ import getContentByProg from './get-content-by-prog';
 import deleteContent from './delete-content';
 import removeContentFromLibrary from './remove-content-from-library';
 import editContent from './edit-content';
+import removeContentFromProgramme from './remove-content-from-programme';
 
 import { userRoles } from '../../../constants/data-type';
 
@@ -35,6 +36,12 @@ router.delete(
   authenticate(),
   authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN, userRoles.THERAPIST]),
   deleteContent,
+);
+router.delete(
+  '/remove-from-programme',
+  authenticate(),
+  authorize([userRoles.THERAPIST]),
+  removeContentFromProgramme,
 );
 
 export default router;

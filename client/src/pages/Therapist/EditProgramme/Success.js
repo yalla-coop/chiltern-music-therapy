@@ -24,6 +24,7 @@ const Success = ({ state }) => {
           </S.HeadlineWrapper>
         </Col>
       </Row>
+
       <Row mt={5}>
         <Col w={[4, 6, 6]}>
           {/* TODO add client name */}

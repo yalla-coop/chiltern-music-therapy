@@ -39,7 +39,7 @@ const EditMode = ({
     url,
     download,
   } = content;
-  console.log(`content`, content);
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [mediaUrl, setMediaUrl] = useState(false);
 
@@ -76,7 +76,10 @@ const EditMode = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const modalParentFunction = (_id) => remove({ id });
+  const modalParentFunction = (_id) => {
+    // console.log(`_id`, _id);
+    return remove({ id });
+  };
 
   const streamable =
     [fileCategories.audio, fileCategories.video].includes(type) &&

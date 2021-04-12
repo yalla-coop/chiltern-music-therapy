@@ -11,7 +11,7 @@ import {
   Modal,
 } from '../../../components';
 
-import validate from '../../../validation/schemas/editContent';
+import validate from '../../../validation/schemas/programme';
 
 import * as S from './style';
 
@@ -26,12 +26,15 @@ const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Basic, Expandable } = Cards;
 
-const Review = ({ navFunctions, states }) => {
+const Review = ({ navFunctions, states, programmeId }) => {
   const [updating, setUpdating] = useState(false);
   const [modalToShow, setModalToShow] = useState('');
   const [contentToDelete, setContentToDelete] = useState('');
-  const [editingErrors, setEditingErrors] = useState({});
   const [updateError, setUpdateError] = useState('');
+
+  // form submission
+  const [submitAttempt, setSubmitAttempt] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
     description,
@@ -39,9 +42,11 @@ const Review = ({ navFunctions, states }) => {
     programmeContents,
     categoryOptions,
     setProgrammeContents,
+    errors,
+    setErrors,
   } = states;
 
-  const handleInput = (value) => {
+  const updateSingleContent = (value) => {
     setProgrammeContents(
       programmeContents.map((el) => {
         if (el.id === value.id) {
@@ -52,9 +57,32 @@ const Review = ({ navFunctions, states }) => {
     );
   };
 
-  const removeContent = (id) => {
-    setModalToShow('removeContent');
-    setContentToDelete(id);
+  const handleRemove = async ({ id: contentId }) => {
+    const isExistingContent = programmeContents.filter(
+      (content) => contentId === content.id
+    )[0].existingContent;
+
+    const newProgrammeContents = programmeContents.filter((el) => {
+      return el.id !== contentId;
+    });
+    // check if content has already an id
+    // yes? api call to remove from programme and pop from state array
+    // no? just pop from state
+    if (isExistingContent) {
+      setUpdating(true);
+      const { data, error } = await Contents.removeContentFromProgramme({
+        contentId,
+        programmeId,
+      });
+      if (error) {
+        setUpdateError(error.message || 'Server request error');
+        setModalToShow('error');
+      } else {
+        setProgrammeContents(newProgrammeContents);
+        setModalToShow('removeCompletelySuccess');
+      }
+      setUpdating(false);
+    }
   };
 
   const renderEditCards = (array) => {
@@ -72,15 +100,13 @@ const Review = ({ navFunctions, states }) => {
                 categories: content.categories.filter((cat) => cat !== null),
                 type: content.type?.toLowerCase(),
                 url: content.file.url,
-                validationErrs:
-                  editingErrors?.validationErrs &&
-                  editingErrors?.validationErrs[`content[${idx}]`],
+                validationErrs: errors && errors[`content[${idx}]`],
               }}
-              remove={() => removeContent(content.id)}
+              remove={handleRemove}
               withDate
               actions
               editing
-              handleInput={handleInput}
+              handleInput={updateSingleContent}
               categoryOptions={categoryOptions.filter(
                 (opt) => opt.value !== 'ALL'
               )}
@@ -92,24 +118,73 @@ const Review = ({ navFunctions, states }) => {
     }
   };
 
-  // TODO set up backend
-  const removeContentFromProgramme = async () => {
-    setUpdating(true);
-    const { data, error } = await Contents.deleteContent({
-      id: contentToDelete,
-    });
-    if (error) {
-      setUpdateError(error.message || 'Server request error');
-      setModalToShow('error');
-    } else {
-      // setProgrammeContents(data);
-      // TODO remove from state
-      setModalToShow('removeCompletelySuccess');
+  const validateForm = () => {
+    try {
+      const formData = {
+        content: programmeContents,
+        description,
+        part: 'review',
+      };
+      validate(formData);
+
+      if (programmeContents.length === 0) {
+        setErrors('Please add content to this programme');
+      } else {
+        setErrors({});
+      }
+
+      return true;
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        setErrors({ ...errors, ...error.inner });
+      }
+      return false;
     }
-    setUpdating(false);
+  };
+  console.log(`errors`, errors);
+  useEffect(() => {
+    if (programmeContents.length === 0) {
+      setErrors('Please add content to this programme');
+    } else {
+      setErrors({});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [programmeContents]);
+
+  useEffect(() => {
+    if (submitAttempt) {
+      validateForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitAttempt(true);
+
+    const isValid = validateForm();
+    if (isValid) {
+      handleEditProgramme();
+    }
   };
 
-  console.log(`programmeContents`, programmeContents);
+  const handleEditProgramme = async () => {
+    // navFunctions.goToSuccess();
+    console.log(`success`);
+
+    // const { error, data } = await Programmes.editProgramme({
+    //   programmeId,
+    //   description,
+    //   programmeContents,
+    // });
+    // setLoading(false);
+    // if (error) {
+    //   setErrors(error.message);
+    // } else {
+    //   navFunctions.goToSuccess();
+    // }
+  };
+  // console.log(`programmeContents`, programmeContents)r;
   return (
     <>
       {/* TODO UPDATE GOBACK */}
@@ -131,7 +206,7 @@ const Review = ({ navFunctions, states }) => {
             rows={5}
             value={description}
             handleChange={(val) => setDescription(val)}
-            // error={errors && errors.description}
+            error={errors && errors.description}
           />
         </Col>
       </Row>
@@ -182,21 +257,11 @@ const Review = ({ navFunctions, states }) => {
             variant="secondary"
             text="Save Changes"
             type="submit"
-            // onClick={handleSubmit}
-            // loading={loading}
+            onClick={handleSubmit}
+            loading={loading}
           />
         </Col>
       </Row>
-
-      {/* REMOVE CONTENT */}
-      <Modal
-        type="removeContent"
-        visible={modalToShow === 'removeContent'}
-        setIsModalVisible={(e) => !e && setModalToShow('')}
-        parentFunc={removeContentFromProgramme}
-        closeOnOK={false}
-        loading={updating}
-      />
 
       {/* ERROR */}
       <Modal

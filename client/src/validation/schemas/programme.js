@@ -7,7 +7,7 @@ const programmeSchema = createSchema({ description, content });
 
 const validate = (data) => {
   const { part } = data;
-
+  console.log(`data`, data);
   switch (part) {
     case 'description':
       return _validate(descriptionSchema, data);
