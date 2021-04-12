@@ -12,7 +12,7 @@ export const Wrapper = styled.button`
   align-items: center;
   position: relative;
   background: white;
-  border: none;
+  border: ${({ error, theme }) => (error ? theme.borders.error : 'none')};
   display: flex;
   align-items: flex-start;
   flex-direction: column;

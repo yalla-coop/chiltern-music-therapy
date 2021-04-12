@@ -27,3 +27,14 @@ pubSub.listen(events.USER.CLIENT_DELETED, async (deletedClient) => {
     therapistName,
   });
 });
+
+pubSub.listen(
+  events.USER.RESET_PASSWORD,
+  async ({ resetToken, firstInitial, email }) => {
+    await sendMail(keys.USER_RESET_PASSWORD, {
+      to: email,
+      firstInitial,
+      resetToken,
+    });
+  },
+);

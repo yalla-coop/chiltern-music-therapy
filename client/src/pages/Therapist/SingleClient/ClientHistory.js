@@ -94,7 +94,7 @@ const ClientHistory = ({
       </Row>
 
       <Row mb="5" mt="7">
-        <Col w={[4, 12, 5]}>
+        <Col w={[4, 12, 4]}>
           <Button
             to={THERAPIST.EDIT_CLIENT.replace(':id', id)}
             text="Edit notes"

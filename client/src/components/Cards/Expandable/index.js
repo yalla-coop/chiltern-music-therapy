@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
-import { dateFormatter } from '../../../helpers';
+import { dateFormatter, linkFormatter } from '../../../helpers';
 
 import ViewMode from './ViewMode';
 import EditMode from './EditMode';
@@ -25,7 +25,11 @@ const Expandable = ({
   const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
 
-  const { type } = content;
+  const { type, validationErrs = {} } = content;
+
+  const hasErrors =
+    typeof validationErrs === 'object' &&
+    Object.keys(validationErrs).length > 0;
 
   const titleData = {
     video: { action: 'Watch', title: 'video', icon: 'video' },
@@ -46,6 +50,7 @@ const Expandable = ({
       onClick={() => !open && setOpen(true)}
       height={selectedHeight}
       ref={contentRef}
+      error={hasErrors}
     >
       {open && (
         <S.CrossBtn onClick={() => setOpen(false)}>
