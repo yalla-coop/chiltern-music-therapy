@@ -1,6 +1,11 @@
 import { ThemeProvider } from '@emotion/react';
 import { Global } from '@emotion/react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route as RouterRoute,
+} from 'react-router-dom';
 import theme, { globalStyle } from './theme';
 import { Route } from './components';
 import * as Pages from './pages';
@@ -17,6 +22,10 @@ function App() {
         <AuthProvider>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
+              <RouterRoute exact path={navRoutes.GENERAL.HOME}>
+                <Redirect to={navRoutes.GENERAL.LOGIN} />
+              </RouterRoute>
+
               {/* Auth Routes */}
               <Route
                 exact
