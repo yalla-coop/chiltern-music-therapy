@@ -81,7 +81,7 @@ const findTherapistAccountInfo = async (id, client) => {
       m.key "profile_image.key",
       m.bucket "profile_image.bucket"
     FROM users u
-    JOIN media m ON u.profile_photo_media_id = m.id
+    LEFT JOIN media m ON u.profile_photo_media_id = m.id
       WHERE u.id = $1
   `;
 

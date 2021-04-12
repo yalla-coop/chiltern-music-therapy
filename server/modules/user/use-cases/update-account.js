@@ -1,7 +1,7 @@
 import Boom from '@hapi/boom';
 
 import * as User from '../model';
-import * as Media from '../../media/model';
+import * as Media from '../../media/use-cases';
 
 import { errorMsgs } from '../../../services/error-handler';
 
@@ -9,7 +9,7 @@ import { userRoles as roles } from '../../../constants';
 
 const updateAccount = async ({ accountData, id, role }) => {
   // for both
-  const { email, firstName, lastName } = accountData;
+  const { email, firstName, lastName, profilePhotoMediaId } = accountData;
 
   // for therapist only
   const { bio, contactNumber, contactEmail, uploadedFileInfo } = accountData;
@@ -41,7 +41,8 @@ const updateAccount = async ({ accountData, id, role }) => {
           fileType,
         } = uploadedFileInfo;
 
-        profileImageMedia = await Media.createMedia({
+        profileImageMedia = await Media.updateMediaById({
+          id: profilePhotoMediaId,
           fileName: name,
           fileType,
           size,
@@ -59,7 +60,9 @@ const updateAccount = async ({ accountData, id, role }) => {
         bio,
         contactNumber,
         contactEmail,
-        profilePhotoMediaId: profileImageMedia.id,
+        profilePhotoMediaId: profileImageMedia
+          ? profileImageMedia.id
+          : profilePhotoMediaId,
         id,
       });
     default:

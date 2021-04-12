@@ -60,6 +60,7 @@ const MyAccount = () => {
     contactEmail,
     contactNumber,
     uploadedFileInfo,
+    profilePhotoMediaId,
   } = accountDetails;
 
   const handleInput = (value, type) => {
@@ -99,6 +100,7 @@ const MyAccount = () => {
       contactNumber,
       uploadedFileInfo,
       role: user.role,
+      profilePhotoMediaId,
     });
     if (error) {
       if (error.statusCode === 409) {
