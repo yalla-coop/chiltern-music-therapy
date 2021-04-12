@@ -118,7 +118,6 @@ const updateAccount = async (accountData) => {
 
 const getAccountInfo = async ({ options } = {}) => {
   try {
-    console.log('api');
     const { data } = await axios.get(`${USERS_BASE}/my-account`);
     return { data };
   } catch (error) {
