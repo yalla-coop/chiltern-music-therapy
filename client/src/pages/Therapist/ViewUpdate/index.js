@@ -9,7 +9,7 @@ import DocumentUpdate from './DocumentUpdate';
 import VideoUpdate from './VideoUpdate';
 import { Spin } from 'antd';
 import { dateFormatter } from '../../../helpers';
-import { TherapistClients } from '../../../api-calls';
+import { ProgressUpdates } from '../../../api-calls';
 
 const UpdateContent = ({ update }) => {
   if (update.type === 'document') {
@@ -36,7 +36,7 @@ const ViewUpdate = () => {
   const handleSubmit = () => {
     try {
       validate({ therapistMessage });
-      TherapistClients.sendUpdate({
+      ProgressUpdates.sendUpdate({
         therapistMessage,
       });
     } catch (error) {

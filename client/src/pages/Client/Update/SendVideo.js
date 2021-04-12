@@ -7,7 +7,7 @@ import FileUpload from '../../../components/FileUpload';
 import Button from '../../../components/Button';
 import { CLIENT } from '../../../constants/nav-routes';
 import validate from '../../../validation/schemas/videoUpdate';
-import { TherapistClients } from '../../../api-calls';
+import { ProgressUpdates } from '../../../api-calls';
 
 import { videoReducer } from './reducer';
 import actionTypes from './actionTypes';
@@ -88,7 +88,7 @@ const AddVideo = ({ programmeId }) => {
       } else {
         actions.HANDLE_VALIDATIONS_ERROR({});
 
-        TherapistClients.sendUpdate({
+        ProgressUpdates.sendUpdate({
           type: 'video',
           programmeId,
           fileUpload: fileUpload.data,

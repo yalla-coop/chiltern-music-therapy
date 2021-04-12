@@ -6,7 +6,7 @@ import { BasicInput, Textarea } from '../../../components/Inputs';
 import FileUpload from '../../../components/FileUpload';
 import Button from '../../../components/Button';
 import { CLIENT } from '../../../constants/nav-routes';
-import { TherapistClients } from '../../../api-calls';
+import { ProgressUpdates } from '../../../api-calls';
 
 import { videoReducer } from './reducer';
 import actionTypes from './actionTypes';
@@ -94,7 +94,7 @@ const SendAudio = ({ programmeId }) => {
     } else {
       actions.HANDLE_VALIDATIONS_ERROR({});
 
-      TherapistClients.sendUpdate({
+      ProgressUpdates.sendUpdate({
         type: 'audio',
         programmeId,
         fileUpload: fileUpload.data,

@@ -6,11 +6,11 @@ import { Textarea } from '../../../components/Inputs';
 import FileUpload from '../../../components/FileUpload';
 import Button from '../../../components/Button';
 import { CLIENT } from '../../../constants/nav-routes';
-import { TherapistClients } from '../../../api-calls';
+import { ProgressUpdates } from '../../../api-calls';
 
 import { videoReducer } from './reducer';
 import actionTypes from './actionTypes';
-import validate from '../../../validation/schemas/documentUpdate';
+import validate from '../../../validation/schemas/document-update';
 
 const initialState = {
   // file upload
@@ -89,7 +89,7 @@ const SendMessage = () => {
       } else {
         actions.HANDLE_VALIDATIONS_ERROR({});
 
-        TherapistClients.sendUpdate({
+        ProgressUpdates.sendUpdate({
           type: 'text', // or doc
           programmeId,
           fileUpload: fileUpload.data,
