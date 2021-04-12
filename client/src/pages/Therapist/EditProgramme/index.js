@@ -13,7 +13,7 @@ import Success from './Success';
 
 import flowTypes from './flowTypes';
 
-import { Contents } from '../../../api-calls';
+import { Contents, Programmes } from '../../../api-calls';
 
 import { createUniqueCats } from '../../../helpers';
 
@@ -21,6 +21,7 @@ import { useAuth } from '../../../context/auth';
 
 const EditProgramme = () => {
   // EDIT STATES
+  const [description, setDescription] = useState('');
   const [programmeContents, setProgrammeContents] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState([]);
   const [errors, setErrors] = useState({});
@@ -92,10 +93,28 @@ const EditProgramme = () => {
         });
       }
     };
+    const getProgData = async () => {
+      const { data, error } = await Programmes.getProgrammeById({
+        id: programmeId,
+      });
+
+      if (!error) {
+        if (data.description) {
+          setDescription(data.description);
+        }
+      } else {
+        setErrors({
+          ...errors,
+          getProgrammeDescription:
+            'Error getting description for this programme',
+        });
+      }
+    };
     if (user.id) {
       getContent();
+      getProgData();
     }
-  }, [user.id]);
+  }, [programmeId, user.id]);
 
   useEffect(() => {
     const getCategories = async () => {
@@ -123,8 +142,11 @@ const EditProgramme = () => {
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_REVIEW}
         navFunctions={navFunctions}
         states={{
+          description,
           programmeContents,
           categoryOptions,
+          setProgrammeContents,
+          setDescription,
         }}
       />
       <AddContent

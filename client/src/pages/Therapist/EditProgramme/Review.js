@@ -8,13 +8,14 @@ import {
   Grid,
   Inputs,
   Cards,
+  Modal,
 } from '../../../components';
 
 import validate from '../../../validation/schemas/editContent';
 
 import * as S from './style';
 
-import { Programmes } from '../../../api-calls';
+import { Programmes, Contents } from '../../../api-calls';
 import {
   decideBorder,
   isEmptyObject,
@@ -28,15 +29,27 @@ const { Basic, Expandable } = Cards;
 const Review = ({ navFunctions, states }) => {
   const [updating, setUpdating] = useState(false);
   const [modalToShow, setModalToShow] = useState('');
-  const [contentToEdit, setContentToEdit] = useState('');
   const [contentToDelete, setContentToDelete] = useState('');
-  const [editFormState, setEditFormState] = useState({});
   const [editingErrors, setEditingErrors] = useState({});
+  const [updateError, setUpdateError] = useState('');
 
-  const { programmeContents, categoryOptions } = states;
+  const {
+    description,
+    setDescription,
+    programmeContents,
+    categoryOptions,
+    setProgrammeContents,
+  } = states;
 
   const handleInput = (value) => {
-    setEditFormState({ ...editFormState, ...value });
+    setProgrammeContents(
+      programmeContents.map((el) => {
+        if (el.id === value.id) {
+          return Object.assign({}, el, { ...el, ...value });
+        }
+        return el;
+      })
+    );
   };
 
   const removeContent = (id) => {
@@ -44,58 +57,30 @@ const Review = ({ navFunctions, states }) => {
     setContentToDelete(id);
   };
 
-  const editContent = (content) => {
-    setContentToEdit(content.id);
-    setEditFormState(content);
-  };
-
-  const cancelChanges = () => {
-    setContentToEdit('');
-    setEditFormState({});
-  };
-
-  const saveEdit = () => {
-    try {
-      validate({
-        title: editFormState.title,
-        instructions: editFormState.instructions,
-      });
-      setModalToShow('editContent');
-    } catch (error) {
-      if (error.name === 'ValidationError') {
-        setEditingErrors({ validationErrs: error.inner });
-      }
-    }
-  };
-
   const renderEditCards = (array) => {
     if (array.length > 0) {
-      return array.map((content, index) => {
-        const contentToUse =
-          content.id === contentToEdit ? editFormState : content;
-
+      return array.map((content, idx) => {
         return (
-          <Col w={[4, 6, 4]} mb="4" key={index}>
+          <Col w={[4, 6, 4]} mb="4" key={idx}>
             <Expandable
               borderColor={decideBorder(content.type)}
               content={{
-                ...contentToUse,
-                download: content.path,
-                streamable: decideStreamable(content.type, content.path),
-                categories: contentToUse.categories.filter(
-                  (cat) => cat !== null
-                ),
+                ...content,
+                id: content.id,
+                download: content.file.url,
+                streamable: decideStreamable(content.type, content.file.url),
+                categories: content.categories.filter((cat) => cat !== null),
                 type: content.type?.toLowerCase(),
-                path: content.path,
-                validationErrs: editingErrors?.validationErrs,
+                url: content.file.url,
+                validationErrs:
+                  editingErrors?.validationErrs &&
+                  editingErrors?.validationErrs[`content[${idx}]`],
               }}
-              editing
-              withDate
               remove={() => removeContent(content.id)}
-              edit={() => editContent(content)}
-              onCancel={cancelChanges}
-              handleInput={handleInput}
+              withDate
               actions
+              editing
+              handleInput={handleInput}
               categoryOptions={categoryOptions.filter(
                 (opt) => opt.value !== 'ALL'
               )}
@@ -107,6 +92,24 @@ const Review = ({ navFunctions, states }) => {
     }
   };
 
+  // TODO set up backend
+  const removeContentFromProgramme = async () => {
+    setUpdating(true);
+    const { data, error } = await Contents.deleteContent({
+      id: contentToDelete,
+    });
+    if (error) {
+      setUpdateError(error.message || 'Server request error');
+      setModalToShow('error');
+    } else {
+      // setProgrammeContents(data);
+      // TODO remove from state
+      setModalToShow('removeCompletelySuccess');
+    }
+    setUpdating(false);
+  };
+
+  console.log(`programmeContents`, programmeContents);
   return (
     <>
       {/* TODO UPDATE GOBACK */}
@@ -120,14 +123,14 @@ const Review = ({ navFunctions, states }) => {
           </S.HeadlineWrapper>
         </Col>
       </Row>
-      <Row mt={5} mb={4}>
+      <Row mt={5} mb={7}>
         <Col w={[4, 6, 6]}>
           <Textarea
             label="Programme description"
             placeholder="Programme description..."
             rows={5}
-            // value={description}
-            // handleChange={(val) => SET_DESCRIPTION(val)}
+            value={description}
+            handleChange={(val) => setDescription(val)}
             // error={errors && errors.description}
           />
         </Col>
@@ -184,6 +187,24 @@ const Review = ({ navFunctions, states }) => {
           />
         </Col>
       </Row>
+
+      {/* REMOVE CONTENT */}
+      <Modal
+        type="removeContent"
+        visible={modalToShow === 'removeContent'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        parentFunc={removeContentFromProgramme}
+        closeOnOK={false}
+        loading={updating}
+      />
+
+      {/* ERROR */}
+      <Modal
+        type="error"
+        visible={modalToShow === 'error'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        error={updateError}
+      />
     </>
   );
 };

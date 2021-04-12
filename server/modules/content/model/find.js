@@ -5,10 +5,12 @@ const findContentByProg = async (id) => {
 
   const sql = `
     SELECT
+    c.id,
     c.title,
     c.instructions,
     c.link,
     c.type,
+    c.library_content,
     m.id AS "file.id",
     m.key AS "file.key",
     m.bucket AS "file.bucket",
@@ -55,7 +57,7 @@ const findLibraryContent = async ({ id }) => {
     LEFT JOIN media m ON c.media_id = m.id
     LEFT JOIN contents_content_categories ccc ON ccc.content_id = c.id
     LEFT JOIN content_categories cc ON cc.id = ccc.category_id
-    WHERE tc.therapist_user_id = $1 
+    WHERE tc.therapist_user_id = $1
     GROUP BY c.id, m.id, tc.therapist_user_id
     `;
 
