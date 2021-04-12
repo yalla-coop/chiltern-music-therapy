@@ -45,7 +45,7 @@ const Step1 = ({ submitStep }) => {
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <BasicInput
             label="First initial"
             placeholder="First initial..."
@@ -55,7 +55,7 @@ const Step1 = ({ submitStep }) => {
             error={errors.firstName}
           />
         </Col>
-        <Col w={[4, 4, 4]} mtT={5}>
+        <Col w={[4, 6, 4]} mtM={5}>
           <BasicInput
             label="Second initial"
             placeholder="Second initial..."
@@ -67,7 +67,7 @@ const Step1 = ({ submitStep }) => {
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <BasicInput
             label="First two letters of their postcode"
             placeholder="e.g. SW..."
@@ -79,7 +79,7 @@ const Step1 = ({ submitStep }) => {
         </Col>
       </Row>
       <Row mt={8} mtT={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>
