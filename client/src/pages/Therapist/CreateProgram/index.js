@@ -249,7 +249,14 @@ const CreateProgram = () => {
       <AddSingleContent
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_SINGLE}
-        actions={actions}
+        actions={{
+          addContent: actions.ADD_CONTENT,
+          addSingleContent: actions.ADD_SINGLE_CONTENT,
+          resetSingleContent: actions.RESET_SINGLE_CONTENT,
+          handleUploadStatus: actions.HANDLE_UPLOAD_STATUS,
+          handleFileUploadInfo: actions.HANDLE_FILE_UPLOAD_INFO,
+          handleFileUploadError: actions.HANDLE_FILE_UPLOAD_ERROR,
+        }}
         state={state}
         navFunctions={navFunctions}
       />

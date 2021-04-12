@@ -17,7 +17,6 @@ const AddContentSection = ({
   content,
   libraryContent = {},
   setLibraryContent,
-  mode,
   navFunctions,
 }) => {
   const [duplicateError, setDuplicateError] = useState(null);
@@ -84,7 +83,6 @@ const AddContentSection = ({
           <Col mb={5} w={[4, 9, 4]}>
             <AddContentType
               navFunctions={navFunctions}
-              mode={mode}
               contentType={category}
             />
           </Col>

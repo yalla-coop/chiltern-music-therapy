@@ -219,6 +219,24 @@ const Modal = ({
           </S.Modal>
         </>
       );
+    case 'removeFromProgrammeSuccess':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Successfully deleted</T.H3>
+            <T.P color="gray9" mb="5">
+              This content has been removed from this programme.
+            </T.P>
+            <Button handleClick={handleCancel} text="Okay" />
+          </S.Modal>
+        </>
+      );
     case 'error':
       return (
         <>

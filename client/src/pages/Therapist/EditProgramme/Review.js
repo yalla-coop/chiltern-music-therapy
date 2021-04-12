@@ -70,7 +70,7 @@ const Review = ({ navFunctions, states, programmeId }) => {
     // no? just pop from state
     if (isExistingContent) {
       setUpdating(true);
-      const { data, error } = await Contents.removeContentFromProgramme({
+      const { error } = await Contents.removeContentFromProgramme({
         contentId,
         programmeId,
       });
@@ -79,8 +79,12 @@ const Review = ({ navFunctions, states, programmeId }) => {
         setModalToShow('error');
       } else {
         setProgrammeContents(newProgrammeContents);
-        setModalToShow('removeCompletelySuccess');
+        setModalToShow('removeFromProgrammeSuccess');
       }
+      setUpdating(false);
+    } else {
+      setProgrammeContents(newProgrammeContents);
+      setModalToShow('removeFromProgrammeSuccess');
       setUpdating(false);
     }
   };
@@ -107,9 +111,10 @@ const Review = ({ navFunctions, states, programmeId }) => {
               actions
               editing
               handleInput={updateSingleContent}
-              categoryOptions={categoryOptions.filter(
-                (opt) => opt.value !== 'ALL'
-              )}
+              categoryOptions={
+                categoryOptions &&
+                categoryOptions.data.filter((opt) => opt.value !== 'ALL')
+              }
               review
             />
           </Col>
@@ -141,7 +146,7 @@ const Review = ({ navFunctions, states, programmeId }) => {
       return false;
     }
   };
-  console.log(`errors`, errors);
+
   useEffect(() => {
     if (programmeContents.length === 0) {
       setErrors('Please add content to this programme');
@@ -184,7 +189,7 @@ const Review = ({ navFunctions, states, programmeId }) => {
     //   navFunctions.goToSuccess();
     // }
   };
-  // console.log(`programmeContents`, programmeContents)r;
+
   return (
     <>
       {/* TODO UPDATE GOBACK */}
@@ -262,6 +267,12 @@ const Review = ({ navFunctions, states, programmeId }) => {
           />
         </Col>
       </Row>
+
+      <Modal
+        type={modalToShow}
+        visible={modalToShow === 'removeFromProgrammeSuccess'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+      />
 
       {/* ERROR */}
       <Modal
