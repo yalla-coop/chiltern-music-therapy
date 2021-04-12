@@ -146,7 +146,12 @@ const AddVideo = ({ programmeId }) => {
         />
       </Col>
       <Col w={[4, 12, 12]}>
-        <Button variant="primary" text="Send" handleClick={handleSubmit} />
+        <Button
+          variant="primary"
+          text="Send"
+          handleClick={handleSubmit}
+          disabled={fileUploading}
+        />
       </Col>
     </Row>
   );
