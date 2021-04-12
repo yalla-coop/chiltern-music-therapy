@@ -32,7 +32,7 @@ const UpdateSection = ({ update, therapist, id }) =>
         thoughts or ask any questions here!
       </T.P>
       <Button
-        to={navRoutes.CLIENT.SEND_UPDATE.replace('id', id)}
+        to={navRoutes.CLIENT.SEND_UPDATE.replace(':id', id)}
         text="Send update"
       />
     </Col>
