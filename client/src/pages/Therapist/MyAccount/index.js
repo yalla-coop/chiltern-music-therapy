@@ -219,16 +219,18 @@ const MyAccount = () => {
         </Col>
       </Row>
       <Row mb="6" mbT="5">
-        <Col w={[4, 6, 4]}>
+        <Col w={[4, 6, 4]} jc="center" mb="5">
           <Avatar
             status={
               !mediaUrl || fileUploading || mediaLoading ? 'loading' : 'ready'
             }
             image={mediaUrl}
+            w={128}
+            wT={120}
           />
-          <Col w={[4, 6, 4]}>
-            <T.P color="error">{errors?.getImageError}</T.P>
-          </Col>
+          <T.P color="error" style={{ width: '100%' }}>
+            {errors?.getImageError}
+          </T.P>
           <FileUpload
             category={content.fileCategories.image}
             error={fileUploadError}
@@ -237,6 +239,7 @@ const MyAccount = () => {
             fileInfo={uploadedFileInfo}
             uploading={fileUploading}
             setUploading={setFileUploading}
+            mt="4"
           />
         </Col>
         <Col w={[4, 6, 4]}>
