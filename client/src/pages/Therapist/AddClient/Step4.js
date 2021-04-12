@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Row, Col } from '../../../components/Grid';
 import { Textarea, Checkbox } from '../../../components/Inputs';
@@ -7,18 +7,18 @@ import { step4 as validate } from '../../../validation/schemas/addClient';
 import Avatar from '../../../components/Avatar';
 
 const Step4 = ({ submitStep }) => {
-  const [biography, setBiography] = useState('');
-  const [useMeanBio, setUseMeanBio] = useState(false);
+  const [therapistBio, setBiography] = useState('');
+  const [useMainBio, setUseMainBio] = useState(false);
   const [errors, setErrors] = useState({});
 
   const handleClick = () => {
     try {
       validate({
-        biography,
-        useMeanBio,
+        therapistBio,
+        useMainBio,
       });
       setErrors({});
-      submitStep({ biography, useMeanBio });
+      submitStep({ therapistBio, useMainBio });
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -28,7 +28,14 @@ const Step4 = ({ submitStep }) => {
     }
   };
 
-  const handleChange = () => setUseMeanBio(!useMeanBio);
+  useEffect(() => {
+    if (useMainBio) {
+      setBiography('');
+    }
+  }, [useMainBio]);
+
+  const handleChange = () => setUseMainBio(!useMainBio);
+
   return (
     <>
       <Row mt={6}>
@@ -39,15 +46,16 @@ const Step4 = ({ submitStep }) => {
           <Textarea
             label="Would you like to include your biography for your client to see?"
             placeholder="Tell your clients a little bit about you..."
-            value={biography}
+            value={therapistBio}
             handleChange={setBiography}
             name="biography"
-            error={errors.biography}
+            error={errors.therapistBio}
             rows={5}
             mb={4}
+            disabled={useMainBio}
           />
           <Checkbox
-            checked={useMeanBio}
+            checked={useMainBio}
             handleChange={handleChange}
             label="Use my main biography"
           />

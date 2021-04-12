@@ -61,11 +61,11 @@ const updateTherapiesProfile = async ({ updates, options } = {}) => {
 
 const addNewClient = async ({ state, options } = {}) => {
   try {
-    // const { data } = await axios.post(
-    //   `${THERAPISTS_CLIENTS_BASE}/add-new-client`
-    // )
-    // return data;
-    return { data: { state, inviteToken: 'http://bit.ly/afjwlejfafjla' } };
+    const { data } = await axios.post(
+      `${THERAPISTS_CLIENTS_BASE}/client`,
+      state
+    );
+    return { data };
   } catch (error) {
     const err = handleError(error, options);
     return { error: err };
@@ -96,6 +96,16 @@ const sendUpdate = async ({ updates, options } = {}) => {
     return { error: err };
   }
 };
+const editClient = async (form, { options } = {}) => {
+  try {
+    const { data } = await axios.patch(`${THERAPISTS_CLIENTS_BASE}`, form);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getTherapistsClientsById,
   getTherapistByInviteToken,
@@ -105,4 +115,5 @@ export {
   getMyTherapy,
   addNewClient,
   sendUpdate,
+  editClient,
 };
