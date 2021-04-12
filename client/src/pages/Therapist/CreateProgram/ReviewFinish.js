@@ -121,7 +121,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
         };
 
         return (
-          <Col mb={5} w={[4, 6, 5]}>
+          <Col mb={5} w={[4, 6, 5]} key={el.id}>
             <Expandable
               borderColor={decideBorder(el.type)}
               content={content}
