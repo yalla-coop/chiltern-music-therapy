@@ -74,16 +74,18 @@ const Step4 = ({ submitStep }) => {
   return (
     <>
       <Row mt={6}>
-        <Col w={[4, 4, 4]} jcT="center">
+        <Col w={[4, 4, 4]} jcM="center">
           <Avatar
             status={!mediaUrl || mediaLoading ? 'loading' : 'ready'}
             image={mediaUrl}
+            w="180"
+            wT="120"
           />
-          <Col w={[4, 6, 4]}>
-            <T.P color="error">{errors?.getImageError}</T.P>
-          </Col>
+          <T.P color="error" style={{ width: '100%' }}>
+            {errors?.getImageError}
+          </T.P>
         </Col>
-        <Col w={[4, 6, 6]} mtT={6}>
+        <Col w={[4, 6, 6]} mtM={6}>
           <Textarea
             label="Would you like to include your biography for your client to see?"
             placeholder="Tell your clients a little bit about you..."
