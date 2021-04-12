@@ -129,8 +129,17 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.THERAPIST.ACCOUNT}
+                Component={Pages.THERAPIST.MyAccount}
+                goBack
+                maxWidth="none"
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.MESSAGE}
                 Component={Pages.THERAPIST.ViewUpdate}
+                goBack
               />
 
               {/* Admin Pages */}
@@ -212,6 +221,13 @@ function App() {
                 exact
                 path={navRoutes.CLIENT.THERAPY_GOALS}
                 Component={Pages.CLIENT.MyTherapyGoals}
+                goBack
+                maxWidth="none"
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.ACCOUNT}
+                Component={Pages.CLIENT.MyAccount}
                 goBack
                 maxWidth="none"
               />

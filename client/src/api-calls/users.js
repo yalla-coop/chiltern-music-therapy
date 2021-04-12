@@ -103,6 +103,25 @@ const getTherapists = async ({ options } = {}) => {
   }
 };
 
+const updateAccount = async (accountData) => {
+  try {
+    const { data } = await axios.patch(`${USERS_BASE}/account`, accountData);
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
+const getAccountInfo = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.get(`${USERS_BASE}/my-account`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
 const checkUserExists = async (form, { options } = {}) => {
   try {
     const { data } = await axios.post(`${USERS_BASE}/check-user-exists`, form);
@@ -124,5 +143,7 @@ export {
   updatePassword,
   deleteMyAccount,
   getTherapists,
+  updateAccount,
+  getAccountInfo,
   checkUserExists,
 };

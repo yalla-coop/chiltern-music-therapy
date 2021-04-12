@@ -183,6 +183,26 @@ const Modal = ({
           </S.Modal>
         </>
       );
+
+    case 'saveChangesSuccess':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Successfully updated</T.H3>
+            <T.P color="gray9" mb="5">
+              Your changes have been saved
+            </T.P>
+            <Button handleClick={handleCancel} text="Okay" />
+          </S.Modal>
+        </>
+      );
+
     case 'removeFromLibrarySuccess':
       return (
         <>

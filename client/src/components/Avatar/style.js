@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import fallback from '../assets/Avatar.svg';
 
 export const AvatarImage = styled.div`
-  width: 320px;
-  height: 320px;
+  width: ${({ w }) => `${w}px`};
+  height: ${({ w }) => `${w}px`};
   border-radius: 50%;
   background-image: ${({ image }) => `url(${image})`}, url('${fallback}');
   background-position: center;
@@ -12,8 +12,8 @@ export const AvatarImage = styled.div`
   top: 16px;
   left: 16px;
   ${({ theme }) => theme.media.tablet} {
-    width: 180px;
-    height: 180px;
+    width: ${({ wT }) => `${wT}px`};
+    height: ${({ wT }) => `${wT}px`};
     top: 8px;
     left: 8px;
   }
@@ -21,8 +21,8 @@ export const AvatarImage = styled.div`
 
 export const AvatarContainer = styled.div`
   margin: 10px;
-  width: 355px;
-  height: 355px;
+  width: ${({ w }) => `calc(${w}px + 35px)`};
+  height: ${({ w }) => `calc(${w}px + 35px)`};
   background: white;
   border-radius: 50%;
   box-sizing: border-box;
@@ -33,8 +33,8 @@ export const AvatarContainer = styled.div`
     content: '';
     background-image: ${({ theme: { gradients } }) =>
       gradients.rainbowHorizontal};
-    width: 360px;
-    height: 360px;
+    width: ${({ w }) => `calc(${w}px + 40px)`};
+    height: ${({ w }) => `calc(${w}px + 40px)`};
     top: -2.5px;
     left: -2.5px;
     position: absolute;
@@ -43,11 +43,11 @@ export const AvatarContainer = styled.div`
 
   ${({ theme }) => theme.media.tablet} {
     margin: 5px;
-    width: 198px;
-    height: 198px;
+    width: ${({ wT }) => `calc(${wT}px + 18px)`};
+    height: ${({ wT }) => `calc(${wT}px + 18px)`};
     &:before {
-      width: 202px;
-      height: 202px;
+      width: ${({ wT }) => `calc(${wT}px + 22px)`};
+      height: ${({ wT }) => `calc(${wT}px + 22px)`};
       top: -2px;
       left: -2px;
     }

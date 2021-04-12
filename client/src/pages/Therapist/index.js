@@ -7,6 +7,7 @@ import Profile from './Profile';
 import AddClient from './AddClient';
 import EditClient from './EditClient';
 import IndividProgramme from './IndividProgramme';
+import MyAccount from './MyAccount';
 import ViewUpdate from './ViewUpdate';
 
 export default {
@@ -19,5 +20,6 @@ export default {
   AddClient,
   EditClient,
   IndividProgramme,
+  MyAccount,
   ViewUpdate,
 };
