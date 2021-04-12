@@ -24,8 +24,8 @@ const updateAccount = async ({ accountData, id, role }) => {
     case roles.CLIENT:
       return User.updateClientAccount({
         email,
-        firstName,
-        lastName,
+        firstName: firstName[0],
+        lastName: lastName[0],
         id,
       });
     case roles.THERAPIST:
