@@ -50,7 +50,6 @@ const updateAccount = async ({ accountData, id, role }) => {
           bucketRegion,
           createdBy: user.id,
         });
-        // console.log(`profileImageMedia`, profileImageMedia);
       }
 
       return User.updateTherapistAccount({
