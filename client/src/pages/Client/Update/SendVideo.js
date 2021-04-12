@@ -6,7 +6,7 @@ import { BasicInput, Textarea } from '../../../components/Inputs';
 import FileUpload from '../../../components/FileUpload';
 import Button from '../../../components/Button';
 import { CLIENT } from '../../../constants/nav-routes';
-import validate from '../../../validation/schemas/videoFeedback';
+import validate from '../../../validation/schemas/videoUpdate';
 import { TherapistClients } from '../../../api-calls';
 
 import { videoReducer } from './reducer';
@@ -88,7 +88,7 @@ const AddVideo = ({ programmeId }) => {
       } else {
         actions.HANDLE_VALIDATIONS_ERROR({});
 
-        TherapistClients.sendFeedback({
+        TherapistClients.sendUpdate({
           type: 'video',
           programmeId,
           fileUpload,

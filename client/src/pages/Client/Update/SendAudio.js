@@ -10,7 +10,7 @@ import { TherapistClients } from '../../../api-calls';
 
 import { videoReducer } from './reducer';
 import actionTypes from './actionTypes';
-import validate from '../../../validation/schemas/videoFeedback';
+import validate from '../../../validation/schemas/videoUpdate';
 
 const initialState = {
   // file upload
@@ -94,7 +94,7 @@ const SendAudio = ({ programmeId }) => {
     } else {
       actions.HANDLE_VALIDATIONS_ERROR({});
 
-      TherapistClients.sendFeedback({
+      TherapistClients.sendUpdate({
         type: 'audio',
         programmeId,
         fileUpload,

@@ -6,6 +6,7 @@ import SingleClient from './SingleClient';
 import Profile from './Profile';
 import AddClient from './AddClient';
 import IndividProgramme from './IndividProgramme';
+import ViewUpdate from './ViewUpdate';
 
 export default {
   CreateProgram,
@@ -16,4 +17,5 @@ export default {
   Library,
   AddClient,
   IndividProgramme,
+  ViewUpdate,
 };

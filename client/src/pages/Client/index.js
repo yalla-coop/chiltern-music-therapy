@@ -6,7 +6,7 @@ import Signup from './Signup';
 import MyTherapist from './MyTherapist';
 import IndividProgramme from './IndividProgramme';
 import DeleteAccount, { AccountDeleted } from './DeleteAccount';
-import Feedback from './Feedback';
+import Update from './Update';
 import SuccessUpdate from './SuccessUpdate';
 
 export default {
@@ -19,6 +19,6 @@ export default {
   MyTherapyGoals,
   DeleteAccount,
   AccountDeleted,
-  Feedback,
+  Update,
   SuccessUpdate,
 };

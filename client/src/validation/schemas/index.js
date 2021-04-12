@@ -6,9 +6,10 @@ import profile from './profile';
 import forgotPassword from './forgotPassword';
 import updatePassword from './updatePassword';
 import addClient from './addClient';
-import videoFeedback from './videoFeedback';
-import documentFeedback from './documentFeedback';
+import videoUpdate from './videoUpdate';
+import documentUpdate from './documentUpdate';
 import editContent from './editContent';
+import therapistMessage from './therapistMessage';
 
 export {
   signup,
@@ -19,7 +20,8 @@ export {
   forgotPassword,
   updatePassword,
   addClient,
-  videoFeedback,
-  documentFeedback,
+  videoUpdate,
+  documentUpdate,
   editContent,
+  therapistMessage,
 };

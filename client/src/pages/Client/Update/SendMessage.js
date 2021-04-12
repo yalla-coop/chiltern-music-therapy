@@ -10,7 +10,7 @@ import { TherapistClients } from '../../../api-calls';
 
 import { videoReducer } from './reducer';
 import actionTypes from './actionTypes';
-import validate from '../../../validation/schemas/documentFeedback';
+import validate from '../../../validation/schemas/documentUpdate';
 
 const initialState = {
   // file upload
@@ -89,7 +89,7 @@ const SendMessage = () => {
       } else {
         actions.HANDLE_VALIDATIONS_ERROR({});
 
-        TherapistClients.sendFeedback({
+        TherapistClients.sendUpdate({
           type: 'text', // or doc
           programmeId,
           fileUpload: fileUpload.data,

@@ -2,10 +2,10 @@ import { fields, createSchema, validate as _validate } from '..';
 
 const { requiredText } = fields;
 
-const videoFeedback = createSchema({
+const documentUpdate = createSchema({
   message: requiredText,
 });
 
-const validate = (data) => _validate(videoFeedback, data);
+const validate = (data) => _validate(documentUpdate, data);
 
 export default validate;

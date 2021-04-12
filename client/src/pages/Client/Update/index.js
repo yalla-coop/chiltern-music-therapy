@@ -9,7 +9,7 @@ import { useParams } from 'react-router';
 
 const types = ['video', 'document', 'audio'];
 
-const Feedback = () => {
+const Update = () => {
   const { id } = useParams();
   const formContent = [
     <AddVideo programmeId={id} />,
@@ -34,4 +34,4 @@ const Feedback = () => {
   );
 };
 
-export default Feedback;
+export default Update;

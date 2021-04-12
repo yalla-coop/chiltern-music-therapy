@@ -82,10 +82,10 @@ const getMyTherapy = async ({ options } = {}) => {
   }
 };
 
-const sendFeedback = async ({ updates, options } = {}) => {
+const sendUpdate = async ({ updates, options } = {}) => {
   try {
     // const { data } = await axios.post(
-    //   `${THERAPISTS_CLIENTS_BASE}/send-feedback`
+    //   `${THERAPISTS_CLIENTS_BASE}/send-update`
     // )
     // return data;
     return { data: updates };
@@ -102,5 +102,5 @@ export {
   updateTherapiesProfile,
   getMyTherapy,
   addNewClient,
-  sendFeedback,
+  sendUpdate,
 };
