@@ -69,7 +69,7 @@ const SendMessage = () => {
     },
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = ({ programmeId }) => {
     let fileUploadErr = '';
     try {
       if (!fileUpload?.data?.name && !fileUpload?.data?.key && !message) {
@@ -91,6 +91,7 @@ const SendMessage = () => {
 
         TherapistClients.sendFeedback({
           type: 'text', // or doc
+          programmeId,
           fileUpload: fileUpload.data,
           message,
         });
@@ -124,7 +125,7 @@ const SendMessage = () => {
         <Textarea
           label="Write your message here"
           color="gray8"
-          placeholder="Message"
+          placeholder="Message..."
           rows={5}
           value={message}
           handleChange={(value) => actions.ADD_SINGLE_CONTENT('message', value)}

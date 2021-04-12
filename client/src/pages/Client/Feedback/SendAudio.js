@@ -32,7 +32,7 @@ const initialState = {
   validationErrs: {},
 };
 
-const SendAudio = () => {
+const SendAudio = ({ programmeId }) => {
   const [state, dispatch] = useReducer(videoReducer, initialState);
 
   const { fileUpload, link, message, validationErrs } = state;
@@ -96,6 +96,7 @@ const SendAudio = () => {
 
       TherapistClients.sendFeedback({
         type: 'audio',
+        programmeId,
         fileUpload,
         message,
         link,
@@ -121,7 +122,7 @@ const SendAudio = () => {
       </Col>
       <Col w={[4, 12, 12]} mb={7} mbM={5}>
         <BasicInput
-          placeholder={`video link...`}
+          placeholder={`audio link...`}
           label="If you prefer, you can paste a link to an external resource in the input below"
           color="gray8"
           value={link}
@@ -137,7 +138,7 @@ const SendAudio = () => {
         <Textarea
           label="Want to add an additional message? Add it here"
           color="gray8"
-          placeholder="Message"
+          placeholder="Message..."
           rows={5}
           value={message}
           handleChange={(value) => actions.ADD_SINGLE_CONTENT('message', value)}

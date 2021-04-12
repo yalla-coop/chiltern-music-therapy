@@ -5,11 +5,17 @@ import { decideBorder } from '../../../helpers';
 import AddVideo from './SendVideo';
 import SendMessage from './SendMessage';
 import SendAudio from './SendAudio';
+import { useParams } from 'react-router';
 
 const types = ['video', 'document', 'audio'];
 
 const Feedback = () => {
-  const formContent = [<AddVideo />, <SendMessage />, <SendAudio />];
+  const { id } = useParams();
+  const formContent = [
+    <AddVideo programmeId={id} />,
+    <SendMessage programmeId={id} />,
+    <SendAudio programmeId={id} />,
+  ];
 
   return (
     <Row mb="8">

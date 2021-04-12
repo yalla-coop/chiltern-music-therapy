@@ -32,7 +32,7 @@ const initialState = {
   validationErrs: {},
 };
 
-const AddVideo = () => {
+const AddVideo = ({ programmeId }) => {
   const [state, dispatch] = useReducer(videoReducer, initialState);
 
   const { fileUpload, link, message, validationErrs } = state;
@@ -90,6 +90,7 @@ const AddVideo = () => {
 
         TherapistClients.sendFeedback({
           type: 'video',
+          programmeId,
           fileUpload,
           link,
           message,
@@ -137,7 +138,7 @@ const AddVideo = () => {
         <Textarea
           label="Want to add an additional message? Add it here"
           color="gray8"
-          placeholder="Message"
+          placeholder="Message..."
           rows={5}
           value={message}
           handleChange={(value) => actions.ADD_SINGLE_CONTENT('message', value)}
