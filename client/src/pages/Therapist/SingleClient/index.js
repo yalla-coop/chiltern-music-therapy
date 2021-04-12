@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import * as S from './style';
 import * as T from '../../../components/Typography';
@@ -28,6 +28,7 @@ const SingleClient = ({ clientHistory }) => {
   const [elementsOnView, setElementsOnView] = useState(3);
 
   const { id } = useParams();
+  const history = useHistory();
 
   useEffect(() => {
     const getClientById = async () => {
@@ -123,12 +124,25 @@ const SingleClient = ({ clientHistory }) => {
           </T.P>
         </Col>
       </Row>
-
       <Row mb="8">
         <Col w={[4, 12, 4]}>
           <Button
             text="Add new programme"
-            to={THERAPIST.CREATE_PROGRAMME.replace(':id', id)}
+            onClick={() =>
+              history.push({
+                pathname: THERAPIST.CREATE_PROGRAMME_DESCRIPTION.replace(
+                  ':id',
+                  id
+                ),
+                state: {
+                  clientDetails: {
+                    firstInitial: state.firstInitial,
+                    lastInitial: state.lastInitial,
+                    postcode: state.postcode,
+                  },
+                },
+              })
+            }
             disabled={state.status === userStatuses.DELETED}
           />
         </Col>

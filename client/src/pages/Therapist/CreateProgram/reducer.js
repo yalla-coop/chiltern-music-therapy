@@ -38,6 +38,11 @@ const reducer = (state, action) => {
         ...state,
         description: value,
       };
+    case actionTypes.setClientDetails:
+      return {
+        ...state,
+        clientDetails: value,
+      };
     case actionTypes.setErrors:
       return {
         ...state,

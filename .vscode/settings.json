@@ -13,6 +13,7 @@
     "middlewares",
     "organisation",
     "organisations",
-    "uniqid"
+    "uniqid",
+    "videojs"
   ]
 }

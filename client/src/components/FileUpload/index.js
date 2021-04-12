@@ -21,6 +21,7 @@ const initState = {
     bucketRegion: '',
     bucket: '',
     fileType: '',
+    size: 0,
     new: false,
     uploadedToS3: false,
   },
