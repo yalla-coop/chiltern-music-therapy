@@ -4,7 +4,7 @@ import { navRoutes } from '../../../constants';
 import Button from '../../../components/Button';
 
 const FeedbackSection = ({ feedback, id }) =>
-  feedback ? (
+  feedback?.id ? (
     <Col w={[4, 6, 4]} dir="column" ai="left">
       <T.H3 mb="2">Programme completed</T.H3>
       <T.P color="gray8" mb="4">

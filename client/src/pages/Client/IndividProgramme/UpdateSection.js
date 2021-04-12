@@ -5,7 +5,7 @@ import { navRoutes } from '../../../constants';
 import Button from '../../../components/Button';
 
 const UpdateSection = ({ update, therapist, id }) =>
-  update ? (
+  update?.id ? (
     <Col w={[4, 6, 4]} dir="column" ai="left" mb="7">
       <T.H3 mb="2">Progress update</T.H3>
       <T.P color="gray8" mb="4">
