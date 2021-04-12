@@ -91,9 +91,9 @@ const AddVideo = ({ programmeId }) => {
         TherapistClients.sendUpdate({
           type: 'video',
           programmeId,
-          fileUpload,
+          fileUpload: fileUpload.data,
           link,
-          message,
+          clientMessage: message,
         });
 
         history.push(CLIENT.SUCCESS_UPDATE);

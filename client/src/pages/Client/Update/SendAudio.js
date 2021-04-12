@@ -97,8 +97,8 @@ const SendAudio = ({ programmeId }) => {
       TherapistClients.sendUpdate({
         type: 'audio',
         programmeId,
-        fileUpload,
-        message,
+        fileUpload: fileUpload.data,
+        clientMessage: message,
         link,
       });
 

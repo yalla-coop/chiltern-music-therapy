@@ -93,7 +93,7 @@ const SendMessage = () => {
           type: 'text', // or doc
           programmeId,
           fileUpload: fileUpload.data,
-          message,
+          clientMessage: message,
         });
 
         history.push(CLIENT.SUCCESS_UPDATE);

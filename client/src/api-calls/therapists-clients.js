@@ -84,6 +84,8 @@ const getMyTherapy = async ({ options } = {}) => {
 
 const sendUpdate = async ({ updates, options } = {}) => {
   try {
+    /* the update should determine according to the user type */
+
     // const { data } = await axios.post(
     //   `${THERAPISTS_CLIENTS_BASE}/send-update`
     // )
