@@ -5,7 +5,11 @@ import { Basic, Expandable } from '../../../components/Cards';
 import { Row, Col } from '../../../components/Grid';
 import Modal from '../../../components/Modal';
 
-import { decideBorder, createUniqueCats } from '../../../helpers';
+import {
+  decideBorder,
+  createUniqueCats,
+  decideStreamable,
+} from '../../../helpers';
 
 import { useAuth } from '../../../context/auth';
 
@@ -45,13 +49,6 @@ const Library = () => {
 
   const handleSelect = (e, filterType) => {
     setFilter({ ...filter, [filterType]: e });
-  };
-
-  const decideStreamable = (type, path) => {
-    if (['VIDEO', 'AUDIO'].includes(type) && path) {
-      return true;
-    }
-    return false;
   };
 
   const removeContent = (id) => {
