@@ -1,17 +1,7 @@
 import { useRef, useEffect } from 'react';
 import videojs from 'video.js';
 
-import * as T from '../Typography';
-import Icon from '../Icon';
-
 import 'video.js/dist/video-js.css';
-
-import styled from '@emotion/styled';
-
-export const LinkWrapper = styled.a`
-  display: flex;
-  margin-top: ${({ theme }) => theme.spacings[4]};
-`;
 
 const Video = ({ url, type }) => {
   const playerRef = useRef();
@@ -60,6 +50,7 @@ const Video = ({ url, type }) => {
           width: '100%',
           height: '100%',
           borderRadius: '8px',
+          overflow: 'hidden',
         }}
       >
         <video
@@ -69,13 +60,6 @@ const Video = ({ url, type }) => {
           }`}
         />
       </div>
-
-      <LinkWrapper href={url} download target="_blank" rel="noreferrer">
-        <Icon icon="download" width="16" height="16" color="blue" />
-        <T.P color="blue" bold ml="2" weight="700">
-          Download {type}
-        </T.P>
-      </LinkWrapper>
     </div>
   );
 };

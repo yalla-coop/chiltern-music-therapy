@@ -3,11 +3,12 @@ import * as Content from '../model';
 import * as Programme from '../../programme/use-cases';
 import { errorMsgs } from '../../../services/error-handler';
 import { userRoles } from '../../../constants/data-type';
+import { setContentsMediaFileUrl } from '../utils';
 
 const getContentByProg = async ({ id, userId, userRole }) => {
   // check if user is allowed
   const programme = await Programme.getProgrammeById({ id, userId, userRole });
-
+  let contents;
   if (!programme) {
     throw Boom.notFound(errorMsgs.NOT_FOUND);
   }
@@ -16,7 +17,11 @@ const getContentByProg = async ({ id, userId, userRole }) => {
     [programme.therapistUserId, programme.clientUserId].includes(userId) ||
     [userRoles.ADMIN, userRoles.SUPER_ADMIN].includes(userRole)
   ) {
-    return Content.findContentByProg(id);
+    contents = await Content.findContentByProg(id);
+
+    await setContentsMediaFileUrl(contents);
+
+    return contents;
   }
   throw Boom.unauthorized(errorMsgs.UNAUTHORISED);
 };
