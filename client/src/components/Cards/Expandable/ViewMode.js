@@ -8,12 +8,13 @@ import Video from '../../Video';
 import { linkFormatter } from '../../../helpers';
 
 const ViewMode = ({
-  content,
+  content = {},
   open,
   contentRef,
   selectedHeight,
   remove,
   edit,
+  children,
 }) => {
   const {
     streamable,
@@ -24,7 +25,13 @@ const ViewMode = ({
     url,
     type,
   } = content;
-
+  if (children) {
+    return (
+      <S.Content open={open} ref={contentRef} height={selectedHeight}>
+        {children}
+      </S.Content>
+    );
+  }
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
       {streamable && (

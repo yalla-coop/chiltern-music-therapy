@@ -127,6 +127,12 @@ function App() {
                 Component={Pages.THERAPIST.Library}
               />
 
+              <Route
+                exact
+                path={navRoutes.THERAPIST.MESSAGE}
+                Component={Pages.THERAPIST.ViewUpdate}
+              />
+
               {/* Admin Pages */}
               <Route
                 exact
@@ -201,10 +207,27 @@ function App() {
                 Component={Pages.CLIENT.MyTherapyPlan}
                 goBack
               />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_GOALS}
                 Component={Pages.CLIENT.MyTherapyGoals}
+                goBack
+                maxWidth="none"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.SEND_UPDATE}
+                Component={Pages.CLIENT.Update}
+                goBack
+                maxWidth="none"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.SUCCESS_UPDATE}
+                Component={Pages.CLIENT.SuccessUpdate}
                 goBack
                 maxWidth="none"
               />

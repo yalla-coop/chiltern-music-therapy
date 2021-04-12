@@ -47,7 +47,7 @@ export const Content = styled.div`
   opacity: ${({ open }) => (!open ? 0 : 1)};
   height: ${({ open }) => (!open ? 0 : 'auto')};
 
-  display: flex;
+  display: ${({ open }) => (open ? 'flex' : 'none')};
   flex-direction: column;
 `;
 
@@ -78,4 +78,8 @@ export const CrossBtn = styled.button`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+`;
+
+export const BoldSpan = styled.span`
+  font-weight: bold;
 `;
