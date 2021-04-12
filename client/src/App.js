@@ -119,6 +119,12 @@ function App() {
                 Component={Pages.THERAPIST.Library}
               />
 
+              <Route
+                exact
+                path={navRoutes.THERAPIST.MESSAGE}
+                Component={Pages.THERAPIST.ViewUpdate}
+              />
+
               {/* Admin Pages */}
               <Route
                 exact
@@ -204,8 +210,8 @@ function App() {
 
               <Route
                 exact
-                path={navRoutes.CLIENT.SEND_FEEDBACK}
-                Component={Pages.CLIENT.Feedback}
+                path={navRoutes.CLIENT.SEND_UPDATE}
+                Component={Pages.CLIENT.Update}
                 goBack
                 maxWidth="none"
               />
