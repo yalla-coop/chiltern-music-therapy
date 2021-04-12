@@ -92,7 +92,7 @@ const EditMode = ({
       />
       {streamable && (
         <div style={{ marginBottom: '24px', marginTop: '8px' }}>
-          <Video url={url} type={type} />
+          <Video url={url || mediaUrl} type={type} />
         </div>
       )}
       {download && (
