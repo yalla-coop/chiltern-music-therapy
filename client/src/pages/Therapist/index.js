@@ -5,6 +5,7 @@ import Library from './Library';
 import SingleClient from './SingleClient';
 import Profile from './Profile';
 import AddClient from './AddClient';
+import EditClient from './EditClient';
 import IndividProgramme from './IndividProgramme';
 
 export default {
@@ -15,5 +16,6 @@ export default {
   SingleClient,
   Library,
   AddClient,
+  EditClient,
   IndividProgramme,
 };

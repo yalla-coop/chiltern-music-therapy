@@ -82,6 +82,16 @@ const getMyTherapy = async ({ options } = {}) => {
   }
 };
 
+const editClient = async (form, { options } = {}) => {
+  try {
+    const { data } = await axios.patch(`${THERAPISTS_CLIENTS_BASE}`, form);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getTherapistsClientsById,
   getTherapistByInviteToken,
@@ -90,4 +100,5 @@ export {
   updateTherapiesProfile,
   getMyTherapy,
   addNewClient,
+  editClient,
 };

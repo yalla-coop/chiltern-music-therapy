@@ -6,6 +6,7 @@ import getTherapistByInviteToken from './get-therapist-by-invite-token';
 import getClientById from './get-client-by-id';
 import { userRoles } from '../../../constants';
 import getMyTherapy from './get-my-therapy';
+import editTherapistClientById from './edit-therapist-client-by-id';
 import createTherapistClient from './create-therapist-client';
 
 import { authenticate, authorize } from '../../../api/middlewares';
@@ -22,6 +23,12 @@ router.get(
 );
 router.get('/my-therapy', authenticate(), getMyTherapy);
 router.get('/:id', authenticate(), getTherapistClientById);
+router.patch(
+  '/',
+  authenticate(),
+  authorize([userRoles.THERAPIST]),
+  editTherapistClientById,
+);
 router.post(
   '/client',
   authenticate(),
