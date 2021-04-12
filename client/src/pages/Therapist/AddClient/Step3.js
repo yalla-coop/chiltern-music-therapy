@@ -43,7 +43,7 @@ const Step3 = ({ submitStep }) => {
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <Textarea
             label="Therapy background "
             placeholder="Therapy background..."
@@ -65,7 +65,7 @@ const Step3 = ({ submitStep }) => {
             </T.P>
           </Example>
         </Col>
-        <Col w={[4, 4, 4]} mtT={7}>
+        <Col w={[4, 6, 4]} mtM={7}>
           <TherapyGoals
             goals={therapyGoals}
             handleChange={setGoals}
@@ -89,8 +89,8 @@ const Step3 = ({ submitStep }) => {
         </Col>
       </Row>
 
-      <Row mt={8} mtT={7}>
-        <Col w={[4, 4, 4]}>
+      <Row mt={8} mtM={7}>
+        <Col w={[4, 6, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>

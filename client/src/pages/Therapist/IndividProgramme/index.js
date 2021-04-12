@@ -109,17 +109,17 @@ const IndividProgramme = () => {
                 Programme content
               </T.H2>
             </Col>
-            {contents.map(({ type, path, categories, ...content }, index) => (
+            {contents.map(({ type, file, categories, ...content }, index) => (
               <Col w={[4, 6, 4]} mb="4">
                 <Expandable
                   borderColor={decideBorder(type)}
                   content={{
-                    download: path,
-                    streamable: decideStreamable(type, path),
+                    download: file.url,
+                    streamable: decideStreamable(type, file.url),
                     categories: categories.filter((cat) => cat !== null),
                     ...content,
                     type: type?.toLowerCase(),
-                    path,
+                    url: file.url,
                   }}
                 />
               </Col>

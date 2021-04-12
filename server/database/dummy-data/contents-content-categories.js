@@ -32,10 +32,26 @@ const createContentCategoriesContents = async ({
     categoryId: contentCategories.category3.id,
   });
 
+  const content2Category1 = await createContentCategoriesContent({
+    contentId: contents.content2.id,
+    categoryId: contentCategories.category1.id,
+  });
+  const content3Category1 = await createContentCategoriesContent({
+    contentId: contents.content3.id,
+    categoryId: contentCategories.category1.id,
+  });
+  const content4Category1 = await createContentCategoriesContent({
+    contentId: contents.content4.id,
+    categoryId: contentCategories.category1.id,
+  });
+
   return {
     content1Category1,
     content1Category2,
     content1Category3,
+    content2Category1,
+    content3Category1,
+    content4Category1,
   };
 };
 
