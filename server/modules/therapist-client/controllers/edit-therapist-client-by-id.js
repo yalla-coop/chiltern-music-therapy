@@ -1,10 +1,10 @@
 import * as TherapistClient from '../use-cases';
 
-const editClientById = async (req, res, next) => {
+const editTherapistClientById = async (req, res, next) => {
   const { clientId, therapyGoals, therapyBackground } = req.body;
   const { id: userId } = req.user;
   try {
-    const client = await TherapistClient.editClientById({
+    const client = await TherapistClient.editTherapistClientById({
       clientId,
       userId,
       therapyBackground,
@@ -16,4 +16,4 @@ const editClientById = async (req, res, next) => {
   }
 };
 
-export default editClientById;
+export default editTherapistClientById;

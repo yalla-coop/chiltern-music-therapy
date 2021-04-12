@@ -2,7 +2,7 @@ import Boom from '@hapi/boom';
 import * as TherapistClients from '../model';
 import { errorMsgs } from '../../../services/error-handler';
 
-const editClientById = async ({
+const editTherapistClientById = async ({
   clientId,
   userId,
   therapyGoals,
@@ -18,7 +18,7 @@ const editClientById = async ({
     throw Boom.unauthorized();
   }
 
-  const updated = await TherapistClients.editClientById({
+  const updated = await TherapistClients.editTherapistClientById({
     clientId,
     therapyGoals,
     therapyBackground,
@@ -27,4 +27,4 @@ const editClientById = async ({
   return updated;
 };
 
-export default editClientById;
+export default editTherapistClientById;

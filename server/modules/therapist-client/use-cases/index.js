@@ -6,7 +6,7 @@ import authorizeClientToTherapist from './authorize-client-to-therapist';
 import getMyTherapy from './get-my-therapy';
 import getTherapistByClient from './get-therapist-by-client';
 import getClientsByTherapist from './get-clients-by-therapist';
-import editClientById from './edit-client-by-id';
+import editTherapistClientById from './edit-therapist-client-by-id';
 
 export {
   getTherapistClientById,
@@ -17,5 +17,5 @@ export {
   getMyTherapy,
   getTherapistByClient,
   getClientsByTherapist,
-  editClientById,
+  editTherapistClientById,
 };

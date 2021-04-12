@@ -16,7 +16,7 @@ export const Wrapper = styled.div`
 
 export const CardWrapper = styled.div`
   width: ${({ wrap }) => (wrap ? '48%' : '100%')};
-  min-width: 280px;
+  min-width: 230px;
   max-width: 350px;
   margin: ${({ wrap }) => (wrap ? '0 12px 8px 0' : '0')};
   padding: ${({ theme }) => theme.spacings[4]};

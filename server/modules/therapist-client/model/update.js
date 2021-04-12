@@ -1,6 +1,6 @@
 import { query } from '../../../database';
 
-const editClientById = async (
+const editTherapistClientById = async (
   { clientId, therapyBackground, therapyGoals },
   client,
 ) => {
@@ -17,4 +17,4 @@ const editClientById = async (
   return res.rows[0];
 };
 
-export { editClientById };
+export { editTherapistClientById };
