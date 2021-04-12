@@ -63,7 +63,7 @@ const Step4 = ({ submitStep }) => {
       </Row>
 
       <Row mt={8} mtT={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>

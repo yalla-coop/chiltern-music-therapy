@@ -66,7 +66,7 @@ const Step2 = ({ submitStep }) => {
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <BasicInput
             label="Email"
             placeholder="Email..."
@@ -76,7 +76,7 @@ const Step2 = ({ submitStep }) => {
             error={errors.email}
           />
         </Col>
-        <Col w={[4, 4, 4]} mtT={5}>
+        <Col w={[4, 6, 4]} mtM={5}>
           <BasicInput
             label="Mobile number"
             placeholder="Mobile number (optional)"
@@ -88,7 +88,7 @@ const Step2 = ({ submitStep }) => {
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <BasicInput
             label="Primary contact mobile number"
             placeholder="Mobile number"
@@ -100,7 +100,7 @@ const Step2 = ({ submitStep }) => {
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>

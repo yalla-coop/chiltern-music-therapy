@@ -11,6 +11,7 @@ import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 
 import { Media } from '../../../api-calls';
 import { fileCategories } from '../../../constants/content';
+import Video from '../../Video';
 
 const EditMode = ({
   content,
@@ -35,6 +36,8 @@ const EditMode = ({
     link,
     validationErrs,
     fileUpload,
+    url,
+    download,
   } = content;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -62,6 +65,7 @@ const EditMode = ({
       type,
     };
     handleInput(formattedSingleContent);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -69,13 +73,14 @@ const EditMode = ({
     if (fileUpload && fileUpload.uploadedToS3) {
       return getMediaUrl(fileUpload);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const modalParentFunction = (_id) => remove({ id });
 
   const streamable =
     [fileCategories.audio, fileCategories.video].includes(type) &&
-    (mediaUrl || link);
+    (mediaUrl || link || url);
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
@@ -86,8 +91,23 @@ const EditMode = ({
         parentFunc={() => modalParentFunction(id)}
       />
       {streamable && (
-        <div style={{ marginBottom: '24px' }}>STREAM GOES HERE</div>
+        <div style={{ marginBottom: '24px', marginTop: '8px' }}>
+          <Video url={url || mediaUrl} type={type} />
+        </div>
       )}
+      {download && (
+        <a href={download} download>
+          <Icon
+            icon="download"
+            width="16"
+            height="16"
+            text={`Download ${type}`}
+            mb="5"
+            color="primary"
+          />
+        </a>
+      )}
+
       {mediaUrl && (
         <a href={mediaUrl} download>
           <Icon
