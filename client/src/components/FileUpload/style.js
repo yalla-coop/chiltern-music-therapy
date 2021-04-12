@@ -20,6 +20,7 @@ export const Wrapper = styled.div`
     color:  ${({ theme }) => theme.colors.blue}}
     font-size: 16px;
     font-weight: bold;
+
   }
 
 `;

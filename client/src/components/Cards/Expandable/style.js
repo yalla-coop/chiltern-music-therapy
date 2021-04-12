@@ -46,7 +46,7 @@ export const Title = styled.div`
 export const Content = styled.div`
   opacity: ${({ open }) => (!open ? 0 : 1)};
   height: ${({ open }) => (!open ? 0 : 'auto')};
-
+  width: 100%;
   display: ${({ open }) => (open ? 'flex' : 'none')};
   flex-direction: column;
 `;
