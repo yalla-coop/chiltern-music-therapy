@@ -271,13 +271,16 @@ const Library = () => {
                     borderColor={decideBorder(content.type)}
                     content={{
                       ...contentToUse,
-                      download: content.path,
-                      streamable: decideStreamable(content.type, content.path),
+                      download: content.file.url,
+                      streamable: decideStreamable(
+                        content.type,
+                        content.file.url
+                      ),
                       categories: contentToUse.categories.filter(
                         (cat) => cat.value !== null
                       ),
                       type: content.type?.toLowerCase(),
-                      path: content.path,
+                      url: content.file.url,
                       validationErrs: editingErrors?.validationErrs,
                     }}
                     remove={() => removeContent(content.id)}

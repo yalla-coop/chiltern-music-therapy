@@ -19,7 +19,7 @@ const FeedbackSection = ({ feedback, id }) =>
         to let your therapist know and provide feedback
       </T.P>
       <Button
-        to={navRoutes.CLIENT.SEND_FEEDBACK.replace('id', id)}
+        to={navRoutes.CLIENT.SEND_FEEDBACK.replace(':id', id)}
         text="Send feedback"
         variant="tertiary"
       />

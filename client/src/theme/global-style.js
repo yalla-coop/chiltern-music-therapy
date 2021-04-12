@@ -98,6 +98,10 @@ const style = css`
   .video-js.vjs-audio {
     min-height: 2rem;
   }
+
+  .vjs-text-track-display {
+    display: none;
+  }
 `;
 
 export default style;

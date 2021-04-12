@@ -39,6 +39,26 @@ const findUserByEmail = async (email, client) => {
   return res.rows[0];
 };
 
+const findUserByMainPhone = async (primaryMobileNumber, client) => {
+  const values = [primaryMobileNumber];
+  const sql = `
+  SELECT
+    id,
+    first_name,
+    last_name,
+    email,
+    password,
+    postcode,
+    roles::VARCHAR[]
+
+  FROM users
+    WHERE contact_number = $1
+    `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
 const findUserByResetToken = async (token, client) => {
   const values = [token];
   const sql = `
@@ -95,4 +115,5 @@ export {
   findTherapists,
   findUserByResetToken,
   findTherapistAccountInfo,
+  findUserByMainPhone,
 };

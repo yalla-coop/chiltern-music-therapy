@@ -5,8 +5,10 @@ import Library from './Library';
 import SingleClient from './SingleClient';
 import Profile from './Profile';
 import AddClient from './AddClient';
+import EditClient from './EditClient';
 import IndividProgramme from './IndividProgramme';
 import MyAccount from './MyAccount';
+import ViewUpdate from './ViewUpdate';
 
 export default {
   CreateProgram,
@@ -16,6 +18,8 @@ export default {
   SingleClient,
   Library,
   AddClient,
+  EditClient,
   IndividProgramme,
   MyAccount,
+  ViewUpdate,
 };

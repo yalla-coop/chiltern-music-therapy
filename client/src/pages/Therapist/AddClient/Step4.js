@@ -12,11 +12,10 @@ import { Users, Media } from '../../../api-calls';
 import { useAuth } from '../../../context/auth';
 
 const Step4 = ({ submitStep }) => {
-  const [biography, setBiography] = useState('');
-  const [useMeanBio, setUseMeanBio] = useState(false);
   const [mediaUrl, setMediaUrl] = useState(null);
   const [mediaLoading, setMediaLoading] = useState(false);
-
+  const [therapistBio, setBiography] = useState('');
+  const [useMainBio, setUseMainBio] = useState(false);
   const [errors, setErrors] = useState({});
 
   const { user, setUser } = useAuth();
@@ -24,11 +23,11 @@ const Step4 = ({ submitStep }) => {
   const handleClick = () => {
     try {
       validate({
-        biography,
-        useMeanBio,
+        therapistBio,
+        useMainBio,
       });
       setErrors({});
-      submitStep({ biography, useMeanBio });
+      submitStep({ therapistBio, useMainBio });
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -37,8 +36,6 @@ const Step4 = ({ submitStep }) => {
       return false;
     }
   };
-
-  const handleChange = () => setUseMeanBio(!useMeanBio);
 
   const getMediaUrl = async (file) => {
     const { data, error: _error } = await Media.getMediadURL({
@@ -70,6 +67,13 @@ const Step4 = ({ submitStep }) => {
       getTherapistInfoImageURL();
     }
   }, [user.id]);
+  useEffect(() => {
+    if (useMainBio) {
+      setBiography('');
+    }
+  }, [useMainBio]);
+
+  const handleChange = () => setUseMainBio(!useMainBio);
 
   return (
     <>
@@ -89,15 +93,16 @@ const Step4 = ({ submitStep }) => {
           <Textarea
             label="Would you like to include your biography for your client to see?"
             placeholder="Tell your clients a little bit about you..."
-            value={biography}
+            value={therapistBio}
             handleChange={setBiography}
             name="biography"
-            error={errors.biography}
+            error={errors.therapistBio}
             rows={5}
             mb={4}
+            disabled={useMainBio}
           />
           <Checkbox
-            checked={useMeanBio}
+            checked={useMainBio}
             handleChange={handleChange}
             label="Use my main biography"
           />
@@ -105,7 +110,7 @@ const Step4 = ({ submitStep }) => {
       </Row>
 
       <Row mt={8} mtT={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>

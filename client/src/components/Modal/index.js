@@ -288,6 +288,24 @@ const Modal = ({
           </S.Modal>
         </>
       );
+    case 'updateClientSuccess':
+      return (
+        <>
+          <S.Modal
+            visible={visible}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            footer={[]}
+            maskStyle={maskStyle}
+          >
+            <T.H3 mb="2">Changes saved</T.H3>
+            <T.P color="gray9" mb="5">
+              Your client notes have been successfully updated
+            </T.P>
+            <Button handleClick={() => handleOk()} text="Okay" mb="3" />
+          </S.Modal>
+        </>
+      );
     default:
       return (
         <>

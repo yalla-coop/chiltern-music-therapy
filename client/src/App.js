@@ -89,6 +89,14 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.THERAPIST.EDIT_CLIENT}
+                Component={Pages.THERAPIST.EditClient}
+                layout="general"
+                goBack
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.DASHBOARD}
                 Component={Pages.THERAPIST.Dashboard}
                 layout="general"
@@ -125,6 +133,13 @@ function App() {
                 Component={Pages.THERAPIST.MyAccount}
                 goBack
                 maxWidth="none"
+              />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.MESSAGE}
+                Component={Pages.THERAPIST.ViewUpdate}
+                goBack
               />
 
               {/* Admin Pages */}
@@ -201,6 +216,7 @@ function App() {
                 Component={Pages.CLIENT.MyTherapyPlan}
                 goBack
               />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_GOALS}
@@ -212,6 +228,22 @@ function App() {
                 exact
                 path={navRoutes.CLIENT.ACCOUNT}
                 Component={Pages.CLIENT.MyAccount}
+                goBack
+                maxWidth="none"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.SEND_UPDATE}
+                Component={Pages.CLIENT.Update}
+                goBack
+                maxWidth="none"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.SUCCESS_UPDATE}
+                Component={Pages.CLIENT.SuccessUpdate}
                 goBack
                 maxWidth="none"
               />

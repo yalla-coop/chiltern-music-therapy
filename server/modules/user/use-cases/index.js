@@ -8,6 +8,7 @@ import updatePassword from './update-password';
 import getTherapists from './get-therapists';
 import updateAccount from './update-account';
 import getAccountInfo from './get-account-info';
+import checkUserExists from './check-user-exists';
 
 export {
   getUserById,
@@ -20,4 +21,5 @@ export {
   getTherapists,
   updateAccount,
   getAccountInfo,
+  checkUserExists,
 };
