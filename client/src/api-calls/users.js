@@ -105,10 +105,7 @@ const getTherapists = async ({ options } = {}) => {
 
 const updateAccount = async (accountData) => {
   try {
-    const { data } = await axios.post(
-      `${USERS_BASE}/update-account`,
-      accountData
-    );
+    const { data } = await axios.patch(`${USERS_BASE}/account`, accountData);
     return { data };
   } catch (error) {
     const err = handleError(error);

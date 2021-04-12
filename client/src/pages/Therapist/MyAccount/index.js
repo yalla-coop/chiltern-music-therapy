@@ -145,7 +145,12 @@ const MyAccount = () => {
       validateForm();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountDetails]);
+  }, [
+    accountDetails.firstName,
+    accountDetails.lastName,
+    accountDetails.email,
+    accountDetails.bio,
+  ]);
 
   useEffect(() => {
     const getTherapistInfo = async () => {
@@ -167,6 +172,7 @@ const MyAccount = () => {
     if (user.id) {
       getTherapistInfo();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.id]);
 
   // get image url once upload is done
@@ -174,7 +180,8 @@ const MyAccount = () => {
     if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
       return getMediaUrl(uploadedFileInfo);
     }
-  }, [uploadedFileInfo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [uploadedFileInfo?.id]);
 
   return (
     <>

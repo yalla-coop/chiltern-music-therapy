@@ -31,7 +31,7 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.post('/reset-password-link', resetPasswordLink);
 router.post('/update-password', updatePassword);
-router.post('/update-account', authenticate(), updateAccount);
+router.patch('/account', authenticate(), updateAccount);
 router.delete('/', authenticate(), deleteUser);
 
 export default router;
