@@ -26,7 +26,7 @@ const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Basic, Expandable } = Cards;
 
-const Review = ({ navFunctions, states, programmeId }) => {
+const Review = ({ navFunctions, parentState, actions, programmeId }) => {
   const [updating, setUpdating] = useState(false);
   const [modalToShow, setModalToShow] = useState('');
   const [contentToDelete, setContentToDelete] = useState('');
@@ -38,13 +38,12 @@ const Review = ({ navFunctions, states, programmeId }) => {
 
   const {
     description,
-    setDescription,
     programmeContents,
     categoryOptions,
-    setProgrammeContents,
     errors,
-    setErrors,
-  } = states;
+  } = parentState;
+
+  const { setErrors, setDescription, setProgrammeContents } = actions;
 
   const updateSingleContent = (value) => {
     setProgrammeContents(
@@ -98,12 +97,12 @@ const Review = ({ navFunctions, states, programmeId }) => {
               borderColor={decideBorder(content.type)}
               content={{
                 ...content,
-                id: content.id,
-                download: content.file.url,
-                streamable: decideStreamable(content.type, content.file.url),
+                id: content?.id,
+                download: content?.file?.url,
+                streamable: decideStreamable(content?.type, content?.file?.url),
                 categories: content.categories.filter((cat) => cat !== null),
                 type: content.type?.toLowerCase(),
-                url: content.file.url,
+                url: content?.file?.url,
                 validationErrs: errors && errors[`content[${idx}]`],
               }}
               remove={handleRemove}
@@ -113,7 +112,7 @@ const Review = ({ navFunctions, states, programmeId }) => {
               handleInput={updateSingleContent}
               categoryOptions={
                 categoryOptions &&
-                categoryOptions.data.filter((opt) => opt.value !== 'ALL')
+                categoryOptions.filter((opt) => opt.value !== 'ALL')
               }
               review
             />

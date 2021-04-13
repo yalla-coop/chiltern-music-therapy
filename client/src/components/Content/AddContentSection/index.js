@@ -22,7 +22,7 @@ const AddContentSection = ({
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { data = [], error = null, loading = false } = libraryContent;
+  const { data = [], error = null } = libraryContent;
 
   const renderLibraryContentDropdownValues = data.map((el) => {
     const res = { label: el.title, value: el.id };
@@ -39,6 +39,7 @@ const AddContentSection = ({
       );
     } else if (selectLibraryContent.length > 0) {
       setLibraryContent(selectLibraryContent[0]);
+      setDuplicateError(null);
       setIsModalVisible(true);
     }
     return false;
@@ -63,7 +64,6 @@ const AddContentSection = ({
         </T.P>
         <Dropdown
           error={duplicateError || error}
-          loading={loading}
           options={renderLibraryContentDropdownValues}
           multi={false}
           placeholder="Select one..."

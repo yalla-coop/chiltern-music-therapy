@@ -47,17 +47,6 @@ const initialStates = {
       uploadedToS3: false,
     },
   },
-  // TODO update this
-  programmeContents: {
-    data: [],
-    loading: false,
-    error: null,
-  },
-  contentCategories: {
-    data: [],
-    loading: false,
-    error: null,
-  },
 };
 
 const EditProgramme = () => {
@@ -69,7 +58,6 @@ const EditProgramme = () => {
   );
   const [errors, setErrors] = useState({});
   const [clientDetails, setClientDetails] = useState({});
-
   // Single Content
   const [singleContent, setSingleContent] = useState(
     initialStates.singleContent
@@ -170,19 +158,17 @@ const EditProgramme = () => {
 
   useEffect(() => {
     const getCategories = async () => {
-      setCategoryOptions({ data: [], error: null, loading: true });
       const { data, error } = await Contents.getCategories();
       if (!error) {
-        setCategoryOptions({
-          data: [{ label: 'All', value: 'ALL' }, ...createUniqueCats(data)],
-          error: null,
-          loading: false,
-        });
+        setCategoryOptions([
+          { label: 'All', value: 'ALL' },
+          ...createUniqueCats(data),
+        ]);
       } else {
-        setCategoryOptions({
-          data: [],
-          error: (error && error.message) || 'error loading library content',
-          loading: false,
+        setErrors({
+          ...errors,
+          getCategories:
+            (error && error.message) || 'Error loading content categories',
         });
       }
     };
@@ -190,32 +176,58 @@ const EditProgramme = () => {
     getCategories();
   }, [programmeContents]);
 
+  console.log(`programmeContents`, programmeContents);
+
+  const handleAddContent = (moreContent) =>
+    setProgrammeContents([...programmeContents, moreContent]);
+
+  const handleAddSingleContent = (key, value) =>
+    setSingleContent({ ...singleContent, [key]: value });
+
+  const handleResetSingleContent = () => {
+    setSingleContent(initialStates.singleContent);
+    setFileUpload(initialStates.fileUpload);
+  };
+
+  const handleUploadStatus = (bool) => {
+    setFileUpload({ ...fileUpload, fileUploading: bool });
+  };
+
+  const handleFileUploadInfo = (data) => {
+    setFileUpload({ ...fileUpload, data });
+  };
+
+  const handleFileUploadError = (err) => {
+    setFileUpload({ ...fileUpload, error: err });
+  };
+
   return (
     <Switch>
       <Review
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_REVIEW}
         navFunctions={navFunctions}
-        states={{
+        parentState={{
           description,
           programmeContents,
           categoryOptions,
           errors,
-          setProgrammeContents,
-          setDescription,
-          setErrors,
         }}
+        actions={{ setProgrammeContents, setDescription, setErrors }}
         programmeId={programmeId}
       />
       <AddContent
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT}
-        states={{
+        parentState={{
           programmeContents,
           categoryOptions,
           errors,
+        }}
+        actions={{
           setProgrammeContents,
           setErrors,
+          handleAddContent,
         }}
         navFunctions={navFunctions}
       />
@@ -226,15 +238,22 @@ const EditProgramme = () => {
       <AddSingleContent
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SINGLE}
-        // actions={{
-        //   addContent: actions.ADD_CONTENT,
-        //   addSingleContent: actions.ADD_SINGLE_CONTENT,
-        //   resetSingleContent: actions.RESET_SINGLE_CONTENT,
-        //   handleUploadStatus: actions.HANDLE_UPLOAD_STATUS,
-        //   handleFileUploadInfo: actions.HANDLE_FILE_UPLOAD_INFO,
-        //   handleFileUploadError: actions.HANDLE_FILE_UPLOAD_ERROR,
-        // }}
-        // state={state}
+        actions={{
+          handleAddContent,
+          handleAddSingleContent,
+          handleResetSingleContent,
+          handleUploadStatus,
+          handleFileUploadInfo,
+          handleFileUploadError,
+        }}
+        parentState={{
+          singleContent,
+          fileUpload,
+          contentCategories: {
+            data: categoryOptions,
+            error: errors && errors.getCategories,
+          },
+        }}
         navFunctions={navFunctions}
       />
       <Success

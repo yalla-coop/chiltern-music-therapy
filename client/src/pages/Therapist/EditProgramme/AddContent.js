@@ -3,55 +3,45 @@ import { useState, useEffect } from 'react';
 import {
   GoBack,
   Typography as T,
-  Button,
   Grid,
   Content,
+  Button,
 } from '../../../components';
 
 import * as S from './style';
 
-import { Contents, Users } from '../../../api-calls';
+import { Contents } from '../../../api-calls';
 import { useAuth } from '../../../context/auth';
 
 const { Row, Col } = Grid;
 const { AddContentSection } = Content;
 
-const AddContent = ({ navFunctions, states }) => {
-  const [libraryContents, setLibraryContents] = useState({
-    data: [],
-    loading: false,
-    error: null,
-  });
+const AddContent = ({ navFunctions, parentState, actions }) => {
+  const [libraryContents, setLibraryContents] = useState([]);
 
   const { user } = useAuth();
   // const { ADD_CONTENT } = actions;
   // const { content, libraryContent } = state;
-  const {
-    programmeContents,
-    categoryOptions,
-    errors,
-    setProgrammeContents,
-    setErrors,
-  } = states;
+  const { programmeContents, errors } = parentState;
+
+  const { setProgrammeContents, setErrors, handleAddContent } = actions;
 
   // GET LIBRARY CONTENT
   useEffect(() => {
     const getContent = async () => {
-      setLibraryContents({ data: [], error: null, loading: true });
       const { data, error } = await Contents.getLibraryContent();
 
-      const allLibraryC = data.map((el) => ({
-        ...el,
-        categories: [...new Set(el.categories.map((cat) => cat))],
-      }));
-
       if (!error) {
-        setLibraryContents({ data: allLibraryC, error: null, loading: false });
+        const allLibraryC = data.map((el) => ({
+          ...el,
+          categories: [...new Set(el.categories.map((cat) => cat))],
+        }));
+        setLibraryContents(allLibraryC);
       } else {
-        setLibraryContents({
-          data: [],
-          error: (error && error.message) || 'error loading library content',
-          loading: false,
+        setErrors({
+          ...errors,
+          getLibraryContent:
+            (error && error.message) || 'Error loading library content',
         });
       }
     };
@@ -61,11 +51,8 @@ const AddContent = ({ navFunctions, states }) => {
     }
   }, [user.id]);
 
-  const handleAddContent = (moreContent) =>
-    setProgrammeContents([...programmeContents, moreContent]);
-
   console.log(`libraryContents`, libraryContents);
-  console.log(`programmeContents`, programmeContents);
+
   return (
     <S.Wrapper>
       <GoBack customFn={navFunctions.goToReview} />
@@ -86,14 +73,16 @@ const AddContent = ({ navFunctions, states }) => {
       <Row mt={5}>
         <AddContentSection
           content={programmeContents}
-          libraryContent={libraryContents}
+          libraryContent={{
+            data: libraryContents,
+            error: errors && errors.getLibraryContent,
+          }}
           setLibraryContent={handleAddContent}
           navFunctions={navFunctions}
           mode="edit"
         />
       </Row>
-
-      {/* {content && content.length > 0 && (
+      {programmeContents.length > 0 && (
         <Row mt={7}>
           <Col w={[4, 9, 4]}>
             <Button
@@ -103,7 +92,7 @@ const AddContent = ({ navFunctions, states }) => {
             />
           </Col>
         </Row>
-      )} */}
+      )}
     </S.Wrapper>
   );
 };

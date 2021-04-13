@@ -24,7 +24,7 @@ const { fileCategories } = content;
 const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
-const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
+const AddSingleContent = ({ parentState, actions, navFunctions }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
   const [unsavedChanges, setUnsavedChanges] = useState(true);
   const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
@@ -50,7 +50,6 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
   const {
     data: contentCategoriesData,
     error: contentCategoriesError,
-    loading: contentCategoriesLoading,
   } = contentCategories;
 
   const {
@@ -58,9 +57,9 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
   } = useLocation();
 
   const {
-    addContent,
-    addSingleContent,
-    resetSingleContent,
+    handleAddContent,
+    handleAddSingleContent,
+    handleResetSingleContent,
     handleUploadStatus,
     handleFileUploadInfo,
     handleFileUploadError,
@@ -115,11 +114,11 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
       checkMissingContentInput();
       validate(formData);
 
-      addSingleContent('validationErrs', {});
+      handleAddSingleContent('validationErrs', {});
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
-        addSingleContent('validationErrs', error.inner);
+        handleAddSingleContent('validationErrs', error.inner);
       }
       return false;
     }
@@ -132,7 +131,7 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, categories, link, docContent, libraryContent, instructions]);
 
-  const handleAddSingleContent = (submitType) => {
+  const submitSingleContent = (submitType) => {
     // add single content to overall content
     const formData = {
       id: uuid(),
@@ -146,8 +145,8 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
       docContent,
     };
 
-    addContent(formData);
-    resetSingleContent();
+    handleAddContent(formData);
+    handleResetSingleContent();
 
     if (submitType === 'content') {
       navFunctions.goToAddContent();
@@ -165,12 +164,12 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
 
     if (isValid) {
       setUnsavedChanges(false);
-      handleAddSingleContent(submitType);
+      submitSingleContent(submitType);
     }
   };
 
   const goBack = async () => {
-    resetSingleContent();
+    handleResetSingleContent();
     navFunctions.goToAddContent();
   };
 
@@ -215,7 +214,9 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
             label="Title"
             color="gray8"
             value={title}
-            handleChange={(value) => addSingleContent('title', value.trim())}
+            handleChange={(value) =>
+              handleAddSingleContent('title', value.trim())
+            }
             error={validationErrs.title}
           />
         </Col>
@@ -227,8 +228,9 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
             multi
             addNew
             placeholder="Select...(optional)"
-            handleChange={(value) => addSingleContent('categories', value)}
-            loading={contentCategoriesLoading}
+            handleChange={(value) =>
+              handleAddSingleContent('categories', value)
+            }
             error={validationErrs.categories || contentCategoriesError}
           />
         </Col>
@@ -254,7 +256,9 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
             label="If you prefer, you can paste a link to an external resource in the input below"
             color="gray8"
             value={link}
-            handleChange={(value) => addSingleContent('link', value.trim())}
+            handleChange={(value) =>
+              handleAddSingleContent('link', value.trim())
+            }
             disabled={
               validInput(docContent) || fileUploading || uploadedFileInfo.new
             }
@@ -271,7 +275,9 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
               placeholder="Type here..."
               rows={5}
               value={docContent}
-              handleChange={(value) => addSingleContent('docContent', value)}
+              handleChange={(value) =>
+                handleAddSingleContent('docContent', value)
+              }
               disabled={
                 validInput(link) || fileUploading || uploadedFileInfo.new
               }
@@ -286,7 +292,9 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
             placeholder="Message"
             rows={5}
             value={instructions}
-            handleChange={(value) => addSingleContent('instructions', value)}
+            handleChange={(value) =>
+              handleAddSingleContent('instructions', value)
+            }
             error={validationErrs.instructions}
           />
         </Col>
@@ -309,7 +317,9 @@ const AddSingleContent = ({ state: parentState, actions, navFunctions }) => {
               </T.P>
             }
             checked={libraryContent}
-            handleChange={(value) => addSingleContent('libraryContent', value)}
+            handleChange={(value) =>
+              handleAddSingleContent('libraryContent', value)
+            }
             error={validationErrs.libraryContent}
           />
         </Col>

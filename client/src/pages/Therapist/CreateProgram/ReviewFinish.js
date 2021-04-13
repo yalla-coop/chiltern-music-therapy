@@ -21,10 +21,16 @@ const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Expandable } = Cards;
 
-const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
+const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
-  const { description, content, errors, loading, contentCategories } = state;
+  const {
+    description,
+    content,
+    errors,
+    loading,
+    contentCategories,
+  } = parentState;
 
   const {
     SET_DESCRIPTION,

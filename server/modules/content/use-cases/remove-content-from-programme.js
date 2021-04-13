@@ -39,8 +39,6 @@ const removeContentFromProgramme = async ({
       programmesContentsIds.length === 1 &&
       programmesContentsIds.includes(programmeContent.id);
 
-    let _deleteContent;
-
     if (!contentToDelete || !programmeContent) {
       throw Boom.badData(errorMsgs.WRONG_DATA);
     }
@@ -59,20 +57,12 @@ const removeContentFromProgramme = async ({
     // IF NOT PART OF ANY OTHER PROGRAMMES AND NO LIBRARY CONTENT -> remove completely
     if (onlyThisProgramme && !libraryContent) {
       console.log('REACHED 1');
-      _deleteContent = await deleteContent(
-        { id: contentId, userId, role },
-        client,
-      );
-      return _deleteContent;
+      await deleteContent({ id: contentId, userId, role }, client);
     }
     // IF PART OF OTHER PROGRAMMES OR LIBRARY CONTENT -> ONLY REMOVE FROM THIS PROGRAMME ONLY
     if (alsoOtherProgrammes || libraryContent) {
       console.log('REACHED 2');
-      _deleteContent = await Content.deleteContentFromProgrammeById(
-        programmeContent.id,
-        client,
-      );
-      return _deleteContent;
+      await Content.deleteContentFromProgrammeById(programmeContent.id, client);
     }
 
     await client.query('COMMIT');
