@@ -79,14 +79,16 @@ const AddContentSection = ({
       </T.P>
       {/* Adds content type buttons */}
       <S.CardsWrapper {...m}>
-        {Object.keys(fileCategories).map((category, i) => (
-          <Col mb={5} w={[4, 9, 4]}>
-            <AddContentType
-              navFunctions={navFunctions}
-              contentType={category}
-            />
-          </Col>
-        ))}
+        {Object.keys(fileCategories)
+          .filter((cat) => cat !== 'image')
+          .map((category, i) => (
+            <Col mb={5} w={[4, 9, 4]}>
+              <AddContentType
+                navFunctions={navFunctions}
+                contentType={category}
+              />
+            </Col>
+          ))}
       </S.CardsWrapper>
     </S.Wrapper>
   );

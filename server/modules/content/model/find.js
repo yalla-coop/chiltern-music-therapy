@@ -53,7 +53,7 @@ const findLibraryContent = async ({ id }) => {
     LEFT JOIN media m ON c.media_id = m.id
     LEFT JOIN contents_content_categories ccc ON ccc.content_id = c.id
     LEFT JOIN content_categories cc ON cc.id = ccc.category_id
-    WHERE c.therapist_library_user_id = $1
+    WHERE c.therapist_library_user_id = $1 AND c.library_content = 'true'
     GROUP BY c.id, m.id
     `;
 

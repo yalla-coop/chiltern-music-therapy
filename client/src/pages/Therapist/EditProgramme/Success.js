@@ -11,8 +11,8 @@ const { Row, Col } = Grid;
 const Success = ({ clientDetails = {} }) => {
   const history = useHistory();
 
-  const { firstInitial, lastInitial, postcode } = clientDetails;
-
+  const { firstName, lastName, postcode } = clientDetails;
+  console.log(`clientDetails`, clientDetails);
   return (
     <>
       <Row mt={5}>
@@ -29,7 +29,7 @@ const Success = ({ clientDetails = {} }) => {
         <Col w={[4, 6, 6]}>
           {/* TODO add client name */}
           <T.P color="gray8">
-            {firstInitial} {lastInitial} {postcode} will be notified that their
+            {firstName} {lastName} {postcode} will be notified that their
             programme has been updated.
           </T.P>
         </Col>

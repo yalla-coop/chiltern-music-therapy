@@ -8,7 +8,7 @@ import { errorMsgs } from '../../../services/error-handler';
 
 import events from '../../../services/events';
 
-import createProgrammeContent from './create-programme-content';
+import createProgrammeContent from '../../content/use-cases/create-content';
 import ManageCCC from './manage-content-contents-categories';
 
 import { validateCreateEditProgramme } from '../utils';
@@ -68,13 +68,21 @@ const createProgramme = async ({ userId, body }) => {
         );
       } // for new content -> add to db
       else {
-        // create media content if present
         _content = await createProgrammeContent({
           programmeId: programme.id,
           userId,
           contentData,
         });
       }
+
+      // create programmes_contents
+      await Programme.createProgrammesContent(
+        {
+          programmeId: programme.id,
+          contentId: _content.id,
+        },
+        client,
+      );
 
       // update categories
       await ManageCCC({ userId, contentId: _content.id, categories });

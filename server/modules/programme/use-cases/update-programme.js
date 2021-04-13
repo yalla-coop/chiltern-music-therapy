@@ -6,7 +6,7 @@ import * as Content from '../../content/model';
 
 import events from '../../../services/events';
 
-import createProgrammeContent from './create-programme-content';
+import createProgrammeContent from '../../content/use-cases/create-content';
 import manageCCC from './manage-content-contents-categories';
 
 import { validateCreateEditProgramme } from '../utils';
@@ -42,7 +42,6 @@ const updateProgramme = async ({ userId, body }) => {
     }
 
     // manage contents
-
     await programmeContents.forEach(async (contentData) => {
       const {
         libraryContent,
@@ -56,8 +55,8 @@ const updateProgramme = async ({ userId, body }) => {
 
       let _content;
 
-      // check if content exists and update accordingly
-      if (existingContent && therapistUserId) {
+      // check if content already exists and if part of programme and only update
+      if (existingContent || therapistUserId) {
         _content = await Content.updateContentById(
           {
             contentId,
@@ -67,8 +66,19 @@ const updateProgramme = async ({ userId, body }) => {
           },
           client,
         );
+        // if content is part of library but not of programme -> add
+        if (!existingContent) {
+          // create programmes_contents
+          await Programme.createProgrammesContent(
+            {
+              programmeId,
+              contentId: _content.id,
+            },
+            client,
+          );
+        }
       }
-      // for new content -> add to db
+      // for new content -> add to db and to programme
       else {
         // create media content if present
         _content = await createProgrammeContent({
@@ -76,7 +86,17 @@ const updateProgramme = async ({ userId, body }) => {
           userId,
           contentData,
         });
+
+        // create programmes_contents
+        await Programme.createProgrammesContent(
+          {
+            programmeId,
+            contentId: _content.id,
+          },
+          client,
+        );
       }
+      // FOR ALL
       // update categories
       await manageCCC({ userId, contentId: _content.id, categories });
     });

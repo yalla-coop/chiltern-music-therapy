@@ -138,6 +138,9 @@ const EditProgramme = () => {
         if (data.description) {
           setDescription(data.description);
         }
+        if (data.client) {
+          setClientDetails(data.client);
+        }
       } else {
         setErrors({
           ...errors,
@@ -171,8 +174,9 @@ const EditProgramme = () => {
     };
 
     getCategories();
-  }, [programmeContents.length > 0, errors]);
+  }, [programmeContents]);
 
+  // MANAGE STATE FUNCTIONS
   const handleAddContent = (moreContent) =>
     setProgrammeContents((prevState) => [...prevState, moreContent]);
 

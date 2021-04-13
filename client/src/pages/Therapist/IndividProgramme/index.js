@@ -138,17 +138,7 @@ const IndividProgramme = () => {
             text="Edit programme"
             to={THERAPIST.EDIT_PROGRAMME.replace(':id', id)}
             onClick={() =>
-              history.push({
-                pathname: THERAPIST.EDIT_PROGRAMME_REVIEW.replace(':id', id),
-                // TODO add client details
-                state: {
-                  clientDetails: {
-                    firstInitial: 'S',
-                    lastInitial: 'D',
-                    postcode: 'KB',
-                  },
-                },
-              })
+              history.push(THERAPIST.EDIT_PROGRAMME_REVIEW.replace(':id', id))
             }
             variant="secondary"
           />

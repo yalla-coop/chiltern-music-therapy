@@ -1,11 +1,11 @@
 import { getClient } from '../../../database/connect';
-import * as Content from '../../content/model';
+import * as Content from '../model';
 import * as Media from '../../media/model';
-import * as Programme from '../model';
+import * as Programme from '../../programme/model';
 
-import { matchMediaTypes } from '../utils';
+import { matchMediaTypes } from '../../programme/utils';
 
-const createProgrammeContent = async ({ programmeId, userId, contentData }) => {
+const createContent = async ({ userId, contentData }) => {
   const client = await getClient();
 
   try {
@@ -61,15 +61,6 @@ const createProgrammeContent = async ({ programmeId, userId, contentData }) => {
       client,
     );
 
-    // create programmes_contents
-    await Programme.createProgrammesContent(
-      {
-        programmeId,
-        contentId: newContent.id,
-      },
-      client,
-    );
-
     await client.query('COMMIT');
 
     return newContent;
@@ -81,4 +72,4 @@ const createProgrammeContent = async ({ programmeId, userId, contentData }) => {
   }
 };
 
-export default createProgrammeContent;
+export default createContent;
