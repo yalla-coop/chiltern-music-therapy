@@ -11,7 +11,7 @@ import Avatar from '../../../components/Avatar';
 
 import { cleanEmail } from '../../../helpers';
 
-import { TherapistClients, Media } from '../../../api-calls';
+import { TherapistClients, Media, Users } from '../../../api-calls';
 
 import { THERAPIST } from '../../../constants/nav-routes';
 import { content } from './../../../constants';
@@ -36,7 +36,7 @@ const Profile = () => {
   const [uploadedFileInfo, setUploadedFileInfo] = useState(fileState);
   const [fileUploading, setFileUploading] = useState(false);
   const [email, setEmail] = useState('');
-  const [biography, setBiography] = useState('');
+  const [bio, setBio] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [errors, setErrors] = useState({});
   const [mediaLoading, setMediaLoading] = useState(false);
@@ -49,7 +49,7 @@ const Profile = () => {
       validate({
         email: cleanEmail(email),
         contactNumber,
-        biography,
+        bio,
       });
       setErrors({});
       return true;
@@ -79,8 +79,11 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     const isValid = validateForm();
     if (isValid) {
-      const { data, error } = await TherapistClients.updateTherapiesProfile({
-        updates: { email, biography, contactNumber, uploadedFileInfo },
+      const { data, error } = await Users.createTherapistProfile({
+        contactEmail: email ? cleanEmail(email) : '',
+        bio,
+        contactNumber,
+        uploadedFileInfo,
       });
       if (data) {
         history.push(THERAPIST.DASHBOARD);
@@ -114,9 +117,9 @@ const Profile = () => {
             label="Your biography"
             placeholder="Tell your clients a little bit about you..."
             rows={5}
-            value={biography}
-            handleChange={setBiography}
-            error={errors.biography}
+            value={bio}
+            handleChange={setBio}
+            error={errors.bio}
           />
         </Col>
         <Col

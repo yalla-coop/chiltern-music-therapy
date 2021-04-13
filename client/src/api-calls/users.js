@@ -113,6 +113,16 @@ const updateAccount = async (accountData) => {
   }
 };
 
+const createTherapistProfile = async (accountData) => {
+  try {
+    const { data } = await axios.post(`${USERS_BASE}/profile`, accountData);
+    return { data };
+  } catch (error) {
+    const err = handleError(error);
+    return { error: err };
+  }
+};
+
 const getAccountInfo = async ({ options } = {}) => {
   try {
     const { data } = await axios.get(`${USERS_BASE}/my-account`);
@@ -146,4 +156,5 @@ export {
   updateAccount,
   getAccountInfo,
   checkUserExists,
+  createTherapistProfile,
 };

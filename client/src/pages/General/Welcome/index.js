@@ -15,8 +15,6 @@ const Welcome = () => {
   const { id } = useParams();
   const numId = Number(id);
 
-  console.log('CONTEONT', user.role);
-
   const decideContent = () => content.welcomeScreens[user.role][numId - 1];
 
   const decideNextPage = () => {
