@@ -56,7 +56,6 @@ const IndividProgramme = () => {
 
     const getProgData = async () => {
       const { data, error } = await Programmes.getProgrammeById({ id });
-
       if (!error) {
         setUpdate(data.update);
         setFeedback(data.feedback);

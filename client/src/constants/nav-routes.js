@@ -52,7 +52,7 @@ const THERAPIST = {
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
   SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
   PROFILE: `${THERAPIST_BASE}/profile`,
-  MESSAGE: `${THERAPIST_BASE}/message`,
+  PROGRESS_UPDATE: `${THERAPIST_BASE}/update/:id`,
 };
 
 const ADMIN_BASE = '/admin';

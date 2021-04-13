@@ -129,7 +129,7 @@ function App() {
 
               <Route
                 exact
-                path={navRoutes.THERAPIST.MESSAGE}
+                path={navRoutes.THERAPIST.PROGRESS_UPDATE}
                 Component={Pages.THERAPIST.ViewUpdate}
               />
 
