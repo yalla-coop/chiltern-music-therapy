@@ -25,6 +25,8 @@ const ViewMode = ({
     url,
     type,
   } = content;
+  if (!open) return <div ref={contentRef} height={selectedHeight} />;
+
   if (children) {
     return (
       <S.Content open={open} ref={contentRef} height={selectedHeight}>
