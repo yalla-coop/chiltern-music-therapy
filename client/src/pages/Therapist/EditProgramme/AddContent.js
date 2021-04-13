@@ -24,7 +24,7 @@ const AddContent = ({ navFunctions, parentState, actions }) => {
   // const { content, libraryContent } = state;
   const { programmeContents, errors } = parentState;
 
-  const { setProgrammeContents, setErrors, handleAddContent } = actions;
+  const { setErrors, handleAddContent } = actions;
 
   // GET LIBRARY CONTENT
   useEffect(() => {
@@ -50,8 +50,6 @@ const AddContent = ({ navFunctions, parentState, actions }) => {
       getContent();
     }
   }, [user.id]);
-
-  console.log(`libraryContents`, libraryContents);
 
   return (
     <S.Wrapper>

@@ -56,7 +56,6 @@ const deleteContentCategoryById = async (id, client) => {
 };
 
 const deleteContentFromProgrammeById = async (programmeContentId, client) => {
-  console.log(`programmeContentId`, programmeContentId);
   const sql = `
     DELETE FROM programmes_contents
     WHERE id = $1

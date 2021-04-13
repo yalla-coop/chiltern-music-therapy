@@ -77,7 +77,6 @@ const EditMode = ({
   }, []);
 
   const modalParentFunction = (_id) => {
-    // console.log(`_id`, _id);
     return remove({ id });
   };
 

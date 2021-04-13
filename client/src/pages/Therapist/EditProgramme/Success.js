@@ -12,7 +12,7 @@ const Success = ({ clientDetails = {} }) => {
   const history = useHistory();
 
   const { firstName, lastName, postcode } = clientDetails;
-  console.log(`clientDetails`, clientDetails);
+
   return (
     <>
       <Row mt={5}>

@@ -137,9 +137,6 @@ const IndividProgramme = () => {
           <Button
             text="Edit programme"
             to={THERAPIST.EDIT_PROGRAMME.replace(':id', id)}
-            onClick={() =>
-              history.push(THERAPIST.EDIT_PROGRAMME_REVIEW.replace(':id', id))
-            }
             variant="secondary"
           />
         </Col>

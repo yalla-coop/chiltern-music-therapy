@@ -56,12 +56,10 @@ const removeContentFromProgramme = async ({
     }
     // IF NOT PART OF ANY OTHER PROGRAMMES AND NO LIBRARY CONTENT -> remove completely
     if (onlyThisProgramme && !libraryContent) {
-      console.log('REACHED 1');
       await deleteContent({ id: contentId, userId, role }, client);
     }
     // IF PART OF OTHER PROGRAMMES OR LIBRARY CONTENT -> ONLY REMOVE FROM THIS PROGRAMME ONLY
     if (alsoOtherProgrammes || libraryContent) {
-      console.log('REACHED 2');
       await Content.deleteContentFromProgrammeById(programmeContent.id, client);
     }
 
