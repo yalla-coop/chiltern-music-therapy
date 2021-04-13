@@ -41,6 +41,16 @@ export const videoReducer = (state, action) => {
         ...state,
         validationErrs: { ...value },
       };
+    case actionTypes.handleRequestError:
+      return {
+        ...state,
+        requestError: { ...value },
+      };
+    case actionTypes.handleRequestLoading:
+      return {
+        ...state,
+        requestLoading: value,
+      };
 
     default:
       throw new Error(`Unhandled type: ${type}`);

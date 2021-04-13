@@ -1,9 +1,10 @@
 import { useReducer } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 
 import { Row, Col } from '../../../components/Grid';
 import { BasicInput, Textarea } from '../../../components/Inputs';
 import FileUpload from '../../../components/FileUpload';
+import * as T from '../../../components/Typography';
 import Button from '../../../components/Button';
 import { CLIENT } from '../../../constants/nav-routes';
 import validate from '../../../validation/schemas/videoUpdate';
@@ -30,12 +31,23 @@ const initialState = {
   link: '',
   message: '',
   validationErrs: {},
+  requestError: {},
+  requestLoading: false,
 };
 
-const AddVideo = ({ programmeId }) => {
+const AddVideo = () => {
+  const { id: programmeId } = useParams();
+
   const [state, dispatch] = useReducer(videoReducer, initialState);
 
-  const { fileUpload, link, message, validationErrs } = state;
+  const {
+    fileUpload,
+    link,
+    message,
+    validationErrs,
+    requestError,
+    requestLoading,
+  } = state;
   const {
     fileUploading,
     data: uploadedFileInfo,
@@ -68,9 +80,21 @@ const AddVideo = ({ programmeId }) => {
     RESET_STATE: () => {
       dispatch({ type: actionTypes.resetState, value: initialState });
     },
+    HANDLE_REQUEST_ERROR: (error) => {
+      dispatch({
+        type: actionTypes.handleRequestError,
+        value: error,
+      });
+    },
+    HANDLE_REQUEST_LOADING: (loading) => {
+      dispatch({
+        type: actionTypes.handleRequestLoading,
+        value: loading,
+      });
+    },
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let fileUploadErr = '';
     try {
       if (!fileUpload?.data?.name && !fileUpload?.data?.key && !link) {
@@ -87,16 +111,23 @@ const AddVideo = ({ programmeId }) => {
         actions.HANDLE_VALIDATIONS_ERROR({ fileUpload: fileUploadErr });
       } else {
         actions.HANDLE_VALIDATIONS_ERROR({});
+        actions.HANDLE_REQUEST_LOADING(true);
 
-        ProgressUpdates.sendUpdate({
+        const { error } = await ProgressUpdates.sendUpdate({
           type: 'video',
           programmeId,
-          fileUpload: fileUpload.data,
+          uploadedFileInfo: fileUpload.data,
           link,
           clientMessage: message,
         });
 
-        history.push(CLIENT.SUCCESS_UPDATE);
+        actions.HANDLE_REQUEST_LOADING(false);
+
+        if (!error) {
+          history.push(CLIENT.SUCCESS_UPDATE);
+        } else {
+          actions.HANDLE_REQUEST_ERROR(error);
+        }
       }
     } catch (e) {
       actions.HANDLE_VALIDATIONS_ERROR({
@@ -146,11 +177,15 @@ const AddVideo = ({ programmeId }) => {
         />
       </Col>
       <Col w={[4, 12, 12]}>
+        {requestError?.message && (
+          <T.P color="error">{requestError.message}</T.P>
+        )}
         <Button
           variant="primary"
           text="Send"
           handleClick={handleSubmit}
-          disabled={fileUploading}
+          disabled={fileUploading || requestLoading}
+          loading={requestLoading}
         />
       </Col>
     </Row>

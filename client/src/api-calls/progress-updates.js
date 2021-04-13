@@ -13,15 +13,23 @@ const getProgressUpdatesById = async ({ id, options }) => {
   }
 };
 
-const sendUpdate = async ({ updates, options } = {}) => {
+const sendUpdate = async ({
+  uploadedFileInfo,
+  clientMessage,
+  link,
+  programmeId,
+  type,
+  options,
+} = {}) => {
   try {
-    /* the update should determine according to the user type */
-
-    // const { data } = await axios.post(
-    //   `${THERAPISTS_CLIENTS_BASE}/send-update`
-    // )
-    // return data;
-    return { data: updates };
+    const { data } = await axios.post(`${PROGRESS_UPDATES_BASE}`, {
+      uploadedFileInfo,
+      clientMessage,
+      link,
+      programmeId,
+      type,
+    });
+    return { data };
   } catch (error) {
     const err = handleError(error, options);
     return { error: err };

@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 
 import { Row, Col } from '../../../components/Grid';
 import { BasicInput, Textarea } from '../../../components/Inputs';
@@ -7,6 +7,7 @@ import FileUpload from '../../../components/FileUpload';
 import Button from '../../../components/Button';
 import { CLIENT } from '../../../constants/nav-routes';
 import { ProgressUpdates } from '../../../api-calls';
+import * as T from '../../../components/Typography';
 
 import { videoReducer } from './reducer';
 import actionTypes from './actionTypes';
@@ -30,12 +31,23 @@ const initialState = {
   link: '',
   message: '',
   validationErrs: {},
+  requestError: {},
+  requestLoading: false,
 };
 
-const SendAudio = ({ programmeId }) => {
+const SendAudio = () => {
+  const { id: programmeId } = useParams();
+
   const [state, dispatch] = useReducer(videoReducer, initialState);
 
-  const { fileUpload, link, message, validationErrs } = state;
+  const {
+    fileUpload,
+    link,
+    message,
+    validationErrs,
+    requestError,
+    requestLoading,
+  } = state;
   const {
     fileUploading,
     data: uploadedFileInfo,
@@ -68,9 +80,21 @@ const SendAudio = ({ programmeId }) => {
     RESET_STATE: () => {
       dispatch({ type: actionTypes.resetState, value: initialState });
     },
+    HANDLE_REQUEST_ERROR: (error) => {
+      dispatch({
+        type: actionTypes.handleRequestError,
+        value: error,
+      });
+    },
+    HANDLE_REQUEST_LOADING: (loading) => {
+      dispatch({
+        type: actionTypes.handleRequestLoading,
+        value: loading,
+      });
+    },
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let fileUploadErr = '';
     try {
       if (!fileUpload?.data?.name && !fileUpload?.data?.key && !link) {
@@ -94,15 +118,21 @@ const SendAudio = ({ programmeId }) => {
     } else {
       actions.HANDLE_VALIDATIONS_ERROR({});
 
-      ProgressUpdates.sendUpdate({
+      const { error } = await ProgressUpdates.sendUpdate({
         type: 'audio',
         programmeId,
-        fileUpload: fileUpload.data,
+        uploadedFileInfo: fileUpload.data,
         clientMessage: message,
         link,
       });
 
-      history.push(CLIENT.SUCCESS_UPDATE);
+      actions.HANDLE_REQUEST_LOADING(false);
+
+      if (!error) {
+        history.push(CLIENT.SUCCESS_UPDATE);
+      } else {
+        actions.HANDLE_REQUEST_ERROR(error);
+      }
     }
   };
   return (
@@ -146,11 +176,16 @@ const SendAudio = ({ programmeId }) => {
         />
       </Col>
       <Col w={[4, 12, 12]}>
+        {requestError?.message && (
+          <T.P color="error">{requestError.message}</T.P>
+        )}
+
         <Button
           variant="primary"
           text="Send"
           handleClick={handleSubmit}
-          disabled={fileUploading}
+          disabled={fileUploading || requestLoading}
+          loading={requestLoading}
         />
       </Col>
     </Row>
