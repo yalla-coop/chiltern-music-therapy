@@ -102,7 +102,7 @@ const Profile = () => {
   return (
     <div style={{ maxWidth: 1065 }}>
       <Title boldSection="profile" lightSection="Your" />
-      <Row mb={7}>
+      <Row mb={7} mbT={6}>
         <Col w={[4, 12, 6]}>
           <T.P color="gray8">
             Please start by adding your biography, profile pic and contact
@@ -111,7 +111,7 @@ const Profile = () => {
           </T.P>
         </Col>
       </Row>
-      <Row mb={7}>
+      <Row mb={7} mbT={5}>
         <Col w={[4, 6, 4]}>
           <Textarea
             label="Your biography"
@@ -150,7 +150,7 @@ const Profile = () => {
         </Col>
       </Row>
       <Row mb={8}>
-        <Col w={[4, 6, 4]}>
+        <Col w={[4, 6, 4]} mb="7" mbT="5">
           <BasicInput
             label="Your contact email"
             placeholder="Email..."
