@@ -92,7 +92,7 @@ const TherapistSignup = ({ status, title, msg }) => {
       }
     } else {
       setUser(data);
-      history.push(navRoutes.THERAPIST.WELCOME);
+      history.push(navRoutes.THERAPIST.WELCOME.replace(':id', 1));
     }
   };
 
