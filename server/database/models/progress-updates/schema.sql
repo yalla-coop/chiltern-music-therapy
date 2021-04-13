@@ -7,6 +7,7 @@ CREATE TABLE "progress_updates" (
   "client_message" TEXT,
   "therapist_message" TEXT,
   "link" TEXT,
+  "type" media_types NOT NULL,
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()
 );

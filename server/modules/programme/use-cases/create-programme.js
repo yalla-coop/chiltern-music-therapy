@@ -6,7 +6,8 @@ import * as Content from '../../content/model';
 
 import events from '../../../services/events';
 
-import { validateCreateProgramme, matchMediaTypes } from '../utils';
+import { validateCreateProgramme } from '../utils';
+import { matchMediaTypes } from '../../../helpers';
 
 const createProgramme = async ({ userId, body }) => {
   const client = await getClient();
