@@ -13,6 +13,7 @@ import { Contents, Programmes } from '../../../api-calls';
 
 import UpdateSection from './UpdateSection';
 import FeedbackSection from './FeedbackSection';
+import ExpandableProvider from '../../../context/expandable';
 
 const IndividProgramme = () => {
   const [contents, setContents] = useState([]);
@@ -25,7 +26,6 @@ const IndividProgramme = () => {
 
   const { user } = useAuth();
   const { id } = useParams();
-
   const decideBorder = (type) => {
     switch (type) {
       case 'VIDEO':
@@ -103,21 +103,24 @@ const IndividProgramme = () => {
       </Row>
       <Row mb="8">
         {contentToView ? (
-          contents.map(({ type, file, ...content }, index) => (
-            <Col w={[4, 6, 4]} mb="4">
-              <Expandable
-                borderColor={decideBorder(type)}
-                content={{
-                  download: file.url,
-                  streamable: decideStreamable(type, file.url),
-                  ...content,
-                  categories: null,
-                  type: type?.toLowerCase(),
-                  url: file.url,
-                }}
-              />
-            </Col>
-          ))
+          <ExpandableProvider itemsNumbers={contents.length}>
+            {contents.map(({ type, file, ...content }, index) => (
+              <Col w={[4, 6, 4]} mb="4">
+                <Expandable
+                  borderColor={decideBorder(type)}
+                  content={{
+                    download: file.url,
+                    streamable: decideStreamable(type, file.url),
+                    ...content,
+                    categories: null,
+                    type: type?.toLowerCase(),
+                    url: file.url,
+                  }}
+                  index={index + 1}
+                />
+              </Col>
+            ))}
+          </ExpandableProvider>
         ) : (
           <Col w={[4, 6, 4]}>
             <Basic>No content to show</Basic>
