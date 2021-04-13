@@ -26,7 +26,7 @@ const ViewMode = ({
     type,
     docContent,
   } = content;
-  console.log(`content`, content);
+
   if (children) {
     return (
       <S.Content open={open} ref={contentRef} height={selectedHeight}>
