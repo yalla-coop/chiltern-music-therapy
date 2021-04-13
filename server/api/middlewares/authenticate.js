@@ -49,8 +49,6 @@ const authenticate = (isPublic) => async (req, res, next) => {
       user.hasProfile = hasProfile;
     }
 
-    console.log('stuff', user);
-
     // put the user info in the req to be accessed in the next middlewares
     req.user = user;
     return next();

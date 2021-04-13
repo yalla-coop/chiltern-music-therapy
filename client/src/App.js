@@ -157,6 +157,8 @@ function App() {
                 Component={Pages.THERAPIST.MyAccount}
                 goBack
                 maxWidth="none"
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
@@ -164,6 +166,8 @@ function App() {
                 path={navRoutes.THERAPIST.MESSAGE}
                 Component={Pages.THERAPIST.ViewUpdate}
                 goBack
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               {/* Admin Pages */}

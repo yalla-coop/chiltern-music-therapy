@@ -11,12 +11,14 @@ import Avatar from '../../../components/Avatar';
 
 import { cleanEmail } from '../../../helpers';
 
-import { TherapistClients, Media, Users } from '../../../api-calls';
+import { Media, Users } from '../../../api-calls';
 
 import { THERAPIST } from '../../../constants/nav-routes';
 import { content } from './../../../constants';
 
 import { profile as validate } from '../../../validation/schemas';
+
+import { useAuth } from '../../../context/auth';
 
 const fileState = {
   // file upload
@@ -43,6 +45,7 @@ const Profile = () => {
   const [mediaUrl, setMediaUrl] = useState(null);
 
   const history = useHistory();
+  const { user, setUser } = useAuth();
 
   const validateForm = () => {
     try {
@@ -86,6 +89,7 @@ const Profile = () => {
         uploadedFileInfo,
       });
       if (data) {
+        setUser({ ...user, hasProfile: true });
         history.push(THERAPIST.DASHBOARD);
       }
     }

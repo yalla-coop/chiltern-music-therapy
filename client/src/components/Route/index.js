@@ -22,7 +22,8 @@ const Route = (props) => {
 
   if (isPrivate) {
     const authorized = authorization(user.role, allowedRoles);
-    const profileRequired = user.role === roles.THERAPIST && !user.hasProfile;
+    const { hasProfile } = user;
+    const profileRequired = user.role === roles.THERAPIST && !hasProfile;
 
     // MAKE SURE THERAPIST HAS TO FILL IN PROFILE
     if (
