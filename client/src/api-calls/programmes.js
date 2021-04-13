@@ -36,4 +36,14 @@ const createProgramme = async (formData, { options } = {}) => {
   }
 };
 
-export { getProgrammeById, getProgrammes, createProgramme };
+const editProgramme = async (formData, { options } = {}) => {
+  try {
+    const { data } = await axios.post(`${PROGRAMMES_BASE}/update`, formData);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export { getProgrammeById, getProgrammes, createProgramme, editProgramme };

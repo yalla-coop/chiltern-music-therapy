@@ -29,7 +29,6 @@ const { Basic, Expandable } = Cards;
 const Review = ({ navFunctions, parentState, actions, programmeId }) => {
   const [updating, setUpdating] = useState(false);
   const [modalToShow, setModalToShow] = useState('');
-  const [contentToDelete, setContentToDelete] = useState('');
   const [updateError, setUpdateError] = useState('');
 
   // form submission
@@ -43,18 +42,12 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
     errors,
   } = parentState;
 
-  const { setErrors, setDescription, setProgrammeContents } = actions;
-
-  const updateSingleContent = (value) => {
-    setProgrammeContents(
-      programmeContents.map((el) => {
-        if (el.id === value.id) {
-          return Object.assign({}, el, { ...el, ...value });
-        }
-        return el;
-      })
-    );
-  };
+  const {
+    setErrors,
+    setDescription,
+    setProgrammeContents,
+    updateSingleContent,
+  } = actions;
 
   const handleRemove = async ({ id: contentId }) => {
     const isExistingContent = programmeContents.filter(
@@ -173,22 +166,20 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
   };
 
   const handleEditProgramme = async () => {
-    // navFunctions.goToSuccess();
-    console.log(`success`);
-
-    // const { error, data } = await Programmes.editProgramme({
-    //   programmeId,
-    //   description,
-    //   programmeContents,
-    // });
-    // setLoading(false);
-    // if (error) {
-    //   setErrors(error.message);
-    // } else {
-    //   navFunctions.goToSuccess();
-    // }
+    setLoading(true);
+    const { error, data } = await Programmes.editProgramme({
+      programmeId,
+      description,
+      programmeContents,
+    });
+    setLoading(false);
+    if (error) {
+      setErrors(error.message);
+    } else {
+      navFunctions.goToSuccess();
+    }
   };
-
+  console.log(`errors`, errors);
   return (
     <>
       {/* TODO UPDATE GOBACK */}
@@ -232,8 +223,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
         </Row>
       )}
 
-      {/* <Row mt={7}>{renderReviewCards(content)}</Row> */}
-      {/* {errors && typeof errors === 'string' && (
+      {errors && typeof errors === 'string' && (
         <Row mt={5}>
           <T.P bold color="pink">
             {errors}
@@ -243,11 +233,11 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
       {errors && !isEmptyObject(errors) && (
         <Row mt={5}>
           <T.P bold color="pink">
-            Errors storing your programme. Please check if all inputs are filled
+            Errors editing your programme. Please check if all inputs are filled
             in correctly.
           </T.P>
         </Row>
-      )} */}
+      )}
       <Row mt={7}>
         <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button

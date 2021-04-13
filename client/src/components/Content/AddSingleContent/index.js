@@ -172,7 +172,7 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
     handleResetSingleContent();
     navFunctions.goToAddContent();
   };
-
+  console.log(`fileUpload`, fileUpload);
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <Prompt

@@ -86,7 +86,7 @@ const FileUpload = ({
   // here you can controll state depending on upload status
   const handleFileChanged = async ({ file }) => {
     const { status } = file;
-
+    console.log(`status`, status);
     if (!error) {
       if (status === 'removed') {
         setUploading(false);

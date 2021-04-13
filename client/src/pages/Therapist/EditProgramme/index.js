@@ -105,6 +105,7 @@ const EditProgramme = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // GET client details
   useEffect(() => {
     if (location.state && location.state.clientDetails) {
       setClientDetails(location.state.clientDetails);
@@ -133,6 +134,7 @@ const EditProgramme = () => {
       }
     };
 
+    // GET programme description
     const getProgData = async () => {
       const { data, error } = await Programmes.getProgrammeById({
         id: programmeId,
@@ -156,6 +158,7 @@ const EditProgramme = () => {
     }
   }, [programmeId, user.id]);
 
+  // GET categories
   useEffect(() => {
     const getCategories = async () => {
       const { data, error } = await Contents.getCategories();
@@ -176,13 +179,11 @@ const EditProgramme = () => {
     getCategories();
   }, [programmeContents]);
 
-  console.log(`programmeContents`, programmeContents);
-
   const handleAddContent = (moreContent) =>
-    setProgrammeContents([...programmeContents, moreContent]);
+    setProgrammeContents((prevState) => [...prevState, moreContent]);
 
   const handleAddSingleContent = (key, value) =>
-    setSingleContent({ ...singleContent, [key]: value });
+    setSingleContent((prevState) => ({ ...prevState, [key]: value }));
 
   const handleResetSingleContent = () => {
     setSingleContent(initialStates.singleContent);
@@ -190,15 +191,26 @@ const EditProgramme = () => {
   };
 
   const handleUploadStatus = (bool) => {
-    setFileUpload({ ...fileUpload, fileUploading: bool });
+    setFileUpload((prevState) => ({ ...prevState, fileUploading: bool }));
   };
 
   const handleFileUploadInfo = (data) => {
-    setFileUpload({ ...fileUpload, data });
+    setFileUpload((prevState) => ({ ...prevState, data }));
   };
 
   const handleFileUploadError = (err) => {
-    setFileUpload({ ...fileUpload, error: err });
+    setFileUpload((prevState) => ({ ...prevState, error: err }));
+  };
+
+  const updateSingleContent = (value) => {
+    setProgrammeContents(
+      programmeContents.map((el) => {
+        if (el.id === value.id) {
+          return Object.assign({}, el, { ...el, ...value });
+        }
+        return el;
+      })
+    );
   };
 
   return (
@@ -213,7 +225,12 @@ const EditProgramme = () => {
           categoryOptions,
           errors,
         }}
-        actions={{ setProgrammeContents, setDescription, setErrors }}
+        actions={{
+          setProgrammeContents,
+          setDescription,
+          setErrors,
+          updateSingleContent,
+        }}
         programmeId={programmeId}
       />
       <AddContent
