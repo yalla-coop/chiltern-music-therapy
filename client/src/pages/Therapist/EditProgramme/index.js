@@ -53,6 +53,7 @@ const EditProgramme = () => {
     initialStates.contentCategories
   );
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
   const [clientDetails, setClientDetails] = useState({});
   const [singleContent, setSingleContent] = useState(
     initialStates.singleContent
@@ -99,16 +100,10 @@ const EditProgramme = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // GET client details
-  useEffect(() => {
-    if (location.state && location.state.clientDetails) {
-      setClientDetails(location.state.clientDetails);
-    }
-  }, [location.state]);
-
   // GET PROGRAMME CONTENTS AND THERAPIST CONTENT CATEGORIES
   useEffect(() => {
     const getContent = async () => {
+      setLoading(true);
       const { data, error } = await Contents.getContentByProg({
         id: programmeId,
       });
@@ -120,16 +115,19 @@ const EditProgramme = () => {
           categories: [...new Set(el.categories.map((cat) => cat))],
         }));
         setProgrammeContents(allProgrammeC);
+        setLoading(false);
       } else {
         setErrors({
           ...errors,
           getProgrammeContent: 'Error getting content for this programme',
         });
+        setLoading(false);
       }
     };
 
     // GET programme description
     const getProgData = async () => {
+      setLoading(true);
       const { data, error } = await Programmes.getProgrammeById({
         id: programmeId,
       });
@@ -141,12 +139,14 @@ const EditProgramme = () => {
         if (data.client) {
           setClientDetails(data.client);
         }
+        setLoading(false);
       } else {
         setErrors({
           ...errors,
           getProgrammeDescription:
             'Error getting description for this programme',
         });
+        setLoading(false);
       }
     };
     if (user.id) {
@@ -158,23 +158,26 @@ const EditProgramme = () => {
   // GET categories
   useEffect(() => {
     const getCategories = async () => {
+      setLoading(true);
       const { data, error } = await Contents.getCategories();
       if (!error) {
         setCategoryOptions([
           { label: 'All', value: 'ALL' },
           ...createUniqueCats(data),
         ]);
+        setLoading(false);
       } else {
         setErrors({
           ...errors,
           getCategories:
             (error && error.message) || 'Error loading content categories',
         });
+        setLoading(false);
       }
     };
 
     getCategories();
-  }, [programmeContents]);
+  }, []);
 
   // MANAGE STATE FUNCTIONS
   const handleAddContent = (moreContent) =>
@@ -222,6 +225,7 @@ const EditProgramme = () => {
           programmeContents,
           categoryOptions,
           errors,
+          loading,
         }}
         actions={{
           setProgrammeContents,
@@ -238,11 +242,13 @@ const EditProgramme = () => {
           programmeContents,
           categoryOptions,
           errors,
+          loading,
         }}
         actions={{
           setProgrammeContents,
           setErrors,
           handleAddContent,
+          setLoading,
         }}
         navFunctions={navFunctions}
       />
@@ -275,6 +281,7 @@ const EditProgramme = () => {
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SUCCESS}
         clientDetails={clientDetails}
+        loading
       />
     </Switch>
   );

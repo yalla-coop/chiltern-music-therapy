@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { Spin } from 'antd';
 import { spacings } from '../../../theme';
 
 export const Wrapper = styled.div`
@@ -15,4 +16,12 @@ export const Content = styled.main`
 
 export const HeadlineWrapper = styled.main`
   padding: ${spacings[4]} 0 ${spacings[4]} 0;
+`;
+
+export const Loading = styled(Spin)`
+  span {
+    line-height: 24px;
+    margin-left: 10px;
+    color: ${({ theme }) => theme.colors.gray5};
+  }
 `;

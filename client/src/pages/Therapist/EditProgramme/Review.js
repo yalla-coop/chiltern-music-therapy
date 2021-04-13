@@ -40,6 +40,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
     programmeContents,
     categoryOptions,
     errors,
+    loading: parentStateLoading,
   } = parentState;
 
   const {
@@ -125,11 +126,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
       };
       validate(formData);
 
-      if (programmeContents.length === 0) {
-        setErrors('Please add content to this programme');
-      } else {
-        setErrors({});
-      }
+      setErrors({});
 
       return true;
     } catch (error) {
@@ -139,15 +136,6 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
       return false;
     }
   };
-
-  useEffect(() => {
-    if (programmeContents.length === 0) {
-      setErrors('Please add content to this programme');
-    } else {
-      setErrors({});
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [programmeContents]);
 
   useEffect(() => {
     if (submitAttempt) {
@@ -186,7 +174,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
       navRoutes.THERAPIST.SINGLE_PROGRAMME.replace(':id', programmeId)
     );
   };
-
+  console.log(`errors`, errors);
   return (
     <>
       {/* TODO UPDATE GOBACK */}
@@ -200,51 +188,60 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
           </S.HeadlineWrapper>
         </Col>
       </Row>
-      <Row mt={5} mb={7}>
-        <Col w={[4, 6, 6]}>
-          <Textarea
-            label="Programme description"
-            placeholder="Programme description..."
-            rows={5}
-            value={description}
-            handleChange={(val) => setDescription(val)}
-            error={errors && errors.description}
-          />
-        </Col>
-      </Row>
-      {updating ? (
-        <Row mb="4">
-          <Col w={[4, 6, 4]} mb="4">
-            Loading...
-          </Col>
+      {parentStateLoading ? (
+        <Row mt={5} mb={7}>
+          <S.Loading />
         </Row>
       ) : (
-        <Row mb="4">
-          {programmeContents.length > 0 ? (
-            renderEditCards(programmeContents)
-          ) : (
-            <Col w={[4, 6, 4]}>
-              <Basic>No content to show</Basic>
+        <>
+          <Row mt={5} mb={7}>
+            <Col w={[4, 6, 6]}>
+              <Textarea
+                label="Programme description"
+                placeholder="Programme description..."
+                rows={5}
+                value={description}
+                handleChange={(val) => setDescription(val)}
+                error={errors && errors.description}
+              />
             </Col>
+          </Row>
+          {updating ? (
+            <Row mb="4">
+              <Col w={[4, 6, 4]} mb="4">
+                Loading...
+              </Col>
+            </Row>
+          ) : (
+            <Row mb="4">
+              {programmeContents.length > 0 ? (
+                renderEditCards(programmeContents)
+              ) : (
+                <Col w={[4, 6, 4]}>
+                  <Basic>No content to show</Basic>
+                </Col>
+              )}
+            </Row>
           )}
-        </Row>
+
+          {errors && typeof errors === 'string' && (
+            <Row mt={5}>
+              <T.P bold color="pink">
+                {errors}
+              </T.P>
+            </Row>
+          )}
+          {errors && !isEmptyObject(errors) && (
+            <Row mt={5}>
+              <T.P bold color="pink">
+                Errors editing your programme. Please check if all inputs are
+                filled in correctly.
+              </T.P>
+            </Row>
+          )}
+        </>
       )}
 
-      {errors && typeof errors === 'string' && (
-        <Row mt={5}>
-          <T.P bold color="pink">
-            {errors}
-          </T.P>
-        </Row>
-      )}
-      {errors && !isEmptyObject(errors) && (
-        <Row mt={5}>
-          <T.P bold color="pink">
-            Errors editing your programme. Please check if all inputs are filled
-            in correctly.
-          </T.P>
-        </Row>
-      )}
       <Row mt={7}>
         <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button
