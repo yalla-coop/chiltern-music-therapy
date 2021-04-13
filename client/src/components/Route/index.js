@@ -22,6 +22,17 @@ const Route = (props) => {
 
   if (isPrivate) {
     const authorized = authorization(user.role, allowedRoles);
+    const profileRequired = user.role === roles.THERAPIST && !user.hasProfile;
+
+    // MAKE SURE THERAPIST HAS TO FILL IN PROFILE
+    if (
+      user.id &&
+      authorized &&
+      profileRequired &&
+      path !== navRoutes.THERAPIST.PROFILE
+    ) {
+      return <Redirect to={navRoutes.THERAPIST.PROFILE} {...props} />;
+    }
 
     if (user.id) {
       return (
