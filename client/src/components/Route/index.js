@@ -5,9 +5,18 @@ import { navRoutes } from '../../constants/';
 
 import { authorization } from '../../helpers';
 import { useAuth } from '../../context/auth';
+import { roles } from './../../constants';
 
 const Route = (props) => {
-  const { isPrivate, layout, path, Component, exact, allowedRoles } = props;
+  const {
+    isPrivate,
+    layout,
+    path,
+    Component,
+    exact,
+    allowedRoles,
+    loggedOutOnly,
+  } = props;
 
   const { user } = useAuth();
 
@@ -28,6 +37,18 @@ const Route = (props) => {
       );
     }
     return <Redirect to={navRoutes.GENERAL.LOGIN} />;
+  }
+
+  if (loggedOutOnly && user.id) {
+    if (user.role === roles.THERAPIST) {
+      return <Redirect to={navRoutes.THERAPIST.DASHBOARD} />;
+    }
+    if (user.role === roles.CLIENT) {
+      return <Redirect to={navRoutes.CLIENT.DASHBOARD} />;
+    }
+    if (user.role === roles.ADMIN) {
+      return <Redirect to={navRoutes.ADMIN.ALL_CONTENT} />;
+    }
   }
 
   return (
