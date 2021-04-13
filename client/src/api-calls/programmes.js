@@ -38,7 +38,7 @@ const createProgramme = async (formData, { options } = {}) => {
 
 const editProgramme = async (formData, { options } = {}) => {
   try {
-    const { data } = await axios.post(`${PROGRAMMES_BASE}/update`, formData);
+    const { data } = await axios.patch(`${PROGRAMMES_BASE}/update`, formData);
     return { data };
   } catch (error) {
     const err = handleError(error, options);

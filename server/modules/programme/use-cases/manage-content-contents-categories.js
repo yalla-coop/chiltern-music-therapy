@@ -1,6 +1,8 @@
 import { getClient } from '../../../database/connect';
 import * as Content from '../../content/model';
 
+// TODO -> make this an event listener that reacts on category changes across the app
+
 const manageCCC = async ({ userId, contentId, categories = [] }) => {
   // content.Id: _conten.tId
   const client = await getClient();

@@ -11,7 +11,7 @@ const router = Router();
 
 router.get('/:id', authenticate(), getProgrammeById);
 router.post('/create', authenticate(), createProgramme);
-router.post('/update', authenticate(), updateProgramme);
+router.patch('/update', authenticate(), updateProgramme);
 router.get('/', authenticate(), getProgrammes);
 
 export default router;

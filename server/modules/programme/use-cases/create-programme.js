@@ -9,7 +9,7 @@ import { errorMsgs } from '../../../services/error-handler';
 import events from '../../../services/events';
 
 import createProgrammeContent from '../../content/use-cases/create-content';
-import ManageCCC from './manage-content-contents-categories';
+import manageCCC from './manage-content-contents-categories';
 
 import { validateCreateEditProgramme } from '../utils';
 
@@ -85,7 +85,7 @@ const createProgramme = async ({ userId, body }) => {
       );
 
       // update categories
-      await ManageCCC({ userId, contentId: _content.id, categories });
+      await manageCCC({ userId, contentId: _content.id, categories });
     });
 
     await client.query('COMMIT');

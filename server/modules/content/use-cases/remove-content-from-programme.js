@@ -16,6 +16,11 @@ const removeContentFromProgramme = async ({
     await client.query('BEGIN');
 
     const contentToDelete = await Content.findContentById(contentId, client);
+
+    if (userId !== contentToDelete.therapistLibraryUserId) {
+      throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
+    }
+
     const programmeContent = await Content.findProgrammeContentId(
       {
         contentId,
