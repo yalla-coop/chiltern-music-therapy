@@ -1,6 +1,11 @@
 import { ThemeProvider } from '@emotion/react';
 import { Global } from '@emotion/react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Redirect,
+  Route as RouterRoute,
+} from 'react-router-dom';
 import theme, { globalStyle } from './theme';
 import { Route } from './components';
 import * as Pages from './pages';
@@ -17,12 +22,17 @@ function App() {
         <AuthProvider>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
+              <RouterRoute exact path={navRoutes.GENERAL.HOME}>
+                <Redirect to={navRoutes.GENERAL.LOGIN} />
+              </RouterRoute>
+
               {/* Auth Routes */}
               <Route
                 exact
                 path={navRoutes.GENERAL.LOGIN}
                 Component={Pages.GENERAL.Login}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -30,6 +40,7 @@ function App() {
                 path={navRoutes.THERAPIST.SIGNUP}
                 Component={Pages.THERAPIST.Signup}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -37,6 +48,7 @@ function App() {
                 path={navRoutes.CLIENT.SIGNUP}
                 Component={Pages.CLIENT.Signup}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -44,6 +56,7 @@ function App() {
                 path={navRoutes.GENERAL.FORGOT_PASSWORD}
                 Component={Pages.GENERAL.ForgotPassword}
                 layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
@@ -51,14 +64,7 @@ function App() {
                 path={navRoutes.GENERAL.RESET_PASSWORD}
                 Component={Pages.GENERAL.ResetPassword}
                 layout="onboarding"
-              />
-
-              <Route
-                exact
-                path={navRoutes.GENERAL.HOME}
-                Component={Pages.GENERAL.Example}
-                layout="general"
-                image="hands"
+                loggedOutOnly
               />
 
               {/* Therapist Pages */}
@@ -69,6 +75,8 @@ function App() {
                 Component={Pages.GENERAL.Welcome}
                 layout="info"
                 section="welcome"
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
@@ -77,6 +85,8 @@ function App() {
                 Component={Pages.THERAPIST.SingleClient}
                 layout="general"
                 goBack
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
               <Route
                 exact
@@ -85,6 +95,8 @@ function App() {
                 layout="general"
                 goBack
                 clientHistory
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
@@ -93,6 +105,8 @@ function App() {
                 Component={Pages.THERAPIST.EditClient}
                 layout="general"
                 goBack
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
@@ -100,18 +114,24 @@ function App() {
                 path={navRoutes.THERAPIST.DASHBOARD}
                 Component={Pages.THERAPIST.Dashboard}
                 layout="general"
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
                 exact
                 path={navRoutes.THERAPIST.NEW_CLIENT}
                 Component={Pages.THERAPIST.AddClient}
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
                 exact
                 path={navRoutes.THERAPIST.SINGLE_PROGRAMME}
                 Component={Pages.THERAPIST.IndividProgramme}
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
@@ -119,18 +139,31 @@ function App() {
                 path={navRoutes.THERAPIST.PROFILE}
                 Component={Pages.THERAPIST.Profile}
                 layout="onboarding"
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
                 exact
                 path={navRoutes.THERAPIST.LIBRARY}
                 Component={Pages.THERAPIST.Library}
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
+              />
+
+              <Route
+                exact
+                path={navRoutes.THERAPIST.ACCOUNT}
+                Component={Pages.THERAPIST.MyAccount}
+                goBack
+                maxWidth="none"
               />
 
               <Route
                 exact
                 path={navRoutes.THERAPIST.PROGRESS_UPDATE}
                 Component={Pages.THERAPIST.ViewUpdate}
+                goBack
               />
 
               {/* Admin Pages */}
@@ -138,6 +171,8 @@ function App() {
                 exact
                 path={navRoutes.ADMIN.ALL_CONTENT}
                 Component={Pages.THERAPIST.Library}
+                isPrivate
+                allowedRoles={[roles.ADMIN]}
               />
 
               {/* Client Pages */}
@@ -148,6 +183,8 @@ function App() {
                 Component={Pages.GENERAL.Welcome}
                 layout="info"
                 section="welcome"
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
 
               <Route
@@ -155,6 +192,8 @@ function App() {
                 path={navRoutes.CLIENT.DASHBOARD}
                 Component={Pages.CLIENT.Dashboard}
                 layout="general"
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
 
               <Route
@@ -171,6 +210,8 @@ function App() {
                 path={navRoutes.CLIENT.ACCOUNT_DELETED}
                 Component={Pages.CLIENT.AccountDeleted}
                 layout="general"
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
 
               <Route
@@ -180,7 +221,10 @@ function App() {
                 layout="general"
                 image="hands"
                 goBack
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.CONTACT_THERAPIST}
@@ -189,16 +233,23 @@ function App() {
                 image="hands"
                 goBack
                 contactDetails
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
+
               <Route
                 exact
                 path={navRoutes.CLIENT.INDIVID_PROGRAMME}
                 Component={Pages.CLIENT.IndividProgramme}
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
               <Route
                 exact
                 path={navRoutes.CLIENT.PROGRAMMES}
                 Component={Pages.CLIENT.AllProgrammes}
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
 
               <Route
@@ -206,12 +257,23 @@ function App() {
                 path={navRoutes.CLIENT.THERAPY_PLAN}
                 Component={Pages.CLIENT.MyTherapyPlan}
                 goBack
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
               />
 
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_GOALS}
                 Component={Pages.CLIENT.MyTherapyGoals}
+                goBack
+                maxWidth="none"
+                isPrivate
+                allowedRoles={[roles.CLIENT]}
+              />
+              <Route
+                exact
+                path={navRoutes.CLIENT.ACCOUNT}
+                Component={Pages.CLIENT.MyAccount}
                 goBack
                 maxWidth="none"
               />
@@ -239,6 +301,7 @@ function App() {
                 Component={Pages.THERAPIST.CreateProgram}
                 layout="general"
                 allowedRoles={[roles.THERAPIST]}
+                isPrivate
               />
 
               <Route

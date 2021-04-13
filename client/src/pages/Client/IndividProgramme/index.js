@@ -21,6 +21,7 @@ const IndividProgramme = () => {
   const [therapist, setTherapist] = useState({});
   const [description, setDescription] = useState('');
   const [ellipsis, setEllipsis] = useState(true);
+  const [date, setDate] = useState({});
 
   const { user } = useAuth();
   const { id } = useParams();
@@ -61,6 +62,7 @@ const IndividProgramme = () => {
         setFeedback(data.feedback);
         setTherapist(data.therapist);
         setDescription(data.description);
+        setDate(data.createdAt);
       }
     };
 
@@ -77,14 +79,18 @@ const IndividProgramme = () => {
       <Row mb="4">
         <Col w={[4, 6, 8]}>
           <T.P small color="gray8" caps>
-            {dateFormatter(update.createdAt)}
+            {dateFormatter(date)}
           </T.P>
         </Col>
       </Row>
       <Title lightSection="My" boldSection="Home Programme" />
       <Row mb="7" mbT="5">
         <Col w={[4, 6, 6]}>
-          <T.P color="gray8" ellipsis={ellipsis ? { rows: 2 } : false}>
+          <T.P
+            color="gray8"
+            style={{ width: '100%' }}
+            ellipsis={ellipsis ? { rows: 2 } : false}
+          >
             {description}
           </T.P>
           {ellipsis && (
