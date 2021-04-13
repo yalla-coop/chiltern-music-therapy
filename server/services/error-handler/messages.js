@@ -5,7 +5,7 @@ const errors = {
   EMAIL_ALREADY_EXISTS: 'A user account with that email already exists',
   PHONE_ALREADY_EXISTS:
     'A user account with that main contact number already exists',
-  VALIDATION_ERROR: 'error message for more details to user',
+  VALIDATION_ERROR: 'There was an issue with your request (validation error)',
   CUSTOM_ERROR_MESSAGE: 'error message for more details to user',
   NOT_FOUND: "We cannot find what you're looking for",
   UNAUTHORISED: 'You do not have permission to view this content',

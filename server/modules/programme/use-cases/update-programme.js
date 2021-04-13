@@ -2,8 +2,6 @@ import Boom from '@hapi/boom';
 import { getClient } from '../../../database/connect';
 import * as Programme from '../model';
 import { errorMsgs } from '../../../services/error-handler';
-import * as TherapistClients from '../../therapist-client/model';
-import * as Media from '../../media/model';
 import * as Content from '../../content/model';
 
 import events from '../../../services/events';
@@ -11,12 +9,15 @@ import events from '../../../services/events';
 import createProgrammeContent from './create-programme-content';
 import manageCCC from './manage-content-contents-categories';
 
-import { validateCreateProgramme } from '../utils';
+import { validateCreateEditProgramme } from '../utils';
 
 const updateProgramme = async ({ userId, body }) => {
   const client = await getClient();
   const { programmeId, description, programmeContents } = body;
-  await validateCreateProgramme({ description, content: programmeContents });
+  await validateCreateEditProgramme({
+    description,
+    content: programmeContents,
+  });
 
   try {
     await client.query('BEGIN');
@@ -82,9 +83,9 @@ const updateProgramme = async ({ userId, body }) => {
 
     await client.query('COMMIT');
 
-    // events.emit(events.types.PROGRAMME.CREATED, {
-    //   programmeId: programme.id,
-    // });
+    events.emit(events.types.PROGRAMME.UPDATED, {
+      programmeId,
+    });
   } catch (err) {
     await client.query('ROLLBACK');
     throw err;

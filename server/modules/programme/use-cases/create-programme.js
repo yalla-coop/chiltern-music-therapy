@@ -2,20 +2,21 @@ import Boom from '@hapi/boom';
 import { getClient } from '../../../database/connect';
 import * as Programme from '../model';
 import * as TherapistClients from '../../therapist-client/model';
-import { errorMsgs } from '../../../services/error-handler';
 import * as Content from '../../content/model';
+
+import { errorMsgs } from '../../../services/error-handler';
 
 import events from '../../../services/events';
 
 import createProgrammeContent from './create-programme-content';
 import ManageCCC from './manage-content-contents-categories';
 
-import { validateCreateProgramme } from '../utils';
+import { validateCreateEditProgramme } from '../utils';
 
 const createProgramme = async ({ userId, body }) => {
   const client = await getClient();
   const { clientId, description, content } = body;
-  await validateCreateProgramme({ description, content });
+  await validateCreateEditProgramme({ description, content });
 
   try {
     await client.query('BEGIN');

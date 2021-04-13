@@ -1,4 +1,4 @@
-import validateCreateProgramme from './validate-create-programme';
+import validateCreateEditProgramme from './validate-create-edit-programme';
 import matchMediaTypes from './match-media-types';
 
-export { validateCreateProgramme, matchMediaTypes };
+export { validateCreateEditProgramme, matchMediaTypes };
