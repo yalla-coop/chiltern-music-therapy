@@ -24,6 +24,7 @@ const signup = async (req, res, next) => {
         inviteToken,
       });
     } else if (role === userRoles.THERAPIST) {
+      console.log('role', role);
       user = await User.therapistSignup({
         email,
         password,
