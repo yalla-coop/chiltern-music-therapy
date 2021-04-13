@@ -176,7 +176,8 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
     if (error) {
       setErrors(error.message);
     } else {
-      navFunctions.goToSuccess();
+      // navFunctions.goToSuccess();
+      console.log(`success`);
     }
   };
   console.log(`errors`, errors);

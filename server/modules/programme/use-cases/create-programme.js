@@ -1,13 +1,16 @@
+import Boom from '@hapi/boom';
 import { getClient } from '../../../database/connect';
 import * as Programme from '../model';
 import * as TherapistClients from '../../therapist-client/model';
-import * as Media from '../../media/model';
+import { errorMsgs } from '../../../services/error-handler';
 import * as Content from '../../content/model';
 
 import events from '../../../services/events';
+
+import createProgrammeContent from './create-programme-content';
 import ManageCCC from './manage-content-contents-categories';
 
-import { validateCreateProgramme, matchMediaTypes } from '../utils';
+import { validateCreateProgramme } from '../utils';
 
 const createProgramme = async ({ userId, body }) => {
   const client = await getClient();
@@ -26,6 +29,10 @@ const createProgramme = async ({ userId, body }) => {
       client,
     );
 
+    if (!therapistClientId.id) {
+      throw Boom.badData(errorMsgs.WRONG_DATA);
+    }
+
     // create programmme
     const programme = await Programme.createProgramme(
       {
@@ -36,88 +43,41 @@ const createProgramme = async ({ userId, body }) => {
     );
 
     // store content
-    await content.forEach(
-      async ({
+    await content.forEach(async (contentData) => {
+      const {
         libraryContent,
         title,
         instructions,
-        link,
-        docContent,
-        uploadedFileInfo,
-        type,
         categories,
         therapistUserId,
         id: contentId,
-      }) => {
-        let _media;
-        let _content;
+      } = contentData;
 
-        // create media content if present
-        if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
-          const {
-            name,
-            key,
-            bucket,
-            bucketRegion,
-            size,
-            fileType,
-          } = uploadedFileInfo;
+      let _content;
 
-          _media = await Media.createMedia(
-            {
-              fileName: name,
-              fileType,
-              size,
-              key,
-              bucket,
-              bucketRegion,
-              createdBy: userId,
-            },
-            client,
-          );
-        }
-
-        // if existing library content only run update else create new
-        if (therapistUserId) {
-          _content = await Content.updateContentById(
-            {
-              contentId,
-              title,
-              instructions,
-              libraryContent,
-            },
-            client,
-          );
-        } else {
-          // create content
-          _content = await Content.createContent(
-            {
-              mediaId: _media && _media.id,
-              title,
-              instructions,
-              link,
-              docContent,
-              libraryContent,
-              therapistLibraryUserId: userId,
-              type: matchMediaTypes(type),
-            },
-            client,
-          );
-        }
-
-        // create programmes_contents
-        await Programme.createProgrammesContent(
+      if (therapistUserId) {
+        _content = await Content.updateContentById(
           {
-            programmeId: programme.id,
-            contentId: _content.id,
+            contentId,
+            title,
+            instructions,
+            libraryContent,
           },
           client,
         );
+      } // for new content -> add to db
+      else {
+        // create media content if present
+        _content = await createProgrammeContent({
+          programmeId: programme.id,
+          userId,
+          contentData,
+        });
+      }
 
-        // update categories
-        await ManageCCC({ userId, contentId: _content.id, categories });
-      },
-    );
+      // update categories
+      await ManageCCC({ userId, contentId: _content.id, categories });
+    });
 
     await client.query('COMMIT');
 
