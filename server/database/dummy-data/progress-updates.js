@@ -7,6 +7,7 @@ const createProgressUpdate = async ({
   therapistMessage,
   link,
   type,
+  therapistMessageDate,
 }) => {
   const sql = `
     INSERT INTO progress_updates(
@@ -15,7 +16,8 @@ const createProgressUpdate = async ({
       client_message,
       therapist_message,
       link,
-      type
+      type,
+      therapist_message_date
     )
       VALUES (
         $1,
@@ -23,7 +25,8 @@ const createProgressUpdate = async ({
         $3,
         $4,
         $5,
-        $6
+        $6,
+        $7
       ) RETURNING *
   `;
   const res = await query(sql, [
@@ -33,6 +36,7 @@ const createProgressUpdate = async ({
     therapistMessage,
     link,
     type,
+    therapistMessageDate,
   ]);
   return res.rows[0];
 };
@@ -43,8 +47,9 @@ const createProgressUpdates = async ({ programmes, media }) => {
     mediaId: media.progress1Video.id,
     clientMessage:
       "Hi Suzan, i've watched the video and it was really helpful, thanks :)",
-    therapistMessage: 'Happy to hear that, have a good weekend',
+    // therapistMessage: 'Happy to hear that, have a good weekend',
     type: 'VIDEO',
+    // therapistMessageDate: 'NOW()',
   });
 
   return {

@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { Textarea } from '../../../components/Inputs';
@@ -10,28 +11,50 @@ import VideoUpdate from './VideoUpdate';
 import { Spin } from 'antd';
 import { dateFormatter } from '../../../helpers';
 import { ProgressUpdates } from '../../../api-calls';
+import { mediaTypes } from '../../../constants';
 
 const UpdateContent = ({ update }) => {
-  if (update.type === 'document') {
+  if (update.type === mediaTypes.DOCUMENT) {
     return <DocumentUpdate update={update} />;
-  } else if (update.type === 'video' || update.type === 'audio') {
+  } else if (
+    update.type === mediaTypes.VIDEO ||
+    update.type === mediaTypes.AUDIO
+  ) {
     return <VideoUpdate update={update} />;
   }
   return <Spin />;
 };
 
 const ViewUpdate = () => {
+  const { id } = useParams();
+
   const [data, setData] = useState({});
   const [therapistMessage, setTherapistMessage] = useState('');
   const [resError, setResError] = useState(null);
 
   useEffect(() => {
-    // get the data from the back
+    const getData = async () => {
+      const { data, error } = await ProgressUpdates.getProgressUpdatesById({
+        id,
+      });
 
-    setData(dummyData);
-  }, []);
+      if (!error) {
+        setData(data);
+      }
+    };
 
-  const { client = {}, update = {} } = data;
+    getData();
+  }, [id]);
+
+  const {
+    client = {},
+    clientMessage,
+    file = {},
+    type,
+    link,
+    therapistMessageDate,
+    therapistMessage: oldTherapistMessageDate,
+  } = data;
 
   const handleSubmit = () => {
     try {
@@ -57,18 +80,26 @@ const ViewUpdate = () => {
             {client.firstInitial} {client.lastInitial} {client.postcode}
           </T.P>
         </Col>
-        <UpdateContent update={update} />
+
+        <UpdateContent
+          update={{
+            type,
+            clientMessage,
+            link,
+            url: file.url,
+          }}
+        />
       </Row>
-      {update.therapistMessage ? (
+      {oldTherapistMessageDate ? (
         <Row mt="3">
           <Col w={[4, 4, 4]}>
             <T.H4 weight="bold" color="gray10">
               You sent them a response{' '}
-              {update.therapistMessageDate
-                ? ` on ${dateFormatter(update.therapistMessageDate)}`
+              {therapistMessageDate
+                ? ` on ${dateFormatter(therapistMessageDate)}`
                 : 'before'}
             </T.H4>
-            <T.P>{`"${update.therapistMessage}"`}</T.P>
+            <T.P>{`"${oldTherapistMessageDate}"`}</T.P>
           </Col>
         </Row>
       ) : (
@@ -106,29 +137,6 @@ const ViewUpdate = () => {
       )}
     </>
   );
-};
-
-var dummyData = {
-  client: {
-    firstInitial: 'J',
-    lastInitial: 'P',
-    postcode: 'SW',
-  },
-  // update: {
-  //   type: 'document',
-  //   clientMessage:
-  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
-  //   link: 'http://www.africau.edu/images/default/sample.pdf',
-  //   therapistMessage: null,
-  // },
-  update: {
-    type: 'video',
-    clientMessage:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
-    link: 'http://techslides.com/demos/sample-videos/small.mp4',
-    therapistMessage: null,
-    therapistMessageDate: '2021-04-08T10:40:52.467Z',
-  },
 };
 
 export default ViewUpdate;

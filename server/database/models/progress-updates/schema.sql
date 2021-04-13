@@ -6,6 +6,7 @@ CREATE TABLE "progress_updates" (
   "media_id" INTEGER REFERENCES media(id),
   "client_message" TEXT,
   "therapist_message" TEXT,
+  "therapist_message_date" TIMESTAMP,
   "link" TEXT,
   "type" media_types NOT NULL,
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),

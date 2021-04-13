@@ -95,6 +95,7 @@ const findProgressUpdateById = async (progressId) => {
       pu.programme_id,
       pu.client_message,
       pu.therapist_message,
+      pu.therapist_message_date,
       pu.type,
       --
       tc.id AS "therapist_client.id",
