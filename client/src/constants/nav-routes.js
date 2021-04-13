@@ -53,6 +53,7 @@ const THERAPIST = {
   SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
   PROFILE: `${THERAPIST_BASE}/profile`,
   PROGRESS_UPDATE: `${THERAPIST_BASE}/update/:id`,
+  SUCCESS_UPDATE: `${THERAPIST_BASE}/success-update`,
 };
 
 const ADMIN_BASE = '/admin';

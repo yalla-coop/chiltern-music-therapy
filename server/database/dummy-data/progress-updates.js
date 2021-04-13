@@ -47,9 +47,9 @@ const createProgressUpdates = async ({ programmes, media }) => {
     mediaId: media.progress1Video.id,
     clientMessage:
       "Hi Suzan, i've watched the video and it was really helpful, thanks :)",
-    // therapistMessage: 'Happy to hear that, have a good weekend',
+    therapistMessage: 'Happy to hear that, have a good weekend',
     type: 'VIDEO',
-    // therapistMessageDate: 'NOW()',
+    therapistMessageDate: 'NOW()',
   });
 
   return {

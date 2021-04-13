@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { Textarea } from '../../../components/Inputs';
@@ -11,7 +11,7 @@ import VideoUpdate from './VideoUpdate';
 import { Spin } from 'antd';
 import { dateFormatter } from '../../../helpers';
 import { ProgressUpdates } from '../../../api-calls';
-import { mediaTypes } from '../../../constants';
+import { mediaTypes, navRoutes } from '../../../constants';
 
 const UpdateContent = ({ update }) => {
   if (update.type === mediaTypes.DOCUMENT) {
@@ -27,10 +27,13 @@ const UpdateContent = ({ update }) => {
 
 const ViewUpdate = () => {
   const { id } = useParams();
+  const history = useHistory();
 
   const [data, setData] = useState({});
   const [therapistMessage, setTherapistMessage] = useState('');
   const [resError, setResError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [requestError, setRequestError] = useState('');
 
   useEffect(() => {
     const getData = async () => {
@@ -56,15 +59,23 @@ const ViewUpdate = () => {
     therapistMessage: oldTherapistMessageDate,
   } = data;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     try {
-      validate({ therapistMessage });
-      ProgressUpdates.sendUpdate({
+      await validate({ therapistMessage });
+      setLoading(true);
+      const { error } = await ProgressUpdates.updateProgressUpdate({
         therapistMessage,
+        id,
       });
+      setLoading(false);
+      if (!error) {
+        history.push(navRoutes.THERAPIST.SUCCESS_UPDATE);
+      }
     } catch (error) {
       if (error.name === 'ValidationError') {
-        setResError(error.inner.response);
+        setResError(error.inner.therapistMessage);
+      } else {
+        setRequestError(error.message);
       }
     }
   };
@@ -130,6 +141,7 @@ const ViewUpdate = () => {
                 text="Send"
                 variant="primary"
                 handleClick={handleSubmit}
+                loading={loading}
               />
             </Col>
           </Row>

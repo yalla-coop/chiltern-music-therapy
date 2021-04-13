@@ -165,6 +165,13 @@ function App() {
                 Component={Pages.THERAPIST.ViewUpdate}
                 goBack
               />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.SUCCESS_UPDATE}
+                Component={Pages.GENERAL.SuccessUpdate}
+                goBack
+                maxWidth="none"
+              />
 
               {/* Admin Pages */}
               <Route
@@ -289,7 +296,7 @@ function App() {
               <Route
                 exact
                 path={navRoutes.CLIENT.SUCCESS_UPDATE}
-                Component={Pages.CLIENT.SuccessUpdate}
+                Component={Pages.GENERAL.SuccessUpdate}
                 goBack
                 maxWidth="none"
               />

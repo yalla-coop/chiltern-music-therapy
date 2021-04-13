@@ -1,9 +1,9 @@
 import { fields, createSchema, validate as _validate } from '..';
 
-const { optionalText } = fields;
+const { requiredText } = fields;
 
 const therapistMessage = {
-  therapistMessage: optionalText,
+  therapistMessage: requiredText,
 };
 
 const schema = createSchema(therapistMessage);

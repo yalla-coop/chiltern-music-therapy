@@ -36,4 +36,16 @@ const sendUpdate = async ({
   }
 };
 
-export { getProgressUpdatesById, sendUpdate };
+const updateProgressUpdate = async ({ therapistMessage, id, options } = {}) => {
+  try {
+    const { data } = await axios.patch(`${PROGRESS_UPDATES_BASE}/${id}`, {
+      therapistMessage,
+    });
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export { getProgressUpdatesById, sendUpdate, updateProgressUpdate };
