@@ -91,6 +91,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
               content={{
                 ...content,
                 id: content?.id,
+                fileUpload: content?.uploadedFileInfo,
                 download: content?.file?.url,
                 streamable: decideStreamable(content?.type, content?.file?.url),
                 categories: content.categories.filter((cat) => cat !== null),
