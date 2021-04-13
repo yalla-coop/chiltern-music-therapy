@@ -76,6 +76,7 @@ const EditMode = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (!open) return <div ref={contentRef} height={selectedHeight} />;
   const modalParentFunction = (_id) => remove({ id });
 
   const streamable =
