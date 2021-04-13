@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import moment from 'moment';
 import {
   GoBack,
   Typography as T,
@@ -10,11 +10,9 @@ import {
   Cards,
   Modal,
 } from '../../../components';
-
 import validate from '../../../validation/schemas/programme';
-
+import { navRoutes } from '../../../constants';
 import * as S from './style';
-
 import { Programmes, Contents } from '../../../api-calls';
 import {
   decideBorder,
@@ -34,6 +32,8 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
   // form submission
   const [submitAttempt, setSubmitAttempt] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const history = useHistory();
 
   const {
     description,
@@ -167,7 +167,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
 
   const handleEditProgramme = async () => {
     setLoading(true);
-    const { error, data } = await Programmes.editProgramme({
+    const { error } = await Programmes.editProgramme({
       programmeId,
       description,
       programmeContents,
@@ -176,15 +176,20 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
     if (error) {
       setErrors(error.message);
     } else {
-      // navFunctions.goToSuccess();
-      console.log(`success`);
+      navFunctions.goToSuccess();
     }
   };
-  console.log(`errors`, errors);
+
+  const goBack = () => {
+    history.push(
+      navRoutes.THERAPIST.SINGLE_PROGRAMME.replace(':id', programmeId)
+    );
+  };
+
   return (
     <>
       {/* TODO UPDATE GOBACK */}
-      {/* <GoBack customFn={navFunctions.goToAddContent} /> */}
+      <GoBack customFn={goBack} />
       <Row mt={5}>
         <Col w={[4, 12, 12]}>
           <S.HeadlineWrapper>

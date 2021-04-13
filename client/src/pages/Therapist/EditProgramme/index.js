@@ -1,17 +1,14 @@
 import { useState, useEffect } from 'react';
-
 import { Switch, useHistory, useParams, useLocation } from 'react-router-dom';
 
-import { navRoutes } from '../../../constants';
-
-import { AddSingleContent, HowToRecord } from '../../../components/Content';
-
 // parts
+import { AddSingleContent, HowToRecord } from '../../../components/Content';
 import Review from './Review';
 import AddContent from './AddContent';
 import Success from './Success';
 
 import flowTypes from './flowTypes';
+import { navRoutes } from '../../../constants';
 
 import { Contents, Programmes } from '../../../api-calls';
 
@@ -50,7 +47,6 @@ const initialStates = {
 };
 
 const EditProgramme = () => {
-  // EDIT STATES
   const [description, setDescription] = useState('');
   const [programmeContents, setProgrammeContents] = useState([]);
   const [categoryOptions, setCategoryOptions] = useState(
@@ -58,7 +54,6 @@ const EditProgramme = () => {
   );
   const [errors, setErrors] = useState({});
   const [clientDetails, setClientDetails] = useState({});
-  // Single Content
   const [singleContent, setSingleContent] = useState(
     initialStates.singleContent
   );
@@ -66,7 +61,6 @@ const EditProgramme = () => {
 
   const history = useHistory();
   const location = useLocation();
-
   const { id: programmeId } = useParams();
   const { user } = useAuth();
 
@@ -177,7 +171,7 @@ const EditProgramme = () => {
     };
 
     getCategories();
-  }, [programmeContents]);
+  }, [programmeContents.length > 0, errors]);
 
   const handleAddContent = (moreContent) =>
     setProgrammeContents((prevState) => [...prevState, moreContent]);
@@ -277,8 +271,6 @@ const EditProgramme = () => {
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SUCCESS}
         clientDetails={clientDetails}
-        // actions={actions}
-        // state={state}
       />
     </Switch>
   );
