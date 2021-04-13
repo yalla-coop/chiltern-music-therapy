@@ -161,10 +161,7 @@ const EditProgramme = () => {
       setLoading(true);
       const { data, error } = await Contents.getCategories();
       if (!error) {
-        setCategoryOptions([
-          { label: 'All', value: 'ALL' },
-          ...createUniqueCats(data),
-        ]);
+        setCategoryOptions(createUniqueCats(data));
         setLoading(false);
       } else {
         setErrors({

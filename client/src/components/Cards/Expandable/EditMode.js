@@ -20,7 +20,6 @@ const EditMode = ({
   selectedHeight,
   remove,
   handleInput,
-  errors,
   library,
   saveChanges,
   categoryOptions,
@@ -38,6 +37,7 @@ const EditMode = ({
     fileUpload,
     url,
     download,
+    docContent,
   } = content;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -122,6 +122,7 @@ const EditMode = ({
           />
         </a>
       )}
+      {docContent && <Textarea value={docContent} m={{ mb: '5' }} rows={5} />}
 
       <BasicInput
         label="Title"

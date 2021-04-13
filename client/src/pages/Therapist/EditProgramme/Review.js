@@ -98,6 +98,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
                 categories: content.categories.filter((cat) => cat !== null),
                 type: content.type?.toLowerCase(),
                 url: content?.file?.url,
+                docContent: content?.docContent,
                 validationErrs: errors && errors[`content[${idx}]`],
               }}
               remove={handleRemove}
