@@ -148,3 +148,13 @@ export const biography = string().when('useMeanBio', {
 export const optionalCheckbox = boolean()
   .typeError(errMsgs.DEFAULT_REQUIRED)
   .nullable();
+
+export const videoLink = string().when('video', {
+  is: (v) => v.name && v.key && v.url,
+  then: optionalText,
+  otherwise: string()
+    .matches(URLregex, {
+      message: errMsgs.INVALID_LINK,
+    })
+    .required(errMsgs.DEFAULT_REQUIRED),
+});

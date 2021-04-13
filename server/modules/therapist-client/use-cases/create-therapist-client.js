@@ -33,8 +33,8 @@ const createTherapistClient = async ({
       therapyGoals,
       therapistIntro,
       email,
-      firstName,
-      lastName,
+      firstName: firstName[0],
+      lastName: lastName[0],
       postcode,
       token,
     });
@@ -43,8 +43,8 @@ const createTherapistClient = async ({
     const user = await User.createUser(
       {
         email,
-        firstName,
-        lastName,
+        firstName: firstName[0],
+        lastName: lastName[0],
         mobileNumber,
         contactNumber,
         roles: [userRoles.CLIENT],

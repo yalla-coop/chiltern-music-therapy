@@ -46,6 +46,7 @@ export const Title = styled.div`
 
   div {
     font-size: 1.125rem !important;
+    z-index: 2;
 
     ${({ theme }) => `
     ${theme.media.mobile} {

@@ -6,12 +6,12 @@ const { Title, Paragraph } = Typography;
 
 const weights = {
   bold: '700 !important',
+  regular: '400 !impotant',
   light: '300 !important',
 };
 
 const commonStyle = ({ theme, color, caps, ta, ...props }) => `
   font-style: normal !important;
-  font-weight: 900 !important;
   letter-spacing: 0.2px !important;
   color: ${theme.colors[color] || color || theme.colors.black} !important;
   text-transform: ${caps ? 'uppercase' : 'initial'} !important;

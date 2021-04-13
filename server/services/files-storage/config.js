@@ -36,6 +36,10 @@ const allowedFileTypesAndSizes = {
     // 100 MB
     maxSize: '100',
   },
+  image: {
+    types: ['image/png', 'image/jpg', 'image/jpeg'],
+    maxSize: '30',
+  },
 };
 
 export { S3, bucket, bucketRegion as region, allowedFileTypesAndSizes };
