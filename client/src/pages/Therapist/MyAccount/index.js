@@ -178,7 +178,7 @@ const MyAccount = () => {
   // get image url once upload is done
   useEffect(() => {
     if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
-      return getMediaUrl(uploadedFileInfo);
+      getMediaUrl(uploadedFileInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [uploadedFileInfo?.key, uploadedFileInfo?.uploadedToS3]);
