@@ -46,4 +46,38 @@ const editProgramme = async (formData, { options } = {}) => {
   }
 };
 
-export { getProgrammeById, getProgrammes, createProgramme, editProgramme };
+const sendFeedback = async ({
+  clearInstructions,
+  problems,
+  clearDemos,
+  noDemos,
+  enjoyableResources,
+  likeMostAndLeast,
+  programmeId,
+  options,
+} = {}) => {
+  try {
+    // const { data } = await axios.post(`${PROGRESS_UPDATES_BASE}`, {
+    //   clearInstructions,
+    //   problems,
+    //   clearDemos,
+    //   noDemos,
+    //   enjoyableResources,
+    //   likeMostAndLeast,
+    //   programmeId,
+    // });
+    // return { data };
+    return true;
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export {
+  getProgrammeById,
+  getProgrammes,
+  createProgramme,
+  editProgramme,
+  sendFeedback,
+};

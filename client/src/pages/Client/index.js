@@ -8,6 +8,7 @@ import IndividProgramme from './IndividProgramme';
 import DeleteAccount, { AccountDeleted } from './DeleteAccount';
 import MyAccount from './MyAccount';
 import Update from './Update';
+import Feedback from './Feedback';
 
 export default {
   Dashboard,
@@ -21,4 +22,5 @@ export default {
   AccountDeleted,
   MyAccount,
   Update,
+  Feedback,
 };

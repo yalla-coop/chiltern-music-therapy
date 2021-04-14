@@ -305,6 +305,21 @@ function App() {
                 maxWidth="none"
               />
 
+              <Route
+                exact
+                path={navRoutes.CLIENT.SUCCESS_FEEDBACK}
+                Component={Pages.GENERAL.SuccessFeedback}
+                goBack
+                maxWidth="none"
+              />
+
+              <Route
+                exact
+                path={navRoutes.CLIENT.SEND_FEEDBACK}
+                Component={Pages.CLIENT.Feedback}
+                maxWidth="none"
+              />
+
               {/* therapist sub routes */}
 
               <Route

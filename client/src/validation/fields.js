@@ -158,3 +158,13 @@ export const videoLink = string().when('video', {
     })
     .required(errMsgs.DEFAULT_REQUIRED),
 });
+
+export const numberField = number()
+  .typeError(errMsgs.DEFAULT_REQUIRED)
+  .required(errMsgs.DEFAULT_REQUIRED);
+
+export const optionalRate = number().when('noDemos', {
+  is: true,
+  then: number().nullable(),
+  otherwise: numberField,
+});
