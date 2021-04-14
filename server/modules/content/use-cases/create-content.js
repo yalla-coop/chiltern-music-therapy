@@ -1,7 +1,6 @@
 import { getClient } from '../../../database/connect';
 import * as Content from '../model';
 import * as Media from '../../media/model';
-import * as Programme from '../../programme/model';
 
 import { matchMediaTypes } from '../../programme/utils';
 

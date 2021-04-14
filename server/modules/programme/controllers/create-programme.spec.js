@@ -10,12 +10,6 @@ describe.only('Test create programme api', () => {
     builtData = await build();
   });
 
-  // add library content
-  // update some categories (delete existing ones, add new ones)
-  // add new content with media
-  // add new content without media
-  // add some categories (existing and new ones)
-
   it('test with valid request', (done) => {
     // console.log(`builtData`, builtData);
     const { users, contents, contentCategories } = builtData;
@@ -48,10 +42,9 @@ describe.only('Test create programme api', () => {
         },
         // NEW DOC WITH UPLOADED FILE (MEDIA) AND ADDED CATS
         {
-          id: 'c0d97aef-ebf8-44d6-87ef-79d81a9b7984',
           type: 'document',
           title: 'Test doc with media content',
-          categories: [contentCategories.category1.id, 'new category 1'],
+          categories: [contentCategories.category1.id, 'new category 2'],
           libraryContent: false,
           instructions: 'this is a test message',
           uploadedFileInfo: {
@@ -72,7 +65,6 @@ describe.only('Test create programme api', () => {
         },
         // NEW VIDEO WITH LINK AND NO CATEGORIES
         {
-          id: '3c58e66e-bc9b-4884-bb53-751abbb8fb4f',
           type: 'video',
           title: 'Test video with link',
           categories: [],
@@ -85,14 +77,106 @@ describe.only('Test create programme api', () => {
       ],
     };
 
+    const libraryContent = newProgrammeRequest.content[0];
+    const newDocMedia = newProgrammeRequest.content[1];
+    const newVideoNoMedia = newProgrammeRequest.content[2];
+
     request(app)
       .post('/api/programmes/create')
       .set('Cookie', [token])
       .send(newProgrammeRequest)
       .expect('Content-Type', /json/)
       .expect(200)
-      .end((err, res) => {
-        console.log(`res`, res);
+      .end(async (err, res) => {
+        // check if programme was created
+
+        const newProgramme = await query(
+          `
+          SELECT * FROM programmes WHERE description = '${newProgrammeRequest.description}'
+          `,
+        );
+
+        expect(typeof newProgramme.rows[0].id).to.equal('number');
+
+        // check if new contents got created
+        const foundDoc = await query(
+          `
+          SELECT * FROM contents WHERE title = '${newDocMedia.title}'
+          `,
+        );
+
+        expect(typeof foundDoc.rows[0].id).to.equal('number');
+        expect(typeof foundDoc.rows[0].mediaId).to.equal('number');
+
+        // check if media got created
+        const foundMedia = await query(
+          `SELECT * FROM media WHERE id = ${foundDoc.rows[0].mediaId}`,
+        );
+
+        expect(typeof foundMedia.rows[0].id).to.equal('number');
+        expect(foundMedia.rows[0].fileName).to.equal(
+          newDocMedia.uploadedFileInfo.name,
+        );
+
+        // check if exisitng content got updated
+        const foundLibrary = await query(
+          `SELECT * FROM contents WHERE id = ${libraryContent.id}`,
+        );
+        expect(foundLibrary.rows[0].instructions).to.equal(
+          libraryContent.instructions,
+        );
+        const foundVideo = await query(
+          `SELECT * FROM contents WHERE title = '${newVideoNoMedia.title}'`,
+        );
+
+        expect(typeof foundVideo.rows[0].id).to.equal('number');
+
+        // check if programmes_contents got created
+        const foundProgrammesContents = await query(
+          `SELECT * FROM programmes_contents WHERE programme_id = ${newProgramme.rows[0].id}`,
+        );
+
+        expect(
+          JSON.stringify(
+            foundProgrammesContents.rows.map((el) => el.contentId),
+          ),
+        ).to.equal(
+          JSON.stringify([
+            foundLibrary.rows[0].id,
+            foundVideo.rows[0].id,
+            foundDoc.rows[0].id,
+          ]),
+        );
+        // check if contents_categories got updated (new ones added non-used ones removed)
+        const foundContentCategories = await query(
+          `SELECT * FROM content_categories WHERE text = '${libraryContent.categories[2]}' OR text = '${newDocMedia.categories[1]}'`,
+        );
+        expect(
+          JSON.stringify(foundContentCategories.rows.map((el) => el.text)),
+        ).to.equal(
+          JSON.stringify([
+            libraryContent.categories[2],
+            newDocMedia.categories[1],
+          ]),
+        );
+
+        // check if conents_content_categories got created / updated
+        const categoriesLibraryContent = await query(
+          `SELECT * FROM contents_content_categories WHERE content_id = ${libraryContent.id}`,
+        );
+        expect(categoriesLibraryContent.rows.length).to.equal(
+          libraryContent.categories.length,
+        );
+
+        // check if new content categories got created
+        const categoriesDocContent = await query(
+          `SELECT * FROM contents_content_categories WHERE content_id = ${foundDoc.rows[0].id}`,
+        );
+
+        expect(categoriesDocContent.rows.length).to.equal(
+          newDocMedia.categories.length,
+        );
+
         done(err);
       });
   });
