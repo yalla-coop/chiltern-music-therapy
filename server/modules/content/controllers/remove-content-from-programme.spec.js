@@ -10,7 +10,7 @@ describe('Test update programme api', () => {
     builtData = await build();
   });
 
-  it('test with valid request -> remove content that is library content', (done) => {
+  it('test with valid request -> remove content that is library content', () => {
     const { users, contents, programmes } = builtData;
     const userId = users.therapist1.id;
 
@@ -39,12 +39,11 @@ describe('Test update programme api', () => {
             .map((el) => el.contentId)
             .includes(contentId),
         ).to.equal(false);
-
-        done();
+        return err;
       });
   });
 
-  it('test with valid request -> content that is not used anywhere else', (done) => {
+  it('test with valid request -> content that is not used anywhere else', () => {
     const { users, contents, programmes } = builtData;
 
     const userId = users.therapist1.id;
@@ -93,7 +92,7 @@ describe('Test update programme api', () => {
 
         expect(foundMedia.rowCount).to.equal(0);
 
-        done();
+        return err;
       });
   });
 });

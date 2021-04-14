@@ -10,7 +10,7 @@ describe('Test create programme api', () => {
     builtData = await build();
   });
 
-  it('test with valid request', (done) => {
+  it('test with valid request', () => {
     const { users, contents, contentCategories } = builtData;
 
     const userId = users.therapist1.id;
@@ -135,29 +135,32 @@ describe('Test create programme api', () => {
           `SELECT * FROM programmes_contents WHERE programme_id = ${newProgramme.rows[0].id}`,
         );
 
-        expect(
-          JSON.stringify(
-            foundProgrammesContents.rows.map((el) => el.contentId),
-          ),
-        ).to.equal(
-          JSON.stringify([
-            foundLibrary.rows[0].id,
-            foundDoc.rows[0].id,
-            foundVideo.rows[0].id,
-          ]),
+        const foundProgrammesContentsIds = foundProgrammesContents.rows.map(
+          (el) => el.contentId,
         );
+
+        expect(
+          foundProgrammesContentsIds.includes(foundLibrary.rows[0].id),
+        ).to.equal(true);
+        expect(
+          foundProgrammesContentsIds.includes(foundDoc.rows[0].id),
+        ).to.equal(true);
+        expect(
+          foundProgrammesContentsIds.includes(foundVideo.rows[0].id),
+        ).to.equal(true);
         // check if contents_categories got updated (new ones added non-used ones removed)
         const foundContentCategories = await query(
           `SELECT * FROM content_categories WHERE text = '${libraryContent.categories[2]}' OR text = '${newDocMedia.categories[1]}'`,
         );
-        expect(
-          JSON.stringify(foundContentCategories.rows.map((el) => el.text)),
-        ).to.equal(
-          JSON.stringify([
-            newDocMedia.categories[1],
-            libraryContent.categories[2],
-          ]),
+        const foundContentCategoriesTexts = foundContentCategories.rows.map(
+          (el) => el.text,
         );
+        expect(
+          foundContentCategoriesTexts.includes(newDocMedia.categories[1]),
+        ).to.equal(true);
+        expect(
+          foundContentCategoriesTexts.includes(libraryContent.categories[2]),
+        ).to.equal(true);
 
         // check if conents_content_categories got created / updated
         const categoriesLibraryContent = await query(
@@ -175,8 +178,7 @@ describe('Test create programme api', () => {
         expect(categoriesDocContent.rows.length).to.equal(
           newDocMedia.categories.length,
         );
-
-        done(err);
+        return err;
       });
   });
 });

@@ -10,7 +10,7 @@ describe('Test update programme api', () => {
     builtData = await build();
   });
 
-  it('test with valid request', (done) => {
+  it('test with valid request', () => {
     const { users, contents, contentCategories, programmes } = builtData;
 
     const userId = users.therapist1.id;
@@ -152,8 +152,7 @@ describe('Test update programme api', () => {
         expect(categoriesDocContent.rows.length).to.equal(
           newDocMedia.categories.length,
         );
-
-        done(err);
+        return err;
       });
   });
 });
