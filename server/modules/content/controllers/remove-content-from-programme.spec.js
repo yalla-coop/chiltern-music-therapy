@@ -12,7 +12,6 @@ describe('Test update programme api', () => {
 
   it('test with valid request -> remove content that is library content', (done) => {
     const { users, contents, programmes } = builtData;
-
     const userId = users.therapist1.id;
 
     const token = createTestToken({ id: userId }, true);
