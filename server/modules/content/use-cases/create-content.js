@@ -2,7 +2,7 @@ import { getClient } from '../../../database/connect';
 import * as Content from '../model';
 import * as Media from '../../media/model';
 
-import { matchMediaTypes } from '../../programme/utils';
+import { matchMediaTypes } from '../../../helpers';
 
 const createContent = async ({ userId, contentData }) => {
   const client = await getClient();
