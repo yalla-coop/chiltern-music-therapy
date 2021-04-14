@@ -175,7 +175,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
       navRoutes.THERAPIST.SINGLE_PROGRAMME.replace(':id', programmeId)
     );
   };
-  console.log(`errors`, errors);
+
   return (
     <>
       {/* TODO UPDATE GOBACK */}
