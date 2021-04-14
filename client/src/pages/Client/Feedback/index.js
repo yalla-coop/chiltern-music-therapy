@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CLIENT } from '../../../constants/nav-routes';
-import { sendFeedback } from '../../../api-calls/progress-updates';
+import { sendFeedback } from '../../../api-calls/programmes';
 
 import Q1 from './Q1';
 import Q2 from './Q2';
