@@ -98,10 +98,10 @@ const Profile = () => {
   // get image url once upload is done
   useEffect(() => {
     if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
-      return getMediaUrl(uploadedFileInfo);
+      getMediaUrl(uploadedFileInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploadedFileInfo]);
+  }, [uploadedFileInfo?.key, uploadedFileInfo?.uploadedToS3]);
 
   return (
     <div style={{ maxWidth: 1065 }}>
