@@ -5,13 +5,12 @@ import { createTestToken } from '../../../helpers';
 import app from '../../../app';
 
 let builtData;
-describe.only('Test create programme api', () => {
+describe('Test create programme api', () => {
   before(async () => {
     builtData = await build();
   });
 
   it('test with valid request', (done) => {
-    // console.log(`builtData`, builtData);
     const { users, contents, contentCategories } = builtData;
 
     const userId = users.therapist1.id;
@@ -87,7 +86,7 @@ describe.only('Test create programme api', () => {
       .send(newProgrammeRequest)
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(async (err, res) => {
+      .end(async (err) => {
         // check if programme was created
 
         const newProgramme = await query(
