@@ -9,6 +9,8 @@ import getTherapists from './get-therapists';
 import updateAccount from './update-account';
 import getAccountInfo from './get-account-info';
 import checkUserExists from './check-user-exists';
+import createTherapistProfile from './create-therapist-profile';
+import checkTherapistProfile from './check-therapist-profile';
 
 export {
   getUserById,
@@ -22,4 +24,6 @@ export {
   updateAccount,
   getAccountInfo,
   checkUserExists,
+  createTherapistProfile,
+  checkTherapistProfile,
 };

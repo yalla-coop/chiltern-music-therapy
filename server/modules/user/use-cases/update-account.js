@@ -18,6 +18,7 @@ const updateAccount = async ({ accountData, id, role }) => {
   if (user && user.id !== id) {
     throw Boom.conflict(errorMsgs.EMAIL_ALREADY_EXISTS, { field: 'email' });
   }
+
   let profileImageMedia;
 
   switch (role) {

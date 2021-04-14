@@ -157,6 +157,8 @@ function App() {
                 Component={Pages.THERAPIST.MyAccount}
                 goBack
                 maxWidth="none"
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
@@ -164,6 +166,8 @@ function App() {
                 path={navRoutes.THERAPIST.PROGRESS_UPDATE}
                 Component={Pages.THERAPIST.ViewUpdate}
                 goBack
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
               <Route
                 exact
@@ -309,6 +313,13 @@ function App() {
                 layout="general"
                 allowedRoles={[roles.THERAPIST]}
                 isPrivate
+              />
+
+              <Route
+                path={navRoutes.THERAPIST.EDIT_PROGRAMME}
+                Component={Pages.THERAPIST.EditProgramme}
+                layout="general"
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route

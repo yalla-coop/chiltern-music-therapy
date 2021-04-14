@@ -192,13 +192,17 @@ const findProgrammeById = async ({ id }) => {
     pf.created_at "feedback.created_at",
     tc.therapist_user_id,
     tc.client_user_id,
-    u.first_name "therapist.first_name",
-    u.last_name "therapist.last_name"
+    u1.first_name "therapist.first_name",
+    u1.last_name "therapist.last_name",
+    u2.first_name "client.first_name",
+    u2.last_name "client.last_name",
+    u2.postcode "client.postcode"
     FROM programmes p
     LEFT JOIN progress_updates pu ON pu.programme_id = p.id
     LEFT JOIN programmes_feedbacks pf ON pf.programme_id = p.id
     LEFT JOIN therapist_clients tc ON tc.id = p.therapists_clients_id
-    LEFT JOIN users u ON tc.therapist_user_id = u.id
+    LEFT JOIN users u1 ON tc.therapist_user_id = u1.id
+    LEFT JOIN users u2 ON tc.client_user_id = u2.id
     WHERE p.id = $1
   `;
 

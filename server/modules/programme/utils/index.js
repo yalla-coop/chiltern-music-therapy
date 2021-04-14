@@ -1,3 +1,3 @@
-import validateCreateProgramme from './validate-create-programme';
+import validateCreateEditProgramme from './validate-create-edit-programme';
 
-export { validateCreateProgramme };
+export { validateCreateEditProgramme };
