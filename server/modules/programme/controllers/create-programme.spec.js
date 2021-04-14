@@ -142,8 +142,8 @@ describe('Test create programme api', () => {
         ).to.equal(
           JSON.stringify([
             foundLibrary.rows[0].id,
-            foundVideo.rows[0].id,
             foundDoc.rows[0].id,
+            foundVideo.rows[0].id,
           ]),
         );
         // check if contents_categories got updated (new ones added non-used ones removed)
@@ -154,8 +154,8 @@ describe('Test create programme api', () => {
           JSON.stringify(foundContentCategories.rows.map((el) => el.text)),
         ).to.equal(
           JSON.stringify([
-            libraryContent.categories[2],
             newDocMedia.categories[1],
+            libraryContent.categories[2],
           ]),
         );
 

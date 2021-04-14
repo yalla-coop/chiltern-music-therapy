@@ -14,6 +14,7 @@ const removeContentFromProgramme = async (req, res, next) => {
     });
     res.json(updatedContent);
   } catch (error) {
+    console.log(`error`, error);
     next(error);
   }
 };

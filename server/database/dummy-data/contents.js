@@ -47,7 +47,7 @@ const createContents = async ({ media, therapistClients }) => {
     title: 'Video title',
     instructions: `Hi! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.`,
     link: null,
-    libraryContent: true,
+    libraryContent: false,
     therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
     type: 'VIDEO',
   });

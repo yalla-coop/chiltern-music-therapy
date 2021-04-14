@@ -17,7 +17,7 @@ const removeContentFromLibrary = async ({ id, userId, role }) => {
 
   // if no programmes then remove completely
   if (!programmes || programmes.length === 0) {
-    await deleteContent({ id, userId, role });
+    await deleteContent({ id, userId, role, mode: 'library' });
     return;
   }
   await Content.removeContentFromLibrary(id);
