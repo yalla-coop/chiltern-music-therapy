@@ -36,7 +36,7 @@ const AllProgrammes = () => {
       <Row>
         {programmesToView ? (
           programmes.map(({ id, createdAt }) => (
-            <Col w={[4, 12, 4]}>
+            <Col w={[4, 12, 4]} mb={5}>
               <Link
                 variant="programme"
                 to={navRoutes.CLIENT.INDIVID_PROGRAMME.replace(':id', id)}
