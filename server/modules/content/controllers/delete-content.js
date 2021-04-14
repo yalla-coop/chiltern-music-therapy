@@ -8,6 +8,7 @@ const deleteContent = async (req, res, next) => {
       id,
       role: user.roles[0],
       userId: user.id,
+      mode: 'library',
     });
     res.json(updatedContent);
   } catch (error) {

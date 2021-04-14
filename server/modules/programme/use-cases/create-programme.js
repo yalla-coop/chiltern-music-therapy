@@ -44,55 +44,59 @@ const createProgramme = async ({ userId, body }) => {
     );
 
     // store content
-    await content.forEach(async (contentData) => {
-      const {
-        libraryContent,
-        title,
-        instructions,
-        categories,
-        therapistUserId,
-        id: contentId,
-      } = contentData;
+    await Promise.all(
+      content.map(async (contentData) => {
+        const {
+          libraryContent,
+          title,
+          instructions,
+          categories,
+          therapistUserId,
+          id: contentId,
+        } = contentData;
 
-      let _content;
+        let _content;
 
-      if (therapistUserId) {
-        _content = await Content.updateContentById(
+        if (therapistUserId) {
+          _content = await Content.updateContentById(
+            {
+              contentId,
+              title,
+              instructions,
+              libraryContent,
+            },
+            client,
+          );
+        } // for new content -> add to db
+        else {
+          _content = await createProgrammeContent({
+            programmeId: programme.id,
+            userId,
+            contentData,
+          });
+        }
+
+        // create programmes_contents
+        await Programme.createProgrammesContent(
           {
-            contentId,
-            title,
-            instructions,
-            libraryContent,
+            programmeId: programme.id,
+            contentId: _content.id,
           },
           client,
         );
-      } // for new content -> add to db
-      else {
-        _content = await createProgrammeContent({
-          programmeId: programme.id,
-          userId,
-          contentData,
-        });
-      }
 
-      // create programmes_contents
-      await Programme.createProgrammesContent(
-        {
-          programmeId: programme.id,
-          contentId: _content.id,
-        },
-        client,
-      );
-
-      // update categories
-      await manageCCC({ userId, contentId: _content.id, categories });
-    });
+        // update categories
+        await manageCCC({ userId, contentId: _content.id, categories });
+      }),
+    );
 
     await client.query('COMMIT');
 
     events.emit(events.types.PROGRAMME.CREATED, {
       programmeId: programme.id,
     });
+
+    return 'success';
   } catch (err) {
     await client.query('ROLLBACK');
     throw err;

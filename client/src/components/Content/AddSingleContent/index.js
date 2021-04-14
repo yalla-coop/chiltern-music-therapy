@@ -214,9 +214,7 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
             label="Title"
             color="gray8"
             value={title}
-            handleChange={(value) =>
-              handleAddSingleContent('title', value.trim())
-            }
+            handleChange={(value) => handleAddSingleContent('title', value)}
             error={validationErrs.title}
           />
         </Col>

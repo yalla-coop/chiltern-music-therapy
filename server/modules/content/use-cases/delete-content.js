@@ -8,7 +8,7 @@ import { getClient } from '../../../database/connect';
 
 import getLibraryContent from './get-library-content';
 
-const deleteContent = async ({ id, role, userId }) => {
+const deleteContent = async ({ id, role, userId, mode }) => {
   const client = await getClient();
 
   try {
@@ -36,9 +36,14 @@ const deleteContent = async ({ id, role, userId }) => {
 
     await client.query('COMMIT');
 
-    // get updated library content
-    const updatedContent = await getLibraryContent({ id: userId, role });
-    return updatedContent;
+    // for library deletions page depends on updated content object
+    // for remove from programme not
+    if (mode === 'library') {
+      const updatedContent = await getLibraryContent({ id: userId, role });
+      return updatedContent;
+    }
+
+    return 'success';
   } catch (error) {
     await client.query('ROLLBACK');
     throw error;

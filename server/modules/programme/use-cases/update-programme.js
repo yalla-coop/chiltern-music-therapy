@@ -42,32 +42,52 @@ const updateProgramme = async ({ userId, body }) => {
     }
 
     // manage contents
-    await programmeContents.forEach(async (contentData) => {
-      const {
-        libraryContent,
-        title,
-        instructions,
-        categories,
-        therapistUserId,
-        existingContent = false,
-        id: contentId,
-      } = contentData;
+    await Promise.all(
+      programmeContents.map(async (contentData) => {
+        const {
+          libraryContent,
+          title,
+          instructions,
+          categories,
+          therapistUserId,
+          existingContent = false,
+          id: contentId,
+        } = contentData;
 
-      let _content;
+        let _content;
 
-      // check if content already exists and if part of programme and only update
-      if (existingContent || therapistUserId) {
-        _content = await Content.updateContentById(
-          {
-            contentId,
-            title,
-            instructions,
-            libraryContent,
-          },
-          client,
-        );
-        // if content is part of library but not of programme -> add
-        if (!existingContent) {
+        // check if content already exists and if part of programme and only update
+        if (existingContent || therapistUserId) {
+          _content = await Content.updateContentById(
+            {
+              contentId,
+              title,
+              instructions,
+              libraryContent,
+            },
+            client,
+          );
+          // if content is part of library but not of programme -> add
+          if (!existingContent) {
+            // create programmes_contents
+            await Programme.createProgrammesContent(
+              {
+                programmeId,
+                contentId: _content.id,
+              },
+              client,
+            );
+          }
+        }
+        // for new content -> add to db and to programme
+        else {
+          // create media content if present
+          _content = await createProgrammeContent({
+            programmeId,
+            userId,
+            contentData,
+          });
+
           // create programmes_contents
           await Programme.createProgrammesContent(
             {
@@ -77,35 +97,19 @@ const updateProgramme = async ({ userId, body }) => {
             client,
           );
         }
-      }
-      // for new content -> add to db and to programme
-      else {
-        // create media content if present
-        _content = await createProgrammeContent({
-          programmeId,
-          userId,
-          contentData,
-        });
-
-        // create programmes_contents
-        await Programme.createProgrammesContent(
-          {
-            programmeId,
-            contentId: _content.id,
-          },
-          client,
-        );
-      }
-      // FOR ALL
-      // update categories
-      await manageCCC({ userId, contentId: _content.id, categories });
-    });
+        // FOR ALL
+        // update categories
+        await manageCCC({ userId, contentId: _content.id, categories });
+      }),
+    );
 
     await client.query('COMMIT');
 
     events.emit(events.types.PROGRAMME.UPDATED, {
       programmeId,
     });
+
+    return 'success';
   } catch (err) {
     await client.query('ROLLBACK');
     throw err;

@@ -69,6 +69,7 @@ const removeContentFromProgramme = async ({
     }
 
     await client.query('COMMIT');
+    return 'success';
   } catch (error) {
     await client.query('ROLLBACK');
     throw error;

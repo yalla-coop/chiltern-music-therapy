@@ -8,6 +8,7 @@ const createProgramme = async (req, res, next) => {
       userId: user.id,
       body,
     });
+
     res.json(programme);
   } catch (error) {
     next(error);

@@ -5,13 +5,24 @@ import createProgramme from './create-programme';
 import updateProgramme from './update-programme';
 import getProgrammes from './get-programmes';
 
-import { authenticate } from '../../../api/middlewares';
+import { authenticate, authorize } from '../../../api/middlewares';
+import { userRoles } from '../../../constants/data-type';
 
 const router = Router();
 
 router.get('/:id', authenticate(), getProgrammeById);
-router.post('/create', authenticate(), createProgramme);
-router.patch('/update', authenticate(), updateProgramme);
+router.post(
+  '/create',
+  authenticate(),
+  authorize([userRoles.THERAPIST]),
+  createProgramme,
+);
+router.patch(
+  '/update',
+  authenticate(),
+  authorize([userRoles.THERAPIST]),
+  updateProgramme,
+);
 router.get('/', authenticate(), getProgrammes);
 
 export default router;
