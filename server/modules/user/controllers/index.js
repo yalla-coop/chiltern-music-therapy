@@ -13,6 +13,7 @@ import getTherapists from './get-therapists';
 import updateAccount from './update-account';
 import getAccountInfo from './get-account-info';
 import checkUserExists from './check-user-exists';
+import createTherapistProfile from './create-therapist-profile';
 
 import { userRoles } from '../../../constants/data-type';
 
@@ -33,6 +34,7 @@ router.post('/login', login);
 router.post('/logout', logout);
 router.post('/reset-password-link', resetPasswordLink);
 router.post('/update-password', updatePassword);
+router.post('/profile', authenticate(), createTherapistProfile);
 router.patch('/account', authenticate(), updateAccount);
 router.delete('/', authenticate(), deleteUser);
 

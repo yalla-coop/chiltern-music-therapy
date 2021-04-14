@@ -109,6 +109,21 @@ const findTherapistAccountInfo = async (id, client) => {
   return res.rows[0];
 };
 
+const findTherapistProfile = async (id, client) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      u.bio,
+      u.contact_email
+    FROM users u
+    WHERE u.id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
 export {
   findUserById,
   findUserByEmail,
@@ -116,4 +131,5 @@ export {
   findUserByResetToken,
   findTherapistAccountInfo,
   findUserByMainPhone,
+  findTherapistProfile,
 };

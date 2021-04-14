@@ -159,15 +159,15 @@ const updateTherapistAccount = async (
   // NEED TO SORT PROFILE IMAGE
 
   const sql = `
-    UPDATE users
+    UPDATE users u
     SET
-      email = $1,
-      first_name = $2,
-      last_name= $3,
-      bio = $4,
-      contact_number = $5,
-      contact_email = $6,
-      profile_photo_media_id  = $7
+      email = COALESCE($1, u.email),
+      first_name = COALESCE($2, u.first_name),
+      last_name= COALESCE($3, u.last_name),
+      bio = COALESCE($4, u.bio),
+      contact_number = COALESCE($5, u.contact_number),
+      contact_email = COALESCE($6, u.contact_email),
+      profile_photo_media_id  = COALESCE($7, u.profile_photo_media_id)
     WHERE
       id = $8
     RETURNING
