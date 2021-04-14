@@ -57,17 +57,18 @@ const sendFeedback = async ({
   options,
 } = {}) => {
   try {
-    // const { data } = await axios.post(`${PROGRESS_UPDATES_BASE}`, {
-    //   clearInstructions,
-    //   problems,
-    //   clearDemos,
-    //   noDemos,
-    //   enjoyableResources,
-    //   likeMostAndLeast,
-    //   programmeId,
-    // });
-    // return { data };
-    return true;
+    const { data } = await axios.post(
+      `${PROGRAMMES_BASE}/${programmeId}/feedback`,
+      {
+        clearInstructions,
+        problems,
+        clearDemos,
+        noDemos,
+        enjoyableResources,
+        likeMostAndLeast,
+      }
+    );
+    return { data };
   } catch (error) {
     const err = handleError(error, options);
     return { error: err };

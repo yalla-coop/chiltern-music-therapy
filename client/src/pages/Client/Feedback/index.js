@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { CLIENT } from '../../../constants/nav-routes';
-import { sendFeedback } from '../../../api-calls/programmes';
+import { Programmes } from '../../../api-calls';
 
 import Q1 from './Q1';
 import Q2 from './Q2';
@@ -37,7 +37,7 @@ const Feedback = () => {
   };
 
   const handleFinalStep = async (stepData) => {
-    const { error, data } = await sendFeedback({
+    const { error } = await Programmes.sendFeedback({
       ...state,
       ...stepData,
       programmeId: id,
