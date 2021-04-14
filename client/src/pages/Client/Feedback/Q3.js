@@ -35,7 +35,12 @@ const Q3 = ({ handleStep }) => {
           </T.P>
         </Col>
         <Col w={[4, 12, 12]}>
-          <Rate value={rate} handleChange={setRate} error={errors.rate} />
+          <Rate
+            value={rate}
+            handleChange={setRate}
+            error={errors.rate}
+            allowClear={false}
+          />
         </Col>
       </Row>
       <Row mt="6">
