@@ -6,6 +6,7 @@ import AddVideo from './SendVideo';
 import SendMessage from './SendMessage';
 import SendAudio from './SendAudio';
 import { useParams } from 'react-router';
+import ExpandableProvider from '../../../context/expandable';
 import Title from '../../../components/Title';
 import * as T from '../../../components/Typography';
 
@@ -18,9 +19,8 @@ const Update = () => {
     <SendMessage programmeId={id} />,
     <SendAudio programmeId={id} />,
   ];
-
   return (
-    <>
+    <ExpandableProvider itemsNumbers={types.length}>
       <Title lightSection="Send" boldSection="Update" />
       <Row>
         <Col w={[4, 12, 12]}>
@@ -36,13 +36,14 @@ const Update = () => {
               borderColor={decideBorder(type.toUpperCase())}
               send
               content={{ type }}
+              index={index + 1}
             >
               {formContent[index]}
             </Expandable>
           </Col>
         ))}
       </Row>
-    </>
+    </ExpandableProvider>
   );
 };
 

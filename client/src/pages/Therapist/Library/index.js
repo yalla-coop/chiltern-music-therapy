@@ -20,6 +20,7 @@ import { Contents, Users } from '../../../api-calls';
 import * as T from '../../../components/Typography';
 
 import validate from '../../../validation/schemas/editContent';
+import ExpandableProvider from '../../../context/expandable';
 import * as S from './style';
 
 const typeOptions = [
@@ -266,52 +267,57 @@ const Library = () => {
           </Col>
         </Row>
       ) : (
-        <Row mb="4">
-          {contentToView ? (
-            filteredContents.slice(0, viewNum).map((content, index) => {
-              const contentToUse =
-                content.id === contentToEdit ? editFormState : content;
-              return (
-                <Col w={[4, 6, 4]} mb="4" key={index}>
-                  <Expandable
-                    borderColor={decideBorder(content.type)}
-                    content={{
-                      ...contentToUse,
-                      download: content.file.url,
-                      streamable: decideStreamable(
-                        content.type,
-                        content.file.url
-                      ),
-                      categories: contentToUse.categories.filter(
-                        (cat) => cat.value !== null
-                      ),
-                      type: content.type?.toLowerCase(),
-                      url: content.file.url,
-                      docContent: content.docContent,
-                      validationErrs: editingErrors?.validationErrs,
-                    }}
-                    remove={() => removeContent(content.id)}
-                    edit={() => editContent(content)}
-                    onCancel={cancelChanges}
-                    withDate
-                    actions
-                    editing={contentToEdit === content.id}
-                    saveChanges={saveEdit}
-                    library
-                    handleInput={handleInput}
-                    categoryOptions={categoryOptions.filter(
-                      (opt) => opt.value !== 'ALL'
-                    )}
-                  />
-                </Col>
-              );
-            })
-          ) : (
-            <Col w={[4, 6, 4]}>
-              <Basic>No content to show</Basic>
-            </Col>
-          )}
-        </Row>
+        <ExpandableProvider
+          itemsNumbers={filteredContents.slice(0, viewNum).length}
+        >
+          <Row mb="4">
+            {contentToView ? (
+              filteredContents.slice(0, viewNum).map((content, index) => {
+                const contentToUse =
+                  content.id === contentToEdit ? editFormState : content;
+                return (
+                  <Col w={[4, 6, 4]} mb="4" key={index}>
+                    <Expandable
+                      index={index + 1}
+                      borderColor={decideBorder(content.type)}
+                      content={{
+                        ...contentToUse,
+                        download: content.file.url,
+                        streamable: decideStreamable(
+                          content.type,
+                          content.file.url
+                        ),
+                        categories: contentToUse.categories.filter(
+                          (cat) => cat.value !== null
+                        ),
+                        type: content.type?.toLowerCase(),
+                        url: content.file.url,
+                        docContent: content.docContent,
+                        validationErrs: editingErrors?.validationErrs,
+                      }}
+                      remove={() => removeContent(content.id)}
+                      edit={() => editContent(content)}
+                      onCancel={cancelChanges}
+                      withDate
+                      actions
+                      editing={contentToEdit === content.id}
+                      saveChanges={saveEdit}
+                      library
+                      handleInput={handleInput}
+                      categoryOptions={categoryOptions.filter(
+                        (opt) => opt.value !== 'ALL'
+                      )}
+                    />
+                  </Col>
+                );
+              })
+            ) : (
+              <Col w={[4, 6, 4]}>
+                <Basic>No content to show</Basic>
+              </Col>
+            )}
+          </Row>
+        </ExpandableProvider>
       )}
       {viewNum < filteredContents.length && (
         <Row>

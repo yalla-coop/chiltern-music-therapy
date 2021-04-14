@@ -15,6 +15,7 @@ import { Contents, Programmes } from '../../../api-calls';
 
 import UpdateSection from './UpdateSection';
 import { THERAPIST } from '../../../constants/nav-routes';
+import ExpandableProvider from '../../../context/expandable';
 
 const IndividProgramme = () => {
   const [contents, setContents] = useState([]);
@@ -110,21 +111,28 @@ const IndividProgramme = () => {
                 Programme content
               </T.H2>
             </Col>
-            {contents.map(({ type, file, categories, ...content }, index) => (
-              <Col w={[4, 6, 4]} mb="4">
-                <Expandable
-                  borderColor={decideBorder(type)}
-                  content={{
-                    download: file.url,
-                    streamable: decideStreamable(type, file.url),
-                    categories: categories.filter((cat) => cat !== null),
-                    ...content,
-                    type: type?.toLowerCase(),
-                    url: file.url,
-                  }}
-                />
-              </Col>
-            ))}
+            <ExpandableProvider itemsNumbers={contents.length}>
+              <>
+                {contents.map(
+                  ({ type, file, categories, ...content }, index) => (
+                    <Col w={[4, 6, 4]} mb="4">
+                      <Expandable
+                        index={index + 1}
+                        borderColor={decideBorder(type)}
+                        content={{
+                          download: file.url,
+                          streamable: decideStreamable(type, file.url),
+                          categories: categories.filter((cat) => cat !== null),
+                          ...content,
+                          type: type?.toLowerCase(),
+                          url: file.url,
+                        }}
+                      />
+                    </Col>
+                  )
+                )}
+              </>
+            </ExpandableProvider>
           </>
         ) : (
           <Col w={[4, 6, 4]}>

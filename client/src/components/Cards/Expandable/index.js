@@ -6,6 +6,7 @@ import ExpandableTitle from './ExpandableTitle';
 
 import ViewMode from './ViewMode';
 import EditMode from './EditMode';
+import { useExpandable } from '../../../context/expandable';
 
 const Expandable = ({
   borderColor,
@@ -23,11 +24,15 @@ const Expandable = ({
   onCancel,
   send,
   children,
+  index = 0,
 }) => {
-  const [open, setOpen] = useState(false);
   const [selectedHeight, setSelectedHeight] = useState(0);
-
+  const { setOpenItem, state: openItems, closeAll } = useExpandable();
   const { validationErrs = {} } = content;
+  const open = openItems[index - 1];
+  const setOpen = () => {
+    setOpenItem(index);
+  };
 
   const hasErrors =
     typeof validationErrs === 'object' &&
@@ -43,7 +48,10 @@ const Expandable = ({
       <S.Wrapper
         borderColor={borderColor}
         open={open}
-        onClick={() => !open && setOpen(true)}
+        onClick={() => {
+          setOpenItem('555');
+          return !open && setOpen(true);
+        }}
         height={selectedHeight}
         ref={contentRef}
         error={hasErrors}
@@ -80,7 +88,7 @@ const Expandable = ({
       error={hasErrors}
     >
       {open && (
-        <S.CrossBtn onClick={() => setOpen(false)}>
+        <S.CrossBtn onClick={() => closeAll()}>
           <Icon icon="cross" width="16" height="16" color="gray8" />
         </S.CrossBtn>
       )}

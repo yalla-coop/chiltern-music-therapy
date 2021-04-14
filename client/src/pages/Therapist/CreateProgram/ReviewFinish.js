@@ -16,6 +16,7 @@ import * as S from './style';
 
 import { Programmes } from '../../../api-calls';
 import { decideBorder, isEmptyObject } from '../../../helpers';
+import ExpandableProvider from '../../../context/expandable';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -126,7 +127,6 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
           // get these from form validation above
           validationErrs: errors && errors[`content[${idx}]`],
         };
-
         return (
           <Col mb={5} w={[4, 6, 5]} key={el.id}>
             <Expandable
@@ -138,6 +138,7 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
               handleInput={UPDATE_CONTENT_ITEM}
               categoryOptions={contentCategoriesData}
               review
+              index={idx + 1}
             />
           </Col>
         );
@@ -177,8 +178,9 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
           />
         </Col>
       </Row>
-
-      <Row mt={7}>{renderReviewCards(content)}</Row>
+      <ExpandableProvider itemsNumbers={content.length}>
+        <Row mt={7}>{renderReviewCards(content)}</Row>
+      </ExpandableProvider>
       {errors && typeof errors === 'string' && (
         <Row mt={5}>
           <T.P bold color="pink">
