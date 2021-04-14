@@ -70,12 +70,12 @@ const ViewUpdate = () => {
       setLoading(false);
       if (!error) {
         history.push(navRoutes.THERAPIST.SUCCESS_UPDATE);
+      } else {
+        setRequestError(error.message);
       }
     } catch (error) {
       if (error.name === 'ValidationError') {
         setResError(error.inner.therapistMessage);
-      } else {
-        setRequestError(error.message);
       }
     }
   };
@@ -137,6 +137,7 @@ const ViewUpdate = () => {
           </Row>
           <Row mt="7">
             <Col w={[4, 12, 4]}>
+              {requestError && <T.P color="error">{requestError}</T.P>}
               <Button
                 text="Send"
                 variant="primary"
