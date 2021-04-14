@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import ExpandableProvider from '../../../context/expandable';
+
 import {
   GoBack,
   Typography as T,
@@ -88,6 +90,7 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
         return (
           <Col w={[4, 6, 4]} mb="4" key={idx}>
             <Expandable
+              index={idx + 1}
               borderColor={decideBorder(content.type)}
               content={{
                 ...content,
@@ -207,23 +210,25 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
               />
             </Col>
           </Row>
-          {updating ? (
-            <Row mb="4">
-              <Col w={[4, 6, 4]} mb="4">
-                Loading...
-              </Col>
-            </Row>
-          ) : (
-            <Row mb="4">
-              {programmeContents.length > 0 ? (
-                renderEditCards(programmeContents)
-              ) : (
-                <Col w={[4, 6, 4]}>
-                  <Basic>No content to show</Basic>
+          <ExpandableProvider itemsNumbers={programmeContents.length}>
+            {updating ? (
+              <Row mb="4">
+                <Col w={[4, 6, 4]} mb="4">
+                  Loading...
                 </Col>
-              )}
-            </Row>
-          )}
+              </Row>
+            ) : (
+              <Row mb="4">
+                {programmeContents.length > 0 ? (
+                  renderEditCards(programmeContents)
+                ) : (
+                  <Col w={[4, 6, 4]}>
+                    <Basic>No content to show</Basic>
+                  </Col>
+                )}
+              </Row>
+            )}
+          </ExpandableProvider>
 
           {errors && typeof errors === 'string' && (
             <Row mt={5}>
