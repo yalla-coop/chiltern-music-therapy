@@ -9,14 +9,14 @@ const VideoUpdate = ({ update: { clientMessage, url, type, link } }) => {
       <T.H5 color="gray7" mb="2">
         MESSAGE
       </T.H5>
-      {url && <Video url={url} type={type} />}
+      {url && <Video url={url} type={type.toLowerCase()} />}
       {(url || link) && (
         <a href={url || link} download>
           <Icon
             icon="download"
             width="16"
             height="16"
-            text={`Download ${type}`}
+            text={`Download ${type.toLowerCase()}`}
             mt="3"
             color="primary"
           />
@@ -24,7 +24,7 @@ const VideoUpdate = ({ update: { clientMessage, url, type, link } }) => {
       )}
 
       {clientMessage && (
-        <T.P color="gray8" mt="7">
+        <T.P color="gray8" mt="4">
           {clientMessage}
         </T.P>
       )}

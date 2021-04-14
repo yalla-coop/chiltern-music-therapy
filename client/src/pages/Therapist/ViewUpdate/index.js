@@ -102,7 +102,7 @@ const ViewUpdate = () => {
         />
       </Row>
       {oldTherapistMessageDate ? (
-        <Row mt="3">
+        <Row mtM="7">
           <Col w={[4, 4, 4]}>
             <T.H4 weight="bold" color="gray10">
               You sent them a response{' '}
@@ -110,7 +110,7 @@ const ViewUpdate = () => {
                 ? ` on ${dateFormatter(therapistMessageDate)}`
                 : 'before'}
             </T.H4>
-            <T.P>{`"${oldTherapistMessageDate}"`}</T.P>
+            <T.P color="gray8" mt="4">{`"${oldTherapistMessageDate}"`}</T.P>
           </Col>
         </Row>
       ) : (
