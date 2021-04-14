@@ -261,7 +261,9 @@ const Library = () => {
           </Col>
         </Row>
       ) : (
-        <ExpandableProvider itemsNumbers={filteredContents.length}>
+        <ExpandableProvider
+          itemsNumbers={filteredContents.slice(0, viewNum).length}
+        >
           <Row mb="4">
             {contentToView ? (
               filteredContents.slice(0, viewNum).map((content, index) => {

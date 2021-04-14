@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 
 const ExpandableContext = createContext({
   state: [0],
@@ -17,6 +17,17 @@ const ExpandableProvider = ({ children, itemsNumbers, props }) => {
       })
     );
   };
+  useEffect(() => {
+    setState((oldState) => {
+      const openedCard = oldState.findIndex((e) => e);
+      const initialArr = Array(itemsNumbers).fill(false);
+      if (openedCard) {
+        initialArr[openedCard] = true;
+      }
+      return initialArr;
+    });
+  }, [itemsNumbers]);
+
   const value = { state, setOpenItem, closeAll };
   return (
     <ExpandableContext.Provider value={value} {...props}>
