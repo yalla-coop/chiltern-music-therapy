@@ -28,7 +28,11 @@ const Step6 = ({ inviteLink, clientId }) => {
           />
         </Col>
         <Col w={[4, 6, 4]} mtT={4}>
-          <Button text="Return home" variant="secondary" to={THERAPIST.HOME} />
+          <Button
+            text="Return home"
+            variant="secondary"
+            to={THERAPIST.DASHBOARD}
+          />
         </Col>
       </Row>
     </>
