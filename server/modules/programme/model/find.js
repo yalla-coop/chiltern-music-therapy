@@ -171,6 +171,7 @@ const findProgrammesByClient = async (userId) => {
     FROM programmes p
     INNER JOIN therapist_clients tc ON p.therapists_clients_id = tc.id
     WHERE tc.client_user_id = $1
+    ORDER BY p.created_at DESC
   `;
 
   const res = await query(sql, values);
