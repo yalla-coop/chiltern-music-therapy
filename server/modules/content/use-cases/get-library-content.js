@@ -1,6 +1,6 @@
 import * as Content from '../model';
 import { userRoles } from '../../../constants';
-import { setContentsMediaFileUrl } from '../utils';
+import { setMediaFileUrl } from '../../../helpers';
 
 const getLibraryContent = async ({ id, role }) => {
   let contents = [];
@@ -10,7 +10,7 @@ const getLibraryContent = async ({ id, role }) => {
 
   contents = await Content.findLibraryContent({ id });
 
-  await setContentsMediaFileUrl(contents);
+  await setMediaFileUrl(contents);
 
   return contents;
 };

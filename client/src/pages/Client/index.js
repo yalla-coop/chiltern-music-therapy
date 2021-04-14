@@ -8,7 +8,6 @@ import IndividProgramme from './IndividProgramme';
 import DeleteAccount, { AccountDeleted } from './DeleteAccount';
 import MyAccount from './MyAccount';
 import Update from './Update';
-import SuccessUpdate from './SuccessUpdate';
 
 export default {
   Dashboard,
@@ -22,5 +21,4 @@ export default {
   AccountDeleted,
   MyAccount,
   Update,
-  SuccessUpdate,
 };

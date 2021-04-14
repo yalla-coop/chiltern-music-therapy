@@ -1,3 +1,4 @@
+import { useParams, useHistory } from 'react-router-dom';
 import { Row, Col } from '../../../components/Grid';
 import * as T from '../../../components/Typography';
 import { Textarea } from '../../../components/Inputs';
@@ -10,38 +11,71 @@ import VideoUpdate from './VideoUpdate';
 import { Spin } from 'antd';
 import { dateFormatter } from '../../../helpers';
 import { ProgressUpdates } from '../../../api-calls';
+import { mediaTypes, navRoutes } from '../../../constants';
 
 const UpdateContent = ({ update }) => {
-  if (update.type === 'document') {
+  if (update.type === mediaTypes.DOCUMENT) {
     return <DocumentUpdate update={update} />;
-  } else if (update.type === 'video' || update.type === 'audio') {
+  } else if (
+    update.type === mediaTypes.VIDEO ||
+    update.type === mediaTypes.AUDIO
+  ) {
     return <VideoUpdate update={update} />;
   }
   return <Spin />;
 };
 
 const ViewUpdate = () => {
+  const { id } = useParams();
+  const history = useHistory();
+
   const [data, setData] = useState({});
   const [therapistMessage, setTherapistMessage] = useState('');
   const [resError, setResError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [requestError, setRequestError] = useState('');
 
   useEffect(() => {
-    // get the data from the back
-
-    setData(dummyData);
-  }, []);
-
-  const { client = {}, update = {} } = data;
-
-  const handleSubmit = () => {
-    try {
-      validate({ therapistMessage });
-      ProgressUpdates.sendUpdate({
-        therapistMessage,
+    const getData = async () => {
+      const { data, error } = await ProgressUpdates.getProgressUpdatesById({
+        id,
       });
+
+      if (!error) {
+        setData(data);
+      }
+    };
+
+    getData();
+  }, [id]);
+
+  const {
+    client = {},
+    clientMessage,
+    file = {},
+    type,
+    link,
+    therapistMessageDate,
+    therapistMessage: oldTherapistMessageDate,
+  } = data;
+
+  const handleSubmit = async () => {
+    try {
+      await validate({ therapistMessage });
+      setLoading(true);
+      const { error } = await ProgressUpdates.updateProgressUpdate({
+        therapistMessage,
+        id,
+      });
+      setLoading(false);
+      if (!error) {
+        history.push(navRoutes.THERAPIST.SUCCESS_UPDATE);
+      } else {
+        setRequestError(error.message);
+      }
     } catch (error) {
       if (error.name === 'ValidationError') {
-        setResError(error.inner.response);
+        setResError(error.inner.therapistMessage);
       }
     }
   };
@@ -57,18 +91,26 @@ const ViewUpdate = () => {
             {client.firstInitial} {client.lastInitial} {client.postcode}
           </T.P>
         </Col>
-        <UpdateContent update={update} />
+
+        <UpdateContent
+          update={{
+            type,
+            clientMessage,
+            link,
+            url: file.url,
+          }}
+        />
       </Row>
-      {update.therapistMessage ? (
-        <Row mt="3">
+      {oldTherapistMessageDate ? (
+        <Row mtM="7">
           <Col w={[4, 4, 4]}>
             <T.H4 weight="bold" color="gray10">
               You sent them a response{' '}
-              {update.therapistMessageDate
-                ? ` on ${dateFormatter(update.therapistMessageDate)}`
+              {therapistMessageDate
+                ? ` on ${dateFormatter(therapistMessageDate)}`
                 : 'before'}
             </T.H4>
-            <T.P>{`"${update.therapistMessage}"`}</T.P>
+            <T.P color="gray8" mt="4">{`"${oldTherapistMessageDate}"`}</T.P>
           </Col>
         </Row>
       ) : (
@@ -95,10 +137,12 @@ const ViewUpdate = () => {
           </Row>
           <Row mt="7">
             <Col w={[4, 12, 4]}>
+              {requestError && <T.P color="error">{requestError}</T.P>}
               <Button
                 text="Send"
                 variant="primary"
                 handleClick={handleSubmit}
+                loading={loading}
               />
             </Col>
           </Row>
@@ -106,29 +150,6 @@ const ViewUpdate = () => {
       )}
     </>
   );
-};
-
-var dummyData = {
-  client: {
-    firstInitial: 'J',
-    lastInitial: 'P',
-    postcode: 'SW',
-  },
-  // update: {
-  //   type: 'document',
-  //   clientMessage:
-  //     'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
-  //   link: 'http://www.africau.edu/images/default/sample.pdf',
-  //   therapistMessage: null,
-  // },
-  update: {
-    type: 'video',
-    clientMessage:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip',
-    link: 'http://techslides.com/demos/sample-videos/small.mp4',
-    therapistMessage: null,
-    therapistMessageDate: '2021-04-08T10:40:52.467Z',
-  },
 };
 
 export default ViewUpdate;

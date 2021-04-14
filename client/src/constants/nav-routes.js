@@ -58,7 +58,8 @@ const THERAPIST = {
   EDIT_PROGRAMME_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/programmes/:id/edit/content/how-to-record`,
   EDIT_PROGRAMME_CONTENT_SUCCESS: `${THERAPIST_BASE}/programmes/:id/edit/success`,
   PROFILE: `${THERAPIST_BASE}/profile`,
-  MESSAGE: `${THERAPIST_BASE}/message`,
+  PROGRESS_UPDATE: `${THERAPIST_BASE}/update/:id`,
+  SUCCESS_UPDATE: `${THERAPIST_BASE}/success-update`,
 };
 
 const ADMIN_BASE = '/admin';

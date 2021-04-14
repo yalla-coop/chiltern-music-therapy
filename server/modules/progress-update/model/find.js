@@ -13,6 +13,7 @@ const findProgressUpdateWithUsersById = async (progressId) => {
       pu.client_message,
       pu.therapist_message,
       pu.link,
+      pu.type,
       pu.created_at,
       pu.updated_at,
       --
@@ -85,4 +86,40 @@ const findProgressUpdateWithUsersById = async (progressId) => {
   return res.rows[0];
 };
 
-export { findProgressUpdateWithUsersById };
+const findProgressUpdateById = async (progressId) => {
+  const values = [progressId];
+
+  const sql = `
+    SELECT
+      pu.id,
+      pu.programme_id,
+      pu.client_message,
+      pu.therapist_message,
+      pu.therapist_message_date,
+      pu.type,
+      --
+      tc.id AS "therapist_client.id",
+      tc.therapist_user_id AS "therapist_client.therapist_user_id",
+      tc.client_user_id AS "therapist_client.client_user_id",
+      --
+      c.id AS "client.id",
+      c.first_name AS "client.first_name",
+      c.last_name AS "client.last_name",
+      --
+      m.id AS "file.id",
+      m.key AS "file.key",
+      m.bucket AS "file.bucket"
+
+    FROM progress_updates AS pu
+    INNER JOIN programmes AS p ON (pu.programme_id = p.id)
+    INNER JOIN therapist_clients tc ON p.therapists_clients_id = tc.id
+    INNER JOIN users AS c ON(c.id = tc.client_user_id)
+    LEFT JOIN media AS m ON(pu.media_id = m.id)
+    WHERE pu.id = $1
+  `;
+
+  const res = await query(sql, values);
+  return res.rows[0];
+};
+
+export { findProgressUpdateWithUsersById, findProgressUpdateById };

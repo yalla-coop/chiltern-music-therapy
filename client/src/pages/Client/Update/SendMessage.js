@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 
 import { Row, Col } from '../../../components/Grid';
 import { Textarea } from '../../../components/Inputs';
@@ -7,6 +7,7 @@ import FileUpload from '../../../components/FileUpload';
 import Button from '../../../components/Button';
 import { CLIENT } from '../../../constants/nav-routes';
 import { ProgressUpdates } from '../../../api-calls';
+import * as T from '../../../components/Typography';
 
 import { videoReducer } from './reducer';
 import actionTypes from './actionTypes';
@@ -29,14 +30,23 @@ const initialState = {
   },
   message: '',
   validationErrs: {},
+  requestError: {},
+  requestLoading: false,
 };
 
 const SendMessage = () => {
+  const { id: programmeId } = useParams();
   const [state, dispatch] = useReducer(videoReducer, initialState);
 
   const history = useHistory();
 
-  const { fileUpload, message, validationErrs } = state;
+  const {
+    fileUpload,
+    message,
+    validationErrs,
+    requestError,
+    requestLoading,
+  } = state;
   const {
     fileUploading,
     data: uploadedFileInfo,
@@ -67,9 +77,21 @@ const SendMessage = () => {
     RESET_STATE: () => {
       dispatch({ type: actionTypes.resetState, value: initialState });
     },
+    HANDLE_REQUEST_ERROR: (error) => {
+      dispatch({
+        type: actionTypes.handleRequestError,
+        value: error,
+      });
+    },
+    HANDLE_REQUEST_LOADING: (loading) => {
+      dispatch({
+        type: actionTypes.handleRequestLoading,
+        value: loading,
+      });
+    },
   };
 
-  const handleSubmit = ({ programmeId }) => {
+  const handleSubmit = async () => {
     let fileUploadErr = '';
     try {
       if (!fileUpload?.data?.name && !fileUpload?.data?.key && !message) {
@@ -88,15 +110,21 @@ const SendMessage = () => {
         actions.HANDLE_VALIDATIONS_ERROR({ fileUpload: fileUploadErr });
       } else {
         actions.HANDLE_VALIDATIONS_ERROR({});
+        actions.HANDLE_REQUEST_LOADING(true);
 
-        ProgressUpdates.sendUpdate({
-          type: 'text', // or doc
+        const { error } = await ProgressUpdates.sendUpdate({
+          type: 'document',
           programmeId,
-          fileUpload: fileUpload.data,
+          uploadedFileInfo: fileUpload.data,
           clientMessage: message,
         });
+        actions.HANDLE_REQUEST_LOADING(false);
 
-        history.push(CLIENT.SUCCESS_UPDATE);
+        if (!error) {
+          history.push(CLIENT.SUCCESS_UPDATE);
+        } else {
+          actions.HANDLE_REQUEST_ERROR(error);
+        }
       }
     } catch (e) {
       actions.HANDLE_VALIDATIONS_ERROR({
@@ -133,7 +161,17 @@ const SendMessage = () => {
         />
       </Col>
       <Col w={[4, 12, 12]}>
-        <Button variant="primary" text="Send" handleClick={handleSubmit} />
+        {requestError?.message && (
+          <T.P color="error">{requestError.message}</T.P>
+        )}
+
+        <Button
+          variant="primary"
+          text="Send"
+          handleClick={handleSubmit}
+          disabled={fileUploading || requestLoading}
+          loading={requestLoading}
+        />
       </Col>
     </Row>
   );
