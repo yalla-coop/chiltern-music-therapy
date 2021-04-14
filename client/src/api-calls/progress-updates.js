@@ -48,4 +48,37 @@ const updateProgressUpdate = async ({ therapistMessage, id, options } = {}) => {
   }
 };
 
-export { getProgressUpdatesById, sendUpdate, updateProgressUpdate };
+const sendFeedback = async ({
+  clearInstructions,
+  problems,
+  clearDemos,
+  noDemos,
+  enjoyableResources,
+  likeMostAndLeast,
+  programmeId,
+  options,
+} = {}) => {
+  try {
+    // const { data } = await axios.post(`${PROGRESS_UPDATES_BASE}`, {
+    //   clearInstructions,
+    //   problems,
+    //   clearDemos,
+    //   noDemos,
+    //   enjoyableResources,
+    //   likeMostAndLeast,
+    //   programmeId,
+    // });
+    // return { data };
+    return true;
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export {
+  getProgressUpdatesById,
+  sendUpdate,
+  updateProgressUpdate,
+  sendFeedback,
+};
