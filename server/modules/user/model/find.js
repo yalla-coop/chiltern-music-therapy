@@ -52,7 +52,7 @@ const findUserByMainPhone = async (primaryMobileNumber, client) => {
     roles::VARCHAR[]
 
   FROM users
-    WHERE contact_number = $1
+    WHERE mobile_number = $1
     `;
 
   const res = await query(sql, values, client);

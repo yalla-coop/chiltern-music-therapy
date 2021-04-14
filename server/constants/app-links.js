@@ -9,7 +9,7 @@ const appLinks = {
   LOGIN: `${appUrl}/login`,
   RESET_PASSWORD: `${appUrl}/reset-password/:token`,
   // CLIENT
-  CLIENT_SIGNUP_INVITE: `${appUrl}/signup/invite?:invite`,
+  CLIENT_SIGNUP_INVITE: `${appUrl}/signup/?invite=:invite`,
   // THERAPIST
   THERAPIST_SINGLE_PROGRAMME: `${appUrl}/${therapist}/programme/:id`,
 };

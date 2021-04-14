@@ -58,7 +58,17 @@ const updateUserById = async (
       profile_photo_media_id = COALESCE($15, u.profile_photo_media_id),
       organisation_id = COALESCE($16, u.organisation_id)
     WHERE u.id = $1
-    RETURNING *
+    RETURNING 
+      u.id, 
+      u.email, 
+      u.first_name, 
+      u.last_name, 
+      u.postcode, 
+      u.roles::VARCHAR[],
+      u.contact_email,
+      u.bio,
+      u.profile_photo_media_id,
+      u.organisation_id
   `;
 
   const res = await query(sql, values, client);
