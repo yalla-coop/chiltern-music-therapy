@@ -6,7 +6,7 @@ import Button from '../../../components/Button';
 
 import validate from '../../../validation/schemas/feedback';
 
-const Q4 = ({ handleFinalStep }) => {
+const Q4 = ({ handleFinalStep, pageError }) => {
   const [likeMostAndLeast, setLikeMostAndLeast] = useState('');
   const [errors, setErrors] = useState({});
   const handleClick = async () => {
@@ -46,6 +46,7 @@ const Q4 = ({ handleFinalStep }) => {
       </Row>
       <Row mt="6">
         <Col w={[4, 4, 4]}>
+          {pageError?.message && <T.P color="error"> {pageError.message}</T.P>}
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>

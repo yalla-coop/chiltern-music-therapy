@@ -8,7 +8,7 @@ import Q2 from './Q2';
 import Q3 from './Q3';
 import Q4 from './Q4';
 
-const CurrentQuestion = ({ currentQ, handleStep, handleFinalStep }) => {
+const CurrentQuestion = ({ currentQ, handleStep, handleFinalStep, error }) => {
   if (currentQ === 1) {
     return <Q1 handleStep={handleStep} />;
   }
@@ -19,7 +19,7 @@ const CurrentQuestion = ({ currentQ, handleStep, handleFinalStep }) => {
     return <Q3 handleStep={handleStep} />;
   }
   if (currentQ === 4) {
-    return <Q4 handleFinalStep={handleFinalStep} />;
+    return <Q4 handleFinalStep={handleFinalStep} pageError={error} />;
   }
   return null;
 };
@@ -29,6 +29,7 @@ const Feedback = () => {
   const { id } = useParams();
   const [currentQ, setCurrentQ] = useState(1);
   const [state, setState] = useState({});
+  const [error, setError] = useState(null);
 
   const handleStep = (stepData) => {
     setState((oldState) => ({ ...oldState, ...stepData }));
@@ -36,12 +37,16 @@ const Feedback = () => {
   };
 
   const handleFinalStep = async (stepData) => {
-    await sendFeedback({
+    const { error, data } = await sendFeedback({
       ...state,
       ...stepData,
       programmeId: id,
     });
-    history.push(CLIENT.SUCCESS_FEEDBACK);
+    if (!error) {
+      history.push(CLIENT.SUCCESS_FEEDBACK);
+    } else {
+      setError({ error });
+    }
   };
 
   return (
@@ -50,6 +55,7 @@ const Feedback = () => {
         currentQ={currentQ}
         handleStep={handleStep}
         handleFinalStep={handleFinalStep}
+        error={error}
       />
     </>
   );

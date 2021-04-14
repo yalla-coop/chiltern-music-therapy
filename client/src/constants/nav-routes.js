@@ -24,7 +24,7 @@ const CLIENT = {
   SEND_UPDATE: `/programmes/:id/update`,
   SEND_FEEDBACK: `/programmes/:id/feedback`,
   SUCCESS_UPDATE: '/success-update',
-  SUCCESS_FEEDBACK: '/success-feedback-send',
+  SUCCESS_FEEDBACK: '/success-feedback-sent',
 };
 
 const THERAPIST_BASE = '/therapist';
