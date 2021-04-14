@@ -89,7 +89,6 @@ const findTherapistByClientId = async (id) => {
     u.contact_number,
     u.contact_email,
     u.bio,
-    m.type AS "file.type",
     m.file_name AS "file.file_name",
     m.key AS "file.key",
     m.bucket AS "file.bucket",
