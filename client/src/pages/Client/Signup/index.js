@@ -114,7 +114,7 @@ const ClientSignup = ({ status, title, msg }) => {
       }
     } else {
       setUser(data);
-      history.push(navRoutes.CLIENT.WELCOME);
+      history.push(navRoutes.CLIENT.WELCOME.replace(':id', 1));
     }
   };
 

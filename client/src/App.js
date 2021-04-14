@@ -44,7 +44,6 @@ function App() {
               />
 
               <Route
-                exact
                 path={navRoutes.CLIENT.SIGNUP}
                 Component={Pages.CLIENT.Signup}
                 layout="onboarding"
