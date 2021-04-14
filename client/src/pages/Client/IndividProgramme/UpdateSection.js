@@ -4,7 +4,7 @@ import * as T from '../../../components/Typography';
 import { navRoutes } from '../../../constants';
 import Button from '../../../components/Button';
 
-const UpdateSection = ({ update, therapist, id }) =>
+const UpdateSection = ({ update = {}, therapist, id }) =>
   update?.id ? (
     <Col w={[4, 6, 4]} dir="column" ai="left" mb="7">
       <T.H3 mb="2">Progress update</T.H3>

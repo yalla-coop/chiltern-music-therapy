@@ -3,7 +3,7 @@ import * as Content from '../model';
 import * as Programme from '../../programme/use-cases';
 import { errorMsgs } from '../../../services/error-handler';
 import { userRoles } from '../../../constants/data-type';
-import { setContentsMediaFileUrl } from '../utils';
+import { setMediaFileUrl } from '../../../helpers';
 
 const getContentByProg = async ({ id, userId, userRole }) => {
   // check if user is allowed
@@ -19,7 +19,7 @@ const getContentByProg = async ({ id, userId, userRole }) => {
   ) {
     contents = await Content.findContentByProg(id);
 
-    await setContentsMediaFileUrl(contents);
+    await setMediaFileUrl(contents);
 
     return contents;
   }

@@ -181,7 +181,7 @@ const MyAccount = () => {
       return getMediaUrl(uploadedFileInfo);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uploadedFileInfo?.id]);
+  }, [uploadedFileInfo?.key, uploadedFileInfo?.uploadedToS3]);
 
   return (
     <>

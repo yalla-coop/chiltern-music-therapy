@@ -5,7 +5,11 @@ import { Basic, Expandable } from '../../../components/Cards';
 import { Row, Col } from '../../../components/Grid';
 import Modal from '../../../components/Modal';
 
-import { decideBorder, createUniqueCats } from '../../../helpers';
+import {
+  decideBorder,
+  createUniqueCats,
+  decideStreamable,
+} from '../../../helpers';
 
 import { useAuth } from '../../../context/auth';
 
@@ -17,6 +21,7 @@ import * as T from '../../../components/Typography';
 
 import validate from '../../../validation/schemas/editContent';
 import ExpandableProvider from '../../../context/expandable';
+import * as S from './style';
 
 const typeOptions = [
   { label: 'All', value: 'ALL' },
@@ -39,6 +44,7 @@ const Library = () => {
   const [modalToShow, setModalToShow] = useState('');
   const [updating, setUpdating] = useState(false);
   const [updateError, setUpdateError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
 
@@ -46,13 +52,6 @@ const Library = () => {
 
   const handleSelect = (e, filterType) => {
     setFilter({ ...filter, [filterType]: e });
-  };
-
-  const decideStreamable = (type, path) => {
-    if (['VIDEO', 'AUDIO'].includes(type) && path) {
-      return true;
-    }
-    return false;
   };
 
   const removeContent = (id) => {
@@ -139,19 +138,22 @@ const Library = () => {
 
   useEffect(() => {
     const getContent = async () => {
+      setLoading(true);
       const { data, error } = await Contents.getLibraryContent();
 
-      const allLibraryC = data.map((el) => ({
-        ...el,
-        categories: [...new Set(el.categories.map((cat) => cat))],
-      }));
-
       if (!error) {
+        const allLibraryC = data.map((el) => ({
+          ...el,
+          categories: [...new Set(el.categories.map((cat) => cat))],
+        }));
         setContents(allLibraryC);
+        setLoading(false);
       }
+      setLoading(false);
     };
 
     const getTherapists = async () => {
+      setLoading(true);
       const { data, error } = await Users.getTherapists();
 
       if (!error) {
@@ -160,7 +162,9 @@ const Library = () => {
           value: id,
         }));
         setTherapistOptions([{ label: 'All', value: 'ALL' }, ...allTherapists]);
+        setLoading(false);
       }
+      setLoading(false);
     };
 
     if (user.id) {
@@ -174,8 +178,10 @@ const Library = () => {
 
   useEffect(() => {
     const getCategories = async () => {
+      setLoading(true);
       const { data, error } = await Contents.getCategories();
       if (!error) {
+        setLoading(false);
         setCategoryOptions([
           { label: 'All', value: 'ALL' },
           ...createUniqueCats(data),
@@ -254,10 +260,10 @@ const Library = () => {
           </Col>
         )}
       </Row>
-      {updating ? (
+      {updating || loading ? (
         <Row mb="4">
           <Col w={[4, 6, 4]} mb="4">
-            Loading...
+            <S.Loading />
           </Col>
         </Row>
       ) : (
@@ -286,6 +292,7 @@ const Library = () => {
                         ),
                         type: content.type?.toLowerCase(),
                         url: content.file.url,
+                        docContent: content.docContent,
                         validationErrs: editingErrors?.validationErrs,
                       }}
                       remove={() => removeContent(content.id)}

@@ -24,6 +24,7 @@ const ViewMode = ({
     link,
     url,
     type,
+    docContent,
   } = content;
   if (!open) return <div ref={contentRef} height={selectedHeight} />;
 
@@ -63,6 +64,16 @@ const ViewMode = ({
         >
           View content link
         </T.Link>
+      )}
+      {docContent && (
+        <>
+          <T.H4 weight="bold" mb="2">
+            Content
+          </T.H4>
+          <T.P color="gray8" mb="5">
+            {docContent}
+          </T.P>
+        </>
       )}
       {instructions && (
         <>

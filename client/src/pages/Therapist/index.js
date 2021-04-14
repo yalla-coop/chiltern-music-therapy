@@ -1,4 +1,5 @@
 import CreateProgram from './CreateProgram';
+import EditProgramme from './EditProgramme';
 import Signup from './Signup';
 import Dashboard from './Dashboard';
 import Library from './Library';
@@ -20,6 +21,7 @@ export default {
   AddClient,
   EditClient,
   IndividProgramme,
+  EditProgramme,
   MyAccount,
   ViewUpdate,
 };

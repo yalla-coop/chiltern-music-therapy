@@ -157,13 +157,24 @@ function App() {
                 Component={Pages.THERAPIST.MyAccount}
                 goBack
                 maxWidth="none"
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route
                 exact
-                path={navRoutes.THERAPIST.MESSAGE}
+                path={navRoutes.THERAPIST.PROGRESS_UPDATE}
                 Component={Pages.THERAPIST.ViewUpdate}
                 goBack
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
+              />
+              <Route
+                exact
+                path={navRoutes.THERAPIST.SUCCESS_UPDATE}
+                Component={Pages.GENERAL.SuccessUpdate}
+                goBack
+                maxWidth="none"
               />
 
               {/* Admin Pages */}
@@ -289,7 +300,7 @@ function App() {
               <Route
                 exact
                 path={navRoutes.CLIENT.SUCCESS_UPDATE}
-                Component={Pages.CLIENT.SuccessUpdate}
+                Component={Pages.GENERAL.SuccessUpdate}
                 goBack
                 maxWidth="none"
               />
@@ -302,6 +313,13 @@ function App() {
                 layout="general"
                 allowedRoles={[roles.THERAPIST]}
                 isPrivate
+              />
+
+              <Route
+                path={navRoutes.THERAPIST.EDIT_PROGRAMME}
+                Component={Pages.THERAPIST.EditProgramme}
+                layout="general"
+                allowedRoles={[roles.THERAPIST]}
               />
 
               <Route

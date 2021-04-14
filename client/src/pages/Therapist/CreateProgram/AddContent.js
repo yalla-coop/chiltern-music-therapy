@@ -11,9 +11,9 @@ import * as S from './style';
 const { Row, Col } = Grid;
 const { AddContentSection } = Content;
 
-const AddContent = ({ state, actions, navFunctions }) => {
+const AddContent = ({ parentState, actions, navFunctions }) => {
   const { ADD_CONTENT } = actions;
-  const { content, libraryContent } = state;
+  const { content, libraryContent } = parentState;
 
   return (
     <S.Wrapper>

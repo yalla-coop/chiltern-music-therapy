@@ -3,7 +3,7 @@ import * as User from '../model';
 import { hashPassword } from '../../../helpers';
 import { errorMsgs } from '../../../services/error-handler';
 import { validateSignup } from '../utils';
-import { userRoles } from '../../../constants';
+import { userRoles, userStatuses } from '../../../constants';
 
 const therapistSignup = async ({ email, password, firstName, lastName }) => {
   await validateSignup({
@@ -27,6 +27,7 @@ const therapistSignup = async ({ email, password, firstName, lastName }) => {
     firstName,
     lastName,
     roles: [userRoles.THERAPIST],
+    status: userStatuses.ACTIVE,
   });
 
   return user;

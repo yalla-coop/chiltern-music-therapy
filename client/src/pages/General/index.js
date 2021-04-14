@@ -4,6 +4,7 @@ import Login from './Login';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
 import Welcome from './Welcome';
+import SuccessUpdate from './SuccessUpdate';
 
 export default {
   ErrorPages,
@@ -12,4 +13,5 @@ export default {
   ForgotPassword,
   ResetPassword,
   Welcome,
+  SuccessUpdate,
 };

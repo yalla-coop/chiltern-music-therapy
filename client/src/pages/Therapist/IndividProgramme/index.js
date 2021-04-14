@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import { useAuth } from '../../../context/auth';
 
@@ -25,6 +25,7 @@ const IndividProgramme = () => {
 
   const { user } = useAuth();
   const { id } = useParams();
+  const history = useHistory();
 
   const decideBorder = (type) => {
     switch (type) {

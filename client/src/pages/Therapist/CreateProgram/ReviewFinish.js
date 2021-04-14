@@ -22,10 +22,16 @@ const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Expandable } = Cards;
 
-const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
+const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
-  const { description, content, errors, loading, contentCategories } = state;
+  const {
+    description,
+    content,
+    errors,
+    loading,
+    contentCategories,
+  } = parentState;
 
   const {
     SET_DESCRIPTION,
@@ -117,6 +123,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           libraryContent: el.libraryContent,
           date: el.date || moment(),
           fileUpload: el.uploadedFileInfo,
+          docContent: el.docContent,
           // get these from form validation above
           validationErrs: errors && errors[`content[${idx}]`],
         };

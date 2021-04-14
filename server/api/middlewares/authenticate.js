@@ -4,6 +4,7 @@ import Boom from '@hapi/boom';
 import config from '../../config';
 import * as constants from '../../constants';
 import { findUserById } from '../../modules/user/model';
+import { checkTherapistProfile } from '../../modules/user/use-cases';
 
 const { TOKEN_NAME } = constants;
 
@@ -42,6 +43,11 @@ const authenticate = (isPublic) => async (req, res, next) => {
 
     // eslint-disable-next-line prefer-destructuring
     user.role = user.roles[0];
+
+    if (user.role === constants.userRoles.THERAPIST) {
+      const hasProfile = await checkTherapistProfile({ id });
+      user.hasProfile = hasProfile;
+    }
 
     // put the user info in the req to be accessed in the next middlewares
     req.user = user;

@@ -8,9 +8,9 @@ import * as S from './style';
 
 const { Row, Col } = Grid;
 
-const Success = ({ state }) => {
+const Success = ({ clientDetails }) => {
   const history = useHistory();
-  const { clientDetails } = state;
+
   const { firstInitial, lastInitial, postcode } = clientDetails;
 
   return (

@@ -1,7 +1,6 @@
 import { Col } from '../../../components/Grid';
 import Icon from '../../../components/Icon';
 import * as T from '../../../components/Typography';
-import * as S from './style';
 
 const DocumentUpdate = ({ update }) => {
   return (
@@ -9,18 +8,17 @@ const DocumentUpdate = ({ update }) => {
       <T.H5 color="gray7" mb="2">
         MESSAGE
       </T.H5>
-      {update.link && (
-        <S.LinkWrapper
-          href={update.link}
-          download
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Icon icon="download" width="16" height="16" color="blue" />
-          <T.P color="blue" bold ml="2" weight="700">
-            Download document
-          </T.P>
-        </S.LinkWrapper>
+      {update.url && (
+        <a href={update.url} download>
+          <Icon
+            icon="download"
+            width="16"
+            height="16"
+            text={`Download document`}
+            mt="3"
+            color="primary"
+          />
+        </a>
       )}
       {update.clientMessage && (
         <T.P color="gray8" mt="3">
