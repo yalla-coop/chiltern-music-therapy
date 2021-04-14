@@ -7,7 +7,7 @@ import Button from '../../../components/Button';
 import { step4 as validate } from '../../../validation/schemas/addClient';
 import Avatar from '../../../components/Avatar';
 
-import { Users, Media } from '../../../api-calls';
+import { Users } from '../../../api-calls';
 
 import { useAuth } from '../../../context/auth';
 
@@ -18,7 +18,7 @@ const Step4 = ({ submitStep }) => {
   const [useMainBio, setUseMainBio] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const { user, setUser } = useAuth();
+  const { user } = useAuth();
 
   const handleClick = () => {
     try {
@@ -37,26 +37,15 @@ const Step4 = ({ submitStep }) => {
     }
   };
 
-  const getMediaUrl = async (file) => {
-    const { data, error: _error } = await Media.getMediadURL({
-      key: file.key,
-      bucket: file.bucket,
-    });
-    if (!_error) {
-      setMediaUrl(data);
-    }
-  };
-
   const getTherapistInfoImageURL = async () => {
     setMediaLoading(true);
     const { data, error } = await Users.getAccountInfo();
 
+    setMediaLoading(false);
     if (!error) {
-      setMediaLoading(false);
-      if (data.profileImage && data.profileImage.key) {
-        getMediaUrl(data.profileImage);
+      if (data.profileImage && data.profileImage.url) {
+        setMediaUrl(data.profileImage.url);
       } else {
-        setMediaLoading(false);
         setErrors({ ...errors, getImageError: 'Error loading image' });
       }
     }
