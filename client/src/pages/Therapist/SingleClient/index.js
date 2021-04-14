@@ -86,7 +86,7 @@ const SingleClient = ({ clientHistory }) => {
       <Row mb="6">
         <Col w={[4, 12, 6]}>
           <T.P color="gray8" mt="2">
-            {therapyBackground}
+            {<pre>{therapyBackground}</pre>}
           </T.P>
           {ellipse && (
             <T.Link

@@ -61,7 +61,9 @@ const ClientHistory = ({
           <T.H3 color="black" mb={2} weight="bold" style={{ width: '100%' }}>
             Therapy background
           </T.H3>
-          <T.P color="gray8">{therapyBackground}</T.P>
+          <T.P color="gray8">
+            <pre>{therapyBackground}</pre>
+          </T.P>
         </Col>
       </Row>
 
