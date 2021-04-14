@@ -7,6 +7,7 @@ import decideBorder from './decideBorder';
 import linkFormatter from './linkFormatter';
 import isEmptyObject from './isEmptyObject';
 import createUniqueCats from './createUniqueCats';
+import decideStreamable from './decideStreamable';
 
 export {
   authorization,
@@ -18,4 +19,5 @@ export {
   decideBorder,
   isEmptyObject,
   createUniqueCats,
+  decideStreamable,
 };

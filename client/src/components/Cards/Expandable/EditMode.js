@@ -20,7 +20,6 @@ const EditMode = ({
   selectedHeight,
   remove,
   handleInput,
-  errors,
   library,
   saveChanges,
   categoryOptions,
@@ -38,6 +37,7 @@ const EditMode = ({
     fileUpload,
     url,
     download,
+    docContent,
   } = content;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -76,7 +76,9 @@ const EditMode = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const modalParentFunction = (_id) => remove({ id });
+  const modalParentFunction = (_id) => {
+    return remove({ id });
+  };
 
   const streamable =
     [fileCategories.audio, fileCategories.video].includes(type) &&
@@ -120,6 +122,7 @@ const EditMode = ({
           />
         </a>
       )}
+      {docContent && <Textarea value={docContent} m={{ mb: '5' }} rows={5} />}
 
       <BasicInput
         label="Title"

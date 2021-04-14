@@ -305,6 +305,13 @@ function App() {
               />
 
               <Route
+                path={navRoutes.THERAPIST.EDIT_PROGRAMME}
+                Component={Pages.THERAPIST.EditProgramme}
+                layout="general"
+                allowedRoles={[roles.THERAPIST]}
+              />
+
+              <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
                 goBack

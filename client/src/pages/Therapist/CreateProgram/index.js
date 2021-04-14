@@ -231,7 +231,7 @@ const CreateProgram = () => {
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAMME_DESCRIPTION}
         actions={actions}
-        state={state}
+        parentState={state}
         navFunctions={navFunctions}
         clientId={clientId}
       />
@@ -239,7 +239,7 @@ const CreateProgram = () => {
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT}
         actions={actions}
-        state={state}
+        parentState={state}
         navFunctions={navFunctions}
       />
       <HowToRecord
@@ -249,15 +249,22 @@ const CreateProgram = () => {
       <AddSingleContent
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_SINGLE}
-        actions={actions}
-        state={state}
+        actions={{
+          handleAddContent: actions.ADD_CONTENT,
+          handleAddSingleContent: actions.ADD_SINGLE_CONTENT,
+          handleResetSingleContent: actions.RESET_SINGLE_CONTENT,
+          handleUploadStatus: actions.HANDLE_UPLOAD_STATUS,
+          handleFileUploadInfo: actions.HANDLE_FILE_UPLOAD_INFO,
+          handleFileUploadError: actions.HANDLE_FILE_UPLOAD_ERROR,
+        }}
+        parentState={state}
         navFunctions={navFunctions}
       />
       <ReviewFinish
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAMME_REVIEW}
         actions={actions}
-        state={state}
+        parentState={state}
         navFunctions={navFunctions}
         clientId={clientId}
       />
@@ -265,7 +272,7 @@ const CreateProgram = () => {
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAMME_SUCCESS}
         actions={actions}
-        state={state}
+        clientDetails={state.clientDetails}
       />
     </Switch>
   );

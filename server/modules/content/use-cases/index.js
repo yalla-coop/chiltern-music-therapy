@@ -5,6 +5,8 @@ import getContentByProg from './get-content-by-prog';
 import deleteContent from './delete-content';
 import removeContentFromLibrary from './remove-content-from-library';
 import editContent from './edit-content';
+import removeContentFromProgramme from './remove-content-from-programme';
+import createContent from '../../content/use-cases/create-content';
 
 export {
   getContentById,
@@ -14,4 +16,6 @@ export {
   deleteContent,
   removeContentFromLibrary,
   editContent,
+  removeContentFromProgramme,
+  createContent,
 };

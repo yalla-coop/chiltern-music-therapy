@@ -1,8 +1,7 @@
-import { useHistory } from 'react-router-dom';
 import * as S from './style';
 import * as T from '../../Typography';
 import Icon from '../../Icon';
-import { content, navRoutes } from '../../../constants';
+import { content } from '../../../constants';
 
 const { fileCategories } = content;
 
@@ -24,20 +23,8 @@ const titleData = {
   },
 };
 
-const AddContentType = ({ mode = 'create', contentType, navFunctions }) => {
-  const history = useHistory();
-
-  // mode can be create / edit program
-
-  const decidePath = (type) =>
-    mode === 'create'
-      ? navFunctions.goToAddSingleContent(type)
-      : history.push(
-          navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SINGLE.replace(
-            ':category',
-            type
-          )
-        );
+const AddContentType = ({ contentType, navFunctions }) => {
+  const decidePath = (type) => navFunctions.goToAddSingleContent(type);
 
   return (
     <S.Wrapper

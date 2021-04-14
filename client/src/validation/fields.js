@@ -65,13 +65,13 @@ export const urlRequired = string()
   .required(errMsgs.DEFAULT_REQUIRED);
 
 export const description = string()
-  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .min(4, errMsgs.DEFAULT_REQUIRED)
   .max(500)
   .required(errMsgs.DEFAULT_REQUIRED);
 
 // SINGLE CONTENT FIELDS
 export const title = string()
-  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .min(4, errMsgs.DEFAULT_REQUIRED)
   .max(50)
   .required(errMsgs.DEFAULT_REQUIRED);
 
@@ -82,7 +82,7 @@ export const libraryContent = boolean()
   .required(errMsgs.DEFAULT_REQUIRED);
 
 export const instructions = string()
-  .min(1, errMsgs.DEFAULT_REQUIRED)
+  .min(4, errMsgs.DEFAULT_REQUIRED)
   .max(1000)
   .required(errMsgs.DEFAULT_REQUIRED);
 
@@ -90,7 +90,7 @@ export const link = string().matches(URLregex, {
   message: errMsgs.INVALID_LINK,
 });
 
-export const docContent = string().min(1, errMsgs.DEFAULT_REQUIRED).max(1000);
+export const docContent = string().min(4, errMsgs.DEFAULT_REQUIRED).max(1000);
 
 export const inviteToken = string()
   .length(8)

@@ -55,10 +55,22 @@ const deleteContentCategoryById = async (id, client) => {
   return res.rows[0];
 };
 
+const deleteContentFromProgrammeById = async (programmeContentId, client) => {
+  const sql = `
+    DELETE FROM programmes_contents
+    WHERE id = $1
+    RETURNING *
+  `;
+
+  const res = await query(sql, [programmeContentId], client);
+  return res.rows[0];
+};
+
 export {
   deleteContentById,
   deleteContentCategories,
   deleteContentFromProgramme,
   deleteCategory,
   deleteContentCategoryById,
+  deleteContentFromProgrammeById,
 };

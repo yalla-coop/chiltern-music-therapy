@@ -7,7 +7,11 @@ const TitleContent = ({ dark, review, send }) => {
   const light = review ? 'Review' : 'Send';
   let _dark = dark;
   if (dark === 'content') {
-    _dark = '';
+    if (review) {
+      _dark = 'document';
+    } else {
+      _dark = '';
+    }
   }
   return (
     <T.P weight="light" mr="1">
