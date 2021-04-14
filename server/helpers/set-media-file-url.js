@@ -3,21 +3,21 @@ import { getFilePreSignedUrl } from '../services/files-storage';
 // input arrayRef = [{ file: { key, bucket }, ...etc }]
 // output arrayRef = [{ file: { url }, ...etc }]
 
-const setMediaFileUrl = async (arrayRef) => {
+const setMediaFileUrl = async (arrayRef, field = 'file') => {
   const promises = [];
 
   arrayRef.forEach((item) => {
-    if (item.file && item.file.id) {
+    if (item[field] && item[field].id) {
       const getLink = async () => {
         const url = await getFilePreSignedUrl({
-          key: item.file.key,
-          bucket: item.file.bucket,
+          key: item[field].key,
+          bucket: item[field].bucket,
         });
 
         // eslint-disable-next-line no-param-reassign
-        item.file = {};
+        item[field] = {};
         // eslint-disable-next-line no-param-reassign
-        item.file.url = url;
+        item[field].url = url;
       };
 
       promises.push(getLink());

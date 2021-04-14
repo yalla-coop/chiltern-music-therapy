@@ -131,6 +131,7 @@ const MyAccount = () => {
       key: file.key,
       bucket: file.bucket,
     });
+
     if (!_error) {
       setMediaLoading(false);
       setMediaUrl(data);
@@ -159,9 +160,7 @@ const MyAccount = () => {
       if (!error) {
         setAccountDetails(data);
 
-        if (data.profileImage && data.profileImage.key) {
-          getMediaUrl(data.profileImage);
-        }
+        setMediaUrl(data.profileImage.url);
       } else {
         setErrors({
           ...errors,

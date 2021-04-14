@@ -98,6 +98,7 @@ const findTherapistAccountInfo = async (id, client) => {
       u.contact_number,
       u.contact_email,
       u.profile_photo_media_id,
+      m.id "profile_image.id",
       m.key "profile_image.key",
       m.bucket "profile_image.bucket"
     FROM users u
