@@ -42,6 +42,7 @@ const deleteContent = async ({ id, role, userId, mode }) => {
       const updatedContent = await getLibraryContent({ id: userId, role });
       return updatedContent;
     }
+
     return 'success';
   } catch (error) {
     await client.query('ROLLBACK');
