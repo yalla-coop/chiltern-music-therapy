@@ -25,7 +25,7 @@ const VideoUpdate = ({ update: { clientMessage, url, type, link } }) => {
 
       {clientMessage && (
         <T.P color="gray8" mt="4">
-          {clientMessage}
+          <pre>{clientMessage}</pre>
         </T.P>
       )}
     </Col>

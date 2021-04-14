@@ -66,7 +66,7 @@ const MyTherapist = ({ contactDetails }) => {
         <Col w={[4, 12, 6]}>
           <T.H3 bold>Biography</T.H3>
           <T.P color="gray8" mt="2">
-            {state.bio}
+            {<pre>{state.bio}</pre>}
           </T.P>
         </Col>
       </Row>

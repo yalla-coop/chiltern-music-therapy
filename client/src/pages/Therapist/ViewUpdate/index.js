@@ -110,7 +110,9 @@ const ViewUpdate = () => {
                 ? ` on ${dateFormatter(therapistMessageDate)}`
                 : 'before'}
             </T.H4>
-            <T.P color="gray8" mt="4">{`"${oldTherapistMessageDate}"`}</T.P>
+            <T.P color="gray8" mt="4">
+              <pre>{`"${oldTherapistMessageDate}"`}</pre>
+            </T.P>
           </Col>
         </Row>
       ) : (

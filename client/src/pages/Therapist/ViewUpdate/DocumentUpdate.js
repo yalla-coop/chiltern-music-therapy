@@ -22,7 +22,7 @@ const DocumentUpdate = ({ update }) => {
       )}
       {update.clientMessage && (
         <T.P color="gray8" mt="3">
-          {update.clientMessage}
+          <pre> {update.clientMessage}</pre>
         </T.P>
       )}
     </Col>

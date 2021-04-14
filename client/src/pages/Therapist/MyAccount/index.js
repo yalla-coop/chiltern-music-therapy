@@ -91,6 +91,7 @@ const MyAccount = () => {
 
   const handleUpdate = async () => {
     setUpdating(true);
+
     const { error, data } = await Users.updateAccount({
       email: cleanEmail(email),
       firstName,
@@ -102,6 +103,8 @@ const MyAccount = () => {
       role: user.role,
       profilePhotoMediaId,
     });
+
+    setUpdating(false);
     if (error) {
       if (error.statusCode === 409) {
         setErrors({ validationErrs: { email: error.message } });
@@ -109,10 +112,9 @@ const MyAccount = () => {
         setErrors({ httpError: error.message });
       }
     } else {
-      setUser(data);
       setIsModalVisible(true);
+      setUser(data);
     }
-    setUpdating(false);
   };
 
   const handleSubmit = (e) => {
@@ -131,6 +133,7 @@ const MyAccount = () => {
       key: file.key,
       bucket: file.bucket,
     });
+
     if (!_error) {
       setMediaLoading(false);
       setMediaUrl(data);
@@ -159,9 +162,7 @@ const MyAccount = () => {
       if (!error) {
         setAccountDetails(data);
 
-        if (data.profileImage && data.profileImage.key) {
-          getMediaUrl(data.profileImage);
-        }
+        setMediaUrl(data.profileImage.url);
       } else {
         setErrors({
           ...errors,

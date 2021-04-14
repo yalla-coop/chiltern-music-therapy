@@ -8,6 +8,7 @@ import { errorMsgs } from '../../../services/error-handler';
 import { userRoles as roles } from '../../../constants';
 
 const updateAccount = async ({ accountData, id, role }) => {
+  let updatedUser;
   // for both
   const { email, firstName, lastName, profilePhotoMediaId } = accountData;
 
@@ -23,12 +24,14 @@ const updateAccount = async ({ accountData, id, role }) => {
 
   switch (role) {
     case roles.CLIENT:
-      return User.updateClientAccount({
+      updatedUser = await User.updateClientAccount({
         email,
         firstName: firstName[0],
         lastName: lastName[0],
         id,
       });
+      break;
+
     case roles.THERAPIST:
       // store uploaded image info
 
@@ -54,7 +57,7 @@ const updateAccount = async ({ accountData, id, role }) => {
         });
       }
 
-      return User.updateTherapistAccount({
+      updatedUser = await User.updateTherapistAccount({
         email,
         firstName,
         lastName,
@@ -66,9 +69,14 @@ const updateAccount = async ({ accountData, id, role }) => {
           : profilePhotoMediaId,
         id,
       });
+      updatedUser.hasProfile = true;
+      break;
+
     default:
       throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
   }
+
+  return updatedUser;
 };
 
 export default updateAccount;

@@ -43,6 +43,7 @@ const Profile = () => {
   const [errors, setErrors] = useState({});
   const [mediaLoading, setMediaLoading] = useState(false);
   const [mediaUrl, setMediaUrl] = useState(null);
+  const [updateAttempt, setUpdateAttempt] = useState(false);
 
   const history = useHistory();
   const { user, setUser } = useAuth();
@@ -64,6 +65,13 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    if (updateAttempt) {
+      validateForm();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, bio, contactNumber]);
+
   const getMediaUrl = async (file) => {
     setMediaLoading(true);
     const { data, error: _error } = await Media.getMediadURL({
@@ -79,7 +87,32 @@ const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    const getTherapistInfo = async () => {
+      const { data, error } = await Users.getAccountInfo();
+
+      if (!error) {
+        setBio(data.bio);
+        setEmail(data.contactEmail);
+        setContactNumber(data.contactNumber);
+
+        setMediaUrl(data.profileImage.url);
+      } else {
+        setErrors({
+          ...errors,
+          getUserInfoError: 'Error loading account details',
+        });
+      }
+    };
+    if (user.id) {
+      getTherapistInfo();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user.id]);
+
   const handleSubmit = async (e) => {
+    setUpdateAttempt(true);
+
     const isValid = validateForm();
     if (isValid) {
       const { data, error } = await Users.createTherapistProfile({
