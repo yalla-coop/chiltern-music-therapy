@@ -49,7 +49,6 @@ const Expandable = ({
         borderColor={borderColor}
         open={open}
         onClick={() => {
-          setOpenItem('555');
           return !open && setOpen(true);
         }}
         height={selectedHeight}
