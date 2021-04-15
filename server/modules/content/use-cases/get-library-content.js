@@ -6,13 +6,11 @@ const getLibraryContent = async ({ id, role }, client) => {
   let contents = [];
   if ([userRoles.ADMIN, userRoles.SUPER_ADMIN].includes(role)) {
     contents = await Content.findLibraryContentAdmin(client);
+  } else {
+    contents = await Content.findLibraryContent({ id }, client);
   }
 
-  contents = await Content.findLibraryContent({ id }, client);
-
-  if (contents) {
-    await setMediaFileUrl(contents);
-  }
+  await setMediaFileUrl(contents);
 
   return contents;
 };
