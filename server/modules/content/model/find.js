@@ -33,7 +33,7 @@ const findContentByProg = async (id) => {
   return res.rows;
 };
 
-const findLibraryContent = async ({ id }) => {
+const findLibraryContent = async ({ id }, client) => {
   const values = [id];
 
   const sql = `
@@ -59,11 +59,11 @@ const findLibraryContent = async ({ id }) => {
     GROUP BY c.id, m.id
     `;
 
-  const res = await query(sql, values);
+  const res = await query(sql, values, client);
   return res.rows;
 };
 
-const findLibraryContentAdmin = async () => {
+const findLibraryContentAdmin = async (client) => {
   const values = [];
 
   const sql = `
@@ -95,7 +95,7 @@ const findLibraryContentAdmin = async () => {
     GROUP BY c.id, m.id, tc.therapist_user_id, u.first_name, u.last_name
     `;
 
-  const res = await query(sql, values);
+  const res = await query(sql, values, client);
   return res.rows;
 };
 
@@ -134,7 +134,7 @@ const findCategoriesAdmin = async () => {
   return res.rows;
 };
 
-const findContentById = async (id, client) => {
+const findContentById = async ({ id }, client) => {
   const values = [id];
 
   const sql = `
@@ -162,7 +162,7 @@ const findContentByMediaId = async (id, client) => {
   return res.rows;
 };
 
-const findContentInProgrammes = async (contentId, client) => {
+const findContentInProgrammes = async ({ contentId }, client) => {
   const values = [contentId];
 
   const sql = `

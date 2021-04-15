@@ -20,7 +20,7 @@ const updateContentById = async (
   return res.rows[0];
 };
 
-const removeContentFromLibrary = async (id, client) => {
+const removeContentFromLibrary = async ({ id }, client) => {
   const values = [id];
   const sql = `
     UPDATE contents

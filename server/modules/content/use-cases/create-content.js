@@ -4,71 +4,58 @@ import * as Media from '../../media/model';
 
 import { matchMediaTypes } from '../../../helpers';
 
-const createContent = async ({ userId, contentData }) => {
-  const client = await getClient();
+const createContent = async ({ userId, contentData }, client) => {
+  const {
+    libraryContent,
+    title,
+    instructions,
+    link,
+    docContent,
+    uploadedFileInfo,
+    type,
+  } = contentData;
 
-  try {
-    await client.query('BEGIN');
-
+  let media;
+  // create media content if present
+  if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
     const {
-      libraryContent,
+      name,
+      key,
+      bucket,
+      bucketRegion,
+      size,
+      fileType,
+    } = uploadedFileInfo;
+
+    media = await Media.createMedia(
+      {
+        fileName: name,
+        fileType,
+        size,
+        key,
+        bucket,
+        bucketRegion,
+        createdBy: userId,
+      },
+      client,
+    );
+  }
+  // create content
+  const newContent = await Content.createContent(
+    {
+      mediaId: media && media.id,
       title,
       instructions,
       link,
       docContent,
-      uploadedFileInfo,
-      type,
-    } = contentData;
+      libraryContent,
+      therapistLibraryUserId: userId,
+      type: matchMediaTypes(type),
+    },
+    client,
+  );
 
-    let media;
-    // create media content if present
-    if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
-      const {
-        name,
-        key,
-        bucket,
-        bucketRegion,
-        size,
-        fileType,
-      } = uploadedFileInfo;
-
-      media = await Media.createMedia(
-        {
-          fileName: name,
-          fileType,
-          size,
-          key,
-          bucket,
-          bucketRegion,
-          createdBy: userId,
-        },
-        client,
-      );
-    }
-    // create content
-    const newContent = await Content.createContent(
-      {
-        mediaId: media && media.id,
-        title,
-        instructions,
-        link,
-        docContent,
-        libraryContent,
-        therapistLibraryUserId: userId,
-        type: matchMediaTypes(type),
-      },
-      client,
-    );
-
-    await client.query('COMMIT');
-
-    return newContent;
-  } catch (error) {
-    await client.query('ROLLBACK');
-    throw error;
-  } finally {
-    client.release();
-  }
+  return newContent;
 };
 
 export default createContent;

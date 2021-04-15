@@ -10,7 +10,7 @@ describe('Test update programme api', () => {
     builtData = await build();
   });
 
-  it('test with valid request -> remove content that is library content', async () => {
+  it('test with valid request -> remove content that is library content', (done) => {
     const { users, contents, programmes } = builtData;
     const userId = users.therapist1.id;
 
@@ -21,23 +21,26 @@ describe('Test update programme api', () => {
     const contentId = contents.content4.id;
     const programmeId = programmes.programme1.id;
 
-    await request(app)
+    request(app)
       .delete(
         `/api/contents/remove-from-programme?contentId=${contentId}&programmeId=${programmeId}`,
       )
       .set('Cookie', [token])
       .expect('Content-Type', /json/)
-      .expect(200);
-    // check if programmes_contents got updated
-    const foundProgrammesContents = await query(
-      `SELECT * FROM programmes_contents WHERE programme_id = ${programmeId}`,
-    );
+      .expect(200)
+      .end(async (err) => {
+        // check if programmes_contents got updated
+        const foundProgrammesContents = await query(
+          `SELECT * FROM programmes_contents WHERE programme_id = ${programmeId}`,
+        );
 
-    expect(
-      foundProgrammesContents.rows
-        .map((el) => el.contentId)
-        .includes(contentId),
-    ).to.equal(false);
+        expect(
+          foundProgrammesContents.rows
+            .map((el) => el.contentId)
+            .includes(contentId),
+        ).to.equal(false);
+        done(err);
+      });
   });
 
   it('test with valid request -> content that is not used anywhere else', async () => {

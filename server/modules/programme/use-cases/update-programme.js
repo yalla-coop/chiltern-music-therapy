@@ -84,11 +84,14 @@ const updateProgramme = async ({ userId, body }) => {
         // for new content -> add to db and to programme
         else {
           // create media content if present
-          _content = await createProgrammeContent({
-            programmeId,
-            userId,
-            contentData,
-          });
+          _content = await createProgrammeContent(
+            {
+              programmeId,
+              userId,
+              contentData,
+            },
+            client,
+          );
 
           // create programmes_contents
           await Programme.createProgrammesContent(

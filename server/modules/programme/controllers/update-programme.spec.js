@@ -71,7 +71,7 @@ describe('Test update programme api', () => {
       .send(updateRequest)
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(async () => {
+      .end(async (err) => {
         // check if programme was updated
         const foundProgramme = await query(
           `
@@ -152,7 +152,7 @@ describe('Test update programme api', () => {
         expect(categoriesDocContent.rows.length).to.equal(
           newDocMedia.categories.length,
         );
-        done();
+        done(err);
       });
   });
 });
