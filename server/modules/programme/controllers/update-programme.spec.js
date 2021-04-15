@@ -10,7 +10,7 @@ describe('Test update programme api', () => {
     builtData = await build();
   });
 
-  it('test with valid request', () => {
+  it('test with valid request', (done) => {
     const { users, contents, contentCategories, programmes } = builtData;
 
     const userId = users.therapist1.id;
@@ -71,7 +71,7 @@ describe('Test update programme api', () => {
       .send(updateRequest)
       .expect('Content-Type', /json/)
       .expect(200)
-      .end(async (err) => {
+      .end(async () => {
         // check if programme was updated
         const foundProgramme = await query(
           `
@@ -152,7 +152,7 @@ describe('Test update programme api', () => {
         expect(categoriesDocContent.rows.length).to.equal(
           newDocMedia.categories.length,
         );
-        return err;
+        done();
       });
   });
 });
