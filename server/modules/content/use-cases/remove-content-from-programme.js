@@ -15,7 +15,10 @@ const removeContentFromProgramme = async ({
   try {
     await client.query('BEGIN');
 
-    const contentToDelete = await Content.findContentById(contentId, client);
+    const contentToDelete = await Content.findContentById(
+      { id: contentId },
+      client,
+    );
 
     if (userId !== contentToDelete.therapistLibraryUserId) {
       throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
@@ -32,7 +35,7 @@ const removeContentFromProgramme = async ({
 
     // check if content is used in any programmes
     const programmesContents = await Content.findContentInProgrammes(
-      contentId,
+      { contentId },
       client,
     );
     const programmesContentsIds = programmesContents.map(({ id }) => id);
@@ -59,17 +62,25 @@ const removeContentFromProgramme = async ({
     ) {
       throw Boom.badData(errorMsgs.WRONG_DATA);
     }
+
+    let deletedContent;
     // IF NOT PART OF ANY OTHER PROGRAMMES AND NO LIBRARY CONTENT -> remove completely
     if (onlyThisProgramme && !libraryContent) {
-      await deleteContent({ id: contentId, userId, role }, client);
+      deletedContent = await deleteContent(
+        { id: contentId, userId, role },
+        client,
+      );
     }
     // IF PART OF OTHER PROGRAMMES OR LIBRARY CONTENT -> ONLY REMOVE FROM THIS PROGRAMME ONLY
     if (alsoOtherProgrammes || libraryContent) {
-      await Content.deleteContentFromProgrammeById(programmeContent.id, client);
+      deletedContent = await Content.deleteContentFromProgrammeById(
+        programmeContent.id,
+        client,
+      );
     }
 
     await client.query('COMMIT');
-    return 'success';
+    return deletedContent;
   } catch (error) {
     await client.query('ROLLBACK');
     throw error;
