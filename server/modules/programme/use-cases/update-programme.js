@@ -42,8 +42,10 @@ const updateProgramme = async ({ userId, body }) => {
     }
 
     // manage contents
-    await Promise.all(
-      programmeContents.map(async (contentData) => {
+    const promises = [];
+
+    programmeContents.forEach((contentData) => {
+      const fn = async () => {
         const {
           libraryContent,
           title,
@@ -100,8 +102,11 @@ const updateProgramme = async ({ userId, body }) => {
         // FOR ALL
         // update categories
         await manageCCC({ userId, contentId: _content.id, categories }, client);
-      }),
-    );
+      };
+      promises.push(fn());
+    });
+
+    await Promise.all(promises);
 
     await client.query('COMMIT');
 

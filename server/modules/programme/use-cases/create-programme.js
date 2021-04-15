@@ -43,9 +43,11 @@ const createProgramme = async ({ userId, body }) => {
       client,
     );
 
+    const promises = [];
     // store content
-    await Promise.all(
-      content.map(async (contentData) => {
+
+    content.forEach((contentData) => {
+      const fn = async () => {
         const {
           libraryContent,
           title,
@@ -87,8 +89,11 @@ const createProgramme = async ({ userId, body }) => {
 
         // update categories
         await manageCCC({ userId, contentId: _content.id, categories }, client);
-      }),
-    );
+      };
+      promises.push(fn());
+    });
+
+    await Promise.all(promises);
 
     await client.query('COMMIT');
 
