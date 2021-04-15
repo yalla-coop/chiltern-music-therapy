@@ -89,7 +89,6 @@ const findTherapistByClientId = async (id) => {
     u.contact_number,
     u.contact_email,
     u.bio,
-    m.type AS "file.type",
     m.file_name AS "file.file_name",
     m.key AS "file.key",
     m.bucket AS "file.bucket",
@@ -194,6 +193,20 @@ const findTherapistByClient = async (clientId) => {
   return res.rows[0];
 };
 
+const findTherapistClientID = async ({ clientId, therapistId }, client) => {
+  const values = [clientId, therapistId];
+
+  const sql = `
+    SELECT
+      id
+    FROM therapist_clients
+    WHERE client_user_id = $1 AND therapist_user_id = $2;
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
 const findClientsByTherapist = async (therapistId) => {
   const values = [therapistId];
 
@@ -225,4 +238,5 @@ export {
   findClientByUserId,
   findTherapistClientByClientId,
   findTherapyByClientId,
+  findTherapistClientID,
 };

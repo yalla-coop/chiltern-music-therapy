@@ -5,6 +5,9 @@ import cleanEmail from './cleanEmail';
 import getInitials from './getInitials';
 import decideBorder from './decideBorder';
 import linkFormatter from './linkFormatter';
+import isEmptyObject from './isEmptyObject';
+import createUniqueCats from './createUniqueCats';
+import decideStreamable from './decideStreamable';
 
 export {
   authorization,
@@ -14,4 +17,7 @@ export {
   cleanEmail,
   linkFormatter,
   decideBorder,
+  isEmptyObject,
+  createUniqueCats,
+  decideStreamable,
 };

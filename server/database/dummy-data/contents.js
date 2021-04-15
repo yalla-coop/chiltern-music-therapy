@@ -47,7 +47,7 @@ const createContents = async ({ media, therapistClients }) => {
     title: 'Video title',
     instructions: `Hi! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.`,
     link: null,
-    libraryContent: true,
+    libraryContent: false,
     therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
     type: 'VIDEO',
   });
@@ -70,11 +70,21 @@ const createContents = async ({ media, therapistClients }) => {
     therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
     type: 'AUDIO',
   });
+  const content4 = await createContent({
+    mediaId: media.doc1.id,
+    title: 'PDF file uploaded at s3',
+    instructions: `Internal S3 Hi! This week we will continue working on choice making and strengthening of left upper limb. I have prepared two demos to support this work during the week. It is recommended that you have a go at least once before our next session.`,
+    link: null,
+    libraryContent: true,
+    therapistLibraryUserId: therapistClients.therapist1Client1.therapistUserId,
+    type: 'DOCUMENT',
+  });
 
   return {
     content1,
     content2,
     content3,
+    content4,
   };
 };
 

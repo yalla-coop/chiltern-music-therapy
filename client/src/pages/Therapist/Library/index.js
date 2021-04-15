@@ -3,8 +3,13 @@ import Title from '../../../components/Title';
 import { Dropdown } from '../../../components/Inputs';
 import { Basic, Expandable } from '../../../components/Cards';
 import { Row, Col } from '../../../components/Grid';
+import Modal from '../../../components/Modal';
 
-import { decideBorder } from '../../../helpers';
+import {
+  decideBorder,
+  createUniqueCats,
+  decideStreamable,
+} from '../../../helpers';
 
 import { useAuth } from '../../../context/auth';
 
@@ -13,6 +18,10 @@ import { userRoles } from '../../../constants/data-types';
 import { Contents, Users } from '../../../api-calls';
 
 import * as T from '../../../components/Typography';
+
+import validate from '../../../validation/schemas/editContent';
+import ExpandableProvider from '../../../context/expandable';
+import * as S from './style';
 
 const typeOptions = [
   { label: 'All', value: 'ALL' },
@@ -29,7 +38,13 @@ const Library = () => {
   const [filteredContents, setFilteredContents] = useState([]);
   const [therapistOptions, setTherapistOptions] = useState([]);
   const [contentToEdit, setContentToEdit] = useState('');
+  const [editFormState, setEditFormState] = useState({});
+  const [contentToDelete, setContentToDelete] = useState('');
   const [editingErrors, setEditingErrors] = useState({});
+  const [modalToShow, setModalToShow] = useState('');
+  const [updating, setUpdating] = useState(false);
+  const [updateError, setUpdateError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const { user } = useAuth();
 
@@ -39,48 +54,106 @@ const Library = () => {
     setFilter({ ...filter, [filterType]: e });
   };
 
-  const decideStreamable = (type, path) => {
-    if (['VIDEO', 'AUDIO'].includes(type) && path) {
-      return true;
+  const removeContent = (id) => {
+    setModalToShow('removeContent');
+    setContentToDelete(id);
+  };
+
+  const confirmRemove = async (action) => {
+    if (action === 'removeCompletely') {
+      setModalToShow('removeCompletely');
+    } else {
+      setUpdating(true);
+      const { data, error } = await Contents.removeContentFromLibrary({
+        id: contentToDelete,
+      });
+      if (error) {
+        setUpdateError(error.message || 'Server request error');
+        setModalToShow('error');
+      } else {
+        setContents(data);
+        setModalToShow('removeFromLibrarySuccess');
+      }
+      setUpdating(false);
     }
-    return false;
   };
 
-  const removeContent = () => {
-    console.log('Remove content');
+  const removeCompletely = async () => {
+    setUpdating(true);
+    const { data, error } = await Contents.deleteContent({
+      id: contentToDelete,
+    });
+    if (error) {
+      setUpdateError(error.message || 'Server request error');
+      setModalToShow('error');
+    } else {
+      setContents(data);
+      setModalToShow('removeCompletelySuccess');
+    }
+    setUpdating(false);
   };
 
-  const editContent = (contentId) => {
-    console.log(
-      'Clear away formstate in case stuff frmo another card they didnt save'
-    );
-    // setContentToEdit(contentId);
+  const editContent = (content) => {
+    setContentToEdit(content.id);
+    setEditFormState(content);
+  };
+
+  const saveEdit = () => {
+    try {
+      validate({
+        title: editFormState.title,
+        instructions: editFormState.instructions,
+      });
+      setModalToShow('editContent');
+    } catch (error) {
+      if (error.name === 'ValidationError') {
+        setEditingErrors({ validationErrs: error.inner });
+      }
+    }
+  };
+
+  const confirmEdit = async () => {
+    setUpdating(true);
+    const { data, error } = await Contents.editContent(editFormState);
+    if (error) {
+      setUpdateError(error.message || 'Server request error');
+      setModalToShow('error');
+    } else {
+      setEditFormState({});
+      setContentToEdit('');
+      setContents(data);
+      setModalToShow('updateSuccess');
+    }
+    setUpdating(false);
+  };
+
+  const handleInput = (value) => {
+    setEditFormState({ ...editFormState, ...value });
   };
 
   const cancelChanges = () => {
-    console.log('Clear away formstate');
     setContentToEdit('');
+    setEditFormState({});
   };
 
   useEffect(() => {
     const getContent = async () => {
+      setLoading(true);
       const { data, error } = await Contents.getLibraryContent();
 
       if (!error) {
-        setContents(data);
+        const allLibraryC = data.map((el) => ({
+          ...el,
+          categories: [...new Set(el.categories.map((cat) => cat))],
+        }));
+        setContents(allLibraryC);
+        setLoading(false);
       }
-    };
-
-    const getCategories = async () => {
-      const { data, error } = await Contents.getCategories();
-
-      if (!error) {
-        const allCats = data.map(({ text }) => ({ label: text, value: text }));
-        setCategoryOptions([{ label: 'All', value: 'ALL' }, ...allCats]);
-      }
+      setLoading(false);
     };
 
     const getTherapists = async () => {
+      setLoading(true);
       const { data, error } = await Users.getTherapists();
 
       if (!error) {
@@ -89,18 +162,35 @@ const Library = () => {
           value: id,
         }));
         setTherapistOptions([{ label: 'All', value: 'ALL' }, ...allTherapists]);
+        setLoading(false);
       }
+      setLoading(false);
     };
 
     if (user.id) {
       getContent();
-      getCategories();
 
       if ([userRoles.SUPER_ADMIN, userRoles.ADMIN].includes(user.role)) {
         getTherapists();
       }
     }
   }, [user.id, user.role]);
+
+  useEffect(() => {
+    const getCategories = async () => {
+      setLoading(true);
+      const { data, error } = await Contents.getCategories();
+      if (!error) {
+        setLoading(false);
+        setCategoryOptions([
+          { label: 'All', value: 'ALL' },
+          ...createUniqueCats(data),
+        ]);
+      }
+    };
+
+    getCategories();
+  }, [contents]);
 
   useEffect(() => {
     const filtered = contents.filter(
@@ -170,39 +260,65 @@ const Library = () => {
           </Col>
         )}
       </Row>
-      <Row mb="4">
-        {contentToView ? (
-          filteredContents
-            .slice(0, viewNum)
-            .map(({ type, path, id, categories, ...content }, index) => (
-              <Col w={[4, 6, 4]} mb="4" key={index}>
-                <Expandable
-                  borderColor={decideBorder(type)}
-                  content={{
-                    download: path,
-                    streamable: decideStreamable(type, path),
-                    categories: categories.filter((cat) => cat !== null),
-                    ...content,
-                    type: type?.toLowerCase(),
-                    path,
-                  }}
-                  remove={removeContent}
-                  edit={() => editContent(id)}
-                  onCancel={cancelChanges}
-                  withDate
-                  actions
-                  editing={contentToEdit === id}
-                  errors={editingErrors}
-                  library
-                />
-              </Col>
-            ))
-        ) : (
-          <Col w={[4, 6, 4]}>
-            <Basic>No content to show</Basic>
+      {updating || loading ? (
+        <Row mb="4">
+          <Col w={[4, 6, 4]} mb="4">
+            <S.Loading />
           </Col>
-        )}
-      </Row>
+        </Row>
+      ) : (
+        <ExpandableProvider
+          itemsNumbers={filteredContents.slice(0, viewNum).length}
+        >
+          <Row mb="4">
+            {contentToView ? (
+              filteredContents.slice(0, viewNum).map((content, index) => {
+                const contentToUse =
+                  content.id === contentToEdit ? editFormState : content;
+                return (
+                  <Col w={[4, 6, 4]} mb="4" key={index}>
+                    <Expandable
+                      index={index + 1}
+                      borderColor={decideBorder(content.type)}
+                      content={{
+                        ...contentToUse,
+                        download: content.file.url,
+                        streamable: decideStreamable(
+                          content.type,
+                          content.file.url
+                        ),
+                        categories: contentToUse.categories.filter(
+                          (cat) => cat.value !== null
+                        ),
+                        type: content.type?.toLowerCase(),
+                        url: content.file.url,
+                        docContent: content.docContent,
+                        validationErrs: editingErrors?.validationErrs,
+                      }}
+                      remove={() => removeContent(content.id)}
+                      edit={() => editContent(content)}
+                      onCancel={cancelChanges}
+                      withDate
+                      actions
+                      editing={contentToEdit === content.id}
+                      saveChanges={saveEdit}
+                      library
+                      handleInput={handleInput}
+                      categoryOptions={categoryOptions.filter(
+                        (opt) => opt.value !== 'ALL'
+                      )}
+                    />
+                  </Col>
+                );
+              })
+            ) : (
+              <Col w={[4, 6, 4]}>
+                <Basic>No content to show</Basic>
+              </Col>
+            )}
+          </Row>
+        </ExpandableProvider>
+      )}
       {viewNum < filteredContents.length && (
         <Row>
           <Col w={[4, 12, 12]} jc="flex-start" jcT="center">
@@ -218,6 +334,54 @@ const Library = () => {
           </Col>
         </Row>
       )}
+      {/* EDIT CONTENT */}
+      <Modal
+        type="editContent"
+        visible={modalToShow === 'editContent'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        parentFunc={confirmEdit}
+        closeOnOK={false}
+        loading={updating}
+      />
+      <Modal
+        type="updateSuccess"
+        visible={modalToShow === 'updateSuccess'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+      />
+
+      {/* REMOVE CONTENT */}
+      <Modal
+        type="removeContent"
+        visible={modalToShow === 'removeContent'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        parentFunc={confirmRemove}
+        closeOnOK={false}
+        loading={updating}
+      />
+      <Modal
+        type="removeCompletely"
+        visible={modalToShow === 'removeCompletely'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        parentFunc={removeCompletely}
+        closeOnOK={false}
+        loading={updating}
+      />
+      <Modal
+        type={modalToShow}
+        visible={[
+          'removeFromLibrarySuccess',
+          'removeCompletelySuccess',
+        ].includes(modalToShow)}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+      />
+
+      {/* ERROR */}
+      <Modal
+        type="error"
+        visible={modalToShow === 'error'}
+        setIsModalVisible={(e) => !e && setModalToShow('')}
+        error={updateError}
+      />
     </>
   );
 };

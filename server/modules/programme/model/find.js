@@ -6,7 +6,7 @@ const findProgrammeWithUsersById = async (programmeId) => {
   const values = [programmeId];
 
   const sql = `
-    SELECT 
+    SELECT
       p.id,
       p.therapists_clients_id,
       p.description,
@@ -166,11 +166,12 @@ const findProgrammesByClient = async (userId) => {
   const values = [userId];
 
   const sql = `
-    SELECT 
+    SELECT
     p.id, p.created_at
     FROM programmes p
     INNER JOIN therapist_clients tc ON p.therapists_clients_id = tc.id
     WHERE tc.client_user_id = $1
+    ORDER BY p.created_at DESC
   `;
 
   const res = await query(sql, values);
@@ -179,9 +180,10 @@ const findProgrammesByClient = async (userId) => {
 
 const findProgrammeById = async ({ id }) => {
   const values = [id];
+
   const sql = `
-    SELECT 
-    p.id, 
+    SELECT
+    p.id,
     p.created_at,
     p.description,
     pu.id "update.id",
@@ -191,13 +193,17 @@ const findProgrammeById = async ({ id }) => {
     pf.created_at "feedback.created_at",
     tc.therapist_user_id,
     tc.client_user_id,
-    u.first_name "therapist.first_name",
-    u.last_name "therapist.last_name"
+    u1.first_name "therapist.first_name",
+    u1.last_name "therapist.last_name",
+    u2.first_name "client.first_name",
+    u2.last_name "client.last_name",
+    u2.postcode "client.postcode"
     FROM programmes p
-    INNER JOIN progress_updates pu ON pu.programme_id = p.id
-    INNER JOIN programmes_feedbacks pf ON pf.programme_id = p.id
-    INNER JOIN therapist_clients tc ON tc.id = p.therapists_clients_id
-    INNER JOIN users u ON tc.therapist_user_id = u.id
+    LEFT JOIN progress_updates pu ON pu.programme_id = p.id
+    LEFT JOIN programmes_feedbacks pf ON pf.programme_id = p.id
+    LEFT JOIN therapist_clients tc ON tc.id = p.therapists_clients_id
+    LEFT JOIN users u1 ON tc.therapist_user_id = u1.id
+    LEFT JOIN users u2 ON tc.client_user_id = u2.id
     WHERE p.id = $1
   `;
 

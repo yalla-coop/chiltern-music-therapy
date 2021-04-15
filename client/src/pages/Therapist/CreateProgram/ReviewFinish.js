@@ -15,16 +15,23 @@ import validate from '../../../validation/schemas/programme';
 import * as S from './style';
 
 import { Programmes } from '../../../api-calls';
-import { decideBorder } from '../../../helpers';
+import { decideBorder, isEmptyObject } from '../../../helpers';
+import ExpandableProvider from '../../../context/expandable';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Expandable } = Cards;
 
-const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
+const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
-  const { description, content, errors, loading, contentCategories } = state;
+  const {
+    description,
+    content,
+    errors,
+    loading,
+    contentCategories,
+  } = parentState;
 
   const {
     SET_DESCRIPTION,
@@ -98,7 +105,6 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
     if (error) {
       SET_ERRORS(error.message);
     } else {
-      // TODO add modal
       navFunctions.goToSuccess();
     }
   };
@@ -117,12 +123,12 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           libraryContent: el.libraryContent,
           date: el.date || moment(),
           fileUpload: el.uploadedFileInfo,
+          docContent: el.docContent,
           // get these from form validation above
           validationErrs: errors && errors[`content[${idx}]`],
         };
-
         return (
-          <Col mb={5} w={[4, 6, 5]}>
+          <Col mb={5} w={[4, 6, 5]} key={el.id}>
             <Expandable
               borderColor={decideBorder(el.type)}
               content={content}
@@ -132,6 +138,7 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
               handleInput={UPDATE_CONTENT_ITEM}
               categoryOptions={contentCategoriesData}
               review
+              index={idx + 1}
             />
           </Col>
         );
@@ -171,8 +178,9 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           />
         </Col>
       </Row>
-
-      <Row mt={7}>{renderReviewCards(content)}</Row>
+      <ExpandableProvider itemsNumbers={content.length}>
+        <Row mt={7}>{renderReviewCards(content)}</Row>
+      </ExpandableProvider>
       {errors && typeof errors === 'string' && (
         <Row mt={5}>
           <T.P bold color="pink">
@@ -180,14 +188,14 @@ const ReviewFinish = ({ state, actions, navFunctions, clientId }) => {
           </T.P>
         </Row>
       )}
-      {/* {errors   && (
+      {errors && !isEmptyObject(errors) && (
         <Row mt={5}>
           <T.P bold color="pink">
             Errors storing your programme. Please check if all inputs are filled
             in correctly.
           </T.P>
         </Row>
-      )} */}
+      )}
       <Row mt={7}>
         <Col w={[4, 6, 4]} mbM={5} mbT={5}>
           <Button

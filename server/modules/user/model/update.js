@@ -58,7 +58,17 @@ const updateUserById = async (
       profile_photo_media_id = COALESCE($15, u.profile_photo_media_id),
       organisation_id = COALESCE($16, u.organisation_id)
     WHERE u.id = $1
-    RETURNING *
+    RETURNING 
+      u.id, 
+      u.email, 
+      u.first_name, 
+      u.last_name, 
+      u.postcode, 
+      u.roles::VARCHAR[],
+      u.contact_email,
+      u.bio,
+      u.profile_photo_media_id,
+      u.organisation_id
   `;
 
   const res = await query(sql, values, client);
@@ -70,14 +80,14 @@ const updateResetPasswordToken = async ({ token, userId }) => {
   const values = [token, userId];
 
   const sql = `
-    UPDATE users 
+    UPDATE users
     SET
       reset_password_token = $1,
       reset_password_expiry = NOW() + INTERVAL '1 DAY'
-    WHERE 
+    WHERE
       id = $2
-    RETURNING 
-      reset_password_token, 
+    RETURNING
+      reset_password_token,
       first_name,
       email
   `;
@@ -90,13 +100,13 @@ const updatePassword = async ({ password, userId }, client) => {
   const values = [password, userId];
 
   const sql = `
-    UPDATE users 
+    UPDATE users
     SET
       password = $1,
       reset_password_expiry = NOW()
-    WHERE 
+    WHERE
       id = $2
-    RETURNING 
+    RETURNING
       first_name,
       email
   `;
@@ -105,4 +115,88 @@ const updatePassword = async ({ password, userId }, client) => {
   return res.rows[0];
 };
 
-export { updateUserById, updateResetPasswordToken, updatePassword };
+const updateClientAccount = async (
+  { email, firstName, lastName, id },
+  client,
+) => {
+  const values = [email, firstName, lastName, id];
+
+  const sql = `
+    UPDATE users
+    SET
+      email = $1,
+      first_name = $2,
+      last_name= $3
+    WHERE
+      id = $4
+    RETURNING
+      first_name,
+      last_name,
+      email,
+      postcode,
+      roles::VARCHAR[],
+      id
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+const updateTherapistAccount = async (
+  {
+    email,
+    firstName,
+    lastName,
+    bio,
+    contactNumber,
+    contactEmail,
+    profilePhotoMediaId,
+    id,
+  },
+  client,
+) => {
+  const values = [
+    email,
+    firstName,
+    lastName,
+    bio,
+    contactNumber,
+    contactEmail,
+    profilePhotoMediaId,
+    id,
+  ];
+
+  // NEED TO SORT PROFILE IMAGE
+
+  const sql = `
+    UPDATE users u
+    SET
+      email = COALESCE($1, u.email),
+      first_name = COALESCE($2, u.first_name),
+      last_name= COALESCE($3, u.last_name),
+      bio = COALESCE($4, u.bio),
+      contact_number = COALESCE($5, u.contact_number),
+      contact_email = COALESCE($6, u.contact_email),
+      profile_photo_media_id  = COALESCE($7, u.profile_photo_media_id)
+    WHERE
+      id = $8
+    RETURNING
+      first_name,
+      last_name,
+      email,
+      postcode,
+      roles::VARCHAR[],
+      id
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+export {
+  updateUserById,
+  updateResetPasswordToken,
+  updatePassword,
+  updateClientAccount,
+  updateTherapistAccount,
+};

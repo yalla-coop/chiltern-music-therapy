@@ -11,6 +11,7 @@ import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 
 import { Media } from '../../../api-calls';
 import { fileCategories } from '../../../constants/content';
+import Video from '../../Video';
 
 const EditMode = ({
   content,
@@ -19,7 +20,6 @@ const EditMode = ({
   selectedHeight,
   remove,
   handleInput,
-  errors,
   library,
   saveChanges,
   categoryOptions,
@@ -35,6 +35,9 @@ const EditMode = ({
     link,
     validationErrs,
     fileUpload,
+    url,
+    download,
+    docContent,
   } = content;
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -57,11 +60,12 @@ const EditMode = ({
       title,
       id,
       instructions,
-      libraryContent: libraryContent,
+      libraryContent,
       link,
       type,
     };
     handleInput(formattedSingleContent);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -69,13 +73,17 @@ const EditMode = ({
     if (fileUpload && fileUpload.uploadedToS3) {
       return getMediaUrl(fileUpload);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const modalParentFunction = (_id) => remove({ id });
+  if (!open) return <div ref={contentRef} height={selectedHeight} />;
+  const modalParentFunction = (_id) => {
+    return remove({ id });
+  };
 
   const streamable =
     [fileCategories.audio, fileCategories.video].includes(type) &&
-    (mediaUrl || link);
+    (mediaUrl || link || url);
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
@@ -86,8 +94,23 @@ const EditMode = ({
         parentFunc={() => modalParentFunction(id)}
       />
       {streamable && (
-        <div style={{ marginBottom: '24px' }}>STREAM GOES HERE</div>
+        <div style={{ marginBottom: '24px', marginTop: '8px' }}>
+          <Video url={url || mediaUrl} type={type} />
+        </div>
       )}
+      {download && (
+        <a href={download} download>
+          <Icon
+            icon="download"
+            width="16"
+            height="16"
+            text={`Download ${type}`}
+            mb="5"
+            color="primary"
+          />
+        </a>
+      )}
+
       {mediaUrl && (
         <a href={mediaUrl} download>
           <Icon
@@ -100,6 +123,7 @@ const EditMode = ({
           />
         </a>
       )}
+      {docContent && <Textarea value={docContent} m={{ mb: '5' }} rows={5} />}
 
       <BasicInput
         label="Title"
@@ -114,7 +138,7 @@ const EditMode = ({
       <Dropdown
         multi
         label="Categories"
-        selected={categories}
+        selected={categories.map((el) => (el && el.value ? el.value : el))}
         options={categoryOptions || []}
         addNew
         handleChange={(val) => handleInput({ id, categories: val })}

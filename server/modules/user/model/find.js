@@ -39,6 +39,26 @@ const findUserByEmail = async (email, client) => {
   return res.rows[0];
 };
 
+const findUserByMainPhone = async (primaryMobileNumber, client) => {
+  const values = [primaryMobileNumber];
+  const sql = `
+  SELECT
+    id,
+    first_name,
+    last_name,
+    email,
+    password,
+    postcode,
+    roles::VARCHAR[]
+
+  FROM users
+    WHERE mobile_number = $1
+    `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
 const findUserByResetToken = async (token, client) => {
   const values = [token];
   const sql = `
@@ -55,7 +75,7 @@ const findUserByResetToken = async (token, client) => {
 
 const findTherapists = async () => {
   const sql = `
-    SELECT first_name, last_name, id, roles::VARCHAR[] FROM users  
+    SELECT first_name, last_name, id, roles::VARCHAR[] FROM users
   `;
 
   const res = await query(sql);
@@ -66,4 +86,51 @@ const findTherapists = async () => {
   return therapists;
 };
 
-export { findUserById, findUserByEmail, findTherapists, findUserByResetToken };
+const findTherapistAccountInfo = async (id, client) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      u.first_name,
+      u.last_name,
+      u.email,
+      u.bio,
+      u.contact_number,
+      u.contact_email,
+      u.profile_photo_media_id,
+      m.id "profile_image.id",
+      m.key "profile_image.key",
+      m.bucket "profile_image.bucket"
+    FROM users u
+    LEFT JOIN media m ON u.profile_photo_media_id = m.id
+      WHERE u.id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+const findTherapistProfile = async (id, client) => {
+  const values = [id];
+
+  const sql = `
+    SELECT
+      u.bio,
+      u.contact_email
+    FROM users u
+    WHERE u.id = $1
+  `;
+
+  const res = await query(sql, values, client);
+  return res.rows[0];
+};
+
+export {
+  findUserById,
+  findUserByEmail,
+  findTherapists,
+  findUserByResetToken,
+  findTherapistAccountInfo,
+  findUserByMainPhone,
+  findTherapistProfile,
+};

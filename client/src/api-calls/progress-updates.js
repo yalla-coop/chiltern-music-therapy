@@ -13,4 +13,39 @@ const getProgressUpdatesById = async ({ id, options }) => {
   }
 };
 
-export { getProgressUpdatesById };
+const sendUpdate = async ({
+  uploadedFileInfo,
+  clientMessage,
+  link,
+  programmeId,
+  type,
+  options,
+} = {}) => {
+  try {
+    const { data } = await axios.post(`${PROGRESS_UPDATES_BASE}`, {
+      uploadedFileInfo,
+      clientMessage,
+      link,
+      programmeId,
+      type,
+    });
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+const updateProgressUpdate = async ({ therapistMessage, id, options } = {}) => {
+  try {
+    const { data } = await axios.patch(`${PROGRESS_UPDATES_BASE}/${id}`, {
+      therapistMessage,
+    });
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export { getProgressUpdatesById, sendUpdate, updateProgressUpdate };

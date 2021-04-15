@@ -25,15 +25,16 @@ const clientSignup = async ({ email, password, over16, inviteToken }) => {
       role: userRoles.CLIENT,
     });
 
-    const userWithSameEmail = await User.findUserByEmail(email);
-    if (userWithSameEmail) {
-      throw Boom.conflict(errorMsgs.EMAIL_ALREADY_EXISTS, { field: 'email' });
-    }
-
     const clientUser = await TherapistClients.findClientByInviteToken(
       inviteToken,
       client,
     );
+
+    const userWithSameEmail = await User.findUserByEmail(email);
+
+    if (userWithSameEmail && clientUser.id !== userWithSameEmail.id) {
+      throw Boom.conflict(errorMsgs.EMAIL_ALREADY_EXISTS, { field: 'email' });
+    }
 
     if (!clientUser) {
       throw Boom.notFound(errorMsgs.INVALID_TOKEN);

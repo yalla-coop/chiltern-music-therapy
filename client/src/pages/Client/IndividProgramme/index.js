@@ -13,6 +13,7 @@ import { Contents, Programmes } from '../../../api-calls';
 
 import UpdateSection from './UpdateSection';
 import FeedbackSection from './FeedbackSection';
+import ExpandableProvider from '../../../context/expandable';
 
 const IndividProgramme = () => {
   const [contents, setContents] = useState([]);
@@ -21,10 +22,10 @@ const IndividProgramme = () => {
   const [therapist, setTherapist] = useState({});
   const [description, setDescription] = useState('');
   const [ellipsis, setEllipsis] = useState(true);
+  const [date, setDate] = useState({});
 
   const { user } = useAuth();
   const { id } = useParams();
-
   const decideBorder = (type) => {
     switch (type) {
       case 'VIDEO':
@@ -56,12 +57,12 @@ const IndividProgramme = () => {
 
     const getProgData = async () => {
       const { data, error } = await Programmes.getProgrammeById({ id });
-
       if (!error) {
         setUpdate(data.update);
         setFeedback(data.feedback);
         setTherapist(data.therapist);
         setDescription(data.description);
+        setDate(data.createdAt);
       }
     };
 
@@ -78,14 +79,18 @@ const IndividProgramme = () => {
       <Row mb="4">
         <Col w={[4, 6, 8]}>
           <T.P small color="gray8" caps>
-            {dateFormatter(update.createdAt)}
+            {dateFormatter(date)}
           </T.P>
         </Col>
       </Row>
       <Title lightSection="My" boldSection="Home Programme" />
       <Row mb="7" mbT="5">
         <Col w={[4, 6, 6]}>
-          <T.P color="gray8" ellipsis={ellipsis ? { rows: 2 } : false}>
+          <T.P
+            color="gray8"
+            style={{ width: '100%' }}
+            ellipsis={ellipsis ? { rows: 2 } : false}
+          >
             {description}
           </T.P>
           {ellipsis && (
@@ -97,21 +102,24 @@ const IndividProgramme = () => {
       </Row>
       <Row mb="8">
         {contentToView ? (
-          contents.map(({ type, path, ...content }, index) => (
-            <Col w={[4, 6, 4]} mb="4">
-              <Expandable
-                borderColor={decideBorder(type)}
-                content={{
-                  download: path,
-                  streamable: decideStreamable(type, path),
-                  ...content,
-                  categories: null,
-                  type: type?.toLowerCase(),
-                  path,
-                }}
-              />
-            </Col>
-          ))
+          <ExpandableProvider itemsNumbers={contents.length}>
+            {contents.map(({ type, file, ...content }, index) => (
+              <Col w={[4, 6, 4]} mb="4">
+                <Expandable
+                  borderColor={decideBorder(type)}
+                  content={{
+                    download: file.url,
+                    streamable: decideStreamable(type, file.url),
+                    ...content,
+                    categories: null,
+                    type: type?.toLowerCase(),
+                    url: file.url,
+                  }}
+                  index={index + 1}
+                />
+              </Col>
+            ))}
+          </ExpandableProvider>
         ) : (
           <Col w={[4, 6, 4]}>
             <Basic>No content to show</Basic>

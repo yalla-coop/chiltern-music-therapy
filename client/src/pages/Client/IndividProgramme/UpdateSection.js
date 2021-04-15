@@ -4,8 +4,8 @@ import * as T from '../../../components/Typography';
 import { navRoutes } from '../../../constants';
 import Button from '../../../components/Button';
 
-const UpdateSection = ({ update, therapist, id }) =>
-  update ? (
+const UpdateSection = ({ update = {}, therapist, id }) =>
+  update?.id ? (
     <Col w={[4, 6, 4]} dir="column" ai="left" mb="7">
       <T.H3 mb="2">Progress update</T.H3>
       <T.P color="gray8" mb="4">
@@ -32,7 +32,7 @@ const UpdateSection = ({ update, therapist, id }) =>
         thoughts or ask any questions here!
       </T.P>
       <Button
-        to={navRoutes.CLIENT.SEND_UPDATE.replace('id', id)}
+        to={navRoutes.CLIENT.SEND_UPDATE.replace(':id', id)}
         text="Send update"
       />
     </Col>

@@ -10,7 +10,7 @@ import { Basic } from '../../../components/Cards';
 import { THERAPIST } from '../../../constants/nav-routes';
 
 const UpdateSection = ({ update }) =>
-  update ? (
+  update && update.id ? (
     <>
       <Row>
         <Col w={[4, 6, 5]} dir="column" ai="left">
@@ -26,13 +26,20 @@ const UpdateSection = ({ update }) =>
       </Row>
       <Row mb="7">
         <Col w={[4, 4, 4]}>
-          <Button text="View update" to={THERAPIST.MESSAGE} />
+          <Button
+            text="View update"
+            to={THERAPIST.PROGRESS_UPDATE.replace(':id', update.id)}
+          />
         </Col>
       </Row>
     </>
   ) : (
     <Col w={[4, 6, 4]} dir="column" ai="left" mb="7">
-      <Basic variant="noProgrammes" />
+      <Basic>
+        <T.P weight="light" ta="center">
+          No update yet. <b>We'll send you an email</b> as soon as they do!
+        </T.P>
+      </Basic>
     </Col>
   );
 

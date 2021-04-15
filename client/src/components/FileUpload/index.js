@@ -21,6 +21,7 @@ const initState = {
     bucketRegion: '',
     bucket: '',
     fileType: '',
+    size: 0,
     new: false,
     uploadedToS3: false,
   },
@@ -38,6 +39,7 @@ const FileUpload = ({
   maxSize,
   disabled,
   contentInputMissingError,
+  ...rest
 }) => {
   const [fileList, setFileList] = useState([]);
   const [progress, setProgress] = useState(0);
@@ -189,6 +191,7 @@ const FileUpload = ({
       disabled={disabled}
       error={error || contentInputMissingError}
       w={w}
+      {...rest}
     >
       <Dragger {...props}>
         <S.UploadDetails>

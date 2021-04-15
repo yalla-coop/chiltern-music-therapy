@@ -45,8 +45,10 @@ const style = css`
   h4,
   h5,
   h6,
-  p {
+  p,
+  a {
     margin: 0;
+    font-family: 'Lato', sans-serif;
   }
 
   code {
@@ -67,7 +69,6 @@ const style = css`
     margin: 0;
     padding: 0;
     box-sizing: inherit;
-    font-family: 'Lato', sans-serif;
   }
 
   *:focus {
@@ -80,6 +81,26 @@ const style = css`
 
   *:active {
     outline: none;
+  }
+
+  /* Audio: Remove big play button (leave only the button in controls). */
+  .video-js.vjs-audio .vjs-big-play-button {
+    display: none;
+  }
+  /* Audio: Make the controlbar visible by default */
+  .video-js.vjs-audio .vjs-control-bar {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  /* Make player height minimum to the controls height so when we hide video/poster area the controls are displayed correctly. */
+  .video-js.vjs-audio {
+    min-height: 2rem;
+  }
+
+  .vjs-text-track-display {
+    display: none;
   }
 `;
 

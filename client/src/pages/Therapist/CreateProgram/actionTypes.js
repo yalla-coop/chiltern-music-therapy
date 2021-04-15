@@ -1,5 +1,6 @@
 const actionTypes = {
   setDescription: 'SET_DESCRIPTION',
+  setClientDetails: 'SET_CLIENT_DETAILS',
   addContent: 'ADD_CONTENT',
   updateContent: 'UPDATE_CONTENT',
   deleteContentItem: 'DELETE_CONTENT_ITEM',

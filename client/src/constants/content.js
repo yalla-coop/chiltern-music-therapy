@@ -77,6 +77,7 @@ const fileCategories = {
   video: 'video',
   document: 'document',
   audio: 'audio',
+  image: 'image',
 };
 
 const fileTypesShort = {
@@ -86,6 +87,9 @@ const fileTypesShort = {
   applicationDocX: '.docx',
   audioMpeg: '.mpeg',
   audioWav: '.wav',
+  imageJpg: '.jpg',
+  imageJpeg: '.jpeg',
+  imagePng: '.png',
 };
 
 const allowedFileTypesAndSizes = {
@@ -108,6 +112,10 @@ const allowedFileTypesAndSizes = {
     // 100 MB
     maxSize: '100',
   },
+  image: {
+    types: ['image/png', 'image/jpg', 'image/jpeg'],
+    maxSize: '30',
+  },
 };
 
 const printFileTypes = (category) => {
@@ -118,7 +126,8 @@ const printFileTypes = (category) => {
       return `${fileTypesShort.applicationPdf}, ${fileTypesShort.applicationDoc}, ${fileTypesShort.applicationDocX} `;
     case fileCategories.audio:
       return `${fileTypesShort.audioMpeg}, ${fileTypesShort.audioWav}`;
-
+    case fileCategories.image:
+      return `${fileTypesShort.imageJpeg}, ${fileTypesShort.imageJpg}, ${fileTypesShort.imagePng}`;
     default:
       throw new Error(`Unhandled type: ${category}`);
   }

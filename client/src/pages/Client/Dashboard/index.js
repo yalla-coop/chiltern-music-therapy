@@ -98,7 +98,7 @@ const Dashboard = () => {
               </T.Link>
             </>
           ) : (
-            <Basic variant="noProgrammes" />
+            <Basic open variant="noProgrammes" />
           )}
         </Col>
       </Row>

@@ -23,6 +23,8 @@ const CLIENT = {
   INDIVID_PROGRAMME: '/programmes/:id',
   SEND_UPDATE: `/programmes/:id/update`,
   SEND_FEEDBACK: `/programmes/:id/feedback`,
+  SUCCESS_UPDATE: '/success-update',
+  SUCCESS_FEEDBACK: '/success-feedback-sent',
 };
 
 const THERAPIST_BASE = '/therapist';
@@ -43,15 +45,22 @@ const THERAPIST = {
   CREATE_PROGRAMME_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/clients/:id/programme/create/content/how-to-record`,
   CREATE_PROGRAMME_REVIEW: `${THERAPIST_BASE}/clients/:id/programme/create/review`,
   CREATE_PROGRAMME_SUCCESS: `${THERAPIST_BASE}/clients/:id/programme/create/success`,
-  EDIT_PROGRAMME: `${THERAPIST_BASE}/clients/:id/programme/edit`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
   CLIENT_HISTORY: `${THERAPIST_BASE}/clients/:id/history`,
   CONTACT_CLIENT: `${THERAPIST_BASE}/clients/:id/contact`,
   EDIT_CLIENT: `${THERAPIST_BASE}/clients/:id/edit`,
   NEW_CLIENT: `${THERAPIST_BASE}/new-client`,
   SINGLE_PROGRAMME: `${THERAPIST_BASE}/programmes/:id`,
+  // EDIT PROGRAMME
+  EDIT_PROGRAMME: `${THERAPIST_BASE}/programmes/:id/edit`,
+  EDIT_PROGRAMME_REVIEW: `${THERAPIST_BASE}/programmes/:id/edit/review`,
+  EDIT_PROGRAMME_CONTENT: `${THERAPIST_BASE}/programmes/:id/edit/content`,
+  EDIT_PROGRAMME_CONTENT_SINGLE: `${THERAPIST_BASE}/programmes/:id/edit/content/:category`,
+  EDIT_PROGRAMME_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/programmes/:id/edit/content/how-to-record`,
+  EDIT_PROGRAMME_CONTENT_SUCCESS: `${THERAPIST_BASE}/programmes/:id/edit/success`,
   PROFILE: `${THERAPIST_BASE}/profile`,
-  MESSAGE: `${THERAPIST_BASE}/message`,
+  PROGRESS_UPDATE: `${THERAPIST_BASE}/update/:id`,
+  SUCCESS_UPDATE: `${THERAPIST_BASE}/success-update`,
 };
 
 const ADMIN_BASE = '/admin';

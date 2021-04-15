@@ -74,8 +74,8 @@ const password = '$2a$08$23ik.euo.8EM.tqkX/43ke539bnaWX/2vK8nsbrdlYl0UhGMwCR92';
 
 const createUsers = async (data) => {
   const client1 = await createUser({
-    firstName: 'Sibelle',
-    lastName: 'Doret',
+    firstName: 'S',
+    lastName: 'D',
     email: 'client1@cmt.com',
     password,
     resetPasswordToken: null,
@@ -92,8 +92,8 @@ const createUsers = async (data) => {
   });
 
   const client2 = await createUser({
-    firstName: 'Elie',
-    lastName: 'Anmore',
+    firstName: 'E',
+    lastName: 'A',
     email: 'client2@cmt.com',
     password,
     resetPasswordToken: null,
@@ -111,8 +111,8 @@ const createUsers = async (data) => {
 
   // invited client
   const client3 = await createUser({
-    firstName: 'John',
-    lastName: 'Doe',
+    firstName: 'J',
+    lastName: 'D',
     email: 'client3@cmt.com',
     password: null,
     resetPasswordToken: null,

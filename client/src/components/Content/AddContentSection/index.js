@@ -15,15 +15,14 @@ const { fileCategories } = content;
 const AddContentSection = ({
   m,
   content,
-  libraryContent,
+  libraryContent = {},
   setLibraryContent,
-  mode,
   navFunctions,
 }) => {
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { data, error, loading } = libraryContent;
+  const { data = [], error = null } = libraryContent;
 
   const renderLibraryContentDropdownValues = data.map((el) => {
     const res = { label: el.title, value: el.id };
@@ -40,6 +39,7 @@ const AddContentSection = ({
       );
     } else if (selectLibraryContent.length > 0) {
       setLibraryContent(selectLibraryContent[0]);
+      setDuplicateError(null);
       setIsModalVisible(true);
     }
     return false;
@@ -64,7 +64,6 @@ const AddContentSection = ({
         </T.P>
         <Dropdown
           error={duplicateError || error}
-          loading={loading}
           options={renderLibraryContentDropdownValues}
           multi={false}
           placeholder="Select one..."
@@ -80,15 +79,16 @@ const AddContentSection = ({
       </T.P>
       {/* Adds content type buttons */}
       <S.CardsWrapper {...m}>
-        {Object.keys(fileCategories).map((category, i) => (
-          <Col mb={5} w={[4, 9, 4]}>
-            <AddContentType
-              navFunctions={navFunctions}
-              mode={mode}
-              contentType={category}
-            />
-          </Col>
-        ))}
+        {Object.keys(fileCategories)
+          .filter((cat) => cat !== 'image')
+          .map((category, i) => (
+            <Col mb={5} w={[4, 9, 4]}>
+              <AddContentType
+                navFunctions={navFunctions}
+                contentType={category}
+              />
+            </Col>
+          ))}
       </S.CardsWrapper>
     </S.Wrapper>
   );

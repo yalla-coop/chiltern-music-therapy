@@ -9,19 +9,21 @@ import { step3 as validate } from '../../../validation/schemas/addClient';
 import Example from '../../../components/Example';
 
 const Step3 = ({ submitStep }) => {
-  const [background, setBackground] = useState('');
-  const [goals, setGoals] = useState([{ goal: '', category: '', id: 0 }]);
+  const [therapyBackground, setTherapyBackground] = useState('');
+  const [therapyGoals, setGoals] = useState([
+    { goal: '', category: '', id: 0 },
+  ]);
 
   const [errors, setErrors] = useState({});
 
   const handleClick = () => {
     try {
       validate({
-        background,
-        goals,
+        therapyBackground,
+        therapyGoals,
       });
       setErrors({});
-      submitStep({ background, goals });
+      submitStep({ therapyBackground, therapyGoals });
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -35,20 +37,20 @@ const Step3 = ({ submitStep }) => {
       <Row>
         <Col w={[4, 6, 6]}>
           <T.P>
-            Please add a background of your client's therapy background and
-            goals
+            Please add a therapyBackground of your client's therapy background
+            and goals
           </T.P>
         </Col>
       </Row>
       <Row mt={6}>
-        <Col w={[4, 4, 4]}>
+        <Col w={[4, 6, 4]}>
           <Textarea
             label="Therapy background "
             placeholder="Therapy background..."
-            value={background}
-            handleChange={setBackground}
+            value={therapyBackground}
+            handleChange={setTherapyBackground}
             name="background"
-            error={errors.background}
+            error={errors.therapyBackground}
             rows={5}
             mb={4}
           />
@@ -63,12 +65,12 @@ const Step3 = ({ submitStep }) => {
             </T.P>
           </Example>
         </Col>
-        <Col w={[4, 4, 4]} mtT={7}>
+        <Col w={[4, 6, 4]} mtM={7}>
           <TherapyGoals
-            goals={goals}
+            goals={therapyGoals}
             handleChange={setGoals}
             label="Therapy goals"
-            error={errors.goals}
+            error={errors.therapyGoals}
           />
           <Example showLabel="Example text">
             <T.P bold>Communication</T.P>
@@ -87,8 +89,8 @@ const Step3 = ({ submitStep }) => {
         </Col>
       </Row>
 
-      <Row mt={8} mtT={7}>
-        <Col w={[4, 4, 4]}>
+      <Row mt={8} mtM={7}>
+        <Col w={[4, 6, 4]}>
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>

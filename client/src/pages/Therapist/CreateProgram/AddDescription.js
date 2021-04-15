@@ -15,12 +15,12 @@ import validate from '../../../validation/schemas/programme';
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
-const AddDescription = ({ navFunctions, state, actions, clientId }) => {
+const AddDescription = ({ navFunctions, parentState, actions, clientId }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
 
   const history = useHistory();
 
-  const { description, errors } = state;
+  const { description, errors } = parentState;
   const { SET_DESCRIPTION, SET_ERRORS } = actions;
 
   const validateForm = () => {

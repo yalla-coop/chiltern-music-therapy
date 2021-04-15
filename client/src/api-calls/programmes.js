@@ -36,4 +36,49 @@ const createProgramme = async (formData, { options } = {}) => {
   }
 };
 
-export { getProgrammeById, getProgrammes, createProgramme };
+const editProgramme = async (formData, { options } = {}) => {
+  try {
+    const { data } = await axios.patch(`${PROGRAMMES_BASE}/update`, formData);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+const sendFeedback = async ({
+  clearInstructions,
+  problems,
+  clearDemos,
+  noDemos,
+  enjoyableResources,
+  likeMostAndLeast,
+  programmeId,
+  options,
+} = {}) => {
+  try {
+    const { data } = await axios.post(
+      `${PROGRAMMES_BASE}/${programmeId}/feedback`,
+      {
+        clearInstructions,
+        problems,
+        clearDemos,
+        noDemos,
+        enjoyableResources,
+        likeMostAndLeast,
+      }
+    );
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
+export {
+  getProgrammeById,
+  getProgrammes,
+  createProgramme,
+  editProgramme,
+  sendFeedback,
+};

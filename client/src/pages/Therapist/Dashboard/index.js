@@ -54,7 +54,7 @@ const Dashboard = () => {
         </Col>
         <Col w={[4, 6, 4]} mt={5}>
           <S.CardWrapper>
-            <Link variant="graphic2" title="profile" to={THERAPIST.ACCOUNT} />
+            <Link variant="graphic2" title="account" to={THERAPIST.ACCOUNT} />
           </S.CardWrapper>
         </Col>
       </Row>

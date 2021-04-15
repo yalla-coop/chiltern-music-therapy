@@ -6,17 +6,17 @@ import { Textarea } from '../../../components/Inputs';
 import Button from '../../../components/Button';
 import { step5 as validate } from '../../../validation/schemas/addClient';
 
-const Step5 = ({ submitStep }) => {
-  const [message, setMessage] = useState('');
+const Step5 = ({ submitStep, serverErr }) => {
+  const [therapistIntro, setTherapistIntro] = useState('');
   const [errors, setErrors] = useState({});
 
   const handleClick = () => {
     try {
       validate({
-        message,
+        therapistIntro,
       });
       setErrors({});
-      submitStep({ message });
+      submitStep({ therapistIntro });
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
@@ -41,10 +41,10 @@ const Step5 = ({ submitStep }) => {
           <Textarea
             label="Personal message"
             placeholder="Intro..."
-            value={message}
-            handleChange={setMessage}
+            value={therapistIntro}
+            handleChange={setTherapistIntro}
             name="message"
-            error={errors.message}
+            error={errors.therapistIntro}
             rows={5}
             mb={4}
           />
@@ -53,6 +53,11 @@ const Step5 = ({ submitStep }) => {
 
       <Row mt={8} mtT={10}>
         <Col w={[4, 4, 4]}>
+          {/* {serverErr && (
+            <T.P color="secondary" mb="4">
+              {serverErr}
+            </T.P>
+          )} */}
           <Button text="Next" handleClick={handleClick} />
         </Col>
       </Row>

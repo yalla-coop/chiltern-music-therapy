@@ -54,13 +54,15 @@ const createTherapistsClients = async ({ users }) => {
     therapyGoals: [
       {
         category: 'Communication',
-        goal: `- Goal 1: JE will consistently follow lyrical cues to wait and turn-take
-        - Goal 2: lorem ipsum test goal 2`,
+        goal: `JE will consistently follow lyrical cues to wait and turn-take`,
+      },
+      {
+        category: 'Communication',
+        goal: `lorem ipsum test goal 2`,
       },
       {
         category: 'Emotional wellbeing',
-        goal: `- Goal 1: For JE to be able to use eye gaze or visuals to communicate how she is feeling.
-        - Goal 2: lorem ipsum test goal 2`,
+        goal: `For JE to be able to use eye gaze or visuals to communicate how she is feeling`,
       },
     ],
     therapistBio:
