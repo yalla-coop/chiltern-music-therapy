@@ -6,9 +6,9 @@ const getLibraryContent = async ({ id, role }) => {
   let contents = [];
   if ([userRoles.ADMIN, userRoles.SUPER_ADMIN].includes(role)) {
     contents = await Content.findLibraryContentAdmin();
+  } else {
+    contents = await Content.findLibraryContent({ id });
   }
-
-  contents = await Content.findLibraryContent({ id });
 
   await setMediaFileUrl(contents);
 
