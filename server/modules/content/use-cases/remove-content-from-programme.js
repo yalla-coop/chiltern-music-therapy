@@ -15,7 +15,10 @@ const removeContentFromProgramme = async ({
   try {
     await client.query('BEGIN');
 
-    const contentToDelete = await Content.findContentById(contentId, client);
+    const contentToDelete = await Content.findContentById(
+      { id: contentId },
+      client,
+    );
 
     if (userId !== contentToDelete.therapistLibraryUserId) {
       throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
@@ -32,7 +35,7 @@ const removeContentFromProgramme = async ({
 
     // check if content is used in any programmes
     const programmesContents = await Content.findContentInProgrammes(
-      contentId,
+      { contentId },
       client,
     );
     const programmesContentsIds = programmesContents.map(({ id }) => id);

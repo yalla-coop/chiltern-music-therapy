@@ -8,7 +8,7 @@ import getLibraryContent from './get-library-content';
 
 const deleteContent = async ({ id, role, userId, mode }, client) => {
   // check content details
-  const contentToDelete = await Content.findContentById(id, client);
+  const contentToDelete = await Content.findContentById({ id }, client);
 
   if (
     userId !== contentToDelete.therapistLibraryUserId &&
@@ -19,13 +19,15 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
 
   await Content.deleteContentCategories(id, client);
   await Content.deleteContentFromProgramme(id, client);
-  await Content.deleteContentById(id, client);
+  const deletedContent = await Content.deleteContentById(id, client);
 
-  // check if media is used anywhere else. if not then delete
-  events.emit(events.types.MEDIA.CONTENT_DELETED, {
-    mediaId: contentToDelete.mediaId,
-    contentId: id,
-  });
+  if (deletedContent) {
+    // check if media is used anywhere else. if not then delete
+    events.emit(events.types.MEDIA.CONTENT_DELETED, {
+      mediaId: contentToDelete.mediaId,
+      contentId: id,
+    });
+  }
 
   // for library deletions page depends on updated content object
   // for remove from programme not
