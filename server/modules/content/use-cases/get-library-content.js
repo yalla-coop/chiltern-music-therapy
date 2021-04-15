@@ -10,7 +10,9 @@ const getLibraryContent = async ({ id, role }, client) => {
 
   contents = await Content.findLibraryContent({ id }, client);
 
-  await setMediaFileUrl(contents);
+  if (contents) {
+    await setMediaFileUrl(contents);
+  }
 
   return contents;
 };

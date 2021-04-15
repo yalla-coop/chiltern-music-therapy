@@ -32,7 +32,10 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
   // for library deletions page depends on updated content object
   // for remove from programme not
   if (mode === 'library') {
-    const updatedContent = await getLibraryContent({ id: userId, role });
+    const updatedContent = await getLibraryContent(
+      { id: userId, role },
+      client,
+    );
     return updatedContent;
   }
 
