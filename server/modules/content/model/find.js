@@ -75,24 +75,21 @@ const findLibraryContentAdmin = async () => {
       c.doc_content,
       c.type,
       c.library_content,
-      c.created_at "date",
+      c.created_at AS "date",
+      therapist_library_user_id AS "therapist_user_id",
       m.id AS "file.id",
       m.key AS "file.key",
       m.bucket AS "file.bucket",
-      tc.therapist_user_id,
       u.first_name,
       u.last_name,
       ARRAY_AGG (cc.text) categories
     FROM contents c
-    INNER JOIN programmes_contents pc ON pc.content_id = c.id
-    INNER JOIN programmes p ON pc.programme_id = p.id
-    INNER JOIN therapist_clients tc ON p.therapists_clients_id = tc.id
-    INNER JOIN users u ON u.id = tc.therapist_user_id
+    LEFT JOIN users u ON u.id = c.therapist_library_user_id
     LEFT JOIN media m ON c.media_id = m.id
     LEFT JOIN contents_content_categories ccc ON ccc.content_id = c.id
     LEFT JOIN content_categories cc ON cc.id = ccc.category_id
     WHERE c.library_content = true
-    GROUP BY c.id, m.id, tc.therapist_user_id, u.first_name, u.last_name
+    GROUP BY c.id, m.id, c.therapist_library_user_id, u.first_name, u.last_name
     `;
 
   const res = await query(sql, values);
