@@ -55,7 +55,7 @@ const findLibraryContent = async ({ id }, client) => {
     LEFT JOIN media m ON c.media_id = m.id
     LEFT JOIN contents_content_categories ccc ON ccc.content_id = c.id
     LEFT JOIN content_categories cc ON cc.id = ccc.category_id
-    WHERE c.therapist_library_user_id = $1 AND c.library_content = 'true'
+    WHERE c.therapist_library_user_id = $1 AND c.library_content = true
     GROUP BY c.id, m.id
     `;
 
@@ -88,7 +88,6 @@ const findLibraryContentAdmin = async (client) => {
     LEFT JOIN media m ON c.media_id = m.id
     LEFT JOIN contents_content_categories ccc ON ccc.content_id = c.id
     LEFT JOIN content_categories cc ON cc.id = ccc.category_id
-    WHERE c.library_content = true
     GROUP BY c.id, m.id, c.therapist_library_user_id, u.first_name, u.last_name
     `;
 
