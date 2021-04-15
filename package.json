@@ -26,7 +26,8 @@
   },
   "dependencies": {
     "@hapi/boom": "^9.1.1",
-    "@sentry/node": "^5.27.6",
+    "@sentry/node": "^5.30.0",
+    "@sentry/tracing": "^6.2.5",
     "aws-sdk": "^2.871.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",

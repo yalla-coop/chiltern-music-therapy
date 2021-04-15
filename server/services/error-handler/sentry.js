@@ -1,4 +1,7 @@
 import * as Sentry from '@sentry/node';
+// eslint-disable-next-line no-unused-vars
+import * as Tracing from '@sentry/tracing';
+
 import config from '../../config';
 import * as constants from '../../constants';
 
