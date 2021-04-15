@@ -6,13 +6,18 @@ const envVarsSchema = yup
       .string()
       .oneOf(['development', 'production', 'test'])
       .required(),
+    SENTRY_DNS: yup.string().when('NODE_ENV', {
+      is: 'production',
+      then: yup.string().required(),
+      otherwise: yup.string(),
+    }),
   })
   .required();
 
 const config = () => {
   let envVars;
   try {
-    envVars = envVarsSchema.validateSync(process.env, { stripUnknown: true });
+    envVars = envVarsSchema.validateSync(process.env, { stripUnknown: false });
   } catch (error) {
     if (error) {
       throw new Error(`Config validation error: ${error.message}`);
@@ -20,6 +25,7 @@ const config = () => {
   }
   return {
     env: envVars.NODE_ENV,
+    sentryDNS: envVars.SENTRY_DNS,
   };
 };
 

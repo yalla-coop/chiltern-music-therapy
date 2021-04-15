@@ -20,12 +20,14 @@
     "cover": "nyc npm t",
     "report-coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov",
     "build:db": "babel-node ./server/database/build.script.js",
+    "build:db:prod": "babel-node ./server/database/dummy-data-prod/build.script.js",
     "init:both": "npm i && cd client && npm i && npm run build",
     "heroku-postbuild": "npm run init:both && npm run build"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.1",
-    "@sentry/node": "^5.27.6",
+    "@sentry/node": "^5.30.0",
+    "@sentry/tracing": "^6.2.5",
     "aws-sdk": "^2.871.0",
     "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
