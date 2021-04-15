@@ -86,7 +86,7 @@ const createProgramme = async ({ userId, body }) => {
         );
 
         // update categories
-        await manageCCC({ userId, contentId: _content.id, categories });
+        await manageCCC({ userId, contentId: _content.id, categories }, client);
       }),
     );
 

@@ -99,7 +99,7 @@ const updateProgramme = async ({ userId, body }) => {
         }
         // FOR ALL
         // update categories
-        await manageCCC({ userId, contentId: _content.id, categories });
+        await manageCCC({ userId, contentId: _content.id, categories }, client);
       }),
     );
 
