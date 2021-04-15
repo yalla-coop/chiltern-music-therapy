@@ -287,8 +287,8 @@ const Library = () => {
                           content.type,
                           content.file.url
                         ),
-                        categories: contentToUse.categories.filter(
-                          (cat) => cat.value !== null
+                        categories: contentToUse?.categories?.filter(
+                          (cat) => cat?.value !== null
                         ),
                         type: content.type?.toLowerCase(),
                         url: content.file.url,
