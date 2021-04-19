@@ -16,11 +16,7 @@ import validate from '../../../validation/schemas/programme';
 import { navRoutes } from '../../../constants';
 import * as S from './style';
 import { Programmes, Contents } from '../../../api-calls';
-import {
-  decideBorder,
-  isEmptyObject,
-  decideStreamable,
-} from '../../../helpers';
+import { decideBorder, isEmptyObject } from '../../../helpers';
 
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
@@ -97,7 +93,6 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
                 id: content?.id,
                 fileUpload: content?.uploadedFileInfo,
                 download: content?.file?.url,
-                streamable: decideStreamable(content?.type, content?.file?.url),
                 categories: content.categories.filter((cat) => cat !== null),
                 type: content.type?.toLowerCase(),
                 url: content?.file?.url,
