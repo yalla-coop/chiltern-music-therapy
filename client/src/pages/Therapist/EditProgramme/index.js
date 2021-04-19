@@ -74,13 +74,12 @@ const EditProgramme = () => {
     );
 
   const decidePathSingle = (flow, type) =>
-    history.push({
-      pathname: `${navRoutes.THERAPIST.EDIT_PROGRAMME.replace(
+    history.push(
+      `${navRoutes.THERAPIST.EDIT_PROGRAMME.replace(
         ':id',
         programmeId
-      )}/${flow}`.replace(':category', type),
-      state: { category: type },
-    });
+      )}/${flow}`.replace(':category', type)
+    );
 
   const navFunctions = {
     goToReview: () => decidePath(flowTypes.review),

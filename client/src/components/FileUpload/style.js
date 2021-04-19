@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   ${setMargin};
   width: ${({ w }) => w || '100%'};
 
-
   .ant-upload.ant-upload-drag {
     opacity: ${({ disabled }) => (disabled ? '0.6' : '1')};
     background: none;
@@ -34,4 +33,15 @@ export const UploadDetails = styled.div`
 export const FileNameWrapper = styled.div`
   margin-top: ${({ theme }) => theme.spacings[4]};
   display: flex;
+`;
+
+export const InfoWrapper = styled.button`
+  margin-top: ${({ theme }) => theme.spacings[2]};
+  margin-bottom: ${({ theme }) => theme.spacings[2]};
+  margin-left: ${({ theme }) => theme.spacings[2]};
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
 `;

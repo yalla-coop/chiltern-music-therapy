@@ -154,13 +154,12 @@ const CreateProgram = () => {
     );
 
   const decidePathSingle = (flow, type) =>
-    history.push({
-      pathname: `${navRoutes.THERAPIST.CREATE_PROGRAMME.replace(
+    history.push(
+      `${navRoutes.THERAPIST.CREATE_PROGRAMME.replace(
         ':id',
         clientId
-      )}/${flow}`.replace(':category', type),
-      state: { category: type },
-    });
+      )}/${flow}`.replace(':category', type)
+    );
 
   const navFunctions = {
     goToDescription: () => decidePath(flowTypes.description),

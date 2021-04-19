@@ -12,10 +12,11 @@ const Info = ({
   title,
   body,
   infoIconStyle,
+  noBorder,
   ...props
 }) => {
   return (
-    <S.CardWrapper {...m}>
+    <S.CardWrapper noBorder={noBorder} {...m}>
       <S.IconWrapper>
         <Icon
           style={infoIconStyle}
