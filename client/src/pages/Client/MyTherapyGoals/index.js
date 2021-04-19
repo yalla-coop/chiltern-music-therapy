@@ -30,41 +30,40 @@ const MyTherapyGoals = () => {
           <Row inner jc="space-between">
             <Col w={[4, 12, 10]}>
               <T.P color="gray8">
-                The goals that feature below relate to the non-musical aims
-                detailed in ‘My Therapy Outline’. Each week, resources will be
-                provided in the ‘Home Programme’ page that support these goals.
-                J’s current therapy goals are listed by domain area below:
+                Each week, resources will be provided in the ‘Home Programme’
+                page that support these goals. Current therapy goals are listed
+                by domain area below:
               </T.P>
             </Col>
-            <Col w={[4, 12, 5.5]} mt={7} mtT={5}>
+            <Col w={[4, 12, 5.5]} mt={7} mtT={5} display="block">
               {therapyGoals && therapyGoals[0] && (
                 <>
-                  <T.P weight="bold">{therapyGoals[0].goal}</T.P>
                   <T.P color="gray8">{therapyGoals[0].category}</T.P>
+                  <T.P weight="bold">{therapyGoals[0].goal}</T.P>
                 </>
               )}
               {therapyGoals && therapyGoals[1] && (
                 <>
-                  <T.P weight="bold" mt={5}>
-                    {therapyGoals[1].goal}
+                  <T.P color="gray8" mt={5}>
+                    {therapyGoals[1].category}
                   </T.P>
-                  <T.P color="gray8">{therapyGoals[1].category}</T.P>
+                  <T.P weight="bold">{therapyGoals[1].goal}</T.P>
                 </>
               )}
             </Col>
-            <Col w={[4, 12, 5.5]} mt={7} mtT={5}>
+            <Col w={[4, 12, 5.5]} mt={7} mtT={5} display="block">
               {therapyGoals && therapyGoals[2] && (
                 <>
-                  <T.P weight="bold">{therapyGoals[2].goal}</T.P>
                   <T.P color="gray8">{therapyGoals[2].category}</T.P>
+                  <T.P weight="bold">{therapyGoals[2].goal}</T.P>
                 </>
               )}
               {therapyGoals && therapyGoals[3] && (
                 <>
-                  <T.P weight="bold" mt={5}>
-                    {therapyGoals[3].goal}
+                  <T.P color="gray8" mt={5}>
+                    {therapyGoals[3].category}
                   </T.P>
-                  <T.P color="gray8">{therapyGoals[3].category}</T.P>
+                  <T.P weight="bold">{therapyGoals[3].goal}</T.P>
                 </>
               )}
             </Col>
