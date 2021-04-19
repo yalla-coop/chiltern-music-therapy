@@ -146,6 +146,8 @@ const findClientByUserId = async (clientId, client) => {
       u.first_name,
       u.last_name,
       u.postcode,
+      u.contact_number,
+      contact_email,
       u.status,
       tc.therapy_background,
       tc.therapy_goals,
