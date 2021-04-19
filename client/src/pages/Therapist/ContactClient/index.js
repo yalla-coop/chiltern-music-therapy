@@ -40,7 +40,7 @@ const ContactClient = () => {
       <Row>
         <Col w={[4, 4, 4]} display="block">
           <T.H5 color="gray7">CLIENT NAME</T.H5>
-          <T.P mt="2">
+          <T.P mt="2" color="gray8">
             {state.firstInitial
               ? `${state.firstInitial} ${state.lastInitial}`
               : 'N/A'}{' '}
@@ -48,11 +48,15 @@ const ContactClient = () => {
         </Col>
         <Col w={[4, 4, 4]} mtT={5} display="block">
           <T.H5 color="gray7">EMAIL</T.H5>
-          <T.P mt="2">{state.contactEmail}</T.P>
+          <T.P mt="2" color="gray8">
+            {state.contactEmail}
+          </T.P>
         </Col>
         <Col w={[4, 4, 4]} mtT={5} display="block">
           <T.H5 color="gray7">MOBILE NUMBER</T.H5>
-          <T.P mt="2">{state.contactNumber} </T.P>
+          <T.P mt="2" color="gray8">
+            {state.contactNumber}{' '}
+          </T.P>
         </Col>
       </Row>
       {errors && (
