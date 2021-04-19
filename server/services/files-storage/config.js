@@ -18,7 +18,7 @@ const S3 = s3;
 
 const allowedFileTypesAndSizes = {
   video: {
-    types: ['video/mp4'],
+    types: ['video/mp4', 'video/quicktime'],
     // 2 GB
     maxSize: '2000',
   },

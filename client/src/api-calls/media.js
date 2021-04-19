@@ -29,6 +29,7 @@ const getSignedURL = async ({
     return { data };
   } catch (error) {
     const err = handleError(error, options);
+
     return { error: err };
   }
 };

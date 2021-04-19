@@ -1,3 +1,4 @@
+import Boom from '@hapi/boom';
 import { v4 as uuid } from 'uuid';
 
 import { S3, bucket, region, allowedFileTypesAndSizes } from './config';
@@ -15,7 +16,7 @@ const getSignedURL = async ({
 
   //  check 1: correct file type
   if (!allowedFileTypesAndSizes[fileCategory].types.includes(fileType)) {
-    throw new Error(
+    throw Boom.badRequest(
       `File is not a ${allowedFileTypesAndSizes[fileCategory].types} file`,
     );
 
@@ -25,7 +26,7 @@ const getSignedURL = async ({
       ? fileMaxSize < sizeInMb
       : allowedFileTypesAndSizes[fileCategory].maxSize < sizeInMb
   ) {
-    throw new Error(
+    throw Boom.badRequest(
       `File is too large. Maximum file size is ${
         fileMaxSize || allowedFileTypesAndSizes[fileCategory].maxSize
       } MBs`,
