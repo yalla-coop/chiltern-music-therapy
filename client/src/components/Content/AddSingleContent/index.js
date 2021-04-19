@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, Prompt } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -26,7 +26,6 @@ const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
 const AddSingleContent = ({ parentState, actions, navFunctions }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
-  const [unsavedChanges, setUnsavedChanges] = useState(true);
   const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
 
   const { singleContent, fileUpload, contentCategories } = parentState;
@@ -163,7 +162,6 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
     const isValid = await validateForm();
 
     if (isValid) {
-      setUnsavedChanges(false);
       submitSingleContent(submitType);
     }
   };
@@ -175,10 +173,6 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
 
   return (
     <S.Wrapper onSubmit={handleSubmit}>
-      <Prompt
-        when={unsavedChanges}
-        message="All changes will be lost. Are you sure you want to leave?"
-      />
       <GoBack customFn={goBack} />
       <Row mt={5} mb={7}>
         <Col w={[4, 12, 12]}>
