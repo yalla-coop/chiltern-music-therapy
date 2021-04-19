@@ -1,4 +1,3 @@
-import Boom, { boomify } from '@hapi/boom';
 import { getSignedURL as getSignedURLUseCase } from '../use-cases';
 
 const getSignedURL = async (req, res, next) => {
