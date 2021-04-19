@@ -83,7 +83,6 @@ const MyTherapyGoals = () => {
           </CardWrapper>
         </Col>
       </Row>
-      <Row></Row>
     </>
   );
 };
