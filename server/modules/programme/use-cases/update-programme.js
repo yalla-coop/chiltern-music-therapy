@@ -6,10 +6,14 @@ import * as Content from '../../content/model';
 
 import events from '../../../services/events';
 
-import createProgrammeContent from '../../content/use-cases/create-content';
+import createContent from '../../content/use-cases/create-content';
+import createCategories from '../../content/use-cases/create-categories';
 import manageCCC from './manage-content-contents-categories';
 
-import { validateCreateEditProgramme } from '../utils';
+import {
+  validateCreateEditProgramme,
+  getUniqueCategoriesFromContents,
+} from '../utils';
 
 const updateProgramme = async ({ userId, body }) => {
   const client = await getClient();
@@ -40,6 +44,21 @@ const updateProgramme = async ({ userId, body }) => {
         client,
       );
     }
+
+    const createdCategoriesIds = [];
+    const contentsIdsToUpdateCategories = [];
+    const allUpdatedContentsIds = [];
+
+    const uniqueCategoriesTexts = getUniqueCategoriesFromContents(
+      programmeContents,
+    );
+
+    const newCategories = await createCategories(
+      {
+        texts: uniqueCategoriesTexts,
+      },
+      client,
+    );
 
     // manage contents
     const promises = [];
@@ -84,7 +103,7 @@ const updateProgramme = async ({ userId, body }) => {
         // for new content -> add to db and to programme
         else {
           // create media content if present
-          _content = await createProgrammeContent(
+          _content = await createContent(
             {
               programmeId,
               userId,
@@ -102,14 +121,29 @@ const updateProgramme = async ({ userId, body }) => {
             client,
           );
         }
-        // FOR ALL
-        // update categories
-        await manageCCC({ userId, contentId: _content.id, categories }, client);
+
+        newCategories
+          .filter(({ text }) => categories.includes(text))
+          .forEach(({ id }) => {
+            createdCategoriesIds.push(id);
+            contentsIdsToUpdateCategories.push(_content.id);
+          });
+
+        allUpdatedContentsIds.push(_content.id);
       };
       promises.push(fn());
     });
 
     await Promise.all(promises);
+
+    await manageCCC(
+      {
+        allUpdatedContentsIds,
+        contentsIdsToUpdateCategories,
+        createdCategoriesIds,
+      },
+      client,
+    );
 
     await client.query('COMMIT');
 

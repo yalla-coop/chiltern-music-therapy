@@ -33,7 +33,7 @@ const deleteContent = async ({
     await Content.editContent({ id, title, instructions }, client);
 
     // update categories
-    const oldCategories = await Content.findCategoriesByContent({ id });
+    const oldCategories = await Content.findCategoriesByContent({ id }, client);
     const oldCategoriesText = oldCategories.map((cat) => cat.text);
     const newCategories = categories.filter(
       (cat) => !oldCategoriesText.includes(cat),
@@ -47,12 +47,20 @@ const deleteContent = async ({
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < newCategories.length; i++) {
         // eslint-disable-next-line no-await-in-loop
-        const newCat = await Content.createCategory({ text: newCategories[i] });
+        const newCat = await Content.createCategories(
+          {
+            text: newCategories[i],
+          },
+          client,
+        );
         // eslint-disable-next-line no-await-in-loop
-        await Content.createContentCategory({
-          contentId: id,
-          catId: newCat.id,
-        });
+        await Content.createContentCategory(
+          {
+            contentId: id,
+            catId: newCat.id,
+          },
+          client,
+        );
       }
     }
 
@@ -61,7 +69,10 @@ const deleteContent = async ({
       // eslint-disable-next-line no-plusplus
       for (let i = 0; i < categoriesToRemove.length; i++) {
         // eslint-disable-next-line no-await-in-loop
-        await Content.deleteContentCategoryById(categoriesToRemove[i].id);
+        await Content.deleteContentCategoryById(
+          categoriesToRemove[i].id,
+          client,
+        );
       }
     }
 

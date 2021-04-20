@@ -172,7 +172,7 @@ const findContentInProgrammes = async ({ contentId }, client) => {
   return res.rows;
 };
 
-const findCategoriesByContent = async ({ id }) => {
+const findCategoriesByContent = async ({ id }, client) => {
   const values = [id];
 
   const sql = `
@@ -186,7 +186,7 @@ const findCategoriesByContent = async ({ id }) => {
     WHERE c.id = $1
     `;
 
-  const res = await query(sql, values);
+  const res = await query(sql, values, client);
   return res.rows;
 };
 
