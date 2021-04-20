@@ -51,7 +51,6 @@ const updateProgramme = async ({ userId, body }) => {
     // const createdCategoriesIds = [];
     // const contentsIdsToUpdateCategories = [];
     const allUpdatedContentsIds = [];
-
     const uniqueCategoriesTexts = getUniqueCategoriesFromContents(
       programmeContents,
     );

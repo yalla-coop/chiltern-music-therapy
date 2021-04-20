@@ -1,16 +1,18 @@
 import * as Content from '../model';
 
 const createCategories = async ({ texts }, client) => {
-  if (texts.length) {
+  const _texts = texts.filter((text) => !!text);
+  if (_texts.length) {
     const newCategories = await Content.createCategories(
       {
-        texts,
+        texts: _texts,
       },
       client,
     );
 
     return newCategories;
   }
+  return [];
 };
 
 export default createCategories;
