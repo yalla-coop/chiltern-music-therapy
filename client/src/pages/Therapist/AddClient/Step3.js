@@ -37,8 +37,7 @@ const Step3 = ({ submitStep }) => {
       <Row>
         <Col w={[4, 6, 6]}>
           <T.P>
-            Please add a therapyBackground of your client's therapy background
-            and goals
+            Please add a summary of your client's therapy background and goals
           </T.P>
         </Col>
       </Row>

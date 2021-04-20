@@ -78,6 +78,7 @@ const MyAccount = () => {
         lastName,
         bio,
         contactEmail,
+        contactNumber,
       });
       setErrors({ validationErrs: {} });
       return true;

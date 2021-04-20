@@ -4,7 +4,7 @@ import { roles } from './../../constants';
 
 const { CLIENT, THERAPIST } = roles;
 
-const { email, firstName, lastName, requiredText } = fields;
+const { email, firstName, lastName, requiredText, phoneNumber } = fields;
 
 const client = createSchema({
   email,
@@ -18,6 +18,7 @@ const therapist = createSchema({
   lastName,
   bio: requiredText,
   contactEmail: email,
+  contactNumber: phoneNumber,
 });
 
 const validate = (data) => {

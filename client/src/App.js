@@ -165,6 +165,16 @@ function App() {
 
               <Route
                 exact
+                path={navRoutes.THERAPIST.CONTACT_CLIENT}
+                Component={Pages.THERAPIST.ContactClient}
+                goBack
+                maxWidth="1200px"
+                isPrivate
+                allowedRoles={[roles.THERAPIST]}
+              />
+
+              <Route
+                exact
                 path={navRoutes.THERAPIST.PROGRESS_UPDATE}
                 Component={Pages.THERAPIST.ViewUpdate}
                 goBack
@@ -337,6 +347,15 @@ function App() {
                 Component={Pages.THERAPIST.EditProgramme}
                 layout="general"
                 allowedRoles={[roles.THERAPIST]}
+              />
+
+              {/* General routes */}
+
+              <Route
+                exact
+                path={navRoutes.GENERAL.HOW_TO_RECORD}
+                Component={Pages.GENERAL.HowToRecord}
+                layout="general"
               />
 
               <Route

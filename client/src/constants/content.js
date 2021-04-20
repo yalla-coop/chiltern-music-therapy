@@ -66,7 +66,7 @@ const welcomeScreens = {
         lightSection: 'Your information is',
         lightSection2: 'with us',
       },
-      text: `Your privacy is incredibly important (and that all videos are password protected?)`,
+      text: `Your privacy is incredibly important.`,
       image: 'man',
       btn: 'Next',
     },

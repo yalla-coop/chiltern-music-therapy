@@ -10,6 +10,7 @@ import EditClient from './EditClient';
 import IndividProgramme from './IndividProgramme';
 import MyAccount from './MyAccount';
 import ViewUpdate from './ViewUpdate';
+import ContactClient from './ContactClient';
 
 export default {
   CreateProgram,
@@ -24,4 +25,5 @@ export default {
   EditProgramme,
   MyAccount,
   ViewUpdate,
+  ContactClient,
 };
