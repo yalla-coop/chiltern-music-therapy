@@ -1,6 +1,6 @@
-import { GoBack, Typography as T, Grid } from '../../../components';
+import { Typography as T, Grid } from '../../../components';
 
-import ExpandableHowToRecord from '../../Cards/Expandable/HowToRecord';
+import ExpandableHowToRecord from '../../../components/Cards/Expandable/HowToRecord';
 import * as S from './style';
 
 const { Row, Col } = Grid;
@@ -8,7 +8,6 @@ const { Row, Col } = Grid;
 const HowToRecord = () => {
   return (
     <S.Wrapper>
-      <GoBack />
       <Row mt={5} mb={7}>
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">

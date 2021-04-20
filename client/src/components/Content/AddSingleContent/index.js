@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Prompt } from 'react-router-dom';
 import { v4 as uuid } from 'uuid';
 
 import {
@@ -27,6 +27,7 @@ const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 const AddSingleContent = ({ parentState, actions, navFunctions }) => {
   const [submitAttempt, setSubmitAttempt] = useState(false);
   const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
+  const [unsavedChanges, setUnsavedChanges] = useState(true);
 
   const { singleContent, fileUpload, contentCategories } = parentState;
 
@@ -130,6 +131,11 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, categories, link, docContent, libraryContent, instructions]);
 
+  useEffect(() => {
+    handleResetSingleContent();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const submitSingleContent = (submitType) => {
     // add single content to overall content
     const formData = {
@@ -162,18 +168,22 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
     const isValid = await validateForm();
 
     if (isValid) {
+      setUnsavedChanges(false);
       submitSingleContent(submitType);
     }
   };
 
   const goBack = async () => {
-    handleResetSingleContent();
     navFunctions.goToAddContent();
   };
 
   return (
     <S.Wrapper onSubmit={handleSubmit}>
       <GoBack customFn={goBack} />
+      <Prompt
+        when={unsavedChanges}
+        message="All changes will be lost. Are you sure you want to leave?"
+      />
       <Row mt={5} mb={7}>
         <Col w={[4, 12, 12]}>
           <T.H1 color="gray10">
@@ -192,9 +202,13 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
                 marginTop: theme.spacings[1],
               }}
               body={
-                <S.Button onClick={() => navFunctions.goToHowToRecord()}>
-                  <T.Link underline>Click to read more</T.Link>
-                </S.Button>
+                <T.Link
+                  underline
+                  to={navRoutes.GENERAL.HOW_TO_RECORD}
+                  target="_blank"
+                >
+                  Click to read more
+                </T.Link>
               }
             />
           </Col>

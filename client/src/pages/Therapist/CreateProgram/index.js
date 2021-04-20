@@ -7,7 +7,7 @@ import { navRoutes } from '../../../constants';
 import reducer from './reducer';
 import actionTypes from './actionTypes';
 
-import { AddSingleContent, HowToRecord } from '../../../components/Content';
+import { AddSingleContent } from '../../../components/Content';
 
 // parts
 import AddDescription from './AddDescription';
@@ -168,7 +168,7 @@ const CreateProgram = () => {
     goToAddSingleContent: (type) =>
       decidePathSingle(flowTypes.addSingleContent, type),
     goToReview: () => decidePath(flowTypes.reviewFinish),
-    goToHowToRecord: () => decidePath(flowTypes.howToRecord),
+    // goToHowToRecord: () => decidePath(flowTypes.howToRecord),
     goToSuccess: () => decidePath(flowTypes.success),
   };
 
@@ -241,10 +241,6 @@ const CreateProgram = () => {
         actions={actions}
         parentState={state}
         navFunctions={navFunctions}
-      />
-      <HowToRecord
-        exact
-        path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_HOW_TO_RECORD}
       />
       <AddSingleContent
         exact

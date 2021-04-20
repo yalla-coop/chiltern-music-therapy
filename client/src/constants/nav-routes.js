@@ -5,6 +5,7 @@ const GENERAL = {
   LOGOUT: '/logout',
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password/:token',
+  HOW_TO_RECORD: '/how-to-record',
 };
 
 const CLIENT = {
@@ -42,7 +43,6 @@ const THERAPIST = {
   CREATE_PROGRAMME_DESCRIPTION: `${THERAPIST_BASE}/clients/:id/programme/create/description`,
   CREATE_PROGRAMME_CONTENT: `${THERAPIST_BASE}/clients/:id/programme/create/content`,
   CREATE_PROGRAMME_CONTENT_SINGLE: `${THERAPIST_BASE}/clients/:id/programme/create/content/:category`,
-  CREATE_PROGRAMME_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/clients/:id/programme/create/content/how-to-record`,
   CREATE_PROGRAMME_REVIEW: `${THERAPIST_BASE}/clients/:id/programme/create/review`,
   CREATE_PROGRAMME_SUCCESS: `${THERAPIST_BASE}/clients/:id/programme/create/success`,
   CLIENT: `${THERAPIST_BASE}/clients/:id`,
@@ -56,7 +56,6 @@ const THERAPIST = {
   EDIT_PROGRAMME_REVIEW: `${THERAPIST_BASE}/programmes/:id/edit/review`,
   EDIT_PROGRAMME_CONTENT: `${THERAPIST_BASE}/programmes/:id/edit/content`,
   EDIT_PROGRAMME_CONTENT_SINGLE: `${THERAPIST_BASE}/programmes/:id/edit/content/:category`,
-  EDIT_PROGRAMME_CONTENT_HOW_TO_RECORD: `${THERAPIST_BASE}/programmes/:id/edit/content/how-to-record`,
   EDIT_PROGRAMME_CONTENT_SUCCESS: `${THERAPIST_BASE}/programmes/:id/edit/success`,
   PROFILE: `${THERAPIST_BASE}/profile`,
   PROGRESS_UPDATE: `${THERAPIST_BASE}/update/:id`,
