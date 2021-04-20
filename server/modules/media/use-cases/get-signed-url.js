@@ -16,6 +16,7 @@ const getSignedURL = async ({
     fileCategory,
     fileMaxSize,
   });
+
   return { url, name, key, bucketRegion, bucket };
 };
 
