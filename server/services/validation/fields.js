@@ -46,7 +46,7 @@ export const content = array().of(
       .min(1, errMsgs.DEFAULT_REQUIRED)
       .max(50)
       .required(errMsgs.DEFAULT_REQUIRED),
-    categories: array().of(string()).nullable(),
+    categories: array().of(string().nullable()).nullable(),
     libraryContent: boolean()
       .oneOf([true, false])
       .required(errMsgs.DEFAULT_REQUIRED),

@@ -1,6 +1,7 @@
 import pubSub from './create-pub-sub';
 import events from './event-types';
 import * as Programme from '../../modules/programme/model';
+import * as Content from '../../modules/content/model';
 import { sendMail, keys } from '../emails';
 
 pubSub.listen(events.PROGRAMME.CREATED, async ({ programmeId }) => {
@@ -15,7 +16,8 @@ pubSub.listen(events.PROGRAMME.CREATED, async ({ programmeId }) => {
     programmeId: programme.id,
     to: programme.client.email,
   });
-  // more subscribers go here
+
+  await Content.deleteUnusedContentCategories();
 });
 
 pubSub.listen(events.PROGRAMME.UPDATED, async ({ programmeId }) => {
@@ -31,6 +33,8 @@ pubSub.listen(events.PROGRAMME.UPDATED, async ({ programmeId }) => {
     programmeCreatedAt: programme.createdAt,
     to: programme.client.email,
   });
+
+  await Content.deleteUnusedContentCategories();
 });
 
 pubSub.listen(events.PROGRAMME.FEEDBACK.CREATED, async ({ feedbackId }) => {

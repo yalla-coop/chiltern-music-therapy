@@ -51,44 +51,49 @@ const createContent = async (
   return res.rows[0];
 };
 
-const createCategory = async ({ text }, client) => {
+const createCategories = async ({ texts }, client) => {
   const sql = `
     INSERT INTO content_categories(
       text
-    ) VALUES (
-      $1
-    )
+    ) SELECT * FROM UNNEST (
+      $1::text[]
+    ) ON CONFLICT ON CONSTRAINT content_categories_text_key
+      DO UPDATE SET updated_at = NOW()
+
     RETURNING *
     `;
 
-  const values = [text];
+  const values = [texts];
 
   const res = await query(sql, values, client);
-  return res.rows[0];
+  return res.rows;
 };
 
-const createContentCategory = async ({ contentId, catId }, client) => {
+const createContentsContentCategory = async (
+  { contentsIds, categoriesIds },
+  client,
+) => {
   const sql = `
-  INSERT INTO contents_content_categories(
+  INSERT INTO contents_content_categories (
     content_id,
     category_id
-  )
-  SELECT
-      $1,
-      $2
-  WHERE NOT EXISTS (
-      SELECT
-       1
-      FROM contents_content_categories
-      WHERE (content_id, category_id) = ($1, $2)
-    )
-    RETURNING *
+  ) SELECT
+      u.content_id,
+      u.category_id
+    FROM
+    UNNEST(
+      $1::integer[],
+      $2::integer[]
+    ) AS u(content_id, category_id)
+    ON CONFLICT (content_id, category_id)
+      DO UPDATE SET updated_at = NOW()
+  RETURNING *
   `;
 
-  const values = [contentId, catId];
+  const values = [contentsIds, categoriesIds];
 
   const res = await query(sql, values, client);
-  return res.rows[0];
+  return res.rows;
 };
 
-export { createCategory, createContentCategory, createContent };
+export { createCategories, createContent, createContentsContentCategory };

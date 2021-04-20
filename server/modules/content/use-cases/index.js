@@ -6,7 +6,8 @@ import deleteContent from './delete-content';
 import removeContentFromLibrary from './remove-content-from-library';
 import editContent from './edit-content';
 import removeContentFromProgramme from './remove-content-from-programme';
-import createContent from '../../content/use-cases/create-content';
+import createContent from './create-content';
+import createCategories from './create-categories';
 
 export {
   getContentById,
@@ -18,4 +19,5 @@ export {
   editContent,
   removeContentFromProgramme,
   createContent,
+  createCategories,
 };

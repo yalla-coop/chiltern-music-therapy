@@ -77,7 +77,7 @@ export const title = string()
   .max(50)
   .required(errMsgs.DEFAULT_REQUIRED);
 
-export const categories = array().of(string()).nullable();
+export const categories = array().of(string().nullable()).nullable();
 
 export const libraryContent = boolean()
   .oneOf([true, false])
