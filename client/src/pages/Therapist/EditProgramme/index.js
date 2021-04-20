@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Switch, useHistory, useParams, useLocation } from 'react-router-dom';
 
 // parts
-import { AddSingleContent, HowToRecord } from '../../../components/Content';
+import { AddSingleContent } from '../../../components/Content';
 import Review from './Review';
 import AddContent from './AddContent';
 import Success from './Success';
@@ -87,7 +87,7 @@ const EditProgramme = () => {
     goToAddContent: () => decidePath(flowTypes.addContent),
     goToAddSingleContent: (type) =>
       decidePathSingle(flowTypes.addSingleContent, type),
-    goToHowToRecord: () => decidePath(flowTypes.howToRecord),
+    // goToHowToRecord: () => decidePath(flowTypes.howToRecord),
     goToSuccess: () => decidePath(flowTypes.success),
   };
 
@@ -248,10 +248,6 @@ const EditProgramme = () => {
           setLoading,
         }}
         navFunctions={navFunctions}
-      />
-      <HowToRecord
-        exact
-        path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_HOW_TO_RECORD}
       />
       <AddSingleContent
         exact

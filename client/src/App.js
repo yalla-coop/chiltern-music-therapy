@@ -349,6 +349,15 @@ function App() {
                 allowedRoles={[roles.THERAPIST]}
               />
 
+              {/* General routes */}
+
+              <Route
+                exact
+                path={navRoutes.GENERAL.HOW_TO_RECORD}
+                Component={Pages.GENERAL.HowToRecord}
+                layout="general"
+              />
+
               <Route
                 Component={Pages.GENERAL.ErrorPages}
                 layout="general"
