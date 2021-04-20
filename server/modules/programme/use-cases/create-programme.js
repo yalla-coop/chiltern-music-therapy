@@ -12,10 +12,8 @@ import createContent from '../../content/use-cases/create-content';
 import createCategories from '../../content/use-cases/create-categories';
 import manageCCC from './manage-content-contents-categories';
 
-import {
-  validateCreateEditProgramme,
-  getUniqueCategoriesFromContents,
-} from '../utils';
+import { validateCreateEditProgramme } from '../utils';
+import { getUniqueCategoriesFromContents } from '../../content/utils';
 
 const createProgramme = async ({ userId, body }) => {
   const client = await getClient();
@@ -57,10 +55,12 @@ const createProgramme = async ({ userId, body }) => {
     );
 
     const promises = [];
-    // store content
 
-    const createdCategoriesIds = [];
-    const contentsIdsToUpdateCategories = [];
+    const contentIdsCategoriesIdsPairs = {
+      contentsIds: [],
+      categoriesIds: [],
+    };
+
     const allUpdatedContentsIds = [];
 
     content.forEach((contentData) => {
@@ -107,8 +107,8 @@ const createProgramme = async ({ userId, body }) => {
         newCategories
           .filter(({ text }) => categories.includes(text))
           .forEach(({ id }) => {
-            createdCategoriesIds.push(id);
-            contentsIdsToUpdateCategories.push(_content.id);
+            contentIdsCategoriesIdsPairs.categoriesIds.push(id);
+            contentIdsCategoriesIdsPairs.contentsIds.push(_content.id);
           });
 
         allUpdatedContentsIds.push(_content.id);
@@ -120,9 +120,8 @@ const createProgramme = async ({ userId, body }) => {
 
     await manageCCC(
       {
-        createdCategoriesIds,
         allUpdatedContentsIds,
-        contentsIdsToUpdateCategories,
+        contentIdsCategoriesIdsPairs,
       },
       client,
     );

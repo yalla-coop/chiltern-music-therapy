@@ -44,17 +44,6 @@ const deleteCategory = async (id, client) => {
   return res.rows[0];
 };
 
-const deleteContentCategoryById = async (id, client) => {
-  const sql = `
-    DELETE FROM contents_content_categories
-    WHERE category_id = $1
-    RETURNING *
-  `;
-
-  const res = await query(sql, [id], client);
-  return res.rows[0];
-};
-
 const deleteContentFromProgrammeById = async (programmeContentId, client) => {
   const sql = `
     DELETE FROM programmes_contents
@@ -105,7 +94,6 @@ export {
   deleteContentCategories,
   deleteContentFromProgramme,
   deleteCategory,
-  deleteContentCategoryById,
   deleteContentFromProgrammeById,
   deleteUnusedContentCategories,
   deleteUnusedContentsContentCategoryByContentIds,

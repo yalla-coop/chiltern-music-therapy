@@ -2,18 +2,17 @@ import * as Content from '../../content/model';
 
 const manageCCC = async (
   {
-    createdCategoriesIds,
+    contentIdsCategoriesIdsPairs: { contentsIds, categoriesIds },
     allUpdatedContentsIds,
-    contentsIdsToUpdateCategories,
   },
   client,
 ) => {
   let createdAndUpdatedCCC;
-  if (createdCategoriesIds.length) {
+  if (categoriesIds.length) {
     createdAndUpdatedCCC = await Content.createContentsContentCategory(
       {
-        categoriesIds: createdCategoriesIds,
-        contentsIds: contentsIdsToUpdateCategories,
+        categoriesIds,
+        contentsIds,
       },
       client,
     );

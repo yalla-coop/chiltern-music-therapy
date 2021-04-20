@@ -69,30 +69,6 @@ const createCategories = async ({ texts }, client) => {
   return res.rows;
 };
 
-const createContentCategory = async ({ contentId, catId }, client) => {
-  const sql = `
-  INSERT INTO contents_content_categories(
-    content_id,
-    category_id
-  )
-  SELECT
-      $1,
-      $2
-  WHERE NOT EXISTS (
-      SELECT
-       1
-      FROM contents_content_categories
-      WHERE (content_id, category_id) = ($1, $2)
-    )
-    RETURNING *
-  `;
-
-  const values = [contentId, catId];
-
-  const res = await query(sql, values, client);
-  return res.rows[0];
-};
-
 const createContentsContentCategory = async (
   { contentsIds, categoriesIds },
   client,
@@ -120,9 +96,4 @@ const createContentsContentCategory = async (
   return res.rows;
 };
 
-export {
-  createCategories,
-  createContentCategory,
-  createContent,
-  createContentsContentCategory,
-};
+export { createCategories, createContent, createContentsContentCategory };
