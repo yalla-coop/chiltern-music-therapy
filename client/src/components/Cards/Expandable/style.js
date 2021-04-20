@@ -83,3 +83,9 @@ export const CrossBtn = styled.button`
 export const BoldSpan = styled.span`
   font-weight: bold;
 `;
+
+export const Anchor = styled.a`
+  z-index: 2;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+`;
