@@ -5,6 +5,7 @@ const GENERAL = {
   LOGOUT: '/logout',
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password/:token',
+  ACCOUNT_DELETED_SUCCESS: '/account-deleted-success',
 };
 
 const CLIENT = {

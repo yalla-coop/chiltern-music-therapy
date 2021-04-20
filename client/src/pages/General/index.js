@@ -6,6 +6,7 @@ import ResetPassword from './ResetPassword';
 import Welcome from './Welcome';
 import SuccessUpdate from './SuccessUpdate';
 import SuccessFeedback from './SuccessFeedback';
+import AccountDeletedSuccess from './AccountDeletedSuccess';
 
 export default {
   ErrorPages,
@@ -16,4 +17,5 @@ export default {
   Welcome,
   SuccessUpdate,
   SuccessFeedback,
+  AccountDeletedSuccess,
 };

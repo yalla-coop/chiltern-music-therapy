@@ -28,7 +28,6 @@ function App() {
               <RouterRoute exact path={navRoutes.GENERAL.HOME}>
                 <Redirect to={navRoutes.GENERAL.LOGIN} />
               </RouterRoute>
-
               {/* Auth Routes */}
               <Route
                 exact
@@ -37,7 +36,6 @@ function App() {
                 layout="onboarding"
                 loggedOutOnly
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.SIGNUP}
@@ -45,14 +43,12 @@ function App() {
                 layout="onboarding"
                 loggedOutOnly
               />
-
               <Route
                 path={navRoutes.CLIENT.SIGNUP}
                 Component={Pages.CLIENT.Signup}
                 layout="onboarding"
                 loggedOutOnly
               />
-
               <Route
                 exact
                 path={navRoutes.GENERAL.FORGOT_PASSWORD}
@@ -60,7 +56,6 @@ function App() {
                 layout="onboarding"
                 loggedOutOnly
               />
-
               <Route
                 exact
                 path={navRoutes.GENERAL.RESET_PASSWORD}
@@ -68,9 +63,7 @@ function App() {
                 layout="onboarding"
                 loggedOutOnly
               />
-
               {/* Therapist Pages */}
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.WELCOME}
@@ -80,7 +73,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.CLIENT}
@@ -100,7 +92,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.EDIT_CLIENT}
@@ -110,7 +101,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.DASHBOARD}
@@ -119,7 +109,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.NEW_CLIENT}
@@ -127,7 +116,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.SINGLE_PROGRAMME}
@@ -135,7 +123,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.PROFILE}
@@ -144,7 +131,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.LIBRARY}
@@ -152,7 +138,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.ACCOUNT}
@@ -162,7 +147,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.CONTACT_CLIENT}
@@ -172,7 +156,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.THERAPIST]}
               />
-
               <Route
                 exact
                 path={navRoutes.THERAPIST.PROGRESS_UPDATE}
@@ -188,7 +171,6 @@ function App() {
                 goBack
                 maxWidth="none"
               />
-
               {/* Admin Pages */}
               <Route
                 exact
@@ -197,9 +179,7 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.ADMIN]}
               />
-
               {/* Client Pages */}
-
               <Route
                 exact
                 path={navRoutes.CLIENT.WELCOME}
@@ -209,7 +189,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.CLIENT]}
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.DASHBOARD}
@@ -218,7 +197,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.CLIENT]}
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.DELETE_ACCOUNT}
@@ -227,7 +205,6 @@ function App() {
                 allowedRoles={[roles.CLIENT]}
                 isPrivate
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.ACCOUNT_DELETED}
@@ -236,7 +213,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.CLIENT]}
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPIST}
@@ -247,7 +223,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.CLIENT]}
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.CONTACT_THERAPIST}
@@ -259,7 +234,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.CLIENT]}
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.INDIVID_PROGRAMME}
@@ -274,7 +248,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.CLIENT]}
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_PLAN}
@@ -283,7 +256,6 @@ function App() {
                 isPrivate
                 allowedRoles={[roles.CLIENT]}
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.THERAPY_GOALS}
@@ -300,7 +272,6 @@ function App() {
                 goBack
                 maxWidth="none"
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.SEND_UPDATE}
@@ -308,7 +279,6 @@ function App() {
                 goBack
                 maxWidth="none"
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.SUCCESS_UPDATE}
@@ -316,7 +286,6 @@ function App() {
                 goBack
                 maxWidth="none"
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.SUCCESS_FEEDBACK}
@@ -324,16 +293,13 @@ function App() {
                 goBack
                 maxWidth="none"
               />
-
               <Route
                 exact
                 path={navRoutes.CLIENT.SEND_FEEDBACK}
                 Component={Pages.CLIENT.Feedback}
                 maxWidth="none"
               />
-
               {/* therapist sub routes */}
-
               <Route
                 path={navRoutes.THERAPIST.CREATE_PROGRAMME}
                 Component={Pages.THERAPIST.CreateProgram}
@@ -341,12 +307,18 @@ function App() {
                 allowedRoles={[roles.THERAPIST]}
                 isPrivate
               />
-
               <Route
                 path={navRoutes.THERAPIST.EDIT_PROGRAMME}
                 Component={Pages.THERAPIST.EditProgramme}
                 layout="general"
                 allowedRoles={[roles.THERAPIST]}
+              />
+              <Route
+                exact
+                path={navRoutes.GENERAL.ACCOUNT_DELETED_SUCCESS}
+                Component={Pages.GENERAL.AccountDeletedSuccess}
+                layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
