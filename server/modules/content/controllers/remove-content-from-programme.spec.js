@@ -44,7 +44,7 @@ describe('Test remove content from programme api', () => {
       });
   });
 
-  it('test with valid request -> content that is not used anywhere else', async () => {
+  it('test with valid request -> content that is not used anywhere else', async (done) => {
     const { users, contents, programmes } = builtData;
 
     const userId = users.therapist1.id;
@@ -93,6 +93,7 @@ describe('Test remove content from programme api', () => {
       );
 
       expect(foundMedia.rowCount).to.equal(0);
+      done();
     }, 1000);
   });
 });
