@@ -118,6 +118,8 @@ export const optionalPhoneNumber = string().when((value, schema) => {
 
 export const phoneNumber = string()
   .required(errMsgs.DEFAULT_REQUIRED)
+  .min(9, errMsgs.INVALID_PHONE)
+  .max(12, errMsgs.INVALID_PHONE)
   .when((value, schema) => {
     return schema.phone().typeError(errMsgs.INVALID_PHONE);
   });
