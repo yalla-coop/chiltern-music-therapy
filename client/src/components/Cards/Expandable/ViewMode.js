@@ -43,7 +43,7 @@ const ViewMode = ({
         </div>
       )}
       {download && (
-        <a href={download} download>
+        <a href={download} download style={{ zIndex: 2 }}>
           <Icon
             icon="download"
             width="16"
