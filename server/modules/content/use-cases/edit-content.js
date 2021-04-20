@@ -21,7 +21,7 @@ const deleteContent = async ({
     await client.query('BEGIN');
 
     // check content details
-    const contentToEdit = await Content.findContentById(id, client);
+    const contentToEdit = await Content.findContentById({ id }, client);
 
     if (
       userId !== contentToEdit.therapistLibraryUserId &&
