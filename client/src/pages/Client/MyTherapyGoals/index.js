@@ -11,11 +11,26 @@ import { CardWrapper } from './style';
 const MyTherapyGoals = () => {
   const [therapyGoals, setTherapyGoals] = useState([]);
 
+  const tidyGoals = (goals) => {
+    const categories = goals.reduce((acc, curr) => {
+      if (acc[curr.category]) {
+        acc[curr.category].push(curr.goal);
+        return acc;
+      } else {
+        return { ...acc, [curr.category]: [curr.goal] };
+      }
+    }, []);
+
+    const groupedArr = Object.entries(categories);
+
+    setTherapyGoals(groupedArr);
+  };
+
   useEffect(() => {
     const getMyTherapy = async () => {
       const { data, error } = await TherapistClients.getMyTherapy();
       if (!error) {
-        setTherapyGoals(data.therapyGoals);
+        tidyGoals(data.therapyGoals);
       }
     };
 
@@ -27,49 +42,29 @@ const MyTherapyGoals = () => {
       <Title boldSection="Therapy Goals" lightSection="My" />
       <Row mb="6" jc="space-between">
         <Col w={[4, 12, 8]}>
-          <Row inner jc="space-between">
-            <Col w={[4, 12, 10]}>
+          <Row inner mb="7" mbT="5">
+            <Col w={[4, 12, 10]} mb="7" mbT="5">
               <T.P color="gray8">
                 Each week, resources will be provided in the ‘Home Programme’
                 page that support these goals. Current therapy goals are listed
                 by domain area below:
               </T.P>
             </Col>
-            <Col w={[4, 12, 5.5]} mt={7} mtT={5} display="block">
-              {therapyGoals && therapyGoals[0] && (
-                <>
-                  <T.P color="gray8">{therapyGoals[0].category}</T.P>
-                  <T.P weight="bold">{therapyGoals[0].goal}</T.P>
-                </>
-              )}
-              {therapyGoals && therapyGoals[1] && (
-                <>
-                  <T.P color="gray8" mt={5}>
-                    {therapyGoals[1].category}
+            {therapyGoals?.map((group, i) => (
+              <Col w={[4, 12, 5]} display="block" mb="4" key={i}>
+                <T.P weight="bold">{group[0]}</T.P>
+                {group[1].map((goal, i) => (
+                  <T.P color="gray8" mb={2} mr={3}>
+                    <pre>
+                      - Goal {i + 1}: {goal}
+                    </pre>
                   </T.P>
-                  <T.P weight="bold">{therapyGoals[1].goal}</T.P>
-                </>
-              )}
-            </Col>
-            <Col w={[4, 12, 5.5]} mt={7} mtT={5} display="block">
-              {therapyGoals && therapyGoals[2] && (
-                <>
-                  <T.P color="gray8">{therapyGoals[2].category}</T.P>
-                  <T.P weight="bold">{therapyGoals[2].goal}</T.P>
-                </>
-              )}
-              {therapyGoals && therapyGoals[3] && (
-                <>
-                  <T.P color="gray8" mt={5}>
-                    {therapyGoals[3].category}
-                  </T.P>
-                  <T.P weight="bold">{therapyGoals[3].goal}</T.P>
-                </>
-              )}
-            </Col>
+                ))}
+              </Col>
+            ))}
           </Row>
         </Col>
-        <Col w={[4, 12, 4]} mt={5} jc="flex-end" jcT="flex-start">
+        <Col w={[4, 8, 4]} mt={5} jc="flex-end" jcT="flex-start">
           <CardWrapper>
             <Link
               variant="graphic1"

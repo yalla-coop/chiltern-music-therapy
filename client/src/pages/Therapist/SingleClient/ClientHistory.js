@@ -75,7 +75,7 @@ const ClientHistory = ({
         </Col>
         {goalsToView ? (
           groupedGoals.map((group, i) => (
-            <Col w={[4, 12, 5]} display="block" mb="4">
+            <Col w={[4, 12, 5]} display="block" mb="4" key={i}>
               <T.P color="black" mb={2} bold>
                 {group[0]}
               </T.P>
