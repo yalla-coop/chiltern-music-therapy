@@ -32,6 +32,8 @@ const AddContentSection = ({
 
   const modifiedLibraryContent = content.filter((el) => el.libraryContent);
 
+  // create new library content when user starts to add / remove content
+  // take old content and new content and only use unique values
   const decicedLibraryContent =
     modifiedLibraryContent.length > 0
       ? [

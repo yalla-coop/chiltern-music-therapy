@@ -15,11 +15,6 @@ const AddContent = ({ parentState, actions, navFunctions }) => {
   const { ADD_CONTENT } = actions;
   const { content, libraryContent } = parentState;
 
-  console.log(
-    `content`,
-    content.filter((el) => el.libraryContent)
-  );
-
   return (
     <S.Wrapper>
       <GoBack customFn={navFunctions.goToDescription} />
