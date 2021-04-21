@@ -30,7 +30,8 @@ const Route = (props) => {
       user.id &&
       authorized &&
       profileRequired &&
-      path !== navRoutes.THERAPIST.PROFILE
+      path !== navRoutes.THERAPIST.PROFILE &&
+      path !== navRoutes.THERAPIST.WELCOME
     ) {
       return <Redirect to={navRoutes.THERAPIST.PROFILE} {...props} />;
     }

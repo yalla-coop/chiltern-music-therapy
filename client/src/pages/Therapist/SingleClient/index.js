@@ -59,6 +59,7 @@ const SingleClient = ({ clientHistory }) => {
         therapyBackground={state.therapyBackground}
         therapyGoals={state.therapyGoals}
         id={id}
+        deletedUser={state.status === userStatuses.DELETED}
       />
     );
   }

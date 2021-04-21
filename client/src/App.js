@@ -11,6 +11,7 @@ import { Route } from './components';
 import * as Pages from './pages';
 import { navRoutes, roles } from './constants';
 import { AuthProvider } from './context/auth';
+import { ScrollToTop } from './helpers';
 import CookieBot from 'react-cookiebot';
 
 import 'antd/dist/antd.css';
@@ -24,6 +25,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <AuthProvider>
           <Router basename={process.env.PUBLIC_URL}>
+            <ScrollToTop />
             <Switch>
               <RouterRoute exact path={navRoutes.GENERAL.HOME}>
                 <Redirect to={navRoutes.GENERAL.LOGIN} />

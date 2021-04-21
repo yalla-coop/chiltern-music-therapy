@@ -20,7 +20,7 @@ export const OnboardingHeader = styled.header`
 
   ${({ theme }) => theme.media.tablet} {
     padding: ${({ theme: { spacings } }) =>
-      `${spacings[7]} ${spacings[9]} ${spacings[0]} ${spacings[9]}`};
+      `${spacings[5]} ${spacings[9]} ${spacings[5]} ${spacings[9]}`};
   }
 
   ${({ theme }) => theme.media.mobile} {
