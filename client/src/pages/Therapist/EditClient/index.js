@@ -45,7 +45,7 @@ const EditClient = () => {
   };
 
   const updateClient = async () => {
-    const { data, error } = await TherapistClients.editClient({
+    const { error } = await TherapistClients.editClient({
       therapyBackground,
       therapyGoals,
       clientId: id,

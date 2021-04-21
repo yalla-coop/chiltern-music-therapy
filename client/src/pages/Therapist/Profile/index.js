@@ -115,7 +115,7 @@ const Profile = () => {
 
     const isValid = validateForm();
     if (isValid) {
-      const { data, error } = await Users.createTherapistProfile({
+      const { data } = await Users.createTherapistProfile({
         contactEmail: email ? cleanEmail(email) : '',
         bio,
         contactNumber,

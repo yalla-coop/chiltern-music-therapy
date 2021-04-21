@@ -96,7 +96,7 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
   const handleCreateProgramme = async () => {
     SET_LOADING(true);
 
-    const { error, data } = await Programmes.createProgramme({
+    const { error } = await Programmes.createProgramme({
       clientId,
       description,
       content,

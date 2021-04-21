@@ -35,7 +35,7 @@ const ResetPassword = () => {
 
   const updatePassword = async () => {
     setLoading(true);
-    const { error, data } = await Users.updatePassword({
+    const { error } = await Users.updatePassword({
       password,
       token,
     });
