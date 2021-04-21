@@ -8,6 +8,7 @@ import linkFormatter from './linkFormatter';
 import isEmptyObject from './isEmptyObject';
 import createUniqueCats from './createUniqueCats';
 import decideStreamable from './decideStreamable';
+import ScrollToTop from './ScrollToTop';
 
 export {
   authorization,
@@ -20,4 +21,5 @@ export {
   isEmptyObject,
   createUniqueCats,
   decideStreamable,
+  ScrollToTop,
 };
