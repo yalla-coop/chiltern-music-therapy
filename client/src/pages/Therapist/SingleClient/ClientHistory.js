@@ -14,6 +14,7 @@ const ClientHistory = ({
   therapyBackground,
   therapyGoals,
   id,
+  deletedUser,
 }) => {
   const [groupedGoals, setGroupedGoals] = useState([]);
 
@@ -43,11 +44,15 @@ const ClientHistory = ({
 
   return (
     <S.Wrapper>
-      <Title
-        boldSection={firstInitial}
-        lightSection={`${lastInitial} ${postcode}`}
-        boldFirst
-      />
+      {deletedUser ? (
+        <Title boldSection={''} lightSection={'Discharged Client'} />
+      ) : (
+        <Title
+          boldSection={firstInitial}
+          lightSection={`${lastInitial} ${postcode}`}
+          boldFirst
+        />
+      )}
 
       <Row mb="7">
         <Col w={[4, 12, 12]}>
@@ -69,7 +74,7 @@ const ClientHistory = ({
 
       <Row mb="5">
         <Col w={[4, 12, 12]}>
-          <T.H3 color="black" mb={2} weight="bold" mb="4">
+          <T.H3 color="black" weight="bold" mb="4">
             Therapy goals
           </T.H3>
         </Col>
