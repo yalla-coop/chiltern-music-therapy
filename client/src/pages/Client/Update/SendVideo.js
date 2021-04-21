@@ -158,7 +158,7 @@ const AddVideo = () => {
           color="gray8"
           value={link}
           handleChange={(value) =>
-            actions.ADD_SINGLE_CONTENT('link', value.trim())
+            actions.ADD_SINGLE_CONTENT('link', value.trim().toLowerCase())
           }
           disabled={fileUploading || uploadedFileInfo.new}
           error={validationErrs.link}
