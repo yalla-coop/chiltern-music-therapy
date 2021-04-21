@@ -4,7 +4,9 @@ import './custom-functions';
 
 const URLregex = /^((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#.-]+)*\/?(\?[a-zA-Z0-9-_.-]+=[a-zA-Z0-9-%?&=.-]+&?)?$/;
 
-export const requiredText = string().required(errMsgs.DEFAULT_REQUIRED);
+export const requiredText = string()
+  .typeError(errMsgs.DEFAULT_REQUIRED)
+  .required(errMsgs.DEFAULT_REQUIRED);
 
 export const firstName = string()
   .min(1, errMsgs.DEFAULT_REQUIRED)
@@ -75,7 +77,7 @@ export const title = string()
   .max(50)
   .required(errMsgs.DEFAULT_REQUIRED);
 
-export const categories = array().of(string()).nullable();
+export const categories = array().of(string().nullable()).nullable();
 
 export const libraryContent = boolean()
   .oneOf([true, false])

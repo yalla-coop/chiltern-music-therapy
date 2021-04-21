@@ -56,43 +56,35 @@ describe('Test remove content from programme api', () => {
     const programmeId = programmes.programme1.id;
 
     // add timeout to let pub sub event listers run in between queries (media deletion)
-    setTimeout(async () => {
-      await request(app)
-        .delete(
-          `/api/contents/remove-from-programme?contentId=${contentId}&programmeId=${programmeId}`,
-        )
-        .set('Cookie', [token])
-        .expect('Content-Type', /json/)
-        .expect(200);
+    await request(app)
+      .delete(
+        `/api/contents/remove-from-programme?contentId=${contentId}&programmeId=${programmeId}`,
+      )
+      .set('Cookie', [token])
+      .expect('Content-Type', /json/)
+      .expect(200);
 
-      // check if programmes_contents got updated
-      const foundProgrammesContents = await query(
-        `SELECT * FROM programmes_contents WHERE programme_id = ${programmeId}`,
-      );
+    // check if programmes_contents got updated
+    const foundProgrammesContents = await query(
+      `SELECT * FROM programmes_contents WHERE programme_id = ${programmeId}`,
+    );
 
-      expect(
-        foundProgrammesContents.rows
-          .map((el) => el.contentId)
-          .includes(contentId),
-      ).to.equal(false);
+    expect(
+      foundProgrammesContents.rows
+        .map((el) => el.contentId)
+        .includes(contentId),
+    ).to.equal(false);
 
-      // check if conents_content_categories got created / updated
-      const foundContentContentsCategories = await query(
-        `SELECT * FROM contents_content_categories WHERE content_id = ${contentId}`,
-      );
-      expect(foundContentContentsCategories.rowCount).to.equal(0);
+    // check if conents_content_categories got created / updated
+    const foundContentContentsCategories = await query(
+      `SELECT * FROM contents_content_categories WHERE content_id = ${contentId}`,
+    );
+    expect(foundContentContentsCategories.rowCount).to.equal(0);
 
-      // check if content got deleted
-      const foundContent = await query(
-        `SELECT * FROM contents WHERE id = ${contentId}`,
-      );
-      expect(foundContent.rowCount).to.equal(0);
-
-      const foundMedia = await query(
-        `SELECT * FROM media WHERE id = ${contents.content1.mediaId}`,
-      );
-
-      expect(foundMedia.rowCount).to.equal(0);
-    }, 1000);
+    // check if content got deleted
+    const foundContent = await query(
+      `SELECT * FROM contents WHERE id = ${contentId}`,
+    );
+    expect(foundContent.rowCount).to.equal(0);
   });
 });

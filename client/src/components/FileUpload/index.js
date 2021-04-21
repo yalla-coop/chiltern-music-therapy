@@ -4,6 +4,7 @@ import { Upload } from 'antd';
 
 import { Media } from '../../api-calls';
 import Icon from '../Icon';
+import { Info } from '../Cards';
 import * as T from '../Typography';
 import * as S from './style';
 import { content } from '../../constants';
@@ -206,6 +207,19 @@ const FileUpload = ({
           {error || contentInputMissingError}
         </T.P>
       )}
+
+      <Info
+        title={<T.P weight="bold">Supported {category} types:</T.P>}
+        body={
+          <>
+            <T.P color="gray9" m={0}>
+              {printFileTypes(category)}
+            </T.P>
+          </>
+        }
+        m={{ mt: 2 }}
+        noBorder
+      />
     </S.Wrapper>
   );
 };

@@ -11,7 +11,7 @@ const appLinks = {
   // CLIENT
   CLIENT_SIGNUP_INVITE: `${appUrl}/signup/?invite=:invite`,
   // THERAPIST
-  THERAPIST_SINGLE_PROGRAMME: `${appUrl}/${therapist}/programme/:id`,
+  THERAPIST_SINGLE_PROGRAMME: `${appUrl}/${therapist}/programmes/:id`,
 };
 
 export { appLinks };

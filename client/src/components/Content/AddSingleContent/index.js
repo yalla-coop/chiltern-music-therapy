@@ -52,9 +52,9 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
     error: contentCategoriesError,
   } = contentCategories;
 
-  const {
-    state: { category },
-  } = useLocation();
+  const location = useLocation();
+
+  const category = location.pathname.split('/content/')[1];
 
   const {
     handleAddContent,

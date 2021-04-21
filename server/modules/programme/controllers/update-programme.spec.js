@@ -40,7 +40,7 @@ describe('Test update programme api', () => {
         {
           type: 'document',
           title: 'Test doc with media content',
-          categories: [contentCategories.category1.id, 'new category 2'],
+          categories: [contentCategories.category1.text, 'new category 2'],
           libraryContent: false,
           instructions: 'this is a test message',
           uploadedFileInfo: {

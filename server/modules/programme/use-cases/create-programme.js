@@ -8,10 +8,12 @@ import { errorMsgs } from '../../../services/error-handler';
 
 import events from '../../../services/events';
 
-import createProgrammeContent from '../../content/use-cases/create-content';
+import createContent from '../../content/use-cases/create-content';
+import createCategories from '../../content/use-cases/create-categories';
 import manageCCC from './manage-content-contents-categories';
 
 import { validateCreateEditProgramme } from '../utils';
+import { getUniqueCategoriesFromContents } from '../../content/utils';
 
 const createProgramme = async ({ userId, body }) => {
   const client = await getClient();
@@ -34,7 +36,7 @@ const createProgramme = async ({ userId, body }) => {
       throw Boom.badData(errorMsgs.WRONG_DATA);
     }
 
-    // create programmme
+    // create programme
     const programme = await Programme.createProgramme(
       {
         therapistsClientsId: therapistClientId.id,
@@ -43,8 +45,23 @@ const createProgramme = async ({ userId, body }) => {
       client,
     );
 
+    const uniqueCategoriesTexts = getUniqueCategoriesFromContents(content);
+
+    const newCategories = await createCategories(
+      {
+        texts: uniqueCategoriesTexts,
+      },
+      client,
+    );
+
     const promises = [];
-    // store content
+
+    const contentIdsCategoriesIdsPairs = {
+      contentsIds: [],
+      categoriesIds: [],
+    };
+
+    const allUpdatedContentsIds = [];
 
     content.forEach((contentData) => {
       const fn = async () => {
@@ -71,7 +88,7 @@ const createProgramme = async ({ userId, body }) => {
           );
         } // for new content -> add to db
         else {
-          _content = await createProgrammeContent({
+          _content = await createContent({
             programmeId: programme.id,
             userId,
             contentData,
@@ -87,13 +104,27 @@ const createProgramme = async ({ userId, body }) => {
           client,
         );
 
-        // update categories
-        await manageCCC({ userId, contentId: _content.id, categories }, client);
+        newCategories
+          .filter(({ text }) => categories.includes(text))
+          .forEach(({ id }) => {
+            contentIdsCategoriesIdsPairs.categoriesIds.push(id);
+            contentIdsCategoriesIdsPairs.contentsIds.push(_content.id);
+          });
+
+        allUpdatedContentsIds.push(_content.id);
       };
       promises.push(fn());
     });
 
     await Promise.all(promises);
+
+    await manageCCC(
+      {
+        allUpdatedContentsIds,
+        contentIdsCategoriesIdsPairs,
+      },
+      client,
+    );
 
     await client.query('COMMIT');
 

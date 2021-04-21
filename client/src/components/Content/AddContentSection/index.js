@@ -22,15 +22,33 @@ const AddContentSection = ({
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { data = [], error = null } = libraryContent;
+  const { data: libraryContentData = [], error = null } = libraryContent;
 
-  const renderLibraryContentDropdownValues = data.map((el) => {
-    const res = { label: el.title, value: el.id };
-    return res;
-  });
+  const createLibraryContentDropdownValues = (arr) =>
+    arr.map((el) => {
+      const res = { label: el.title, value: el.id };
+      return res;
+    });
+
+  const modifiedLibraryContent = content.filter((el) => el.libraryContent);
+
+  // create new library content when user starts to add / remove content
+  // take old content and new content and only use unique values
+  const decicedLibraryContent =
+    modifiedLibraryContent.length > 0
+      ? [
+          ...new Map(
+            libraryContentData
+              .concat(modifiedLibraryContent)
+              .map((el) => [el.id, el])
+          ).values(),
+        ]
+      : libraryContentData;
 
   const handleSubmitLibraryContent = (val) => {
-    const selectLibraryContent = data.filter((el) => el.id === val);
+    const selectLibraryContent = decicedLibraryContent.filter(
+      (el) => el.id === val
+    );
     const duplicates = content.filter((el) => el.id === val);
 
     if (duplicates.length > 0) {
@@ -64,7 +82,7 @@ const AddContentSection = ({
         </T.P>
         <Dropdown
           error={duplicateError || error}
-          options={renderLibraryContentDropdownValues}
+          options={createLibraryContentDropdownValues(decicedLibraryContent)}
           multi={false}
           placeholder="Select one..."
           handleChange={(value) => handleSubmitLibraryContent(value)}
