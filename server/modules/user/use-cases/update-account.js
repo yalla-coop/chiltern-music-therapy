@@ -10,10 +10,17 @@ import { userRoles as roles } from '../../../constants';
 const updateAccount = async ({ accountData, id, role }) => {
   let updatedUser;
   // for both
-  const { email, firstName, lastName, profilePhotoMediaId } = accountData;
+  const {
+    email,
+    firstName,
+    lastName,
+    profilePhotoMediaId,
+    contactNumber,
+    mobileNumber,
+  } = accountData;
 
   // for therapist only
-  const { bio, contactNumber, contactEmail, uploadedFileInfo } = accountData;
+  const { bio, contactEmail, uploadedFileInfo } = accountData;
 
   const user = await User.findUserByEmail(email);
   if (user && user.id !== id) {
@@ -28,6 +35,8 @@ const updateAccount = async ({ accountData, id, role }) => {
         email,
         firstName: firstName[0],
         lastName: lastName[0],
+        contactNumber,
+        mobileNumber,
         id,
       });
       break;

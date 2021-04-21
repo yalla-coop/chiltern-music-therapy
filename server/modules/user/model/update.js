@@ -116,24 +116,28 @@ const updatePassword = async ({ password, userId }, client) => {
 };
 
 const updateClientAccount = async (
-  { email, firstName, lastName, id },
+  { email, firstName, lastName, mobileNumber, contactNumber, id },
   client,
 ) => {
-  const values = [email, firstName, lastName, id];
+  const values = [email, firstName, lastName, mobileNumber, contactNumber, id];
 
   const sql = `
     UPDATE users
     SET
       email = $1,
       first_name = $2,
-      last_name= $3
+      last_name= $3,
+      mobile_number= $4,
+      contact_number= $5
     WHERE
-      id = $4
+      id = $6
     RETURNING
       first_name,
       last_name,
       email,
       postcode,
+      mobile_number,
+      contact_number,
       roles::VARCHAR[],
       id
   `;

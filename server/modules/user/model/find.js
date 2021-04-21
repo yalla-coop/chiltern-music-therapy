@@ -10,6 +10,8 @@ const findUserById = async (id, client) => {
     first_name,
     last_name,
     postcode,
+    contact_number,
+    mobile_number,
     roles::VARCHAR[]
   FROM users
     WHERE id = $1

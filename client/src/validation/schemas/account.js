@@ -4,12 +4,21 @@ import { roles } from './../../constants';
 
 const { CLIENT, THERAPIST } = roles;
 
-const { email, firstName, lastName, requiredText, phoneNumber } = fields;
+const {
+  email,
+  firstName,
+  lastName,
+  requiredText,
+  phoneNumber,
+  optionalPhoneNumber,
+} = fields;
 
 const client = createSchema({
   email,
   firstName,
   lastName,
+  mobileNumber: optionalPhoneNumber,
+  contactNumber: phoneNumber,
 });
 
 const therapist = createSchema({
