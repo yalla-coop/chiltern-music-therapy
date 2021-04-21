@@ -230,15 +230,6 @@ function App() {
 
               <Route
                 exact
-                path={navRoutes.CLIENT.ACCOUNT_DELETED}
-                Component={Pages.CLIENT.AccountDeleted}
-                layout="general"
-                isPrivate
-                allowedRoles={[roles.CLIENT]}
-              />
-
-              <Route
-                exact
                 path={navRoutes.CLIENT.THERAPIST}
                 Component={Pages.CLIENT.MyTherapist}
                 layout="general"
