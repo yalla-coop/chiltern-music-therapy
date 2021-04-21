@@ -32,7 +32,13 @@ const allowedFileTypesAndSizes = {
     maxSize: '20',
   },
   audio: {
-    types: ['audio/mpeg', 'audio/wav'],
+    types: [
+      'audio/mpeg',
+      'audio/wav',
+      'audio/m4a',
+      'audio/x-m4a',
+      'audio/x-wav',
+    ],
     // 100 MB
     maxSize: '100',
   },

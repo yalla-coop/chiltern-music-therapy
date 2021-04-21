@@ -88,6 +88,7 @@ const fileTypesShort = {
   applicationDocX: '.docx',
   audioMpeg: '.mpeg',
   audioWav: '.wav',
+  audioM4a: '.m4a',
   imageJpg: '.jpg',
   imageJpeg: '.jpeg',
   imagePng: '.png',
@@ -109,7 +110,13 @@ const allowedFileTypesAndSizes = {
     maxSize: '20',
   },
   audio: {
-    types: ['audio/mpeg', 'audio/wav'],
+    types: [
+      'audio/mpeg',
+      'audio/wav',
+      'audio/x-wav',
+      'audio/m4a',
+      'audio/x-m4a',
+    ],
     // 100 MB
     maxSize: '100',
   },
@@ -126,7 +133,7 @@ const printFileTypes = (category) => {
     case fileCategories.document:
       return `${fileTypesShort.applicationPdf}, ${fileTypesShort.applicationDoc}, ${fileTypesShort.applicationDocX} `;
     case fileCategories.audio:
-      return `${fileTypesShort.audioMpeg}, ${fileTypesShort.audioWav}`;
+      return `${fileTypesShort.audioMpeg}, ${fileTypesShort.audioWav}, ${fileTypesShort.audioM4a}`;
     case fileCategories.image:
       return `${fileTypesShort.imageJpeg}, ${fileTypesShort.imageJpg}, ${fileTypesShort.imagePng}`;
     default:
