@@ -43,7 +43,7 @@ const ViewMode = ({
         </div>
       )}
       {download && (
-        <a href={download} download>
+        <S.Anchor href={download} download>
           <Icon
             icon="download"
             width="16"
@@ -52,7 +52,7 @@ const ViewMode = ({
             mb="5"
             color="primary"
           />
-        </a>
+        </S.Anchor>
       )}
       {link && (
         <T.Link
