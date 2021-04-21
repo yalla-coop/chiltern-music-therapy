@@ -33,9 +33,10 @@ const createProgrammeFeedback = async ({
     likeMostAndLeast,
   });
 
-  events.emit(events.types.PROGRAMME.FEEDBACK.CREATED, {
-    feedbackId: createdFeedback.id,
-  });
+  // ADD BACK IN ONCE YOU ARE ABLE TO VIEW FEEDBACK ON THE APP
+  // events.emit(events.types.PROGRAMME.FEEDBACK.CREATED, {
+  //   feedbackId: createdFeedback.id,
+  // });
 
   return createdFeedback;
 };
