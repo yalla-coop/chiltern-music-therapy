@@ -37,7 +37,7 @@ const Expandable = ({
     if (process.env.NODE_ENV === 'production' && !editing) {
       ReactGA.event({
         category: 'Viewing content',
-        action: 'Clicked to view content card',
+        action: 'Clicked to open content card',
       });
     }
   };
