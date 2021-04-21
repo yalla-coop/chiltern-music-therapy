@@ -46,6 +46,8 @@ const Step4 = ({ submitStep }) => {
       if (data.profileImage && data.profileImage.url) {
         setMediaUrl(data.profileImage.url);
       }
+    } else {
+      setErrors({ ...errors, getImageError: 'Error loading image' });
     }
   };
 
