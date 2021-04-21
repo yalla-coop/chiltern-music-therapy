@@ -34,7 +34,7 @@ const Step2 = ({ submitStep }) => {
   };
 
   const checkDetails = async () => {
-    const { data, error } = await Users.checkUserExists({
+    const { error } = await Users.checkUserExists({
       email,
       primaryMobileNumber,
       fields: ['email', 'primaryMobileNumber'],
