@@ -41,6 +41,11 @@ export const Title = styled.div`
   transition: all 500ms ease-in;
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: ${({ open }) => (open ? -1 : 1)};
+  div {
+    height: ${({ open }) => open && 0};
+  }
 `;
 
 export const Content = styled.div`
@@ -85,6 +90,7 @@ export const BoldSpan = styled.span`
 `;
 
 export const Anchor = styled.a`
+  position: relative;
   z-index: 2;
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
