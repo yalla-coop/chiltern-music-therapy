@@ -46,6 +46,8 @@ const MyAccount = () => {
         email: cleanEmail(email),
         firstName,
         lastName,
+        mobileNumber,
+        contactNumber,
       });
       setErrors({ validationErrs: {} });
       return true;
@@ -63,6 +65,8 @@ const MyAccount = () => {
       email: cleanEmail(email),
       firstName,
       lastName,
+      contactNumber,
+      mobileNumber,
       role: user.role,
     });
     if (error) {
@@ -97,16 +101,24 @@ const MyAccount = () => {
 
   useEffect(() => {
     if (user.id) {
-      const { firstName, lastName, email } = user;
+      const { firstName, lastName, email, contactNumber, mobileNumber } = user;
       setAccountDetails({
         firstName: firstName[0],
         lastName: lastName[0],
         email,
+        contactNumber,
+        mobileNumber,
       });
     }
-  }, [user.id]);
+  }, [user, user.id]);
 
-  const { firstName, lastName, email } = accountDetails;
+  const {
+    firstName,
+    lastName,
+    email,
+    contactNumber,
+    mobileNumber,
+  } = accountDetails;
 
   return (
     <>
@@ -127,6 +139,27 @@ const MyAccount = () => {
             handleChange={(val) => handleInput(val, 'lastName')}
             value={lastName}
             error={errors?.validationErrs?.lastName}
+          />
+        </Col>
+      </Row>
+
+      <Row>
+        <Col w={[4, 6, 4]} mb="6" mbT="5">
+          <BasicInput
+            label="Contact Number"
+            handleChange={(val) => handleInput(val, 'contactNumber')}
+            value={contactNumber}
+            error={errors?.validationErrs?.contactNumber}
+            placeholder="Contact number"
+          />
+        </Col>
+        <Col w={[4, 6, 4]} mb="6" mbT="5">
+          <BasicInput
+            label="Mobile Number"
+            handleChange={(val) => handleInput(val, 'mobileNumber')}
+            value={mobileNumber}
+            error={errors?.validationErrs?.mobileNumber}
+            placeholder="Mobile number (optional)"
           />
         </Col>
       </Row>
