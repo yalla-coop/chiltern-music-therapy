@@ -230,15 +230,6 @@ function App() {
 
               <Route
                 exact
-                path={navRoutes.CLIENT.ACCOUNT_DELETED}
-                Component={Pages.CLIENT.AccountDeleted}
-                layout="general"
-                isPrivate
-                allowedRoles={[roles.CLIENT]}
-              />
-
-              <Route
-                exact
                 path={navRoutes.CLIENT.THERAPIST}
                 Component={Pages.CLIENT.MyTherapist}
                 layout="general"
@@ -356,6 +347,14 @@ function App() {
                 path={navRoutes.GENERAL.HOW_TO_RECORD}
                 Component={Pages.GENERAL.HowToRecord}
                 layout="general"
+              />
+
+              <Route
+                exact
+                path={navRoutes.GENERAL.ACCOUNT_DELETED_SUCCESS}
+                Component={Pages.GENERAL.AccountDeletedSuccess}
+                layout="onboarding"
+                loggedOutOnly
               />
 
               <Route
