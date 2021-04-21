@@ -38,6 +38,9 @@ const allowedFileTypesAndSizes = {
       'audio/m4a',
       'audio/x-m4a',
       'audio/x-wav',
+      'audio/amr',
+      'audio/amr-wb+',
+      'audio/AMR-WB',
     ],
     // 100 MB
     maxSize: '100',
