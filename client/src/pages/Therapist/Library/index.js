@@ -275,6 +275,7 @@ const Library = () => {
               filteredContents.slice(0, viewNum).map((content, index) => {
                 const contentToUse =
                   content.id === contentToEdit ? editFormState : content;
+
                 return (
                   <Col w={[4, 6, 4]} mb="4" key={index}>
                     <Expandable
@@ -287,9 +288,10 @@ const Library = () => {
                           content.type,
                           content.file.url
                         ),
-                        categories: contentToUse?.categories?.filter(
-                          (cat) => cat?.value !== null
+                        categories: contentToUse?.categories.filter(
+                          (cat) => cat !== null
                         ),
+
                         type: content.type?.toLowerCase(),
                         url: content.file.url,
                         docContent: content.docContent,

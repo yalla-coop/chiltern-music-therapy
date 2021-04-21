@@ -6,6 +6,7 @@ import ResetPassword from './ResetPassword';
 import Welcome from './Welcome';
 import SuccessUpdate from './SuccessUpdate';
 import SuccessFeedback from './SuccessFeedback';
+import AccountDeletedSuccess from './AccountDeletedSuccess';
 import HowToRecord from './HowToRecord';
 
 export default {
@@ -17,5 +18,6 @@ export default {
   Welcome,
   SuccessUpdate,
   SuccessFeedback,
+  AccountDeletedSuccess,
   HowToRecord,
 };

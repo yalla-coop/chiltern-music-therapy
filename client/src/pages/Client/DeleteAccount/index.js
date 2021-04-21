@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import * as S from './style';
@@ -6,17 +7,29 @@ import { Row, Col } from '../../../components/Grid';
 import Button from '../../../components/Button';
 
 import { Users } from '../../../api-calls';
-import AccountDeleted from './AccountDeleted';
 import Title from '../../../components/Title';
 import { navRoutes } from './../../../constants';
 
-const DeleteClientAccount = ({ clientHistory }) => {
+import { useAuth } from '../../../context/auth';
+
+const DeleteClientAccount = () => {
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
+  const { logout: logoutApi } = useAuth();
 
   const onClick = async () => {
+    setLoading(true);
+
     const { error } = await Users.deleteMyAccount();
     if (!error) {
-      history.push(navRoutes.CLIENT.ACCOUNT_DELETED);
+      setLoading(false);
+      setError('');
+      await logoutApi();
+      history.push(navRoutes.GENERAL.ACCOUNT_DELETED_SUCCESS);
+    } else {
+      setError('Error deleting your account');
+      setLoading(false);
     }
   };
   return (
@@ -32,14 +45,21 @@ const DeleteClientAccount = ({ clientHistory }) => {
           </T.P>
         </Col>
       </Row>
+      {error && (
+        <Row mb="4">
+          <Col w={[4, 8, 4]}>
+            <T.P color="secondary">{error}</T.P>
+          </Col>
+        </Row>
+      )}
       <Row>
         <S.ButtonWrapper>
           <Col w={[4, 6, 4]}>
-            {' '}
             <Button
               handleClick={onClick}
               text="Confirm and delete account"
               variant="primary"
+              loading={loading}
             />
           </Col>
         </S.ButtonWrapper>
@@ -48,5 +68,4 @@ const DeleteClientAccount = ({ clientHistory }) => {
   );
 };
 
-export { AccountDeleted };
 export default DeleteClientAccount;

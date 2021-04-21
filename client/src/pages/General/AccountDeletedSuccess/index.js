@@ -6,7 +6,7 @@ import * as T from '../../../components/Typography';
 import Title from '../../../components/Title';
 import { navRoutes } from '../../../constants';
 
-const AccountDeleted = ({ clientHistory }) => {
+const AccountDeleted = () => {
   return (
     <S.Wrapper>
       <Title boldSection="deleted" lightSection="Your account has been" />
