@@ -3,10 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import * as Sentry from '@sentry/browser';
+import ReactGA from 'react-ga';
 import ErrorBoundary from './ErrorBoundary';
 
 if (process.env.NODE_ENV === 'production') {
+  // SENTRY
   Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN });
+
+  // GOOGLE ANALYTICS
+  ReactGA.initialize(process.env.REACT_APP_ANALYTICS_ID);
+  ReactGA.pageview(window.location.pathname + window.location.search);
 }
 
 ReactDOM.render(

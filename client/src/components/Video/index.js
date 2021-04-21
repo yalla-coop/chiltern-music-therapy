@@ -1,4 +1,5 @@
 import { useRef, useEffect } from 'react';
+import ReactGA from 'react-ga';
 import videojs from 'video.js';
 
 import 'video.js/dist/video-js.css';
@@ -23,6 +24,13 @@ const Video = ({ url, type }) => {
         player.src(url);
       }
     );
+
+    if (process.env.NODE_ENV === 'production') {
+      ReactGA.event({
+        category: 'Viewing content',
+        action: type === 'video' ? 'Watching video' : 'Listening to audio',
+      });
+    }
 
     return () => {
       player.dispose();

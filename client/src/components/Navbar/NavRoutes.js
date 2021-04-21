@@ -77,12 +77,13 @@ export const TherapistRoutes = ({ setOpen }) => (
         library
       </S.Head4>
     </S.Link>
-    <S.Link to={THERAPIST['FEEDBACK']} onClick={() => handleClick(setOpen)}>
+    {/* TO BE ADDED ONCE FEEDBACK PAGES HAVE BEEN CREATED */}
+    {/* <S.Link to={THERAPIST['FEEDBACK']} onClick={() => handleClick(setOpen)}>
       <S.Head4>My</S.Head4>{' '}
       <S.Head4 weight="bold" color="gray8">
         feedback
       </S.Head4>
-    </S.Link>
+    </S.Link> */}
     <S.Link to={THERAPIST['ACCOUNT']} onClick={() => handleClick(setOpen)}>
       <S.Head4>My</S.Head4>{' '}
       <S.Head4 weight="bold" color="gray8">
@@ -95,12 +96,13 @@ export const TherapistRoutes = ({ setOpen }) => (
 
 export const AdminRoutes = ({ setOpen }) => (
   <>
-    <S.Link to={ADMIN['ALL_FEEDBACK']} onClick={() => handleClick(setOpen)}>
+    {/* TO BE ADDED ONCE FEEDBACK PAGES HAVE BEEN CREATED */}
+    {/* <S.Link to={ADMIN['ALL_FEEDBACK']} onClick={() => handleClick(setOpen)}>
       <S.Head4>All</S.Head4>{' '}
       <S.Head4 weight="bold" color="gray8">
         feedback
       </S.Head4>
-    </S.Link>
+    </S.Link> */}
     <S.Link to={ADMIN['ALL_CONTENT']} onClick={() => handleClick(setOpen)}>
       <S.Head4>All</S.Head4>{' '}
       <S.Head4 weight="bold" color="gray8">

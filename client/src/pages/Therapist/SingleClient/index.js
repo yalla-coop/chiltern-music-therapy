@@ -176,11 +176,12 @@ const SingleClient = ({ clientHistory }) => {
           </Col>
         </Row>
       )}
-      <Row mb="8" mt="7">
+      {/* TO BE ADDED ONCE FEEDBACK PAGES HAVE BEEN CREATED */}
+      {/* <Row mb="8" mt="7">
         <Col w={[4, 12, 5]}>
           <Link title="feedback" variant="graphic3" to={THERAPIST.FEEDBACK} />
         </Col>
-      </Row>
+      </Row> */}
       <Row mb="8" mt="7">
         <Col w={[4, 12, 5]}>
           <Button
