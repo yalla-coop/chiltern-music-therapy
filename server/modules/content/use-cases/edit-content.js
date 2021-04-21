@@ -6,8 +6,12 @@ import { errorMsgs } from '../../../services/error-handler';
 import { getClient } from '../../../database/connect';
 
 import getLibraryContent from './get-library-content';
+import events from '../../../services/events';
 
-const deleteContent = async ({
+import createCategories from './create-categories';
+import manageCCC from '../../programme/use-cases/manage-content-contents-categories';
+
+const editContent = async ({
   id,
   title,
   categories,
@@ -21,7 +25,7 @@ const deleteContent = async ({
     await client.query('BEGIN');
 
     // check content details
-    const contentToEdit = await Content.findContentById(id, client);
+    const contentToEdit = await Content.findContentById({ id }, client);
 
     if (
       userId !== contentToEdit.therapistLibraryUserId &&
@@ -32,40 +36,38 @@ const deleteContent = async ({
 
     await Content.editContent({ id, title, instructions }, client);
 
-    // update categories
-    const oldCategories = await Content.findCategoriesByContent({ id });
-    const oldCategoriesText = oldCategories.map((cat) => cat.text);
-    const newCategories = categories.filter(
-      (cat) => !oldCategoriesText.includes(cat),
-    );
-    const categoriesToRemove = oldCategories.filter(
-      (cat) => !categories.includes(cat.text),
+    const newCategories = await createCategories(
+      {
+        texts: categories,
+      },
+      client,
     );
 
-    // add new categories
-    if (newCategories.length > 0) {
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < newCategories.length; i++) {
-        // eslint-disable-next-line no-await-in-loop
-        const newCat = await Content.createCategory({ text: newCategories[i] });
-        // eslint-disable-next-line no-await-in-loop
-        await Content.createContentCategory({
-          contentId: id,
-          catId: newCat.id,
-        });
-      }
-    }
+    const contentIdsCategoriesIdsPairs = {
+      contentsIds: [],
+      categoriesIds: [],
+    };
 
-    // remove categories
-    if (categoriesToRemove.length > 0) {
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < categoriesToRemove.length; i++) {
-        // eslint-disable-next-line no-await-in-loop
-        await Content.deleteContentCategoryById(categoriesToRemove[i].id);
-      }
-    }
+    newCategories
+      .filter(({ text }) => categories.includes(text))
+      .forEach(({ id: _id }) => {
+        contentIdsCategoriesIdsPairs.categoriesIds.push(_id);
+        contentIdsCategoriesIdsPairs.contentsIds.push(id);
+      });
+
+    await manageCCC(
+      {
+        allUpdatedContentsIds: [id], // just one content
+        contentIdsCategoriesIdsPairs,
+      },
+      client,
+    );
 
     await client.query('COMMIT');
+
+    events.emit(events.types.CONTENT.UPDATED, {
+      contentId: id,
+    });
 
     // get updated library content
     const updatedContent = await getLibraryContent({ id: userId, role });
@@ -78,4 +80,4 @@ const deleteContent = async ({
   }
 };
 
-export default deleteContent;
+export default editContent;

@@ -32,6 +32,7 @@ const BasicInput = ({
     handleChange(e.target.value, e);
   };
 
+  const Component = type === 'password' ? S.PasswordInput : S.Input;
   return (
     <CS.Field w={w} disabled={disabled} {...m}>
       {label && (
@@ -49,7 +50,7 @@ const BasicInput = ({
           )}
         </CS.Label>
       )}
-      <S.Input
+      <Component
         type={type}
         name={name}
         value={value}

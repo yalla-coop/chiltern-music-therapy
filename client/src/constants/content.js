@@ -66,7 +66,7 @@ const welcomeScreens = {
         lightSection: 'Your information is',
         lightSection2: 'with us',
       },
-      text: `Your privacy is incredibly important (and that all videos are password protected?)`,
+      text: `Your privacy is incredibly important.`,
       image: 'man',
       btn: 'Next',
     },
@@ -82,6 +82,7 @@ const fileCategories = {
 
 const fileTypesShort = {
   videoMp4: '.mp4',
+  videoQuicktime: '.mov',
   applicationPdf: '.pdf',
   applicationDoc: '.doc',
   applicationDocX: '.docx',
@@ -94,7 +95,7 @@ const fileTypesShort = {
 
 const allowedFileTypesAndSizes = {
   video: {
-    types: ['video/mp4'],
+    types: ['video/mp4', 'video/quicktime'],
     // 2 GB
     maxSize: '2000',
   },
@@ -121,7 +122,7 @@ const allowedFileTypesAndSizes = {
 const printFileTypes = (category) => {
   switch (category) {
     case fileCategories.video:
-      return `${fileTypesShort.videoMp4}`;
+      return `${fileTypesShort.videoMp4}, ${fileTypesShort.videoQuicktime}`;
     case fileCategories.document:
       return `${fileTypesShort.applicationPdf}, ${fileTypesShort.applicationDoc}, ${fileTypesShort.applicationDocX} `;
     case fileCategories.audio:

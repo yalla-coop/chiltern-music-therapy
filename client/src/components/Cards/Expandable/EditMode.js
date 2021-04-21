@@ -11,6 +11,7 @@ import { BasicInput, Textarea, Checkbox, Dropdown } from '../../Inputs';
 
 import { Media } from '../../../api-calls';
 import { fileCategories } from '../../../constants/content';
+import { linkFormatter } from '../../../helpers';
 import Video from '../../Video';
 
 const EditMode = ({
@@ -83,7 +84,7 @@ const EditMode = ({
 
   const streamable =
     [fileCategories.audio, fileCategories.video].includes(type) &&
-    (mediaUrl || link || url);
+    (mediaUrl || url);
 
   return (
     <S.Content open={open} ref={contentRef} height={selectedHeight}>
@@ -93,11 +94,13 @@ const EditMode = ({
         type="removeFromProgramme"
         parentFunc={() => modalParentFunction(id)}
       />
+
       {streamable && (
         <div style={{ marginBottom: '24px', marginTop: '8px' }}>
           <Video url={url || mediaUrl} type={type} />
         </div>
       )}
+
       {download && (
         <a href={download} download>
           <Icon
@@ -124,6 +127,17 @@ const EditMode = ({
         </a>
       )}
       {docContent && <Textarea value={docContent} m={{ mb: '5' }} rows={5} />}
+      {link && (
+        <T.Link
+          external
+          to={linkFormatter(link)}
+          weight="bold"
+          color="primary"
+          mb="5"
+        >
+          View content link
+        </T.Link>
+      )}
 
       <BasicInput
         label="Title"

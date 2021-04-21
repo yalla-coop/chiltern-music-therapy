@@ -1,4 +1,3 @@
-import { getClient } from '../../../database/connect';
 import * as Content from '../model';
 import * as Media from '../../media/model';
 

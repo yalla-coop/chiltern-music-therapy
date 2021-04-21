@@ -1,2 +1,2 @@
-const cleanEmail = (email) => email.toLowerCase().trim();
+const cleanEmail = (email) => email && email.toLowerCase().trim();
 export default cleanEmail;

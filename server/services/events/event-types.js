@@ -26,6 +26,9 @@ const events = {
     DELETED: 'MEDIA.DELETED',
     CONTENT_DELETED: 'MEDIA.CONTENT_DELETED',
   },
+  CONTENT: {
+    UPDATED: 'CONTENT.UPDATED',
+  },
 };
 
 export default events;

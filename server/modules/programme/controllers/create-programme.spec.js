@@ -34,8 +34,8 @@ describe('Test create programme api', () => {
           date: contents.content4.updatedAt,
           therapistUserId: userId,
           categories: [
-            contentCategories.category1.id,
-            contentCategories.category3.id,
+            contentCategories.category1.text,
+            contentCategories.category3.text,
             'new category 1',
           ],
         },
@@ -43,7 +43,7 @@ describe('Test create programme api', () => {
         {
           type: 'document',
           title: 'Test doc with media content',
-          categories: [contentCategories.category1.id, 'new category 2'],
+          categories: [contentCategories.category1.text, 'new category 2'],
           libraryContent: false,
           instructions: 'this is a test message',
           uploadedFileInfo: {
@@ -161,11 +161,11 @@ describe('Test create programme api', () => {
         expect(
           foundContentCategoriesTexts.includes(libraryContent.categories[2]),
         ).to.equal(true);
-
         // check if conents_content_categories got created / updated
         const categoriesLibraryContent = await query(
           `SELECT * FROM contents_content_categories WHERE content_id = ${libraryContent.id}`,
         );
+
         expect(categoriesLibraryContent.rows.length).to.equal(
           libraryContent.categories.length,
         );

@@ -30,7 +30,8 @@ export const CardWrapper = styled.div`
     margin: -1px;
     border-radius: inherit;
     border-style: inherit;
-    background: ${({ theme }) => theme.gradients.lightBlue};
+    background: ${({ theme, noBorder }) =>
+      noBorder ? 'none' : theme.gradients.lightBlue};
   }
 `;
 

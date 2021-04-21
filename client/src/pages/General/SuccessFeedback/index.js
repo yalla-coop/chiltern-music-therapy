@@ -11,7 +11,8 @@ const SuccessFeedback = () => {
       <Row>
         <Col w={[4, 4, 4]}>
           <T.P color="gray8" mb="4">
-            This will help shape your plan further to reach your goals.{' '}
+            This will help us to continue improving our digital resource to
+            support your therapy further{' '}
           </T.P>
           <Button variant="primary" text="Return home" to={CLIENT.DASHBOARD} />
         </Col>
