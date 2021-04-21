@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import * as S from './style';
 import * as T from '../../Typography';
 
@@ -27,6 +28,8 @@ const ViewMode = ({
     docContent,
   } = content;
   if (!open) return <div ref={contentRef} height={selectedHeight} />;
+
+  useEffect(() => {}, [open]);
 
   if (children) {
     return (

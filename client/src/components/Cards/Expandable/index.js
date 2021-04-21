@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import ReactGA from 'react-ga';
 import * as S from './style';
 import Icon from '../../Icon';
 
@@ -32,6 +33,13 @@ const Expandable = ({
   const open = openItems[index - 1];
   const setOpen = () => {
     setOpenItem(index);
+
+    if (process.env.NODE_ENV === 'production' && !editing) {
+      ReactGA.event({
+        category: 'Viewing content',
+        action: 'Clicked to view content card',
+      });
+    }
   };
 
   const hasErrors =
@@ -43,6 +51,7 @@ const Expandable = ({
   useEffect(() => {
     setSelectedHeight(contentRef.current.offsetHeight);
   }, [contentRef]);
+
   if (children) {
     return (
       <S.Wrapper
