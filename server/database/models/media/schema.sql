@@ -8,7 +8,7 @@ CREATE TABLE "media" (
   "bucket_region" VARCHAR(15) NOT NULL,
   "size" INTEGER,
   "path" VARCHAR,
-  "file_type" VARCHAR(50),
+  "file_type" VARCHAR(100),
   "created_by" INTEGER,
   "created_at" TIMESTAMP NOT NULL DEFAULT NOW(),
   "updated_at" TIMESTAMP NOT NULL DEFAULT NOW()
