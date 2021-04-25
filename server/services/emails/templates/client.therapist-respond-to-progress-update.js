@@ -1,5 +1,5 @@
 import { htmlLink } from '../utils';
-import { appLinks } from '../../../constants';
+import { appLinks, EMAIL_FOOTER } from '../../../constants';
 
 // Sending a client the response from their therapist
 // recipient => 'CLIENT'
@@ -16,6 +16,8 @@ export default ({ firstInitial, therapistName }) => {
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>
+      <br>
+      ${EMAIL_FOOTER}
     </div>
   `;
   return { html, subject };
