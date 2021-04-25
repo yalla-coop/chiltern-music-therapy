@@ -1,5 +1,5 @@
 import { htmlLink } from '../utils';
-import { appLinks } from '../../../constants';
+import { appLinks, EMAIL_FOOTER } from '../../../constants';
 
 // Inviting client to sign up
 // recipient => 'CLIENT'
@@ -22,6 +22,8 @@ export default ({ firstInitial, therapistName, inviteToken }) => {
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>
+      <br>
+      ${EMAIL_FOOTER}
     </div>
   `;
 

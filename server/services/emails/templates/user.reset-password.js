@@ -1,5 +1,5 @@
 import { htmlLink } from '../utils';
-import { appLinks } from '../../../constants';
+import { appLinks, EMAIL_FOOTER } from '../../../constants';
 
 // Notifying a client that their therapist has edited one of their programmes
 // recipient => 'CLIENT'
@@ -21,6 +21,8 @@ export default ({ firstInitial, resetToken }) => {
       <p>If you didn't ask for your password to be reset please get in touch with Chiltern Music Therapy.</p>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>
+      <br>
+      ${EMAIL_FOOTER}
     </div>
   `;
 

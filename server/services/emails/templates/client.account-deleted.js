@@ -1,3 +1,5 @@
+import { EMAIL_FOOTER } from '../../../constants';
+
 // Client deletes account
 // recipient => 'CLIENT'
 export default ({ firstInitial }) => {
@@ -11,6 +13,8 @@ export default ({ firstInitial }) => {
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>
+      <br>
+      ${EMAIL_FOOTER}
     </div>
   `;
 

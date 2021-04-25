@@ -1,5 +1,5 @@
 import { htmlLink, formateDate } from '../utils';
-import { appLinks } from '../../../constants';
+import { appLinks, EMAIL_FOOTER } from '../../../constants';
 
 // Notifying a therapist that their client has completed a programme and provided feedback
 // recipient => 'THERAPIST'
@@ -26,6 +26,8 @@ export default ({
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>
+      <br>
+      ${EMAIL_FOOTER}
     </div>
   `;
 
