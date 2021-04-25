@@ -13,6 +13,7 @@ export default ({ firstInitial, therapistName }) => {
       <br>
       <p>Your Music Therapist ${therapistName}, has sent you a response to your feedback.</p>
       <p>Follow this ${loginLink} to log in and view his/her comments!.</p>
+      <p>${appLinks.LOGIN}</p>
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>
