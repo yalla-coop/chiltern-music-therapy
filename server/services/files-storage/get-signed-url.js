@@ -11,7 +11,8 @@ const getSignedURL = async ({
   fileSize,
   fileMaxSize,
 }) => {
-  const key = `${userId}/${fileType}-${uuid()}-${fileName}`;
+  const key = `temp/${userId}/${fileType}-${uuid()}-${fileName}`;
+
   const sizeInMb = fileSize > 0 && fileSize / 1024 / 1024;
 
   //  check 1: correct file type
