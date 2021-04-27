@@ -263,7 +263,7 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
             color="gray8"
             value={link}
             handleChange={(value) =>
-              handleAddSingleContent('link', value.trim().toLowerCase())
+              handleAddSingleContent('link', value.trim())
             }
             disabled={
               validInput(docContent) || fileUploading || uploadedFileInfo.new
