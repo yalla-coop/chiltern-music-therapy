@@ -4,10 +4,8 @@ import { appLinks, EMAIL_FOOTER } from '../../../constants';
 // Inviting client to sign up
 // recipient => 'CLIENT'
 export default ({ firstInitial, therapistName, inviteToken }) => {
-  const link = htmlLink(
-    appLinks.CLIENT_SIGNUP_INVITE.replace(':invite', inviteToken),
-    'link',
-  );
+  const _link = appLinks.CLIENT_SIGNUP_INVITE.replace(':invite', inviteToken);
+  const link = htmlLink(_link, 'link');
 
   const subject = 'Welcome to Chiltern Music Therapy Digital Platform!';
 
@@ -19,6 +17,7 @@ export default ({ firstInitial, therapistName, inviteToken }) => {
       <br>
       <p>Your therapist ${therapistName}, has created an account for you to access your digital music therapy resources in between in-person sessions.</p>
       <p>Follow this ${link} to log in and complete your registration.</p>
+      <p>${_link}</p>
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>

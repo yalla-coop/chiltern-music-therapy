@@ -24,6 +24,7 @@ export default ({
       <br>
       <p>Your therapist ${therapistName}, has edited your ${programmeLink} created on ${_date}</p>
       <p>Follow this ${link} to log in and start enjoying your personalised digital content.</p>
+      <p>${appLinks.LOGIN}</p>
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>
