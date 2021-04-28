@@ -51,4 +51,15 @@ const allowedFileTypesAndSizes = {
   },
 };
 
-export { S3, bucket, bucketRegion as region, allowedFileTypesAndSizes };
+const preFixes = {
+  temp: 'temp/',
+  root: '',
+};
+
+export {
+  S3,
+  bucket,
+  bucketRegion as region,
+  allowedFileTypesAndSizes,
+  preFixes,
+};

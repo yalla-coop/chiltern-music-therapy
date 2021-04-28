@@ -29,22 +29,22 @@ const createContent = async ({ userId, contentData }, client) => {
     } = uploadedFileInfo;
 
     // move file out of temp folder and return new path for db storage
-    await moveFile({ bucket, key });
+    const { copiedFile, key: newKey } = await moveFile({ bucket, key });
 
-    // console.log(`movedFile`, movedFile);
-
-    media = await Media.createMedia(
-      {
-        fileName: name,
-        fileType,
-        size,
-        key,
-        bucket,
-        bucketRegion,
-        createdBy: userId,
-      },
-      client,
-    );
+    if (key && copiedFile && copiedFile.CopyObjectResult) {
+      media = await Media.createMedia(
+        {
+          fileName: name,
+          fileType,
+          size,
+          key: newKey,
+          bucket,
+          bucketRegion,
+          createdBy: userId,
+        },
+        client,
+      );
+    }
   }
   // create content
   const newContent = await Content.createContent(

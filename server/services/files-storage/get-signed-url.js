@@ -1,7 +1,15 @@
 import Boom from '@hapi/boom';
 import { v4 as uuid } from 'uuid';
 
-import { S3, bucket, region, allowedFileTypesAndSizes } from './config';
+import {
+  S3,
+  bucket,
+  region,
+  allowedFileTypesAndSizes,
+  preFixes,
+} from './config';
+
+const { temp } = preFixes;
 
 const getSignedURL = async ({
   userId,
@@ -11,7 +19,8 @@ const getSignedURL = async ({
   fileSize,
   fileMaxSize,
 }) => {
-  const key = `temp/${userId}/${fileType}-${uuid()}-${fileName}`;
+  // store file first in temp folder
+  const key = `${temp}${userId}/${fileType}-${uuid()}-${fileName}`;
 
   const sizeInMb = fileSize > 0 && fileSize / 1024 / 1024;
 

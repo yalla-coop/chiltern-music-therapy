@@ -13,13 +13,14 @@ const dummyDataKeys = [
 ];
 
 const deleteFile = async ({ bucket, key }) => {
-  if (env === 'production' || !dummyDataKeys.includes(key)) {
-    const params = {
-      Bucket: bucket,
-      Key: key,
-    };
-    return S3.deleteObject(params);
-  }
+  // if (env === 'production' || !dummyDataKeys.includes(key)) {
+  const params = {
+    Bucket: bucket,
+    Key: key,
+  };
+
+  return S3.deleteObject(params).promise();
+  // }
 };
 
 export default deleteFile;

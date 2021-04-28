@@ -17,15 +17,17 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
     throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
   }
 
-  const deleted = await Promise.all([
-    Content.deleteContentCategories(id, client),
-    Content.deleteContentFromProgramme(id, client),
-    Content.deleteContentById(id, client),
-  ]);
-  if (deleted) {
+  // const deleted = await Promise.all([
+  //   Content.deleteContentCategories(id, client),
+  //   Content.deleteContentFromProgramme(id, client),
+  //   Content.deleteContentById(id, client),
+  // ]);
+  const deleted = await Content.deleteContentById(id, client);
+
+  if (deleted && deleted.mediaId) {
     // check if media is used anywhere else. if not then delete
     events.emit(events.types.MEDIA.CONTENT_DELETED, {
-      mediaId: contentToDelete.mediaId,
+      mediaId: deleted.mediaId,
       contentId: id,
     });
   }
