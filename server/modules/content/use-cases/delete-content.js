@@ -22,7 +22,7 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
   if (deleted && deleted.mediaId) {
     // check if media is used anywhere else. if not then delete
     events.emit(events.types.MEDIA.CONTENT_DELETED, {
-      mediaId: deleted.mediaId,
+      mediaId: contentToDelete.mediaId,
       contentId: id,
     });
   }

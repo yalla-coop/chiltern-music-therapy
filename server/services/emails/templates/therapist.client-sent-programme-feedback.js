@@ -23,6 +23,7 @@ export default ({
       <br>
       <p>Your client ${firstInitial}, has completed a feedback form about the ${programmeLink} you created for them on ${_date}.</p>
       <p>Follow this ${loginLink} to log in and view his/her message.</p>
+      <p>${appLinks.LOGIN}</p>
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>

@@ -78,7 +78,7 @@ describe('Test update programme api', () => {
             SELECT * FROM programmes WHERE description = '${updateRequest.description}'
             `,
         );
-
+        console.log('FOUND', foundProgramme);
         expect(typeof foundProgramme.rows[0].id).to.equal('number');
 
         // check if new contents got created

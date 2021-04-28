@@ -24,6 +24,7 @@ export default ({
       <br>
       <p>Your client ${firstInitial}, has sent you an update on their progress in the ${programmeLink} created on ${_date}.</p>
       <p>Follow this ${link} to log in and view his/her message.</p>
+      <p>${appLinks.LOGIN}</p>
       <br>
       <p>Best wishes</p>
       <p>Chiltern Music Therapy</p>

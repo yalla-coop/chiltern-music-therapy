@@ -5,7 +5,7 @@ import { createTestToken } from '../../../helpers';
 import app from '../../../app';
 
 let builtData;
-describe('Test create programme api', () => {
+describe.only('Test create programme api', () => {
   before(async () => {
     builtData = await build();
   });
