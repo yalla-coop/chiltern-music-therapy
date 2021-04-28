@@ -17,11 +17,6 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
     throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
   }
 
-  // const deleted = await Promise.all([
-  //   Content.deleteContentCategories(id, client),
-  //   Content.deleteContentFromProgramme(id, client),
-  //   Content.deleteContentById(id, client),
-  // ]);
   const deleted = await Content.deleteContentById(id, client);
 
   if (deleted && deleted.mediaId) {
