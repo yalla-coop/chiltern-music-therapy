@@ -124,6 +124,8 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
           date: el.date || moment(),
           fileUpload: el.uploadedFileInfo,
           docContent: el.docContent,
+          url: el.file?.url,
+          download: el.file?.url,
           // get these from form validation above
           validationErrs: errors && errors[`content[${idx}]`],
         };

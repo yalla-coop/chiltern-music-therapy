@@ -17,15 +17,13 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
     throw Boom.unauthorized(errorMsgs.UNAUTHORISED_EDIT);
   }
 
-  const deleted = await Content.deleteContentById(id, client);
+  await Content.deleteContentById(id, client);
 
-  if (deleted && deleted.mediaId) {
-    // check if media is used anywhere else. if not then delete
-    events.emit(events.types.MEDIA.CONTENT_DELETED, {
-      mediaId: contentToDelete.mediaId,
-      contentId: id,
-    });
-  }
+  // check if media is used anywhere else. if not then delete
+  events.emit(events.types.MEDIA.CONTENT_DELETED, {
+    mediaId: contentToDelete.mediaId,
+    contentId: id,
+  });
 
   // for library deletions page depends on updated content object
   // for remove from programme not

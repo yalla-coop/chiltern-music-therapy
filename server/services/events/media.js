@@ -11,6 +11,7 @@ pubSub.listen(events.MEDIA.DELETED, async (deletedMedia) => {
 
 pubSub.listen(events.MEDIA.CONTENT_DELETED, async ({ mediaId, contentId }) => {
   const contents = await Content.findContentByMediaId(mediaId);
+
   const remainingContents = contents.filter(
     (content) => content.id !== contentId,
   );

@@ -12,18 +12,18 @@ const { temp, root } = preFixes;
 const moveFile = async ({ bucket, key }) => {
   let newKey = key;
 
-  // if (env === 'production') {
-  newKey = newKey.replace(temp, root);
-  // copy object to root folder
-  await S3.copyObject({
-    Bucket: bucket,
-    CopySource: encodeURI(`${bucket}/${key}`), // old file Key
-    Key: newKey, // new file key
-  }).promise();
+  if (env === 'production') {
+    newKey = newKey.replace(temp, root);
+    // copy object to root folder
+    await S3.copyObject({
+      Bucket: bucket,
+      CopySource: encodeURI(`${bucket}/${key}`), // old file Key
+      Key: newKey, // new file key
+    }).promise();
 
-  // delete from /temp folder
-  await S3.deleteObject({ Bucket: bucket, Key: key }).promise();
-  // }
+    // delete from /temp folder
+    await S3.deleteObject({ Bucket: bucket, Key: key }).promise();
+  }
 
   return { newKey };
 };

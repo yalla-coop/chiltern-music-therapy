@@ -41,7 +41,6 @@ const EditMode = ({
     docContent,
   } = content;
 
-  console.log(`content`, content);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [mediaUrl, setMediaUrl] = useState(false);
 
