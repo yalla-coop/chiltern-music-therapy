@@ -17,6 +17,7 @@ const createProgressUpdate = async ({
   const client = await getClient();
 
   const { name, key, bucket, bucketRegion, size, fileType } = uploadedFileInfo;
+
   let media;
 
   try {
@@ -24,22 +25,20 @@ const createProgressUpdate = async ({
 
     if (key && name) {
       // move file out of temp folder and return new path for db storage
-      const { copiedFile, key: newKey } = await moveFile({ bucket, key });
+      const { newKey } = await moveFile({ bucket, key });
 
-      if (newKey && copiedFile && copiedFile.CopyObjectResult) {
-        media = await Media.createMedia(
-          {
-            fileName: name,
-            fileType,
-            size,
-            key: newKey,
-            bucket,
-            bucketRegion,
-            createdBy: userId,
-          },
-          client,
-        );
-      }
+      media = await Media.createMedia(
+        {
+          fileName: name,
+          fileType,
+          size,
+          key: newKey,
+          bucket,
+          bucketRegion,
+          createdBy: userId,
+        },
+        client,
+      );
     }
 
     const progressUpdate = await ProgressUpdate.createProgressUpdate(

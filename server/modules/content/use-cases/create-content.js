@@ -17,7 +17,7 @@ const createContent = async ({ userId, contentData }, client) => {
   } = contentData;
 
   let media;
-  let newKey;
+
   // create media content if present
   if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
     const {
@@ -30,14 +30,11 @@ const createContent = async ({ userId, contentData }, client) => {
     } = uploadedFileInfo;
 
     // move file out of temp folder and return new path for db storage
-    const { copiedFile = {}, key: _newKey } = await moveFile({
+    const { newKey } = await moveFile({
       bucket,
       key,
     });
 
-    if (newKey && copiedFile.CopyObjectResult) {
-      newKey = _newKey;
-    }
     media = await Media.createMedia(
       {
         fileName: name,

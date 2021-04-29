@@ -11,7 +11,6 @@ const createProgramme = async (req, res, next) => {
 
     res.json(programme);
   } catch (error) {
-    console.log('ERRROORORR', error);
     next(error);
   }
 };
