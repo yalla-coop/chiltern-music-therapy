@@ -11,8 +11,7 @@ const { temp, root } = preFixes;
 
 const moveFile = async ({ bucket, key }) => {
   let newKey = key;
-
-  if (env === 'production') {
+  if (env !== 'test') {
     newKey = newKey.replace(temp, root);
     // copy object to root folder
     await S3.copyObject({
@@ -24,7 +23,6 @@ const moveFile = async ({ bucket, key }) => {
     // delete from /temp folder
     await S3.deleteObject({ Bucket: bucket, Key: key }).promise();
   }
-
   return { newKey };
 };
 

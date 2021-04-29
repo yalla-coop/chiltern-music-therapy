@@ -4,6 +4,7 @@ import { errorMsgs } from '../../../services/error-handler';
 import deleteContent from './delete-content';
 import getLibraryContent from './get-library-content';
 import { getClient } from '../../../database/connect';
+import events from '../../../services/events';
 
 const removeContentFromLibrary = async ({ id, userId, role }) => {
   const client = await getClient();
@@ -22,21 +23,31 @@ const removeContentFromLibrary = async ({ id, userId, role }) => {
       { contentId: id },
       client,
     );
-
+    let contentDeleted = false;
+    let updatedLibraryContent;
     // if no programmes then remove completely
     if (!programmes || programmes.length === 0) {
       await deleteContent({ id, userId, role, mode: 'library' }, client);
-      return;
+      contentDeleted = true;
+    } else {
+      await Content.removeContentFromLibrary({ id }, client);
+      // get updated contents from database
+      updatedLibraryContent = await getLibraryContent(
+        { id: userId, role },
+        client,
+      );
     }
-    await Content.removeContentFromLibrary({ id }, client);
-
-    // get updated contents from database
-    const updatedLibraryContent = await getLibraryContent(
-      { id: userId, role },
-      client,
-    );
 
     await client.query('COMMIT');
+
+    if (contentDeleted) {
+      // check if media is used anywhere else. if not then delete
+      events.emit(events.types.MEDIA.CONTENT_DELETED, {
+        mediaId: contentToDelete.mediaId,
+        contentId: id,
+      });
+    }
+
     return updatedLibraryContent;
   } catch (error) {
     await client.query('ROLLBACK');

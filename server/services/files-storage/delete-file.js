@@ -13,7 +13,7 @@ const dummyDataKeys = [
 ];
 
 const deleteFile = async ({ bucket, key }) => {
-  if (env === 'production' || !dummyDataKeys.includes(key)) {
+  if (env !== 'test' && !dummyDataKeys.includes(key)) {
     const params = {
       Bucket: bucket,
       Key: key,
