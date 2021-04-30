@@ -71,9 +71,10 @@ const ADMIN = {
 };
 
 const EXTERNAL = {
-  TERMS_OF_USE: 'https://www.google.com/',
+  TERMS_OF_USE:
+    'https://drive.google.com/file/d/10HNCtdLfqY8RkVvD8h0Ufxs5yR32R098/view',
   PRIVACY_POLICY:
-    'https://docs.google.com/document/d/1KXb2GyC0H7NhQKFdrTQQNWjChFso0WwQ',
+    'https://drive.google.com/file/d/1KXb2GyC0H7NhQKFdrTQQNWjChFso0WwQ/view',
 };
 
 export { GENERAL, CLIENT, THERAPIST, ADMIN, EXTERNAL };
