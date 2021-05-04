@@ -6,7 +6,7 @@ const ExpandableContext = createContext({
   onClose: () => {},
 });
 
-const ExpandableProvider = ({ children, itemsNumbers, props }) => {
+const ExpandableProvider = ({ children, itemsNumbers, ...props }) => {
   const [state, setState] = useState(Array(itemsNumbers).fill(false));
   const closeAll = () => setState(Array(itemsNumbers).fill(false));
   const setOpenItem = (index) => {

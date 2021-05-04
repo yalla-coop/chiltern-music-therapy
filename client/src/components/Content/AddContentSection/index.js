@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { Grid, Typography as T, Inputs, Modal } from '../../';
 import { AddContentType } from '../../Cards';
@@ -7,22 +7,41 @@ import * as S from './style';
 
 import { content } from '../../../constants';
 
+import { Contents } from '../../../api-calls';
+
 const { Col } = Grid;
 const { Dropdown } = Inputs;
 
 const { fileCategories } = content;
 
-const AddContentSection = ({
-  m,
-  content,
-  libraryContent = {},
-  setLibraryContent,
-  navFunctions,
-}) => {
+const AddContentSection = ({ m, content, addContent, navFunctions }) => {
+  const [libraryContent, setLibraryContent] = useState([]);
+  const [libraryContentLoading, setLibraryContentLoading] = useState(false);
+  const [libraryContentError, setLibraryContentError] = useState(null);
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const { data: libraryContentData = [], error = null } = libraryContent;
+  const getContent = async () => {
+    setLibraryContentLoading(true);
+    const { data, error } = await Contents.getLibraryContent();
+
+    if (!error) {
+      const allLibraryC = data.map((el) => ({
+        ...el,
+        categories: [...new Set(el.categories.map((cat) => cat))],
+      }));
+
+      setLibraryContent(allLibraryC);
+    } else {
+      setLibraryContentError(
+        (error && error.message) || 'error loading library content'
+      );
+    }
+  };
+
+  useEffect(() => {
+    getContent();
+  }, []);
 
   const createLibraryContentDropdownValues = (arr) =>
     arr.map((el) => {
@@ -38,12 +57,12 @@ const AddContentSection = ({
     modifiedLibraryContent.length > 0
       ? [
           ...new Map(
-            libraryContentData
+            libraryContent
               .concat(modifiedLibraryContent)
               .map((el) => [el.id, el])
           ).values(),
         ]
-      : libraryContentData;
+      : libraryContent;
 
   const handleSubmitLibraryContent = (val) => {
     const selectLibraryContent = decicedLibraryContent.filter(
@@ -56,7 +75,7 @@ const AddContentSection = ({
         'This piece of content has already been added to your programme. Please select another one.'
       );
     } else if (selectLibraryContent.length > 0) {
-      setLibraryContent(selectLibraryContent[0]);
+      addContent(selectLibraryContent[0]);
       setDuplicateError(null);
       setIsModalVisible(true);
     }
@@ -81,11 +100,12 @@ const AddContentSection = ({
           Add content from My Library
         </T.P>
         <Dropdown
-          error={duplicateError || error}
+          error={duplicateError || libraryContentError}
           options={createLibraryContentDropdownValues(decicedLibraryContent)}
           multi={false}
           placeholder="Select one..."
           handleChange={(value) => handleSubmitLibraryContent(value)}
+          loading={libraryContentLoading}
         />
         <S.IconWrapper>
           <Icon icon="or" />
