@@ -5,10 +5,15 @@ import reportWebVitals from './reportWebVitals';
 import * as Sentry from '@sentry/browser';
 import ReactGA from 'react-ga';
 import ErrorBoundary from './ErrorBoundary';
+import { Integrations } from '@sentry/tracing';
 
 if (process.env.NODE_ENV === 'production') {
   // SENTRY
-  Sentry.init({ dsn: process.env.REACT_APP_SENTRY_DSN });
+  Sentry.init({
+    dsn: process.env.REACT_APP_SENTRY_DSN,
+    integrations: [new Integrations.BrowserTracing()],
+    tracesSampleRate: 0.5,
+  });
 
   // GOOGLE ANALYTICS
   ReactGA.initialize(process.env.REACT_APP_ANALYTICS_ID);
