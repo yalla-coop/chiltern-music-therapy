@@ -4,6 +4,7 @@ import server from './server';
 import database from './database';
 import aws from './aws';
 import emails from './emails';
+import sqreen from './sqreen';
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -17,6 +18,7 @@ try {
   server();
   database();
   aws();
+  sqreen();
 } catch (error) {
   throw new Error(`Error in config validation: ${error.message}`);
 }
@@ -27,4 +29,5 @@ export default {
   database: database(),
   aws: aws(),
   emails: emails(),
+  sqreen: sqreen(),
 };

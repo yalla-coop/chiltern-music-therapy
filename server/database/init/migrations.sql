@@ -6,5 +6,6 @@ CREATE TABLE "migrations" (
 	"run_on" timestamp NOT NULL DEFAULT NOW()
 );
 
--- INSERT INTO "migrations" ("name") VALUES 
-  -- ('/<path-to-file>')
+
+INSERT INTO "migrations" ("name") VALUES
+  ('/20210427103924-on-delete-cascade-for-programme-contents')
