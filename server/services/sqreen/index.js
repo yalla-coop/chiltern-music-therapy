@@ -1,12 +1,12 @@
 import config from '../../config';
 import { envTypes } from '../../constants';
 
-let Sqreen = {};
+let sqreen = {};
 
 const { env } = config.common;
 
 if (env !== envTypes.PRODUCTION) {
-  Sqreen.middleware = (req, res, next) => {
+  sqreen.middleware = (req, res, next) => {
     req.sqreen = {};
     req.sqreen.auth_track = () => {};
     req.sqreen.signup_track = () => {};
@@ -15,7 +15,8 @@ if (env !== envTypes.PRODUCTION) {
   };
 } else {
   // eslint-disable-next-line global-require
-  Sqreen = require('sqreen');
+  sqreen = require('sqreen');
 }
 
-module.exports = Sqreen;
+const Sqreen = sqreen;
+export default Sqreen;
