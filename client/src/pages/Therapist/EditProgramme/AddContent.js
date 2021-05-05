@@ -11,7 +11,7 @@ import * as S from './style';
 const { Row, Col } = Grid;
 const { AddContentSection } = Content;
 
-const AddContent = ({ programmeContents, handleAddContent, navFunctions }) => {
+const AddContent = ({ programmeContents, addContent, navFunctions }) => {
   return (
     <S.Wrapper>
       <GoBack customFn={navFunctions.goToReview} />
@@ -32,7 +32,7 @@ const AddContent = ({ programmeContents, handleAddContent, navFunctions }) => {
       <Row mt={5}>
         <AddContentSection
           content={programmeContents}
-          addContent={handleAddContent}
+          addContent={addContent}
           navFunctions={navFunctions}
           mode="edit"
         />

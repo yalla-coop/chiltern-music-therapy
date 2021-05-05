@@ -142,17 +142,6 @@ const EditProgramme = () => {
   const handleAddContent = (moreContent) =>
     setProgrammeContents((prevState) => [...prevState, moreContent]);
 
-  const updateSingleContent = (value) => {
-    setProgrammeContents(
-      programmeContents.map((el) => {
-        if (el.id === value.id) {
-          return Object.assign({}, el, { ...el, ...value });
-        }
-        return el;
-      })
-    );
-  };
-
   return (
     <Switch>
       <Review
@@ -170,7 +159,6 @@ const EditProgramme = () => {
           setProgrammeContents,
           setDescription,
           setErrors,
-          updateSingleContent,
         }}
         programmeId={programmeId}
       />
@@ -184,7 +172,7 @@ const EditProgramme = () => {
       <AddSingleContent
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SINGLE}
-        setContentState={handleAddContent}
+        addContent={handleAddContent}
         contentCategories={{
           data: categoryOptions,
           error: errors && errors.getCategories,

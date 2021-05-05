@@ -41,12 +41,18 @@ const Review = ({ navFunctions, parentState, actions, programmeId }) => {
     loading: parentStateLoading,
   } = parentState;
 
-  const {
-    setErrors,
-    setDescription,
-    setProgrammeContents,
-    updateSingleContent,
-  } = actions;
+  const { setErrors, setDescription, setProgrammeContents } = actions;
+
+  const updateSingleContent = (value) => {
+    setProgrammeContents(
+      programmeContents.map((el) => {
+        if (el.id === value.id) {
+          return Object.assign({}, el, { ...el, ...value });
+        }
+        return el;
+      })
+    );
+  };
 
   const handleRemove = async ({ id: contentId }) => {
     const isExistingContent = programmeContents.filter(

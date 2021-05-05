@@ -131,7 +131,6 @@ const CreateProgram = () => {
     }
   }, [user.id]);
 
-  // console.log(`state.content`, state.content);
   return (
     <Switch>
       <AddDescription
@@ -151,7 +150,7 @@ const CreateProgram = () => {
       <AddSingleContent
         exact
         path={navRoutes.THERAPIST.CREATE_PROGRAMME_CONTENT_SINGLE}
-        setContentState={actions.ADD_CONTENT}
+        addContent={actions.ADD_CONTENT}
         contentCategories={state.contentCategories}
         navFunctions={navFunctions}
       />

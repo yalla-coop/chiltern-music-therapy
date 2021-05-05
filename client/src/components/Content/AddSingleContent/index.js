@@ -54,11 +54,7 @@ const initialStates = {
   },
 };
 
-const AddSingleContent = ({
-  contentCategories,
-  setContentState,
-  navFunctions,
-}) => {
+const AddSingleContent = ({ contentCategories, addContent, navFunctions }) => {
   const [singleContent, setSingleContent] = useState(
     initialStates.singleContent
   );
@@ -198,7 +194,7 @@ const AddSingleContent = ({
       docContent,
     };
 
-    setContentState(formData);
+    addContent(formData);
     handleResetSingleContent();
 
     if (submitType === 'content') {
