@@ -4,6 +4,8 @@ import { createToken } from '../../../helpers';
 
 const signup = async (req, res, next) => {
   try {
+    const { sqreen } = req;
+
     const {
       email,
       password,
@@ -36,6 +38,7 @@ const signup = async (req, res, next) => {
     const { token, tokenName, options } = createToken({ id: user.id });
     res.cookie(tokenName, token, options);
 
+    sqreen.signup_track(user);
     res.json(user);
   } catch (error) {
     next(error);

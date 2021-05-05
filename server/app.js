@@ -6,6 +6,7 @@ import logger from 'morgan';
 import Debug from 'debug';
 import helmet from 'helmet';
 import Boom from '@hapi/boom';
+import { Sqreen } from './services';
 
 import './services/events/listeners';
 
@@ -25,6 +26,7 @@ const app = express();
 
 // TODO:SETUP SENTRY SETUP
 app.use(Sentry.Handlers.requestHandler());
+app.use(Sqreen.middleware);
 app.use(logger('dev'));
 
 if (config.common.env === PRODUCTION) {
