@@ -185,7 +185,7 @@ const TherapistSignup = ({ status, title, msg }) => {
                   </T.Link>{' '}
                   and{' '}
                   <T.Link
-                    to={navRoutes.EXTERNAL.TERMS_OF_USE}
+                    to={navRoutes.EXTERNAL.PRIVACY_POLICY}
                     bold
                     underline
                     external
