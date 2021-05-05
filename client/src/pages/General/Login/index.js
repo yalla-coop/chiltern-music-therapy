@@ -124,6 +124,7 @@ const Login = ({ status, title, msg }) => {
             value={email}
             handleChange={(value) => setState({ email: value })}
             error={validationErrs.email}
+            autoFocus
           />
         </Col>
         <Col w={[4, 12, 4]} mb={9} mbM={5}>

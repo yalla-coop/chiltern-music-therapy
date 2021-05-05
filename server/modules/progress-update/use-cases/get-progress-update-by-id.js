@@ -25,7 +25,10 @@ const getProgressUpdateById = async ({ id, userId, role }) => {
         await setMediaFileUrl([progressUpdate]);
       }
 
-      if (progressUpdate.client.status !== userStatuses.DELETED) {
+      if (
+        progressUpdate.client &&
+        progressUpdate.client.status !== userStatuses.DELETED
+      ) {
         // eslint-disable-next-line prefer-destructuring
         progressUpdate.client.firstInitial = progressUpdate.client.firstName[0];
         delete progressUpdate.client.firstName;

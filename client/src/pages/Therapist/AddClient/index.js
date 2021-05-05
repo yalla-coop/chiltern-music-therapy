@@ -67,7 +67,15 @@ const AddClient = () => {
       case 5:
         return <Step5 submitStep={submitFinalStep} serverErr={serverErr} />;
       case 6:
-        return <Step6 inviteLink={inviteLink} clientId={clientId} />;
+        return (
+          <Step6
+            inviteLink={inviteLink}
+            clientId={clientId}
+            firstInitial={state.firstName}
+            lastInitial={state.lastName}
+            postcode={state.postcodeLetters}
+          />
+        );
       default:
         break;
     }

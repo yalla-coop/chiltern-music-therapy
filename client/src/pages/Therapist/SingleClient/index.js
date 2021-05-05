@@ -129,21 +129,19 @@ const SingleClient = ({ clientHistory }) => {
         <Col w={[4, 12, 4]}>
           <Button
             text="Add new programme"
-            onClick={() =>
-              history.push({
-                pathname: THERAPIST.CREATE_PROGRAMME_DESCRIPTION.replace(
-                  ':id',
-                  id
-                ),
-                state: {
-                  clientDetails: {
-                    firstInitial: state.firstInitial,
-                    lastInitial: state.lastInitial,
-                    postcode: state.postcode,
-                  },
+            to={{
+              pathname: THERAPIST.CREATE_PROGRAMME_DESCRIPTION.replace(
+                ':id',
+                id
+              ),
+              state: {
+                clientDetails: {
+                  firstInitial: state.firstInitial,
+                  lastInitial: state.lastInitial,
+                  postcode: state.postcode,
                 },
-              })
-            }
+              },
+            }}
             disabled={state.status === userStatuses.DELETED}
           />
         </Col>
