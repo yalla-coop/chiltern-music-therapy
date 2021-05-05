@@ -21,25 +21,25 @@ const AddContentSection = ({ m, content, addContent, navFunctions }) => {
   const [duplicateError, setDuplicateError] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const getContent = async () => {
-    setLibraryContentLoading(true);
-    const { data, error } = await Contents.getLibraryContent();
-
-    if (!error) {
-      const allLibraryC = data.map((el) => ({
-        ...el,
-        categories: [...new Set(el.categories.map((cat) => cat))],
-      }));
-
-      setLibraryContent(allLibraryC);
-    } else {
-      setLibraryContentError(
-        (error && error.message) || 'error loading library content'
-      );
-    }
-  };
-
   useEffect(() => {
+    const getContent = async () => {
+      setLibraryContentLoading(true);
+      const { data, error } = await Contents.getLibraryContent();
+
+      if (!error) {
+        const allLibraryC = data.map((el) => ({
+          ...el,
+          categories: [...new Set(el.categories.map((cat) => cat))],
+        }));
+
+        setLibraryContent(allLibraryC);
+      } else {
+        setLibraryContentError(
+          (error && error.message) || 'error loading library content'
+        );
+      }
+    };
+
     getContent();
   }, []);
 

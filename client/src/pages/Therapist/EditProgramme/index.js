@@ -166,7 +166,7 @@ const EditProgramme = () => {
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT}
         programmeContents={programmeContents}
-        handleAddContent={handleAddContent}
+        addContent={handleAddContent}
         navFunctions={navFunctions}
       />
       <AddSingleContent
