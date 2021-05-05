@@ -7,6 +7,7 @@ const GENERAL = {
   RESET_PASSWORD: '/reset-password/:token',
   ACCOUNT_DELETED_SUCCESS: '/account-deleted-success',
   HOW_TO_RECORD: '/how-to-record',
+  NOT_FOUND: '/not-found',
 };
 
 const CLIENT = {

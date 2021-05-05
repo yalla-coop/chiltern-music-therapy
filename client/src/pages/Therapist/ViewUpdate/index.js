@@ -43,6 +43,10 @@ const ViewUpdate = () => {
 
       if (!error) {
         setData(data);
+      } else {
+        if (error.statusCode === 404) {
+          history.push(navRoutes.GENERAL.NOT_FOUND);
+        }
       }
     };
 
