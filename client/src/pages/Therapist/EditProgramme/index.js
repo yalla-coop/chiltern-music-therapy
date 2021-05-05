@@ -16,49 +16,13 @@ import { createUniqueCats } from '../../../helpers';
 
 import { useAuth } from '../../../context/auth';
 
-const initialStates = {
-  // single item
-  singleContent: {
-    id: null,
-    type: null,
-    title: '',
-    categories: [],
-    link: '',
-    docContent: '',
-    libraryContent: false,
-    instructions: '',
-    validationErrs: {},
-  },
-  // file upload
-  fileUpload: {
-    fileUploading: false,
-    data: {
-      id: null,
-      name: '',
-      key: '',
-      bucketRegion: '',
-      bucket: '',
-      fileType: '',
-      size: 0,
-      new: false,
-      uploadedToS3: false,
-    },
-  },
-};
-
 const EditProgramme = () => {
   const [description, setDescription] = useState('');
   const [programmeContents, setProgrammeContents] = useState([]);
-  const [categoryOptions, setCategoryOptions] = useState(
-    initialStates.contentCategories
-  );
+  const [categoryOptions, setCategoryOptions] = useState([]);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [clientDetails, setClientDetails] = useState({});
-  const [singleContent, setSingleContent] = useState(
-    initialStates.singleContent
-  );
-  const [fileUpload, setFileUpload] = useState(initialStates.fileUpload);
 
   const history = useHistory();
   const location = useLocation();
@@ -86,7 +50,6 @@ const EditProgramme = () => {
     goToAddContent: () => decidePath(flowTypes.addContent),
     goToAddSingleContent: (type) =>
       decidePathSingle(flowTypes.addSingleContent, type),
-    // goToHowToRecord: () => decidePath(flowTypes.howToRecord),
     goToSuccess: () => decidePath(flowTypes.success),
   };
 
@@ -179,37 +142,6 @@ const EditProgramme = () => {
   const handleAddContent = (moreContent) =>
     setProgrammeContents((prevState) => [...prevState, moreContent]);
 
-  const handleAddSingleContent = (key, value) =>
-    setSingleContent((prevState) => ({ ...prevState, [key]: value }));
-
-  const handleResetSingleContent = () => {
-    setSingleContent(initialStates.singleContent);
-    setFileUpload(initialStates.fileUpload);
-  };
-
-  const handleUploadStatus = (bool) => {
-    setFileUpload((prevState) => ({ ...prevState, fileUploading: bool }));
-  };
-
-  const handleFileUploadInfo = (data) => {
-    setFileUpload((prevState) => ({ ...prevState, data }));
-  };
-
-  const handleFileUploadError = (err) => {
-    setFileUpload((prevState) => ({ ...prevState, error: err }));
-  };
-
-  const updateSingleContent = (value) => {
-    setProgrammeContents(
-      programmeContents.map((el) => {
-        if (el.id === value.id) {
-          return Object.assign({}, el, { ...el, ...value });
-        }
-        return el;
-      })
-    );
-  };
-
   return (
     <Switch>
       <Review
@@ -227,45 +159,23 @@ const EditProgramme = () => {
           setProgrammeContents,
           setDescription,
           setErrors,
-          updateSingleContent,
         }}
         programmeId={programmeId}
       />
       <AddContent
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT}
-        parentState={{
-          programmeContents,
-          categoryOptions,
-          errors,
-          loading,
-        }}
-        actions={{
-          setProgrammeContents,
-          setErrors,
-          handleAddContent,
-          setLoading,
-        }}
+        programmeContents={programmeContents}
+        addContent={handleAddContent}
         navFunctions={navFunctions}
       />
       <AddSingleContent
         exact
         path={navRoutes.THERAPIST.EDIT_PROGRAMME_CONTENT_SINGLE}
-        actions={{
-          handleAddContent,
-          handleAddSingleContent,
-          handleResetSingleContent,
-          handleUploadStatus,
-          handleFileUploadInfo,
-          handleFileUploadError,
-        }}
-        parentState={{
-          singleContent,
-          fileUpload,
-          contentCategories: {
-            data: categoryOptions,
-            error: errors && errors.getCategories,
-          },
+        addContent={handleAddContent}
+        contentCategories={{
+          data: categoryOptions,
+          error: errors && errors.getCategories,
         }}
         navFunctions={navFunctions}
       />

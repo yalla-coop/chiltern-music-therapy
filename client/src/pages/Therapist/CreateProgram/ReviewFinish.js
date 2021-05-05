@@ -22,26 +22,36 @@ const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 const { Expandable } = Cards;
 
-const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
+const ReviewFinish = ({
+  contentCategories,
+  parentDescription,
+  setContentState,
+  setErrors,
+  setLoading,
+  content,
+  errors,
+  loading,
+  navFunctions,
+  clientId,
+}) => {
+  const [description, setDescription] = useState(parentDescription);
   const [submitAttempt, setSubmitAttempt] = useState(false);
-
-  const {
-    description,
-    content,
-    errors,
-    loading,
-    contentCategories,
-  } = parentState;
-
-  const {
-    SET_DESCRIPTION,
-    UPDATE_CONTENT_ITEM,
-    REMOVE_CONTENT_ITEM,
-    SET_ERRORS,
-    SET_LOADING,
-  } = actions;
-
   const { data: contentCategoriesData } = contentCategories;
+
+  const updateContentItem = (value) => {
+    setContentState(
+      content.map((el) => {
+        if (el.id === value.id) {
+          return Object.assign({}, el, { ...el, ...value });
+        }
+        return el;
+      })
+    );
+  };
+
+  const removeContentItem = (value) => {
+    setContentState(content.filter((el) => el.id !== value.id));
+  };
 
   const validateForm = () => {
     try {
@@ -53,15 +63,15 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
       validate(formData);
 
       if (content.length === 0) {
-        SET_ERRORS('Please add content to this programme');
+        setErrors('Please add content to this programme');
       } else {
-        SET_ERRORS({});
+        setErrors({});
       }
 
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
-        SET_ERRORS(error.inner);
+        setErrors(error.inner);
       }
       return false;
     }
@@ -69,9 +79,9 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
 
   useEffect(() => {
     if (content.length === 0) {
-      SET_ERRORS('Please add content to this programme');
+      setErrors('Please add content to this programme');
     } else {
-      SET_ERRORS({});
+      setErrors({});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [content]);
@@ -94,16 +104,16 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
   };
 
   const handleCreateProgramme = async () => {
-    SET_LOADING(true);
+    setLoading(true);
 
     const { error } = await Programmes.createProgramme({
       clientId,
       description,
       content,
     });
-    SET_LOADING(false);
+    setLoading(false);
     if (error) {
-      SET_ERRORS(error.message);
+      setErrors(error.message);
     } else {
       navFunctions.goToSuccess();
     }
@@ -136,8 +146,8 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
               content={content}
               editing
               withDate
-              remove={REMOVE_CONTENT_ITEM}
-              handleInput={UPDATE_CONTENT_ITEM}
+              remove={removeContentItem}
+              handleInput={updateContentItem}
               categoryOptions={contentCategoriesData}
               review
               index={idx + 1}
@@ -175,7 +185,7 @@ const ReviewFinish = ({ parentState, actions, navFunctions, clientId }) => {
             placeholder="Programme description..."
             rows={5}
             value={description}
-            handleChange={(val) => SET_DESCRIPTION(val)}
+            handleChange={(val) => setDescription(val)}
             error={errors && errors.description}
           />
         </Col>

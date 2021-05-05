@@ -15,13 +15,12 @@ import validate from '../../../validation/schemas/programme';
 const { Row, Col } = Grid;
 const { Textarea } = Inputs;
 
-const AddDescription = ({ navFunctions, parentState, actions, clientId }) => {
+const AddDescription = ({ navFunctions, setParentDescription, clientId }) => {
+  const [description, setDescription] = useState(null);
   const [submitAttempt, setSubmitAttempt] = useState(false);
+  const [descriptionError, setDescriptionError] = useState(null);
 
   const history = useHistory();
-
-  const { description, errors } = parentState;
-  const { SET_DESCRIPTION, SET_ERRORS } = actions;
 
   const validateForm = () => {
     try {
@@ -30,12 +29,12 @@ const AddDescription = ({ navFunctions, parentState, actions, clientId }) => {
         part: 'description',
       };
       validate(formData);
-      SET_ERRORS({});
+      setDescriptionError(null);
 
       return true;
     } catch (error) {
       if (error.name === 'ValidationError') {
-        SET_ERRORS(error.inner);
+        setDescriptionError(error?.inner?.description);
       }
       return false;
     }
@@ -54,6 +53,7 @@ const AddDescription = ({ navFunctions, parentState, actions, clientId }) => {
     setSubmitAttempt(true);
     const isValid = validateForm();
     if (isValid) {
+      setParentDescription(description);
       navFunctions.goToAddContent();
     }
   };
@@ -79,8 +79,8 @@ const AddDescription = ({ navFunctions, parentState, actions, clientId }) => {
             placeholder="Programme description..."
             rows={5}
             value={description}
-            handleChange={(val) => SET_DESCRIPTION(val)}
-            error={errors && errors.description}
+            handleChange={(val) => setDescription(val)}
+            error={descriptionError}
           />
         </Col>
       </Row>

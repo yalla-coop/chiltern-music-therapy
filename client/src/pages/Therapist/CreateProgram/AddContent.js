@@ -11,10 +11,7 @@ import * as S from './style';
 const { Row, Col } = Grid;
 const { AddContentSection } = Content;
 
-const AddContent = ({ parentState, actions, navFunctions }) => {
-  const { ADD_CONTENT } = actions;
-  const { content, libraryContent } = parentState;
-
+const AddContent = ({ content, addContent, navFunctions }) => {
   return (
     <S.Wrapper>
       <GoBack customFn={navFunctions.goToDescription} />
@@ -34,8 +31,7 @@ const AddContent = ({ parentState, actions, navFunctions }) => {
       <Row mt={5}>
         <AddContentSection
           content={content}
-          libraryContent={libraryContent}
-          setLibraryContent={ADD_CONTENT}
+          addContent={addContent}
           navFunctions={navFunctions}
         />
       </Row>

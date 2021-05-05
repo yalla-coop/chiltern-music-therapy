@@ -24,12 +24,44 @@ const { fileCategories } = content;
 const { Row, Col } = Grid;
 const { BasicInput, Textarea, Dropdown, Checkbox } = Inputs;
 
-const AddSingleContent = ({ parentState, actions, navFunctions }) => {
+const initialStates = {
+  // single item
+  singleContent: {
+    id: null,
+    type: null,
+    title: '',
+    categories: [],
+    link: '',
+    docContent: '',
+    libraryContent: false,
+    instructions: '',
+    validationErrs: {},
+  },
+  // file upload
+  fileUpload: {
+    fileUploading: false,
+    data: {
+      id: null,
+      name: '',
+      key: '',
+      bucketRegion: '',
+      bucket: '',
+      fileType: '',
+      size: 0,
+      new: false,
+      uploadedToS3: false,
+    },
+  },
+};
+
+const AddSingleContent = ({ contentCategories, addContent, navFunctions }) => {
+  const [singleContent, setSingleContent] = useState(
+    initialStates.singleContent
+  );
+  const [fileUpload, setFileUpload] = useState(initialStates.fileUpload);
   const [submitAttempt, setSubmitAttempt] = useState(false);
   const [allContentInputsMissing, setAllContentInputsMissing] = useState(null);
   const [unsavedChanges, setUnsavedChanges] = useState(true);
-
-  const { singleContent, fileUpload, contentCategories } = parentState;
 
   const {
     fileUploading,
@@ -56,14 +88,26 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
 
   const category = location.pathname.split('/content/')[1];
 
-  const {
-    handleAddContent,
-    handleAddSingleContent,
-    handleResetSingleContent,
-    handleUploadStatus,
-    handleFileUploadInfo,
-    handleFileUploadError,
-  } = actions;
+  // MANAGE STATE FUNCTIONS
+  const handleAddSingleContent = (key, value) =>
+    setSingleContent((prevState) => ({ ...prevState, [key]: value }));
+
+  const handleResetSingleContent = () => {
+    setSingleContent(initialStates.singleContent);
+    setFileUpload(initialStates.fileUpload);
+  };
+
+  const handleUploadStatus = (bool) => {
+    setFileUpload((prevState) => ({ ...prevState, fileUploading: bool }));
+  };
+
+  const handleFileUploadInfo = (data) => {
+    setFileUpload((prevState) => ({ ...prevState, data }));
+  };
+
+  const handleFileUploadError = (err) => {
+    setFileUpload((prevState) => ({ ...prevState, error: err }));
+  };
 
   const validInput = (input) =>
     typeof input === 'string' && input.trim().length > 0;
@@ -150,7 +194,7 @@ const AddSingleContent = ({ parentState, actions, navFunctions }) => {
       docContent,
     };
 
-    handleAddContent(formData);
+    addContent(formData);
     handleResetSingleContent();
 
     if (submitType === 'content') {
