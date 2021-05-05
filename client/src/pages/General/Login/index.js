@@ -1,10 +1,11 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useReducer, useLayoutEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import * as S from './style';
 import * as T from '../../../components/Typography';
 import { Col, Row } from '../../../components/Grid';
 import { BasicInput } from '../../../components/Inputs';
+import ReCaptcha from '../../../components/ReCaptcha';
 import Button from '../../../components/Button';
 import { navRoutes } from '../../../constants';
 import { useAuth } from '../../../context/auth';
@@ -39,6 +40,18 @@ const Login = ({ status, title, msg }) => {
     submitAttempt,
     loading,
   } = state;
+
+  useLayoutEffect(() => {
+    const script = document.createElement('script');
+
+    script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.REACT_APP_RECAPTCHA_SITE_KEY}`;
+    const body = document.querySelector('body');
+    body.appendChild(script);
+
+    return () => {
+      body.removeChild(script);
+    };
+  }, []);
 
   const validateForm = () => {
     try {
@@ -76,11 +89,13 @@ const Login = ({ status, title, msg }) => {
     }
   };
 
-  const handleSignup = async () => {
+  const handleLogin = async (reToken) => {
     setState({ loading: true });
+
     const { error, data } = await Users.login({
       email: cleanEmail(email),
       password,
+      reToken,
     });
     setState({ loading: false });
     if (error) {
@@ -101,7 +116,19 @@ const Login = ({ status, title, msg }) => {
 
     const isValid = validateForm();
     if (isValid) {
-      handleSignup();
+      if (process.env.NODE_ENV === 'production') {
+        window.grecaptcha.ready(() => {
+          window.grecaptcha
+            .execute(process.env.REACT_APP_RECAPTCHA_SITE_KEY, {
+              action: 'login',
+            })
+            .then((reToken) => {
+              handleLogin(reToken);
+            });
+        });
+      } else {
+        handleLogin();
+      }
     }
   };
 
@@ -149,6 +176,11 @@ const Login = ({ status, title, msg }) => {
             </T.P>
           )}
           <Button text="Log in" type="submit" loading={loading} />
+        </Col>
+      </Row>
+      <Row>
+        <Col w={[4, 12, 4]}>
+          <ReCaptcha />
         </Col>
       </Row>
     </S.Wrapper>

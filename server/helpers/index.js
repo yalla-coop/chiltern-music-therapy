@@ -4,6 +4,7 @@ import createToken from './create-token';
 import verifyPassword from './verify-password';
 import matchMediaTypes from './match-media-types';
 import setMediaFileUrl from './set-media-file-url';
+import secondsToHms from './secondsToHms';
 
 export {
   createTestToken,
@@ -12,4 +13,5 @@ export {
   verifyPassword,
   matchMediaTypes,
   setMediaFileUrl,
+  secondsToHms,
 };
