@@ -3,6 +3,7 @@ import * as Content from '../model';
 import { errorMsgs } from '../../../services/error-handler';
 import { getClient } from '../../../database/connect';
 import deleteContent from './delete-content';
+import events from '../../../services/events';
 
 const removeContentFromProgramme = async ({
   contentId,
@@ -64,13 +65,16 @@ const removeContentFromProgramme = async ({
     }
 
     let deletedContent;
+    let contentDeleted = false;
     // IF NOT PART OF ANY OTHER PROGRAMMES AND NO LIBRARY CONTENT -> remove completely
     if (onlyThisProgramme && !libraryContent) {
       deletedContent = await deleteContent(
         { id: contentId, userId, role },
         client,
       );
+      contentDeleted = true;
     }
+
     // IF PART OF OTHER PROGRAMMES OR LIBRARY CONTENT -> ONLY REMOVE FROM THIS PROGRAMME ONLY
     if (alsoOtherProgrammes || libraryContent) {
       deletedContent = await Content.deleteContentFromProgrammeById(
@@ -80,6 +84,14 @@ const removeContentFromProgramme = async ({
     }
 
     await client.query('COMMIT');
+
+    if (contentDeleted) {
+      // check if media is used anywhere else. if not then delete
+      events.emit(events.types.MEDIA.CONTENT_DELETED, {
+        mediaId: contentToDelete.mediaId,
+        contentId,
+      });
+    }
     return deletedContent;
   } catch (error) {
     await client.query('ROLLBACK');

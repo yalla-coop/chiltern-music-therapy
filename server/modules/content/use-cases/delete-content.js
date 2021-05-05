@@ -1,9 +1,8 @@
 import Boom from '@hapi/boom';
 import * as Content from '../model';
 import { userRoles as roles } from '../../../constants';
-import events from '../../../services/events';
 import { errorMsgs } from '../../../services/error-handler';
-
+import events from '../../../services/events';
 import getLibraryContent from './get-library-content';
 
 const deleteContent = async ({ id, role, userId, mode }, client) => {
@@ -19,12 +18,12 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
 
   await Content.deleteContentById(id, client);
 
-  // check if media is used anywhere else. if not then delete
-  events.emit(events.types.MEDIA.CONTENT_DELETED, {
-    mediaId: contentToDelete.mediaId,
-    contentId: id,
-  });
-
+  if (!client) {
+    events.emit(events.types.MEDIA.CONTENT_DELETED, {
+      mediaId: contentToDelete.mediaId,
+      contentId: id,
+    });
+  }
   // for library deletions page depends on updated content object
   // for remove from programme not
   if (mode === 'library') {
@@ -32,8 +31,10 @@ const deleteContent = async ({ id, role, userId, mode }, client) => {
       { id: userId, role },
       client,
     );
+
     return updatedContent;
   }
+
   return 'success';
 };
 

@@ -1,6 +1,8 @@
 import * as Content from '../model';
 import * as Media from '../../media/model';
 
+import { moveFile } from '../../../services/files-storage';
+
 import { matchMediaTypes } from '../../../helpers';
 
 const createContent = async ({ userId, contentData }, client) => {
@@ -15,6 +17,7 @@ const createContent = async ({ userId, contentData }, client) => {
   } = contentData;
 
   let media;
+
   // create media content if present
   if (uploadedFileInfo && uploadedFileInfo.uploadedToS3) {
     const {
@@ -26,12 +29,18 @@ const createContent = async ({ userId, contentData }, client) => {
       fileType,
     } = uploadedFileInfo;
 
+    // move file out of temp folder and return new path for db storage
+    const { newKey } = await moveFile({
+      bucket,
+      key,
+    });
+
     media = await Media.createMedia(
       {
         fileName: name,
         fileType,
         size,
-        key,
+        key: newKey,
         bucket,
         bucketRegion,
         createdBy: userId,

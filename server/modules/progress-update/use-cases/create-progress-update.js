@@ -4,6 +4,7 @@ import * as Media from '../../media/model';
 import { getClient } from '../../../database/connect';
 import events from '../../../services/events';
 import { matchMediaTypes } from '../../../helpers';
+import { moveFile } from '../../../services/files-storage';
 
 const createProgressUpdate = async ({
   uploadedFileInfo = {},
@@ -16,18 +17,22 @@ const createProgressUpdate = async ({
   const client = await getClient();
 
   const { name, key, bucket, bucketRegion, size, fileType } = uploadedFileInfo;
+
   let media;
 
   try {
     await client.query('BEGIN');
 
     if (key && name) {
+      // move file out of temp folder and return new path for db storage
+      const { newKey } = await moveFile({ bucket, key });
+
       media = await Media.createMedia(
         {
           fileName: name,
           fileType,
           size,
-          key,
+          key: newKey,
           bucket,
           bucketRegion,
           createdBy: userId,
