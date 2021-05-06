@@ -13,6 +13,7 @@ const errors = {
   INVALID_EMAIL_OR_PASSWORD: 'Email and/or password are incorrect',
   UNAUTHORISED_EDIT: 'You do not have permission to do that',
   WRONG_DATA: 'something went wrong with matching your data',
+  TOO_MANY_REQUESTS: 'too many requests try after {time}',
 };
 
 export default errors;

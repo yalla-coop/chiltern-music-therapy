@@ -10,6 +10,7 @@ import { navRoutes } from '../../../constants';
 import { useAuth } from '../../../context/auth';
 import validate from '../../../validation/schemas/signup';
 import { roles } from './../../../constants';
+import ReCaptcha from '../../../components/ReCaptcha';
 
 import { Users } from '../../../api-calls';
 
@@ -208,6 +209,11 @@ const TherapistSignup = ({ status, title, msg }) => {
             type="submit"
             loading={loading}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col w={[4, 12, 4]}>
+          <ReCaptcha />
         </Col>
       </Row>
     </S.Wrapper>

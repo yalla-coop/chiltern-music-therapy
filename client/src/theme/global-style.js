@@ -102,6 +102,11 @@ const style = css`
   .vjs-text-track-display {
     display: none;
   }
+
+  // Remove recaptcha badge
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
 `;
 
 export default style;

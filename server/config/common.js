@@ -11,6 +11,11 @@ const envVarsSchema = yup
       then: yup.string().required(),
       otherwise: yup.string(),
     }),
+    RECAPTCHA_SECRET_KEY: yup.string().when('NODE_ENV', {
+      is: 'production',
+      then: yup.string().required(),
+      otherwise: yup.string(),
+    }),
   })
   .required();
 
@@ -26,6 +31,7 @@ const config = () => {
   return {
     env: envVars.NODE_ENV,
     sentryDNS: envVars.SENTRY_DNS,
+    recaptchaSecretKey: envVars.RECAPTCHA_SECRET_KEY,
   };
 };
 

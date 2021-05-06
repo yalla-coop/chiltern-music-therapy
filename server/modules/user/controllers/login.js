@@ -3,12 +3,13 @@ import { createToken } from '../../../helpers';
 
 const login = async (req, res, next) => {
   const { sqreen } = req;
-  const { email, password } = req.body;
+  const { email, password, reToken } = req.body;
 
   try {
     const user = await User.login({
       email,
       password,
+      reToken,
     });
 
     const { token, tokenName, options } = createToken({ id: user.id });
