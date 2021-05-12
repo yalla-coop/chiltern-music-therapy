@@ -144,19 +144,21 @@ Postgresql: https://www.postgresql.org/download/
 4. Setup AWS and create an account
 
 6. Add some more Environment Variables
-    >> Create a .env file in the root
-    >> Add you database connection strings as DATABASE_URL and DATABASE_URL_TEST
-    >> Add more varialbes to your .env file (these are required for our authentication system, e.g. sign-up / log-in)
-        >> SECRET=choose-your-secret, TOKEN_NAME=token, TOKEN_MAX_AGE=2592000000 
-    >> Add more variables for AWS
-        >> BUCKET
-        >> BUCKET_REGION
-        >> AWS_ACCESS_KEY_ID
-        >> AWS_SECRET_ACCESS_KEY
-    >> Add variables for an email address to send automated emails (we don't actually send them in local mode, but you will see them in your terminal and what would be sent etc)
-        >> APP_URL = http://localhost:3000
-        >> SENDER_EMAIL
-        >> SEND_PASSWORD
+    - Create a .env file in the root
+    - Add you database connection strings as DATABASE_URL and DATABASE_URL_TEST
+    - Add more varialbes to your .env file (these are required for our authentication system, e.g. sign-up / log-in)
+       - SECRET=choose-your-secret
+       - TOKEN_NAME=token
+       - TOKEN_MAX_AGE=2592000000 
+    - Add more variables for AWS
+        - BUCKET
+        - BUCKET_REGION
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
+    - Add variables for an email address to send automated emails (we don't actually send them in local mode, but you will see them in your terminal and what would be sent etc)
+        - APP_URL = http://localhost:3000
+        - SENDER_EMAIL
+        - SEND_PASSWORD
 
 6. Build the Database
 
