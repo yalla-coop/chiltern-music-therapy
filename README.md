@@ -1,4 +1,4 @@
-# chiltern-music-therapy
+# Chiltern Music Therapy
 A digital tool to support the provision of music therapy
 
 **Live version**
