@@ -8,12 +8,17 @@ import getUserInfo from './get-user-info';
 import getUserDashboard from './get-user-dashboard';
 import resetPasswordLink from './reset-password-link';
 import updatePassword from './update-password';
-import { authenticate, authorize } from '../../../api/middlewares';
+import {
+  authenticate,
+  authorize,
+  csrfProtection,
+} from '../../../api/middlewares';
 import getTherapists from './get-therapists';
 import updateAccount from './update-account';
 import getAccountInfo from './get-account-info';
 import checkUserExists from './check-user-exists';
 import createTherapistProfile from './create-therapist-profile';
+import getCSRFToken from './get-csrf-token';
 
 import { userRoles } from '../../../constants/data-type';
 
@@ -37,5 +42,6 @@ router.post('/update-password', updatePassword);
 router.post('/profile', authenticate(), createTherapistProfile);
 router.patch('/account', authenticate(), updateAccount);
 router.delete('/', authenticate(), deleteUser);
+router.use('/get-csrf-token', csrfProtection, getCSRFToken);
 
 export default router;
