@@ -10,6 +10,7 @@ const csrfProtectionMock = (req, res, next) => {
 };
 
 const csrfProtectionEnabled = csrf({
+  // the cookie that is attached to each request
   cookie: {
     key: CSRF_TOKEN,
     httpOnly: true,
@@ -27,7 +28,12 @@ const createCSRFToken = (req, res, next) => {
   }
 
   const token = req.csrfToken();
-  res.cookie(XSRF_TOKEN, token);
+  // the cookie that axios read and send its value in the headers with each req
+  res.cookie(XSRF_TOKEN, token, {
+    key: CSRF_TOKEN,
+    secure: env === envTypes.PRODUCTION,
+    sameSite: 'strict',
+  });
   req.csrf = token;
   next();
 };
