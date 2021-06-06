@@ -14,6 +14,7 @@ const csrfProtectionEnabled = csrf({
     key: CSRF_TOKEN,
     httpOnly: true,
     secure: env === 'production',
+    sameSite: 'strict',
   },
 });
 
