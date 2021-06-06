@@ -47,9 +47,10 @@ if (config.common.env === PRODUCTION) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-app.use(csrfProtection);
-app.use('/api', createCSRFToken);
+if (config.common.env !== TEST) {
+  app.use(csrfProtection);
+  app.use('/api', createCSRFToken);
+}
 
 app.use('/api', router);
 
