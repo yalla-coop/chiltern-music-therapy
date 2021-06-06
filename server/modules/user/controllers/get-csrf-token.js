@@ -1,5 +1,6 @@
 const getCSRFToken = async (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
+  const { csrf } = req;
+  res.json({ csrfToken: csrf });
 };
 
 export default getCSRFToken;

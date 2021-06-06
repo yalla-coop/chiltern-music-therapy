@@ -4,12 +4,12 @@ import getProgressUpdateById from './get-progress-update-by-id';
 import createProgressUpdate from './create-progress-update';
 import updateProgressUpdate from './update-progress-update';
 
-import { authenticate } from '../../../api/middlewares';
+import { csrfProtection, authenticate } from '../../../api/middlewares';
 
 const router = Router();
 
 router.get('/:id', authenticate(), getProgressUpdateById);
-router.post('/', authenticate(), createProgressUpdate);
-router.patch('/:id', authenticate(), updateProgressUpdate);
+router.post('/', authenticate(), csrfProtection, createProgressUpdate);
+router.patch('/:id', authenticate(), csrfProtection, updateProgressUpdate);
 
 export default router;

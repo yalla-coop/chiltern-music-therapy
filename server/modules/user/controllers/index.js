@@ -11,6 +11,7 @@ import updatePassword from './update-password';
 import {
   authenticate,
   authorize,
+  createCSRFToken,
   csrfProtection,
 } from '../../../api/middlewares';
 import getTherapists from './get-therapists';
@@ -34,14 +35,14 @@ router.get(
 );
 router.get('/my-account', authenticate(), getAccountInfo);
 router.post('/check-user-exists', checkUserExists);
-router.post('/signup', signup);
-router.post('/login', login);
-router.post('/logout', logout);
-router.post('/reset-password-link', resetPasswordLink);
-router.post('/update-password', updatePassword);
-router.post('/profile', authenticate(), createTherapistProfile);
-router.patch('/account', authenticate(), updateAccount);
-router.delete('/', authenticate(), deleteUser);
-router.use('/get-csrf-token', csrfProtection, getCSRFToken);
+router.post('/signup', csrfProtection, signup);
+router.post('/login', csrfProtection, login);
+router.post('/logout', csrfProtection, logout);
+router.post('/reset-password-link', csrfProtection, resetPasswordLink);
+router.post('/update-password', csrfProtection, updatePassword);
+router.post('/profile', authenticate(), csrfProtection, createTherapistProfile);
+router.patch('/account', authenticate(), csrfProtection, updateAccount);
+router.delete('/', authenticate(), csrfProtection, deleteUser);
+router.get('/get-csrf-token', createCSRFToken, getCSRFToken);
 
 export default router;

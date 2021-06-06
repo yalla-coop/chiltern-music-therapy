@@ -9,7 +9,11 @@ import getMyTherapy from './get-my-therapy';
 import editTherapistClientById from './edit-therapist-client-by-id';
 import createTherapistClient from './create-therapist-client';
 
-import { authenticate, authorize } from '../../../api/middlewares';
+import {
+  csrfProtection,
+  authenticate,
+  authorize,
+} from '../../../api/middlewares';
 
 const router = Router();
 
@@ -27,12 +31,14 @@ router.patch(
   '/',
   authenticate(),
   authorize([userRoles.THERAPIST]),
+  csrfProtection,
   editTherapistClientById,
 );
 router.post(
   '/client',
   authenticate(),
   authorize([userRoles.THERAPIST]),
+  csrfProtection,
   createTherapistClient,
 );
 

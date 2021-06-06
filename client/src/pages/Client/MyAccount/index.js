@@ -7,6 +7,7 @@ import Button from '../../../components/Button';
 import Icon from '../../../components/Icon';
 import { Row, Col } from '../../../components/Grid';
 import Modal from '../../../components/Modal';
+import * as T from '../../../components/Typography';
 
 import { navRoutes } from '../../../constants';
 
@@ -173,8 +174,10 @@ const MyAccount = () => {
           />
         </Col>
       </Row>
+
       <Row mb="8">
         <Col w={[4, 6, 4]}>
+          {errors.httpError && <T.P color="error">{errors.httpError}</T.P>}
           <Button
             text="Save changes"
             onClick={handleSubmit}

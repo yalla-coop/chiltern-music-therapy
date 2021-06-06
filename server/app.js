@@ -15,7 +15,11 @@ import { Sentry } from './services/error-handler';
 import router from './api';
 import config from './config';
 import * as constants from './constants';
-import { requireHTTPS } from './api/middlewares';
+import {
+  requireHTTPS,
+  csrfProtection,
+  createCSRFToken,
+} from './api/middlewares';
 
 const { PRODUCTION, TEST } = constants.envTypes;
 
@@ -43,6 +47,9 @@ if (config.common.env === PRODUCTION) {
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(csrfProtection);
+app.use('/api', createCSRFToken);
 
 app.use('/api', router);
 

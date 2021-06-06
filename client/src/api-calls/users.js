@@ -142,6 +142,16 @@ const checkUserExists = async (form, { options } = {}) => {
   }
 };
 
+const getCSRFToken = async ({ options } = {}) => {
+  try {
+    const { data } = await axios.get(`${USERS_BASE}/get-csrf-token`);
+    return { data };
+  } catch (error) {
+    const err = handleError(error, options);
+    return { error: err };
+  }
+};
+
 export {
   getUserById,
   getLoggedInUserInfo,
@@ -157,4 +167,5 @@ export {
   getAccountInfo,
   checkUserExists,
   createTherapistProfile,
+  getCSRFToken,
 };
