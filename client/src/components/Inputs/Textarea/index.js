@@ -1,6 +1,9 @@
 import * as T from '../../Typography';
+
 import * as CS from '../style';
 import * as S from './style';
+
+import { sanitize } from '../../../helpers';
 
 const Textarea = ({
   type = 'textarea',
@@ -24,7 +27,7 @@ const Textarea = ({
   };
 
   const onChange = (e) => {
-    handleChange(e.target.value, e);
+    handleChange(sanitize(e.target.value), e);
   };
 
   return (
