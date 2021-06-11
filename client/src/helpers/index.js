@@ -9,6 +9,7 @@ import isEmptyObject from './isEmptyObject';
 import createUniqueCats from './createUniqueCats';
 import decideStreamable from './decideStreamable';
 import ScrollToTop from './ScrollToTop';
+import sanitize from './sanitize';
 
 export {
   authorization,
@@ -22,4 +23,5 @@ export {
   createUniqueCats,
   decideStreamable,
   ScrollToTop,
+  sanitize,
 };
