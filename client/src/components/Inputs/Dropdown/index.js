@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { Select as AntdSelect } from 'antd';
+
 import * as T from '../../Typography';
+import Icon from '../../Icon';
+
 import * as S from './style';
 import * as CS from './../style';
-import Icon from '../../Icon';
+
+import { sanitize } from '../../../helpers';
 
 const { OptGroup: AntdOptGroup } = AntdSelect;
 
@@ -28,6 +32,7 @@ const Dropdown = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [focus, setFocus] = useState(false);
+  const [typoError, setTypoError] = useState(null);
 
   const decideColor = () => {
     if (error) return 'error';
@@ -83,6 +88,15 @@ const Dropdown = ({
     return;
   };
 
+  const onSearch = (text) => {
+    const isSuspect = sanitize(text, true);
+    if (isSuspect) {
+      setTypoError('please input plain text without spacial chars');
+    } else {
+      setTypoError(null);
+    }
+  };
+
   return (
     <S.Field
       w={w}
@@ -102,15 +116,21 @@ const Dropdown = ({
           </T.P>
         </CS.Label>
       )}
+      {typoError && (
+        <T.P color="error" m="0" mb="1">
+          {typoError}
+        </T.P>
+      )}
       <S.Answer>
         <AntdSelect
           value={selected || undefined}
-          onSelect={(val, option) =>
-            multi ? undefined : handleChange(val, option)
-          }
-          onChange={(val, option) =>
-            multi ? handleChange(val, option) : undefined
-          }
+          onSelect={(val, option) => {
+            return multi ? undefined : handleChange(val, option);
+          }}
+          onChange={(val, option) => {
+            return multi ? handleChange(val, option) : undefined;
+          }}
+          onSearch={onSearch}
           mode={decideMode()}
           placeholder={placeholder || 'Type here...'}
           showArrow
