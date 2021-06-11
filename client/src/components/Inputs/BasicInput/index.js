@@ -3,8 +3,11 @@ import { useState } from 'react';
 import Icon from '../../Icon';
 import { Info } from '../../Cards';
 import * as T from '../../Typography';
+
 import * as CS from '../style';
 import * as S from './style';
+
+import { sanitize } from '../../../helpers';
 
 const BasicInput = ({
   type = 'text',
@@ -29,7 +32,10 @@ const BasicInput = ({
     return color;
   };
   const onChange = (e) => {
-    handleChange(e.target.value, e);
+    if (type === 'password') {
+      return handleChange(sanitize(e.target.value, null, true), e);
+    }
+    return handleChange(sanitize(e.target.value), e);
   };
 
   const Component = type === 'password' ? S.PasswordInput : S.Input;
