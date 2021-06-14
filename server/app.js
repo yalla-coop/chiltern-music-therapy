@@ -4,7 +4,6 @@ import cookieParser from 'cookie-parser';
 import favicon from 'serve-favicon';
 import logger from 'morgan';
 import Debug from 'debug';
-import helmet from 'helmet';
 import Boom from '@hapi/boom';
 import { Sqreen } from './services';
 
@@ -17,6 +16,7 @@ import config from './config';
 import * as constants from './constants';
 import {
   requireHTTPS,
+  helmet,
   csrfProtection,
   createCSRFToken,
 } from './api/middlewares';
@@ -28,19 +28,12 @@ const debug = Debug('server');
 
 const app = express();
 
-// TODO:SETUP SENTRY SETUP
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sqreen.middleware);
 app.use(logger('dev'));
 
 if (config.common.env === PRODUCTION) {
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-      dnsPrefetchControl: { allow: true },
-      referrerPolicy: { policy: 'strict-origin' },
-    }),
-  );
+  app.use(helmet);
   app.use(requireHTTPS);
 }
 
