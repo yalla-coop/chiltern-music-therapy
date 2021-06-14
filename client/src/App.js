@@ -288,10 +288,12 @@ function App() {
               />
               <Route
                 exact
+                isPrivate
                 path={navRoutes.CLIENT.ACCOUNT}
                 Component={Pages.CLIENT.MyAccount}
                 goBack
                 maxWidth="none"
+                allowedRoles={[roles.CLIENT]}
               />
 
               <Route

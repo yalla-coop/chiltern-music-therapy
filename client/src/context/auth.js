@@ -56,8 +56,13 @@ const AuthProvider = (props) => {
     }
   };
 
+  const getCSRFToken = async () => {
+    await Users.getCSRFToken();
+  };
+
   useEffect(() => {
     getUserInfo();
+    getCSRFToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

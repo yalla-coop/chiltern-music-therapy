@@ -11,7 +11,11 @@ import removeContentFromProgramme from './remove-content-from-programme';
 
 import { userRoles } from '../../../constants/data-type';
 
-import { authenticate, authorize } from '../../../api/middlewares';
+import {
+  authenticate,
+  authorize,
+  csrfProtection,
+} from '../../../api/middlewares';
 
 const router = Router();
 
@@ -23,24 +27,28 @@ router.post(
   '/remove-from-library',
   authenticate(),
   authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN, userRoles.THERAPIST]),
+  csrfProtection,
   removeContentFromLibrary,
 );
 router.post(
   '/edit-content',
   authenticate(),
   authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN, userRoles.THERAPIST]),
+  csrfProtection,
   editContent,
 );
 router.delete(
   '/',
   authenticate(),
   authorize([userRoles.ADMIN, userRoles.SUPER_ADMIN, userRoles.THERAPIST]),
+  csrfProtection,
   deleteContent,
 );
 router.delete(
   '/remove-from-programme',
   authenticate(),
   authorize([userRoles.THERAPIST]),
+  csrfProtection,
   removeContentFromProgramme,
 );
 
