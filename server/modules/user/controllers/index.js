@@ -34,7 +34,7 @@ router.get(
   getTherapists,
 );
 router.get('/my-account', authenticate(), getAccountInfo);
-router.post('/check-user-exists', checkUserExists);
+router.post('/check-user-exists', csrfProtection, checkUserExists);
 router.post('/signup', csrfProtection, signup);
 router.post('/login', csrfProtection, login);
 router.post('/logout', csrfProtection, logout);
